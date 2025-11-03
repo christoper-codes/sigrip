@@ -18,18 +18,18 @@
                     <div>
                         <x-app-logo-icon class="fill-current uppercase tracking-[5px] mr-5"/>
                     </div>
-                    <div class="transition-all duration-500 scale-95">
+                    <div class="transition-all duration-500 scale-90">
                         <flux:navbar>
-                            <flux:navbar.item href="#" class="!bg-transparent text-dark dark:!text-light">{{ __('Como funciona') }}</flux:navbar.item>
-                            <flux:navbar.item href="#" icon="chat-bubble-bottom-center" class="!bg-transparent text-dark dark:!text-light">{{ __('Preguntas') }}</flux:navbar.item>
-                            <flux:navbar.item href="#" class="!bg-transparent text-dark dark:!text-light">{{ __('Precios') }}</flux:navbar.item>
+                            <flux:navbar.item href="#" class="!bg-transparent text-dark dark:!text-light uppercase">{{ __('Como funciona') }}</flux:navbar.item>
+                            <flux:navbar.item href="#" icon="chat-bubble-bottom-center" class="!bg-transparent text-dark dark:!text-light uppercase">{{ __('Preguntas') }}</flux:navbar.item>
+                            <flux:navbar.item href="#" class="!bg-transparent text-dark dark:!text-light uppercase">{{ __('Precios') }}</flux:navbar.item>
                         </flux:navbar>
                     </div>
                     <div class="flex items-center gap-3">
-                        <flux:button class="btn" variant="ghost">
+                        <flux:button class="btn uppercase" variant="ghost">
                             {{ __('Iniciar sesion') }}
                         </flux:button>
-                        <button class="btn-simple" data-text="{{ __('Registrarse') }}">
+                        <button class="btn-simple uppercase !text-xs" data-text="{{ __('Registrarse') }}">
                            {{ __('Registrarse') }}
                         </button>
                     </div>

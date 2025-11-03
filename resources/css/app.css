@@ -54,7 +54,7 @@
     }
 
     .btn {
-        @apply cursor-pointer! rounded-full! !px-5 !text-sm;
+        @apply cursor-pointer! rounded-full! !px-5 !text-xs;
     }
 }
 
