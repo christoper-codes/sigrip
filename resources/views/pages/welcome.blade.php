@@ -1,3 +1,3 @@
 <x-layouts.guest.simple>
-    hey there
+    @include('partials.hero')
 </x-layouts.guest.simple>
