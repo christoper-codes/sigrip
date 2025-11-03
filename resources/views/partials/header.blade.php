@@ -16,13 +16,13 @@
             <x-main-container>
                 <nav class="flex items-center justify-between gap-5 transition-all duration-500" :class="scrolled ? 'px-5' : ''">
                     <div>
-                        <x-app-logo-icon class="fill-current uppercase tracking-widest mr-5"/>
+                        <x-app-logo-icon class="fill-current uppercase tracking-[5px] mr-5"/>
                     </div>
                     <div class="transition-all duration-500 scale-95">
                         <flux:navbar>
-                            <flux:navbar.item href="#" icon="bolt" class="!bg-transparent text-dark dark:!text-light">{{ __('Como funciona') }}</flux:navbar.item>
+                            <flux:navbar.item href="#" class="!bg-transparent text-dark dark:!text-light">{{ __('Como funciona') }}</flux:navbar.item>
                             <flux:navbar.item href="#" icon="chat-bubble-bottom-center" class="!bg-transparent text-dark dark:!text-light">{{ __('Preguntas') }}</flux:navbar.item>
-                            <flux:navbar.item href="#" icon="cube" class="!bg-transparent text-dark dark:!text-light">{{ __('Precios') }}</flux:navbar.item>
+                            <flux:navbar.item href="#" class="!bg-transparent text-dark dark:!text-light">{{ __('Precios') }}</flux:navbar.item>
                         </flux:navbar>
                     </div>
                     <div class="flex items-center gap-3">
