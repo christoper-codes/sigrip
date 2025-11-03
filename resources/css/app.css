@@ -9,6 +9,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @import './primary-button.css';
+@import './particles.css';
 
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -25,8 +26,8 @@
     --color-zinc-900: var(--color-neutral-900);
     --color-zinc-950: var(--color-black);
 
-    --color-accent: var(--color-neutral-800);
-    --color-accent-content: var(--color-neutral-800);
+    --color-accent: var(--color-yellow-500);
+    --color-accent-content: var(--color-yellow-500);
     --color-accent-foreground: var(--color-white);
 
     --color-primary: var(--color-accent);

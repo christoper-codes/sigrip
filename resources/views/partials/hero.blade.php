@@ -13,9 +13,44 @@
                 </p>
                 <x-buttons.primary title="{{ __('Comenzar ahora') }}" class="!py-4 !px-7"/>
             </div>
-            <div>
-                <div class="mt-16 w-full relative [filter:drop-shadow(0px_0px_40px_rgb(255_193_7_/_100%))_drop-shadow(0px_0px_80px_rgb(255_193_7_/_60%))_drop-shadow(0px_0px_120px_rgb(255_193_7_/_60%))]">
-                    <div class="w-full h-[2px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 [filter:drop-shadow(0px_0px_15px_rgb(255_255_255_/_100%))]"></div>
+            <div class="mt-20 relative">
+                <div class="absolute h-80 w-full -top-20 left-0">
+                    <div class="particles-container">
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                        <div class="particle"><div class="circle"></div></div>
+                    </div>
+                </div>
+
+                <div class="w-full relative [filter:drop-shadow(0px_0px_40px_rgb(255_193_7_/_100%))_drop-shadow(0px_0px_80px_rgb(255_193_7_/_70%))_drop-shadow(0px_0px_120px_rgb(255_193_7_/_90%))]">
+                    <div class="w-full h-[2px] bg-gradient-to-r from-transparent via-white to-transparent [filter:drop-shadow(0px_0px_20px_rgb(255_255_255_/_100%))]"></div>
                 </div>
                 <div class="w-full">
                     <img class="w-full" src="https://framerusercontent.com/images/yOaKdJar2PZdG3Az8naxpXxmT8.png" alt="">
