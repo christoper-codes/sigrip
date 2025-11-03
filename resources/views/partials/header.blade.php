@@ -26,12 +26,12 @@
                         </flux:navbar>
                     </div>
                     <div class="flex items-center gap-3">
-                        <flux:button class="btn uppercase" variant="ghost">
+                        <flux:link href="{{ route('login') }}" class="btn uppercase hover:!no-underline" variant="ghost">
                             {{ __('Iniciar sesion') }}
-                        </flux:button>
-                        <button class="btn-simple uppercase !text-xs" data-text="{{ __('Registrarse') }}">
-                           {{ __('Registrarse') }}
-                        </button>
+                        </flux:link>
+                        <flux:link href="{{ route('register') }}" class="hover:!no-underline" variant="ghost" wire:navigate>
+                            <x-buttons.primary title="{{ __('Registrarse') }}" />
+                        </flux:link>
                     </div>
                 </nav>
             </x-main-container>
