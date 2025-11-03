@@ -14,16 +14,19 @@
             :class="scrolled ? 'backdrop-blur-lg bg-neutral-500/5 rounded-full !border-[1px] !border-neutral-200 dark:!border-neutral-800 [transition:background-color_500ms_ease-in-out,backdrop-filter_500ms_ease-in-out,border-radius_500ms_ease-in-out,border_300ms_ease-in-out_500ms]' : 'border-0 border-transparent'"
         >
             <x-main-container>
-                <nav class="flex items-center justify-between gap-5 transition-all duration-500" :class="scrolled ? 'px-5' : ''">
+                <nav class="flex items-center justify-between gap-5 transition-all duration-500 py-2.5" :class="scrolled ? 'px-5' : ''">
                     <div>
                         <x-app-logo-icon class="fill-current uppercase tracking-[5px] mr-5"/>
                     </div>
-                    <div class="transition-all duration-500 scale-90">
-                        <flux:navbar>
-                            <flux:navbar.item href="#" class="!bg-transparent text-dark dark:!text-light uppercase">{{ __('Como funciona') }}</flux:navbar.item>
-                            <flux:navbar.item href="#" icon="chat-bubble-bottom-center" class="!bg-transparent text-dark dark:!text-light uppercase">{{ __('Preguntas') }}</flux:navbar.item>
-                            <flux:navbar.item href="#" class="!bg-transparent text-dark dark:!text-light uppercase">{{ __('Precios') }}</flux:navbar.item>
-                        </flux:navbar>
+                    <div class="transition-all duration-500">
+                        <nav class="flex items-center gap-5">
+                            <a href="#" class="uppercase text-xs">{{ __('Como funciona') }}</a>
+                            <div class="flex items-center gap-2">
+                                <flux:icon.chat-bubble-left class="size-4" />
+                                <a href="#" icon="chat-bubble-bottom-center" class="uppercase text-xs">{{ __('Preguntas') }}</a>
+                            </div>
+                            <a href="#" class="uppercase text-xs">{{ __('Precios') }}</a>
+                        </nav>
                     </div>
                     <div class="flex items-center gap-3">
                         <flux:link href="{{ route('login') }}" class="btn uppercase hover:!no-underline" variant="ghost">
