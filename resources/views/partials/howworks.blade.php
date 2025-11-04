@@ -1,6 +1,6 @@
 <section id="howworks">
     <x-main-container>
-        <div class="mt-20">
+        <div class="mt-40">
             <div class="text-center flex flex-col gap-6 items-center justify-center mb-16">
                 <h1 class="text-4xl">
                     {{ __('¿Cómo') }} <span class="[filter:drop-shadow(0px_0px_15px_rgb(255_193_7_/_100%))]"> {{ __('Funciona') }}?</span>
