@@ -6,7 +6,7 @@
                     {{ __('¿Cómo') }} <span class="[filter:drop-shadow(0px_0px_15px_rgb(255_193_7_/_100%))]"> {{ __('Funciona') }}?</span>
                 </h1>
                 <p class="opacity-70 max-w-3xl">
-                    {{ __('Plataforma integral de cumplimiento NOM-035 impulsada por IA que transforma la gestión del bienestar laboral, previene riesgos psicosociales y optimiza el ambiente de trabajo mediante cuestionarios inteligentes, alertas automatizadas y análisis predictivo.') }}
+                    {{ __('Plataforma impulsada por IA que transforma la gestión del bienestar laboral, previene riesgos psicosociales y humaniza el espacio mediante cuestionarios inteligentes, alertas automatizadas y análisis predictivo.') }}
                 </p>
             </div>
             <div class="mt-10 flex flex-col lg:flex-row items-center justify-between gap-10"

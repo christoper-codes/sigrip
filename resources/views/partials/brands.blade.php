@@ -9,7 +9,7 @@
             </p>
 
             <div class="flex animate-scroll whitespace-nowrap">
-                <div class="flex items-center space-x-16 text-2xl font-light">
+                <div class="flex items-center space-x-16 text-xl font-light">
                     <span class="mx-8">{{ __('PEMEX') }}</span>
                     <span class="mx-8">{{ __('CFE') }}</span>
                     <span class="mx-8">{{ __('Grupo Bimbo') }}</span>
@@ -22,7 +22,7 @@
                     <span class="mx-8">{{ __('Televisa') }}</span>
                 </div>
 
-                <div class="flex items-center space-x-16 text-2xl font-light">
+                <div class="flex items-center space-x-16 text-xl font-light">
                     <span class="mx-8">{{ __('PEMEX') }}</span>
                     <span class="mx-8">{{ __('CFE') }}</span>
                     <span class="mx-8">{{ __('Grupo Bimbo') }}</span>
