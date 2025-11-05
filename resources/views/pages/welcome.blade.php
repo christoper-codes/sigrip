@@ -4,4 +4,5 @@
     @include('partials.howworks')
     @include('partials.testimonials')
     @include('partials.pricing')
+    @include('partials.faqs')
 </x-layouts.guest.simple>
