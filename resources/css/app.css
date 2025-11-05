@@ -30,7 +30,7 @@
     --color-accent-content: var(--color-yellow-500);
     --color-accent-foreground: var(--color-white);
 
-    --color-primary: var(--color-accent);
+    --color-primary: var(--color-yellow-500);
     --color-variant: var(--color-accent-foreground);
     --color-light: var(--color-white);
     --color-dark: var(--color-zinc-950);

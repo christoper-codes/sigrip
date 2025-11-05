@@ -81,8 +81,5 @@
             </div>
             <div class="w-full h-[2px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
         </div>
-        <div class="h-screen w-full">
-
-        </div>
     </x-main-container>
 </section>
