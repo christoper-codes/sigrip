@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="mt-10 flex items-center justify-center">
-            <div class="h-[620px] rounded-4xl border border-primary w-96 p-7 flex flex-col gap-7 justify-center">
+            <div class="h-[620px] rounded-4xl border-2 border-primary w-96 p-7 flex flex-col gap-7 justify-center">
                 <div class="flex flex-col gap-5">
                     <div class="py-2 px-4 rounded-full text-xs border border-neutral-800 inline-block bg-gradient-to-b from-dark to-neutral-800 self-start text-center">
                         {{ __('Premium') }}
@@ -66,7 +66,7 @@
                     {{ __('Comenzar prueba gratuita') }}
                 </flux:button>
             </div>
-            <div class="h-[560px] rounded-l rounded-r-4xl border border-neutral-800 w-96 p-7 flex flex-col justify-center gap-7">
+            <div class="h-[560px] rounded-l rounded-r-4xl border-t-2 border-r-2 border-b-2 border-neutral-800 w-96 p-7 flex flex-col justify-center gap-7">
                 <div class="flex flex-col gap-5">
                     <div class="py-2 px-4 rounded-full text-xs border border-neutral-800 inline-block bg-gradient-to-b from-dark to-neutral-800 self-start text-center">
                         {{ __('Pro') }}
