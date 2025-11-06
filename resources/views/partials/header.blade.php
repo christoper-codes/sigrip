@@ -16,7 +16,7 @@
             <x-main-container>
                 <nav class="flex items-center justify-between gap-5 transition-all duration-500 py-2.5" :class="scrolled ? 'px-5' : ''">
                     <div>
-                        <x-app-logo-icon class="fill-current uppercase tracking-[5px] mr-5"/>
+                        <x-app-logo-icon class="w-[90px]"/>
                     </div>
                     <div class="transition-all duration-500">
                         <nav class="flex items-center gap-5">

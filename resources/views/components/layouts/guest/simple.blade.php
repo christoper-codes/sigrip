@@ -3,4 +3,5 @@
     <main>
         {{ $slot }}
     </main>
+    @include('partials.footer')
 </x-layouts.base.master>

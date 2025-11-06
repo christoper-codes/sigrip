@@ -3,7 +3,7 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="bg-light text-dark dark:bg-dark dark:text-light">
+    <body class="bg-light text-dark dark:bg-dark dark:text-light text-lg">
         {{ $slot }}
         @include('partials.foot')
     </body>
