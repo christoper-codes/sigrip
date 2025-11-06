@@ -1,7 +1,7 @@
 <section id="faqa">
     <x-main-container>
-        <div class="mt-52 text-center flex flex-col gap-6 items-center justify-center mb-16">
-            <h1 class="text-4xl">
+        <div class="mt-52 text-center flex flex-col gap-7 items-center justify-center mb-16">
+            <h1 class="text-5xl">
                 {{ __('Te estás') }} <span class="[filter:drop-shadow(0px_0px_15px_rgb(255_193_7_/_100%))]"> {{ __('preguntando') }}</span>
             </h1>
             <p class="max-w-3xl">
