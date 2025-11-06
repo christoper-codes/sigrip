@@ -14,9 +14,9 @@
             :class="scrolled ? 'backdrop-blur-lg bg-neutral-500/5 rounded-full !border-[1px] !border-neutral-200 dark:!border-neutral-800 [transition:background-color_500ms_ease-in-out,backdrop-filter_500ms_ease-in-out,border-radius_500ms_ease-in-out,border_300ms_ease-in-out_500ms]' : 'border-0 border-transparent'"
         >
             <x-main-container>
-                <nav class="flex items-center justify-between gap-5 transition-all duration-500 py-2.5" :class="scrolled ? 'px-5' : ''">
+                <nav class="flex items-center justify-between gap-10 transition-all duration-500 py-2.5" :class="scrolled ? 'px-5' : ''">
                     <div>
-                        <x-app-logo-icon class="w-[90px]"/>
+                        <x-app-logo-icon class="w-[90px] mr-5"/>
                     </div>
                     <div class="transition-all duration-500">
                         <nav class="flex items-center gap-5 text-base">
@@ -28,8 +28,8 @@
                             <a href="#">{{ __('Precios') }}</a>
                         </nav>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <flux:link href="{{ route('login') }}" class="btn hover:!no-underline" variant="ghost">
+                    <div class="flex items-center">
+                        <flux:link href="{{ route('login') }}" class="btn hover:!no-underline !px-0" variant="ghost">
                             {{ __('Iniciar sesion') }}
                         </flux:link>
                         <flux:link href="{{ route('register') }}" class="hover:!no-underline" variant="ghost" wire:navigate>

@@ -1,15 +1,15 @@
 <section id="howworks">
     <x-main-container>
         <div class="mt-52">
-            <div class="text-center flex flex-col gap-6 items-center justify-center mb-16">
-                <h1 class="text-4xl">
+            <div class="text-center flex flex-col gap-7 items-center justify-center mb-16">
+                <h1 class="text-5xl">
                     {{ __('¿Cómo') }} <span class="[filter:drop-shadow(0px_0px_15px_rgb(255_193_7_/_100%))]"> {{ __('Funciona') }}?</span>
                 </h1>
                 <p class="opacity-70 max-w-3xl">
                     {{ __('Plataforma impulsada por IA que transforma la gestión del bienestar laboral, previene riesgos psicosociales y humaniza el espacio mediante cuestionarios inteligentes, alertas automatizadas y análisis predictivo.') }}
                 </p>
             </div>
-            <div class="mt-10 flex flex-col lg:flex-row items-center justify-between gap-10"
+            <div class="mt-10 flex flex-col lg:flex-row items-center justify-between gap-12"
                  x-data="{
                      selectedFeature: 0,
                      features: [
@@ -41,10 +41,10 @@
                  }">
 
                 <div class="flex-1 flex flex-col gap-5">
-                    <h2 class="text-2xl font-bold" x-text="features[selectedFeature].title"></h2>
+                    <h2 class="text-xl font-bold" x-text="features[selectedFeature].title"></h2>
                     <p class="opacity-70 leading-relaxed" x-text="features[selectedFeature].description"></p>
                     <div>
-                        <flux:button variant="primary" class="btn">
+                        <flux:button variant="primary" class="btn !py-6">
                             {{ __('Saber más') }}
                         </flux:button>
                     </div>
