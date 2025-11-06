@@ -23,7 +23,7 @@
                         {{ __('Planes adaptados ') }} <span class="[filter:drop-shadow(0px_0px_15px_rgb(255_193_7_/_100%))]"> {{ __('para ti') }}</span>
                     </h1>
                 </div>
-                <p class="opacity-70 max-w-3xl">
+                <p class="opacity-70 max-w-4xl">
                     {{ __('Pensados para mejorar el bienestar laboral, prevenir riesgos psicosociales y evitar demandas costosas.') }}
                 </p>
                 <div>

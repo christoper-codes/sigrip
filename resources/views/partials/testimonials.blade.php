@@ -54,7 +54,7 @@
             </div>
 
             <div class="bg-gradient-to-b from-dark to-neutral-950/50 rounded-2xl p-7 flex flex-col gap-3 border-b border-x border-neutral-900">
-                <p>{{ __('"Los tickets anónimos fomentaron comunicación honesta con empleados. Humanizamos nuestro espacio laboral y mejoramos la confianza organizacional."') }}</p>
+                <p>{{ __('"Los tickets anónimos fomentaron comunicación honesta con empleados. Humanizamos nuestro espacio laboral y mejoramos la confianza organizacional de todos."') }}</p>
                 <div>
                     <div class="flex items-center gap-3">
                         <div class="size-10 rounded-full overflow-hidden">
