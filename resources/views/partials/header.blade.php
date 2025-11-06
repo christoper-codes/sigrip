@@ -19,17 +19,17 @@
                         <x-app-logo-icon class="w-[90px]"/>
                     </div>
                     <div class="transition-all duration-500">
-                        <nav class="flex items-center gap-5">
-                            <a href="#" class="uppercase text-xs">{{ __('Como funciona') }}</a>
+                        <nav class="flex items-center gap-5 text-base">
+                            <a href="#">{{ __('Como funciona') }}</a>
                             <div class="flex items-center gap-2">
-                                <flux:icon.chat-bubble-left class="size-4" />
-                                <a href="#" icon="chat-bubble-bottom-center" class="uppercase text-xs">{{ __('Preguntas') }}</a>
+                                <flux:icon.chat-bubble-left class="size-5" />
+                                <a href="#" icon="chat-bubble-bottom-center">{{ __('Preguntas') }}</a>
                             </div>
-                            <a href="#" class="uppercase text-xs">{{ __('Precios') }}</a>
+                            <a href="#">{{ __('Precios') }}</a>
                         </nav>
                     </div>
                     <div class="flex items-center gap-3">
-                        <flux:link href="{{ route('login') }}" class="btn uppercase hover:!no-underline" variant="ghost">
+                        <flux:link href="{{ route('login') }}" class="btn hover:!no-underline" variant="ghost">
                             {{ __('Iniciar sesion') }}
                         </flux:link>
                         <flux:link href="{{ route('register') }}" class="hover:!no-underline" variant="ghost" wire:navigate>

@@ -24,7 +24,7 @@
 }
 
 .btn-simple {
-    --border-radius: 24px;
+    --border-radius: 30px;
     --padding: 4px;
     --transition: 0.4s;
     --button-color: #101010;
@@ -34,7 +34,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.75em 1.6em;
+    padding: 0.75em 2.3em;
     font-family: "Poppins", "Inter", "Segoe UI", sans-serif;
     font-size: 14px;
     font-weight: 400;

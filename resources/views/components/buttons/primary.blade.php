@@ -2,6 +2,6 @@
     'title',
 ])
 
-<button {{ $attributes->merge(['class' => 'btn-simple uppercase !text-xs']) }} data-text="{{ $title }}">
+<button {{ $attributes->merge(['class' => 'btn-simple !text-base']) }} data-text="{{ $title }}">
     {{ $title }}
 </button>
