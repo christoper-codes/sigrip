@@ -29,10 +29,7 @@
                     <div class="transition-all duration-500 hidden lg:block">
                         <div class="flex items-center gap-5 text-base">
                             <a href="#">{{ __('Como funciona') }}</a>
-                            <div class="flex items-center gap-2">
-                                <flux:icon.chat-bubble-left class="size-5" />
-                                <a href="#" icon="chat-bubble-bottom-center">{{ __('Preguntas') }}</a>
-                            </div>
+                            <a href="#">{{ __('Preguntas') }}</a>
                             <a href="#">{{ __('Precios') }}</a>
                         </div>
                     </div>
@@ -54,9 +51,9 @@
         x-show="mobileMenuOpen"
         x-transition.opacity.duration.300ms
         class="fixed inset-0 bg-black/50 backdrop-blur-lg z-[60] lg:hidden"
+        :class="mobileMenuOpen ? '' : ''"
         @click="mobileMenuOpen = false"
     >
-        <!-- Mobile Menu Content -->
         <div
             x-show="mobileMenuOpen"
             x-transition:enter="transition ease-out duration-300 transform"
@@ -65,11 +62,10 @@
             x-transition:leave="transition ease-in duration-200 transform"
             x-transition:leave-start="translate-y-0"
             x-transition:leave-end="translate-y-[-100%]"
-            class="bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 shadow-lg"
+            class="bg-white dark:bg-neutral-950 border-b border-neutral-200 dark:border-neutral-800 shadow-lg"
             @click.stop
         >
             <div class="px-6 py-6">
-                <!-- Header with close button -->
                 <div class="flex items-center justify-between mb-8">
                     <x-app-logo-icon class="w-[90px]"/>
                     <button @click="mobileMenuOpen = false" class="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
@@ -77,29 +73,24 @@
                     </button>
                 </div>
 
-                <!-- Navigation Links -->
-                <nav class="space-y-6">
-                    <a href="#" @click="mobileMenuOpen = false" class="block text-lg font-medium py-3 border-b border-neutral-200 dark:border-neutral-800">
+                <nav class="space-y-6 text-base">
+                    <a href="#" @click="mobileMenuOpen = false" class="block py-3 border-b border-neutral-200 dark:border-neutral-800">
                         {{ __('Como funciona') }}
                     </a>
-                    <a href="#" @click="mobileMenuOpen = false" class="block text-lg font-medium py-3 border-b border-neutral-200 dark:border-neutral-800">
-                        <div class="flex items-center gap-3">
-                            <flux:icon.chat-bubble-left class="size-5" />
-                            <span>{{ __('Preguntas') }}</span>
-                        </div>
+                    <a href="#" @click="mobileMenuOpen = false" class="block py-3 border-b border-neutral-200 dark:border-neutral-800">
+                        <span>{{ __('Preguntas') }}</span>
                     </a>
-                    <a href="#" @click="mobileMenuOpen = false" class="block text-lg font-medium py-3 border-b border-neutral-200 dark:border-neutral-800">
+                    <a href="#" @click="mobileMenuOpen = false" class="block py-3 border-b border-neutral-200 dark:border-neutral-800">
                         {{ __('Precios') }}
                     </a>
                 </nav>
 
-                <!-- Action Buttons -->
                 <div class="mt-8 flex flex-col gap-4">
                     <flux:button class="btn" variant="primary">
                         {{ __('Iniciar sesion') }}
                     </flux:button>
-                    <flux:link href="{{ route('register') }}" class="hover:!no-underline" variant="ghost" wire:navigate>
-                        <x-buttons.primary title="{{ __('Registrarse') }}" />
+                    <flux:link href="{{ route('register') }}" class="hover:!no-underline !w-full" variant="ghost" wire:navigate>
+                        <x-buttons.primary title="{{ __('Registrarse') }}" class="w-full"/>
                     </flux:link>
                 </div>
             </div>
