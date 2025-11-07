@@ -2,7 +2,7 @@
     <x-main-container>
         <div class="mt-52">
             <div class="text-center flex flex-col gap-7 items-center justify-center mb-16">
-                <h1 class="text-5xl">
+                <h1 class="text-4xl md:text-5xl">
                     {{ __('¿Cómo') }} <span class="[filter:drop-shadow(0px_0px_15px_rgb(255_193_7_/_100%))]"> {{ __('Funciona') }}?</span>
                 </h1>
                 <p class="opacity-70 max-w-3xl">
@@ -50,7 +50,7 @@
                     </div>
                 </div>
 
-                <div class="flex-1 grid grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-5">
+                <div class="flex-1 grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
                     <template x-for="(feature, index) in features" :key="index">
                         <div class="rounded-xl border border-primary transition-all duration-500 cursor-pointer flex flex-col gap-3 p-5"
                              :class="selectedFeature === index ? 'opacity-100 bg-white/5' : 'opacity-30 hover:opacity-60'"
