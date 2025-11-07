@@ -11,7 +11,7 @@
                     <x-icons.x />
                 </div>
             </div>
-            <div class="flex items-center justify-center w-full">
+            <div class="flex items-center justify-center w-full mt-5">
                 <svg id="elnbMUOs4tY1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 283 70" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" project-id="4beaadf1c09c4de597f0526e538f297b" export-id="fcabfb1f68bc405fb614eb1380c14d09" cached="true"><defs><radialGradient id="elnbMUOs4tY2-fill" cx="0" cy="0" r="0.569166" spreadMethod="pad" gradientUnits="objectBoundingBox" gradientTransform="translate(0.5 0.5)"><stop id="elnbMUOs4tY2-fill-0" offset="0%" stop-color="#fff"/><stop id="elnbMUOs4tY2-fill-1" offset="0%" stop-color="#fff"/><stop id="elnbMUOs4tY2-fill-2" offset="100%" stop-color="#050505"/></radialGradient></defs><text dx="0" dy="0" font-family="&quot;elnbMUOs4tY1:::Prompt&quot;" font-size="15" font-weight="600" letter-spacing="2" transform="matrix(4.884798 0 0 4.709903 0 58.740861)" fill="url(#elnbMUOs4tY2-fill)" stroke-width="0"><tspan y="0" font-weight="600" stroke-width="0"><![CDATA[
                     NEURA
                     ]]></tspan></text>
