@@ -86,11 +86,11 @@
                 </nav>
 
                 <div class="mt-8 flex flex-col gap-4">
-                    <flux:button class="btn" variant="primary">
+                    <flux:button class="btn !py-7" variant="primary">
                         {{ __('Iniciar sesion') }}
                     </flux:button>
                     <flux:link href="{{ route('register') }}" class="hover:!no-underline !w-full" variant="ghost" wire:navigate>
-                        <x-buttons.primary title="{{ __('Registrarse') }}" class="w-full"/>
+                        <x-buttons.primary title="{{ __('Registrarse') }}" class="w-full !py-5 !rounded-full"/>
                     </flux:link>
                 </div>
             </div>

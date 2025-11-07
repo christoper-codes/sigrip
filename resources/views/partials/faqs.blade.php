@@ -1,7 +1,7 @@
 <section id="faqs">
     <x-main-container>
         <div class="mt-52 text-center flex flex-col gap-7 items-center justify-center mb-16 relative">
-            <div class="absolute right-[450px] top-0 h-[380px] w-[200px] lg:h-[380px] lg:w-[200px] z-0 rounded-full blur-[120px] lg:blur-[150px] bg-yellow-50/20"></div>
+            <div class="absolute right-0 lg:right-[450px] top-0 h-[380px] w-[200px] lg:h-[380px] lg:w-[200px] z-0 rounded-full blur-[120px] lg:blur-[150px] bg-yellow-50/20"></div>
 
             <h1 class="text-4xl md:text-5xl">
                 {{ __('Te estás') }} <span class="[filter:drop-shadow(0px_0px_15px_rgb(255_193_7_/_100%))]"> {{ __('preguntando') }}</span>
