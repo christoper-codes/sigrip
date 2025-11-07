@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="mt-10 flex flex-col md:flex-row gap-7 md:gap-0 items-center justify-center">
-                <div class="h-full rounded-4xl border-2 border-primary w-full md:w-96 p-7 flex flex-col gap-7 justify-center">
+                <div class="h-full md:h-[660px] rounded-4xl border-2 border-primary w-full md:w-96 p-7 flex flex-col gap-7 justify-center">
                     <div class="flex flex-col gap-5">
                         <div class="py-2 px-4 rounded-full text-sm border border-neutral-800 inline-block bg-gradient-to-b from-dark to-neutral-800 self-start text-center">
                             {{ __('Premium') }}
