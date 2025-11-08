@@ -6,7 +6,7 @@
     <body class="min-h-screen antialiased bg-dark">
         <div class="relative grid h-dvh flex-col items-center justify-center px-8 sm:px-0 lg:max-w-none lg:grid-cols-2 lg:px-0">
             <div class="bg-muted relative hidden h-full flex-col p-20 text-white lg:flex">
-                <div class="absolute inset-0 rounded-[2.5rem] m-5 bg-cover bg-center bg-no-repeat"
+                <div class="absolute inset-0 rounded-[2.5rem] m-5 bg-cover bg-center bg-no-repeat border border-neutral-900"
                      style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.pexels.com/photos/31935440/pexels-photo-31935440.jpeg');">
                 </div>
                 <a href="{{ route('home') }}" class="relative z-20 flex items-center text-lg font-medium" wire:navigate>
