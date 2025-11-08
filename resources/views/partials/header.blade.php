@@ -34,15 +34,13 @@
                         </div>
                     </div>
                     <div class="hidden lg:flex items-center gap-3">
-                        <x-links.primary
+                        <x-links.secondary
                             url="{{ route('login') }}"
                             title="{{ __('Iniciar sesion') }}"
-                            class="hover:!no-underline !bg-transparent !border-2 !border-neutral-700 !text-white hover:!bg-neutral-800"
                         />
                         <x-links.primary
                             url="{{ route('register') }}"
                             title="{{ __('Registrarse') }}"
-                            class="hover:!no-underline"
                         />
                     </div>
                 </nav>
@@ -90,15 +88,15 @@
                 </nav>
 
                 <div class="mt-8 flex flex-col gap-3">
-                    <x-links.primary
+                    <x-links.secondary
                         url="{{ route('login') }}"
                         title="{{ __('Iniciar sesion') }}"
-                        class="!w-full whitespace-nowrap hover:!no-underline !bg-transparent !border !border-neutral-300 dark:!border-neutral-700 !text-neutral-900 dark:!text-white hover:!bg-neutral-50 dark:hover:!bg-neutral-800"
+                        class="!w-full"
                     />
                     <x-links.primary
                         url="{{ route('register') }}"
                         title="{{ __('Registrarse') }}"
-                        class="!w-full whitespace-nowrap hover:!no-underline"
+                        class="!w-full "
                     />
                 </div>
             </div>
