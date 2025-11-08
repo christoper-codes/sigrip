@@ -12,7 +12,11 @@
                     </p>
                 </div>
                 <div class="z-20 relative">
-                   <x-buttons.primary title="{{ __('Comenzar ahora') }}" class="py-7! px-10!"/>
+                   <x-links.primary
+                        url="{{ route('register') }}"
+                        title="{{ __('Comenzar ahora') }}"
+                        class="py-5! px-8!"
+                    />
                 </div>
             </div>
             <div class="mt-20 relative">
