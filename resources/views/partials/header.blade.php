@@ -17,7 +17,7 @@
             :class="scrolled ? 'backdrop-blur-lg bg-neutral-500/5 rounded-full !border-[1px] !border-neutral-200 dark:!border-neutral-800 [transition:background-color_500ms_ease-in-out,backdrop-filter_500ms_ease-in-out,border-radius_500ms_ease-in-out,border_300ms_ease-in-out_500ms]' : 'border-0 border-transparent'"
         >
             <x-main-container>
-                <nav class="flex items-center justify-between gap-10 transition-all duration-500 py-2.5" :class="scrolled ? 'px-1 lg:px-5' : ''">
+                <nav class="flex items-center justify-between transition-all duration-500 py-2.5" :class="scrolled ? 'px-1 lg:px-5' : ''">
                     <div>
                         <x-app-logo-icon class="w-[90px] mr-5"/>
                     </div>
@@ -33,13 +33,17 @@
                             <a href="#">{{ __('Precios') }}</a>
                         </div>
                     </div>
-                    <div class="hidden lg:flex items-center ">
-                        <flux:link href="{{ route('login') }}" class="btn hover:!no-underline !px-0" variant="ghost">
-                            {{ __('Iniciar sesion') }}
-                        </flux:link>
-                        <flux:link href="{{ route('register') }}" class="hover:!no-underline" variant="ghost" wire:navigate>
-                            <x-buttons.primary title="{{ __('Registrarse') }}" />
-                        </flux:link>
+                    <div class="hidden lg:flex items-center gap-3">
+                        <x-links.primary
+                            url="{{ route('login') }}"
+                            title="{{ __('Iniciar sesion') }}"
+                            class="hover:!no-underline !bg-transparent !border-2 !border-neutral-700 !text-white hover:!bg-neutral-800"
+                        />
+                        <x-links.primary
+                            url="{{ route('register') }}"
+                            title="{{ __('Registrarse') }}"
+                            class="hover:!no-underline"
+                        />
                     </div>
                 </nav>
             </x-main-container>
@@ -85,13 +89,17 @@
                     </a>
                 </nav>
 
-                <div class="mt-8 flex flex-col gap-4">
-                    <flux:button class="btn !py-7" variant="primary">
-                        {{ __('Iniciar sesion') }}
-                    </flux:button>
-                    <flux:link href="{{ route('register') }}" class="hover:!no-underline !w-full" variant="ghost" wire:navigate>
-                        <x-buttons.primary title="{{ __('Registrarse') }}" class="w-full !py-5 !rounded-full"/>
-                    </flux:link>
+                <div class="mt-8 flex flex-col gap-3">
+                    <x-links.primary
+                        url="{{ route('login') }}"
+                        title="{{ __('Iniciar sesion') }}"
+                        class="!w-full whitespace-nowrap hover:!no-underline !bg-transparent !border !border-neutral-300 dark:!border-neutral-700 !text-neutral-900 dark:!text-white hover:!bg-neutral-50 dark:hover:!bg-neutral-800"
+                    />
+                    <x-links.primary
+                        url="{{ route('register') }}"
+                        title="{{ __('Registrarse') }}"
+                        class="!w-full whitespace-nowrap hover:!no-underline"
+                    />
                 </div>
             </div>
         </div>

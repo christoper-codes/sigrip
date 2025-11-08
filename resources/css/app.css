@@ -55,7 +55,7 @@
     }
 
     .btn {
-        @apply cursor-pointer! rounded-full! !px-7 !text-base;
+        @apply cursor-pointer! rounded-full! !text-base hover:!bg-neutral-100 !transition-all !duration-500;
     }
 }
 

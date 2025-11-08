@@ -12,7 +12,7 @@
                     </p>
                 </div>
                 <div class="z-20 relative">
-                   <x-buttons.primary title="{{ __('Comenzar ahora') }}" class="!py-4 !px-7"/>
+                   <x-buttons.primary title="{{ __('Comenzar ahora') }}" class="py-7! px-10!"/>
                 </div>
             </div>
             <div class="mt-20 relative">
