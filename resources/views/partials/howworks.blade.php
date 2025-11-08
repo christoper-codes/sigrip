@@ -44,9 +44,11 @@
                     <h2 class="text-xl font-bold" x-text="features[selectedFeature].title"></h2>
                     <p class="opacity-70 leading-relaxed" x-text="features[selectedFeature].description"></p>
                     <div>
-                        <flux:button variant="primary" class="btn !py-6">
-                            {{ __('Saber más') }}
-                        </flux:button>
+                        <x-links.primary
+                            url="{{ route('register') }}"
+                            title="{{ __('Saber más') }}"
+                            class="!px-7 py-4"
+                        />
                     </div>
                 </div>
 
