@@ -11,7 +11,7 @@
                         {{ __('Cumple la NOM-035 con IA que previene riesgos laborales, detecta problemas antes de que ocurran y protege tu empresa de demandas costosas. Cuestionarios inteligentes y alertas automáticas.') }}
                     </p>
                 </div>
-                <div>
+                <div class="z-20 relative">
                    <x-buttons.primary title="{{ __('Comenzar ahora') }}" class="!py-4 !px-7"/>
                 </div>
             </div>
