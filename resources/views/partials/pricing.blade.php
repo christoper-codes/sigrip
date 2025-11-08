@@ -81,9 +81,11 @@
                         </ul>
                     </div>
 
-                    <flux:button variant="primary" class="btn !py-7">
-                        {{ __('Comenzar prueba gratuita') }}
-                    </flux:button>
+                    <x-links.primary
+                        url="{{ route('register') }}"
+                        title="{{ __('Comenzar prueba gratuita') }}"
+                        class="!py-4"
+                    />
                 </div>
                 <div class="h-full md:h-[605px] rounded-l-4xl md:rounded-l  rounded-r-4xl border-l-2 md:border-l-0 border-t-2 border-r-2 border-b-2 border-neutral-800 w-full md:w-96 p-7 flex flex-col justify-center gap-7">
                     <div class="flex flex-col gap-5">
@@ -131,9 +133,11 @@
                             </li>
                         </ul>
                     </div>
-                    <flux:button variant="primary" class="btn !py-7">
-                        {{ __('Comenzar prueba gratuita') }}
-                    </flux:button>
+                    <x-links.primary
+                        url="{{ route('register') }}"
+                        title="{{ __('Comenzar prueba gratuita') }}"
+                        class="!py-4"
+                    />
                 </div>
             </div>
         </div>
