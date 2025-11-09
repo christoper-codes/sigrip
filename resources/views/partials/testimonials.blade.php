@@ -79,7 +79,7 @@
             <div class="absolute -top-52 left-0 w-full overflow-hidden h-52 pointer-events-none">
                 <div class="w-3/4 mx-auto h-14 rounded-tl-full rounded-tr-full bg-light/20 blur-[70px] absolute bottom-0 left-1/2 -translate-x-1/2"></div>
             </div>
-            <div class="w-full h-[2px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
+            <div class="w-full h-[2px] bg-gradient-to-r from-transparent via-neutral-700 dark:via-light to-transparent"></div>
         </div>
     </x-main-container>
 </section>
