@@ -74,7 +74,7 @@ select:focus[data-flux-control] {
 }
 
 input[data-flux-control]{
-    @apply !p-6;
+    @apply !py-6;
 }
 
 /* \[:where(&)\]:size-4 {
