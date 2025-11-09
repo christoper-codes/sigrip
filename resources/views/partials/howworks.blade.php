@@ -55,7 +55,7 @@
                 <div class="flex-1 grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
                     <template x-for="(feature, index) in features" :key="index">
                         <div class="rounded-xl border border-primary transition-all duration-500 cursor-pointer flex flex-col gap-3 p-5"
-                             :class="selectedFeature === index ? 'opacity-100 bg-white/5' : 'opacity-30 hover:opacity-60'"
+                             :class="selectedFeature === index ? 'opacity-100 bg-white/5' : 'opacity-40 dark:opacity-30 hover:opacity-80 dark:hover:opacity-60'"
                              @click="selectedFeature = index">
                             <h3 class="font-medium" x-text="feature.title"></h3>
                             <div class="flex items-center gap-1 opacity-70">
