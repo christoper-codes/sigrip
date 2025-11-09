@@ -101,6 +101,16 @@ input[data-flux-control]{
     animation-play-state: paused;
 }
 
+/* Circular Progress Animation */
+@keyframes progress {
+    0% {
+        stroke-dashoffset: 100;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
 /* Livewire Loading Bar (NProgress) */
 #nprogress .bar {
     background: var(--color-primary) !important;
