@@ -21,7 +21,11 @@
                     <div>
                         <x-app-logo-icon class="w-[90px] mr-5"/>
                     </div>
-                    <div class="lg:hidden">
+                    <div class="lg:hidden flex items-center gap-3">
+                        <div x-data>
+                            <flux:icon.sun x-show="$flux.appearance === 'light'" x-on:click="$flux.dark = ! $flux.dark" class="cursor-pointer" />
+                            <flux:icon.moon x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" class="cursor-pointer" />
+                        </div>
                         <button @click="mobileMenuOpen = true">
                             <flux:icon.bars-2 class="size-8"/>
                         </button>
@@ -31,6 +35,10 @@
                             <a href="#">{{ __('Como funciona') }}</a>
                             <a href="#">{{ __('Preguntas') }}</a>
                             <a href="#">{{ __('Precios') }}</a>
+                            <div x-data>
+                                 <flux:icon.sun x-show="$flux.appearance === 'light'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer" />
+                                <flux:icon.moon x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer" />
+                            </div>
                         </div>
                     </div>
                     <div class="hidden lg:flex items-center gap-3">
