@@ -9,7 +9,7 @@
                 </p>
         </div>
         <div class="mt-10 z-30 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 text-base">
-            <div class="bg-gradient-to-b from-dark to-neutral-950/50 rounded-2xl p-7 flex flex-col gap-3 border-b border-x border-neutral-900">
+            <div class="bg-gradient-to-b from-light dark:from-dark to-neutral-200 dark:to-neutral-950/50 rounded-2xl p-7 flex flex-col gap-3 border-b border-x border-neutral-300 dark:border-neutral-900">
                 <p>{{ __('"Neura transformó nuestra gestión del bienestar laboral. La IA detecta riesgos psicosociales antes de que se conviertan en problemas reales. Una solución invaluable."') }}</p>
                 <div>
                     <div class="flex items-center gap-3">
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="bg-gradient-to-b from-dark to-neutral-950/50 rounded-2xl p-7 flex gap-3 flex-col border-b border-x border-neutral-900">
+            <div class="bg-gradient-to-b from-light dark:from-dark to-neutral-200 dark:to-neutral-950/50 rounded-2xl p-7 flex gap-3 flex-col border-b border-x border-neutral-300 dark:border-neutral-900">
                 <p>{{ __('"Los cuestionarios personalizados y alertas automáticas mejoraron nuestro ambiente laboral. Cumplimos NOM-035 sin esfuerzo. Neura es indispensable para RH."') }}</p>
                 <div>
                     <div class="flex items-center gap-3">
@@ -53,7 +53,7 @@
                 </div>
             </div>
 
-            <div class="bg-gradient-to-b from-dark to-neutral-950/50 rounded-2xl p-7 flex flex-col gap-3 border-b border-x border-neutral-900">
+            <div class="bg-gradient-to-b from-light dark:from-dark to-neutral-200 dark:to-neutral-950/50 rounded-2xl p-7 flex flex-col gap-3 border-b border-x border-neutral-300 dark:border-neutral-900">
                 <p>{{ __('"Los tickets anónimos fomentaron comunicación honesta con empleados. Humanizamos nuestro espacio laboral y mejoramos la confianza organizacional de todos."') }}</p>
                 <div>
                     <div class="flex items-center gap-3">
