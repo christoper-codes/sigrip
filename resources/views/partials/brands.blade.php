@@ -1,8 +1,8 @@
 <section id="brands">
     <x-main-container>
         <div class="relative w-full overflow-hidden mt-28">
-            <div class="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
-            <div class="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-white dark:from-black to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-white dark:from-black to-transparent z-10 pointer-events-none"></div>
 
             <p class="mb-7 opacity-70 text-center">
                 {{ __('¡Confiado por empresas líderes!') }}
