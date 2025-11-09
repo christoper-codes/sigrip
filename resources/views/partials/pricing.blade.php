@@ -16,7 +16,7 @@
             }">
             <div class="mt-52 text-center flex flex-col gap-7 items-center justify-center mb-16">
                 <div class="flex flex-col gap-3">
-                    <div class="mx-auto py-2 px-4 rounded-full text-sm border border-neutral-800 inline-block bg-gradient-to-b from-dark to-neutral-800 self-start text-center">
+                    <div class="mx-auto py-2 text-light px-4 rounded-full text-sm border border-neutral-800 inline-block bg-gradient-to-b from-dark to-neutral-800 self-start text-center">
                         {{ __('2 meses') }} <span class="text-primary">{{ __('gratis') }}</span> {{ __('en el plan anual') }}
                     </div>
                     <h1 class="text-4xl md:text-5xl">
@@ -36,7 +36,7 @@
             <div class="mt-10 flex flex-col md:flex-row gap-7 md:gap-0 items-center justify-center">
                 <div class="h-full md:h-[660px] rounded-4xl border-2 border-primary w-full md:w-96 p-7 flex flex-col gap-7 justify-center">
                     <div class="flex flex-col gap-5">
-                        <div class="py-2 px-4 rounded-full text-sm border border-neutral-800 inline-block bg-gradient-to-b from-dark to-neutral-800 self-start text-center">
+                        <div class="py-2 px-4 rounded-full text-light text-sm border border-neutral-800 inline-block bg-gradient-to-b from-dark to-neutral-800 self-start text-center">
                             {{ __('Premium') }}
                         </div>
                         <p class="text-4xl font-extrabold">
@@ -89,7 +89,7 @@
                 </div>
                 <div class="h-full md:h-[605px] rounded-l-4xl md:rounded-l  rounded-r-4xl border-l-2 md:border-l-0 border-t-2 border-r-2 border-b-2 border-neutral-800 w-full md:w-96 p-7 flex flex-col justify-center gap-7">
                     <div class="flex flex-col gap-5">
-                        <div class="py-2 px-4 rounded-full text-sm border border-neutral-800 inline-block bg-gradient-to-b from-dark to-neutral-800 self-start text-center">
+                        <div class="py-2 px-4 rounded-full text-light text-sm border border-neutral-800 inline-block bg-gradient-to-b from-dark to-neutral-800 self-start text-center">
                             {{ __('Pro') }}
                         </div>
                         <p class="text-4xl font-extrabold">
