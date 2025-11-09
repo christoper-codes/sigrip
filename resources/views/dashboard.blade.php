@@ -112,7 +112,7 @@
                                         <div class="relative w-52 h-52">
                                             <svg class="w-52 h-52 transform -rotate-90" viewBox="0 0 36 36">
                                                 <path class="text-gray-200 dark:text-gray-700" stroke="currentColor" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
-                                                <path class="text-blue-600" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="100, 100" stroke-dashoffset="0" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" style="animation: progress 2s ease-in-out;"></path>
+                                                <path class="text-blue-600" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="100, 100" stroke-dashoffset="0" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" style="animation: progress 6s ease-in-out;"></path>
                                             </svg>
                                             <div class="absolute inset-0 flex items-center justify-center">
                                                 <span class="font-semibold">100%</span>
