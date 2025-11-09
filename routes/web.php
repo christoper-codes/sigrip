@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::view('dashboard', 'pages.app.dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
