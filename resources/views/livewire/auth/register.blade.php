@@ -10,7 +10,7 @@
             <!-- Name -->
             <flux:input
                 name="name"
-                :label="__('Nombre')"
+                :label="__('Nombre completo')"
                 type="text"
                 required
                 autofocus
