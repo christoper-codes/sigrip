@@ -27,8 +27,14 @@ class Index extends Component
         $has_company = $user->company_id !== null;
         $has_department = $user->department_id !== null;
 
-        if ($has_company) $this->current_step = 2;
-        if ($has_department) $this->current_step = 3;
+        if ($has_company) {
+            $this->current_step = 2;
+        }
+
+        if ($has_department) {
+            $this->current_step = 3;
+            $this->js('new JSConfetti().addConfetti()');
+        }
     }
 
     public function render()
