@@ -43,17 +43,17 @@
         </div>
     @endif
 
-    <!-- Step 3: Setup Applications (Ejemplo) -->
+    <!-- Step 3: Setup Applications -->
     @if ($current_step === 3)
         <div class="max-w-2xl">
-            <flux:heading size="xl">{{ __('Configura aplicaciones') }}</flux:heading>
-            <flux:text class="mt-2">{{ __('Configura las aplicaciones y formularios para tu organización.') }}</flux:text>
-            <div class="mt-5">
-                {{-- <livewire:application.store /> --}}
-                <div class="p-6 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-xl text-center">
-                    <flux:icon.cog-6-tooth class="size-12 mx-auto mb-4 text-neutral-400" />
-                    <p class="text-neutral-600 dark:text-neutral-400">{{ __('Componente de aplicaciones próximamente') }}</p>
-                </div>
+            <flux:heading size="xl">{{ __('Configurar aplicaciones') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Configura y crea aplicaciones (formularios) para tu organización.') }}</flux:text>
+            <div class="mt-10">
+                <x-links.primary
+                    url="{{ route('dashboard') }}"
+                    title="{{ __('Crear aplicación') }}"
+                    class="!py-4 !px-7"
+                />
             </div>
         </div>
     @endif
