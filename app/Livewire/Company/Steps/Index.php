@@ -33,7 +33,7 @@ class Index extends Component
 
         if ($has_department) {
             $this->current_step = 3;
-            $this->js('new JSConfetti().addConfetti()');
+            $this->dispatch('steps-completed');
         }
     }
 

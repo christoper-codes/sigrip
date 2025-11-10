@@ -40,7 +40,7 @@
         </div>
 
         <div class="mt-10">
-            <div x-data="{ selectedTab: 'steps' }" class="w-full">
+            <div x-data="{ selectedTab: 'performance' }" class="w-full">
                 <div x-on:keydown.right.prevent="$focus.wrap().next()" x-on:keydown.left.prevent="$focus.wrap().previous()" class="flex gap-2 overflow-x-auto border-b border-neutral-300 dark:border-neutral-700" role="tablist" aria-label="tab options">
                     <button x-on:click="selectedTab = 'performance'" x-bind:aria-selected="selectedTab === 'performance'" x-bind:tabindex="selectedTab === 'performance' ? '0' : '-1'" x-bind:class="selectedTab === 'performance' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelPerformance">
                         <div class="flex items-center gap-2">
@@ -149,7 +149,18 @@
                         </div>
                     </div>
                      @can('viewCompanyAdmin', auth()->user())
-                        <div x-cloak x-show="selectedTab === 'steps'" id="tabpanelSteps" role="tabpanel" aria-label="steps">
+                        <div x-cloak x-show="selectedTab === 'steps'"
+                             x-data="{
+                                has_department: {{ auth()->user()->department_id ? 'true' : 'false' }},
+                                checkConfetti() {
+                                    if (selectedTab === 'steps' && this.has_department) {
+                                        new JSConfetti().addConfetti();
+                                    }
+                                }
+                             }"
+                             @steps-tab-activated.window="checkConfetti()"
+                             @all-steps-completed.window="checkConfetti()"
+                             id="tabpanelSteps" role="tabpanel" aria-label="steps">
                             <livewire:company.steps.index />
                         </div>
                     @endcan
