@@ -36,7 +36,7 @@ class CreateNewUser implements CreatesNewUsers
             'notifications' => 0,
         ];
         $organization_by_default = Organization::where('name', 'neura')->first();
-        $role = Role::where('name', 'company_admin')->first();
+        $role_by_default = Role::where('name', 'company_admin')->first();
 
         $user = User::create([
             'name' => $input['name'],
@@ -46,7 +46,7 @@ class CreateNewUser implements CreatesNewUsers
             'organization_id' => $organization_by_default->id,
         ]);
 
-        $user->userRoles()->attach($role->id);
+        $user->userRoles()->attach($role_by_default->id);
 
         return $user;
     }
