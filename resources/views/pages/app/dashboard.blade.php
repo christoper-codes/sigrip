@@ -34,13 +34,16 @@
 
             @can('viewCompanyAdmin', auth()->user())
                 <div class="mt-4">
-                    <x-buttons.primary title="{{ __('Comenzar') }}"/>
+                    <x-buttons.primary
+                        title="{{ __('Comenzar') }}"
+                        x-on:click="$dispatch('go-to-steps')"
+                    />
                 </div>
             @endcan
         </div>
 
         <div class="mt-10">
-            <div x-data="{ selectedTab: 'performance' }" class="w-full">
+            <div x-data="{ selectedTab: 'performance' }" @go-to-steps.window="selectedTab = 'steps'" class="w-full">
                 <div x-on:keydown.right.prevent="$focus.wrap().next()" x-on:keydown.left.prevent="$focus.wrap().previous()" class="flex gap-2 overflow-x-auto border-b border-neutral-300 dark:border-neutral-700" role="tablist" aria-label="tab options">
                     <button x-on:click="selectedTab = 'performance'" x-bind:aria-selected="selectedTab === 'performance'" x-bind:tabindex="selectedTab === 'performance' ? '0' : '-1'" x-bind:class="selectedTab === 'performance' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelPerformance">
                         <div class="flex items-center gap-2">
