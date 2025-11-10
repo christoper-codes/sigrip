@@ -13,12 +13,30 @@
                         this.greeting = '{{ __('Buenas noches,') }}';
                     }
                 }
-            }" class="text-3xl leading-normal">
-            <span x-text="greeting"></span>
-            <br>
-            <span class="uppercase">{{ auth()->user()->name }}</span>
-             <br>
-            <span class="text-sm opacity-70" x-text="currentDateTime"></span>
+            }">
+            <div class="flex items-start justify-between">
+                <div class="text-3xl leading-normal">
+                    <span x-text="greeting"></span>
+                    <br>
+                    <span class="uppercase">{{ auth()->user()->name }}</span>
+                    <br>
+                    <span class="text-sm opacity-70" x-text="currentDateTime"></span>
+                </div>
+                <div class="relative">
+                    <div class="flex items-center justify-center p-3 rounded-full border border-neutral-300 dark:border-neutral-700 bg-light-variant dark:bg-dark-variant">
+                        <flux:icon.bell class="size-5"/>
+                    </div>
+                    <div class="absolute -top-1 -right-1 text-light bg-primary text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold">
+                        <span>{{ auth()->user()->metadata['notifications'] ?? 0 }}</span>
+                    </div>
+                </div>
+            </div>
+
+            @can('viewCompanyAdmin', auth()->user())
+                <div class="mt-4">
+                    <x-buttons.primary title="{{ __('Comenzar') }}"/>
+                </div>
+            @endcan
         </div>
 
         <div class="mt-10">

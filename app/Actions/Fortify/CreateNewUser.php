@@ -31,10 +31,15 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
+        $metadata = [
+            'notifications' => 0,
+        ];
+
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => $input['password'],
+            'metadata' => $metadata,
         ]);
 
         $role = Role::where('name', 'company_admin')->first();
