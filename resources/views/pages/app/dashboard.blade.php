@@ -30,12 +30,14 @@
                             <span>{{ __('Performance') }}</span>
                         </div>
                     </button>
-                    <button x-on:click="selectedTab = 'steps'" x-bind:aria-selected="selectedTab === 'steps'" x-bind:tabindex="selectedTab === 'steps' ? '0' : '-1'" x-bind:class="selectedTab === 'steps' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelSteps">
-                        <div class="flex items-center gap-2">
-                            <flux:icon.cube class="size-5" />
-                            <span>{{ __('Pasos faltantes') }}</span>
-                        </div>
-                    </button>
+                    @can('viewCompanyAdmin', auth()->user())
+                        <button x-on:click="selectedTab = 'steps'" x-bind:aria-selected="selectedTab === 'steps'" x-bind:tabindex="selectedTab === 'steps' ? '0' : '-1'" x-bind:class="selectedTab === 'steps' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelSteps">
+                            <div class="flex items-center gap-2">
+                                <flux:icon.cube class="size-5" />
+                                <span>{{ __('Pasos faltantes') }}</span>
+                            </div>
+                        </button>
+                    @endcan
                 </div>
                 <div class="px-2 mt-10">
                     <div x-cloak x-show="selectedTab === 'performance'" id="tabpanelPerformance" role="tabpanel" aria-label="performance">
@@ -128,9 +130,11 @@
                             </div>
                         </div>
                     </div>
-                    <div x-cloak x-show="selectedTab === 'steps'" id="tabpanelSteps" role="tabpanel" aria-label="steps">
-                        <b><a href="#" class="underline">{{ __('Pasos faltantes') }}</a></b> tab is selected
-                    </div>
+                     @can('viewCompanyAdmin', auth()->user())
+                        <div x-cloak x-show="selectedTab === 'steps'" id="tabpanelSteps" role="tabpanel" aria-label="steps">
+                            <b><a href="#" class="underline">{{ __('Pasos faltantes') }}</a></b> tab is selected
+                        </div>
+                    @endcan
                 </div>
             </div>
         </div>
