@@ -22,7 +22,7 @@
                     <br>
                     <span class="text-sm opacity-70" x-text="currentDateTime"></span>
                 </div>
-                <div class="relative">
+                <div class="hidden lg:block relative">
                     <div class="flex items-center justify-center p-3 rounded-full border border-neutral-300 dark:border-neutral-700 bg-light-variant dark:bg-dark-variant">
                         <flux:icon.bell class="size-5"/>
                     </div>
