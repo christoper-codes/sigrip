@@ -31,11 +31,16 @@ class Store extends Component
             'hr_department' => $this->hr_department,
         ];
 
-        Department::create([
+        $department = Department::create([
             'organization_id' => Auth::user()->organization->id,
             'company_id' => Auth::user()->company->id,
             'name' => $this->name,
             'description' => $this->description,
+            'metadata' => $metadata,
         ]);
+
+        if ($this->hr_department) {
+            Auth::user()->update(['department_id' => $department->id]);
+        }
     }
 }

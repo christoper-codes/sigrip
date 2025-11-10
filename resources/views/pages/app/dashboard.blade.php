@@ -150,34 +150,92 @@
                     </div>
                      @can('viewCompanyAdmin', auth()->user())
                         <div x-cloak x-show="selectedTab === 'steps'" id="tabpanelSteps" role="tabpanel" aria-label="steps">
-                            <div class="flex items-center gap-5">
-                                <div class="text-center flex items-center justify-center rounded-full size-10 text-dark dark:bg-light-variant bg-dark-variant border dark:border-neutral-300 border-neutral-700">
-                                    <span>1</span>
-                                </div>
-                                <div class="text-center flex items-center justify-center rounded-full size-10 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700">
-                                    <span>2</span>
-                                </div>
-                                <div class="text-center flex items-center justify-center rounded-full size-10 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700">
-                                    <span>3</span>
-                                </div>
-                                <div class="text-center flex items-center justify-center rounded-full size-10 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700">
-                                    <span>4</span>
-                                </div>
+                            @php
+                                $user = auth()->user();
+                                $hasCompany = $user->company_id !== null;
+                                $hasDepartment = $user->department_id !== null;
+                                $currentStep = 1;
+
+                                if ($hasCompany) $currentStep = 2;
+                                if ($hasDepartment) $currentStep = 3;
+                                // Agregar más condiciones según tus pasos
+                            @endphp
+
+                            <!-- Progress Steps -->
+                            <div class="flex items-center gap-5 mb-10">
+                                @for ($step = 1; $step <= 4; $step++)
+                                    <div class="flex items-center">
+                                        <div class="text-center flex items-center justify-center rounded-full size-10
+                                            @if ($step < $currentStep)
+                                                bg-green-500 text-white border-green-500
+                                            @elseif ($step === $currentStep)
+                                                bg-primary text-white border-primary
+                                            @else
+                                                bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700
+                                            @endif">
+                                            @if ($step < $currentStep)
+                                                <flux:icon.check class="size-4" />
+                                            @else
+                                                <span>{{ $step }}</span>
+                                            @endif
+                                        </div>
+                                        @if ($step < 4)
+                                            <div class="w-12 h-0.5 mx-2 @if($step < $currentStep) bg-green-500 @else bg-neutral-300 dark:bg-neutral-700 @endif"></div>
+                                        @endif
+                                    </div>
+                                @endfor
                             </div>
-                            <div class="mt-10 max-w-2xl">
-                                <flux:heading size="xl">{{ __('Crea tu compañia') }}</flux:heading>
-                                <flux:text class="mt-2">{{ __('Completa el formulario para configurar tu cuenta y agregar departamentos.') }}</flux:text>
-                                <div class="mt-5">
-                                    <livewire:company.store />
+
+                            <!-- Step 1: Create Company -->
+                            @if ($currentStep === 1)
+                                <div class="max-w-2xl">
+                                    <flux:heading size="xl">{{ __('Paso 1: Crea tu compañía') }}</flux:heading>
+                                    <flux:text class="mt-2">{{ __('Completa el formulario para configurar tu cuenta y agregar departamentos.') }}</flux:text>
+                                    <div class="mt-5">
+                                        <livewire:company.store />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mt-10 max-w-2xl">
-                                <flux:heading size="xl">{{ __('Crea un departamento') }}</flux:heading>
-                                <flux:text class="mt-2">{{ __('Completa el formulario para crear aplicaciones y usuarios. (Es necesario tener un departamento de RH)') }}</flux:text>
-                                <div class="mt-5">
-                                    <livewire:department.store />
+                            @endif
+
+                            <!-- Step 2: Create Department -->
+                            @if ($currentStep === 2)
+                                <div class="max-w-2xl">
+                                    <flux:heading size="xl">{{ __('Paso 2: Crea un departamento') }}</flux:heading>
+                                    <flux:text class="mt-2">{{ __('Completa el formulario para crear departamentos y usuarios. (Es necesario tener un departamento de RH)') }}</flux:text>
+                                    <div class="mt-5">
+                                        <livewire:department.store />
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
+
+                            <!-- Step 3: Setup Applications (Ejemplo) -->
+                            @if ($currentStep === 3)
+                                <div class="max-w-2xl">
+                                    <flux:heading size="xl">{{ __('Paso 3: Configura aplicaciones') }}</flux:heading>
+                                    <flux:text class="mt-2">{{ __('Configura las aplicaciones y formularios para tu organización.') }}</flux:text>
+                                    <div class="mt-5">
+                                        {{-- <livewire:application.store /> --}}
+                                        <div class="p-6 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-xl text-center">
+                                            <flux:icon.cog-6-tooth class="size-12 mx-auto mb-4 text-neutral-400" />
+                                            <p class="text-neutral-600 dark:text-neutral-400">{{ __('Componente de aplicaciones próximamente') }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <!-- Step 4: Complete Setup (Ejemplo) -->
+                            @if ($currentStep === 4)
+                                <div class="max-w-2xl">
+                                    <div class="text-center p-8 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl">
+                                        <flux:icon.check-circle class="size-16 mx-auto mb-4 text-green-500" />
+                                        <flux:heading size="xl" class="text-green-700 dark:text-green-300">{{ __('¡Configuración completada!') }}</flux:heading>
+                                        <flux:text class="mt-2 text-green-600 dark:text-green-400">{{ __('Tu cuenta está lista para usar. Puedes comenzar a crear formularios y gestionar usuarios.') }}</flux:text>
+                                        <div class="mt-6">
+                                            <flux:button variant="primary" href="{{ route('dashboard') }}">{{ __('Ir al Dashboard') }}</flux:button>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     @endcan
                 </div>
