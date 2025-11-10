@@ -1,4 +1,7 @@
 import './components/animated-button.js';
+import JSConfetti from 'js-confetti';
+
+window.JSConfetti = JSConfetti;
 
 /* Appearance by default */
 (function() {

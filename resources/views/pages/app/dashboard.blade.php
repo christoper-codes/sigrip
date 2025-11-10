@@ -150,17 +150,15 @@
                     </div>
                      @can('viewCompanyAdmin', auth()->user())
                         <div x-cloak x-show="selectedTab === 'steps'"
-                             x-data="{
-                                has_department: {{ auth()->user()->department_id ? 'true' : 'false' }},
-                                checkConfetti() {
-                                    if (selectedTab === 'steps' && this.has_department) {
-                                        new JSConfetti().addConfetti();
-                                    }
+                            x-data="{
+                                has_department: {{ auth()->user()->department->metadata['hr_department'] ?? false }},
+                            }"
+                            x-effect="
+                                if (selectedTab === 'steps' && has_department) {
+                                    new JSConfetti().addConfetti();
                                 }
-                             }"
-                             @steps-tab-activated.window="checkConfetti()"
-                             @all-steps-completed.window="checkConfetti()"
-                             id="tabpanelSteps" role="tabpanel" aria-label="steps">
+                            "
+                            id="tabpanelSteps" role="tabpanel" aria-label="steps">
                             <livewire:company.steps.index />
                         </div>
                     @endcan
