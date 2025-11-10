@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Organization;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
@@ -34,15 +35,17 @@ class CreateNewUser implements CreatesNewUsers
         $metadata = [
             'notifications' => 0,
         ];
+        $organization_by_default = Organization::where('name', 'neura')->first();
+        $role = Role::where('name', 'company_admin')->first();
 
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => $input['password'],
             'metadata' => $metadata,
+            'organization_id' => $organization_by_default->id,
         ]);
 
-        $role = Role::where('name', 'company_admin')->first();
         $user->userRoles()->attach($role->id);
 
         return $user;

@@ -40,7 +40,7 @@
         </div>
 
         <div class="mt-10">
-            <div x-data="{ selectedTab: 'performance' }" class="w-full">
+            <div x-data="{ selectedTab: 'steps' }" class="w-full">
                 <div x-on:keydown.right.prevent="$focus.wrap().next()" x-on:keydown.left.prevent="$focus.wrap().previous()" class="flex gap-2 overflow-x-auto border-b border-neutral-300 dark:border-neutral-700" role="tablist" aria-label="tab options">
                     <button x-on:click="selectedTab = 'performance'" x-bind:aria-selected="selectedTab === 'performance'" x-bind:tabindex="selectedTab === 'performance' ? '0' : '-1'" x-bind:class="selectedTab === 'performance' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelPerformance">
                         <div class="flex items-center gap-2">
@@ -109,13 +109,13 @@
                                     </div>
                                     <div class="flex items-center gap-3 justify-center py-8">
                                        <div class="p-3 rounded-full bg-light dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700">
-                                           <flux:icon.cloud class="size-8 text-[#0090EC]" />
+                                           <flux:icon.cloud class="size-8 text-blue-500" />
                                        </div>
-                                       <div class="p-3 rounded-full bg-light dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 shadow-xl shadow-[#0090EC]/20">
-                                           <flux:icon.shield-check class="size-12 text-[#0090EC]" />
+                                       <div class="p-3 rounded-full bg-light dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 shadow-xl shadow-blue-500/20">
+                                           <flux:icon.shield-check class="size-12 text-blue-500" />
                                        </div>
                                        <div class="p-3 rounded-full bg-light dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700">
-                                           <flux:icon.folder-open class="size-8 text-[#0090EC]" />
+                                           <flux:icon.folder-open class="size-8 text-blue-500" />
                                        </div>
                                     </div>
                                     </div>
@@ -150,7 +150,27 @@
                     </div>
                      @can('viewCompanyAdmin', auth()->user())
                         <div x-cloak x-show="selectedTab === 'steps'" id="tabpanelSteps" role="tabpanel" aria-label="steps">
-                            <b><a href="#" class="underline">{{ __('Pasos faltantes') }}</a></b> tab is selected
+                            <div class="flex items-center gap-5">
+                                <div class="text-center flex items-center justify-center rounded-full size-10 text-dark dark:bg-light-variant bg-dark-variant border dark:border-neutral-300 border-neutral-700">
+                                    <span>1</span>
+                                </div>
+                                <div class="text-center flex items-center justify-center rounded-full size-10 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700">
+                                    <span>2</span>
+                                </div>
+                                <div class="text-center flex items-center justify-center rounded-full size-10 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700">
+                                    <span>3</span>
+                                </div>
+                                <div class="text-center flex items-center justify-center rounded-full size-10 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700">
+                                    <span>4</span>
+                                </div>
+                            </div>
+                            <div class="mt-10 max-w-2xl">
+                                <flux:heading size="xl">{{ __('Crea tu compañia') }}</flux:heading>
+                                <flux:text class="mt-2">{{ __('Completa el formulario para configurar tu cuenta y agregar departamentos.') }}</flux:text>
+                                <div class="mt-5">
+                                    <livewire:company.store />
+                                </div>
+                            </div>
                         </div>
                     @endcan
                 </div>

@@ -15,8 +15,8 @@ class OrganizationSeeder extends Seeder
         Organization::create([
             'image_id' => null,
             'address_id' => null,
-            'name' => 'Neura Inc.',
-            'description' => 'Neura company, dedicated to providing psychosocial software services.',
+            'name' => 'neura',
+            'description' => 'Neura Inc. company, dedicated to providing psychosocial software services.',
             'metadata' => null,
         ]);
     }
