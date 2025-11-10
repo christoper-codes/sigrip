@@ -1,20 +1,20 @@
 <x-layouts.app :title="__('Dashboard')">
-    <div class="h-full w-full min-h-[500px]">
-        <div x-data="{
-                greeting: '',
-                currentDateTime: new Date().toLocaleString('es-MX', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-                init() {
-                    const hour = new Date().getHours();
-                    if (hour >= 5 && hour < 12) {
-                        this.greeting = '{{ __('Buenos días,') }}';
-                    } else if (hour >= 12 && hour < 18) {
-                        this.greeting = '{{ __('Buenas tardes,') }}';
-                    } else {
-                        this.greeting = '{{ __('Buenas noches,') }}';
+    <div class="h-full w-full">
+        <x-appearance.header>
+            <div x-data="{
+                    greeting: '',
+                    currentDateTime: new Date().toLocaleString('es-MX', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+                    init() {
+                        const hour = new Date().getHours();
+                        if (hour >= 5 && hour < 12) {
+                            this.greeting = '{{ __('Buenos días,') }}';
+                        } else if (hour >= 12 && hour < 18) {
+                            this.greeting = '{{ __('Buenas tardes,') }}';
+                        } else {
+                            this.greeting = '{{ __('Buenas noches,') }}';
+                        }
                     }
-                }
-            }">
-            <div class="flex items-start justify-between">
+                }">
                 <div class="text-3xl leading-normal">
                     <span x-text="greeting"></span>
                     <br>
@@ -22,27 +22,19 @@
                     <br>
                     <span class="text-sm opacity-70" x-text="currentDateTime"></span>
                 </div>
-                <div class="hidden lg:block relative">
-                    <div class="flex items-center justify-center p-3 rounded-full border border-neutral-300 dark:border-neutral-700 bg-light-variant dark:bg-dark-variant">
-                        <flux:icon.bell class="size-5"/>
+
+                @can('viewCompanyAdmin', auth()->user())
+                    <div class="mt-4">
+                        <x-buttons.primary
+                            title="{{ __('Comenzar') }}"
+                            x-on:click="$dispatch('go-to-steps')"
+                        />
                     </div>
-                    <div class="absolute -top-1 -right-1 text-light bg-primary text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold">
-                        <span>{{ auth()->user()->metadata['notifications'] ?? 0 }}</span>
-                    </div>
-                </div>
+                @endcan
             </div>
+        </x-appearance.header>
 
-            @can('viewCompanyAdmin', auth()->user())
-                <div class="mt-4">
-                    <x-buttons.primary
-                        title="{{ __('Comenzar') }}"
-                        x-on:click="$dispatch('go-to-steps')"
-                    />
-                </div>
-            @endcan
-        </div>
-
-        <div class="mt-10">
+        <div>
             <div x-data="{ selectedTab: 'performance' }" @go-to-steps.window="selectedTab = 'steps'" class="w-full">
                 <div x-on:keydown.right.prevent="$focus.wrap().next()" x-on:keydown.left.prevent="$focus.wrap().previous()" class="flex gap-2 overflow-x-auto border-b border-neutral-300 dark:border-neutral-700" role="tablist" aria-label="tab options">
                     <button x-on:click="selectedTab = 'performance'" x-bind:aria-selected="selectedTab === 'performance'" x-bind:tabindex="selectedTab === 'performance' ? '0' : '-1'" x-bind:class="selectedTab === 'performance' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelPerformance">

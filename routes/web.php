@@ -8,10 +8,17 @@ Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');
 
-Route::view('dashboard', 'pages.app.dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+/*
+* App Dashboard Routes
+*/
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view('dashboard', 'pages.app.dashboard')->name('dashboard');
+    Route::view('departments', 'pages.app.departments.index')->name('departments.index');
+});
 
+/*
+* User Settings Routes
+*/
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
