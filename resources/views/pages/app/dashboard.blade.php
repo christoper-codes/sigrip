@@ -159,6 +159,7 @@
                                 }
                             "
                             id="tabpanelSteps" role="tabpanel" aria-label="steps">
+                            <div x-data x-on:steps-completed.window="new JSConfetti().addConfetti();"></div>
                             <livewire:company.steps.index />
                         </div>
                     @endcan

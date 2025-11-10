@@ -21,7 +21,7 @@ class Store extends Component
     #[Validate(['sometimes', 'string'])]
     public ?string $description = null;
 
-    public bool $hr_department = false;
+    public bool $hr_department;
 
     public function submit(): void
     {
@@ -41,8 +41,7 @@ class Store extends Component
 
         if ($this->hr_department) {
             Auth::user()->update(['department_id' => $department->id]);
+            $this->dispatch('nextStep');
         }
-
-        $this->dispatch('nextStep');
     }
 }

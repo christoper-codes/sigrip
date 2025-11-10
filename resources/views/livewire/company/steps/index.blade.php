@@ -36,9 +36,9 @@
     @if ($current_step === 2)
         <div class="max-w-2xl">
             <flux:heading size="xl">{{ __('Crea un departamento') }}</flux:heading>
-            <flux:text class="mt-2">{{ __('Completa el formulario para crear aplicaciones y usuarios. (Es necesario tener un departamento de RH)') }}</flux:text>
+            <flux:text class="mt-2">{{ __('Completa el formulario para crear aplicaciones y usuarios.') }} <br> <span class="font-bold">{{ __('(Es necesario tener un departamento de RH para continuar)') }}</span> </flux:text>
             <div class="mt-5">
-                <livewire:department.store />
+                <livewire:department.store hr_department="true" />
             </div>
         </div>
     @endif
