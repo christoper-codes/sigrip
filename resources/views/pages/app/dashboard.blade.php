@@ -158,14 +158,13 @@
 
                                 if ($hasCompany) $currentStep = 2;
                                 if ($hasDepartment) $currentStep = 3;
-                                // Agregar más condiciones según tus pasos
                             @endphp
 
                             <!-- Progress Steps -->
                             <div class="flex items-center gap-5 mb-10">
                                 @for ($step = 1; $step <= 4; $step++)
                                     <div class="flex items-center">
-                                        <div class="text-center flex items-center justify-center rounded-full size-10
+                                        <div class="text-center flex items-center justify-center rounded-full size-12
                                             @if ($step < $currentStep)
                                                 bg-green-500 text-white border-green-500
                                             @elseif ($step === $currentStep)
@@ -179,9 +178,6 @@
                                                 <span>{{ $step }}</span>
                                             @endif
                                         </div>
-                                        @if ($step < 4)
-                                            <div class="w-12 h-0.5 mx-2 @if($step < $currentStep) bg-green-500 @else bg-neutral-300 dark:bg-neutral-700 @endif"></div>
-                                        @endif
                                     </div>
                                 @endfor
                             </div>
@@ -189,7 +185,7 @@
                             <!-- Step 1: Create Company -->
                             @if ($currentStep === 1)
                                 <div class="max-w-2xl">
-                                    <flux:heading size="xl">{{ __('Paso 1: Crea tu compañía') }}</flux:heading>
+                                    <flux:heading size="xl">{{ __('Crea tu compañía') }}</flux:heading>
                                     <flux:text class="mt-2">{{ __('Completa el formulario para configurar tu cuenta y agregar departamentos.') }}</flux:text>
                                     <div class="mt-5">
                                         <livewire:company.store />
@@ -200,7 +196,7 @@
                             <!-- Step 2: Create Department -->
                             @if ($currentStep === 2)
                                 <div class="max-w-2xl">
-                                    <flux:heading size="xl">{{ __('Paso 2: Crea un departamento') }}</flux:heading>
+                                    <flux:heading size="xl">{{ __('Crea un departamento') }}</flux:heading>
                                     <flux:text class="mt-2">{{ __('Completa el formulario para crear departamentos y usuarios. (Es necesario tener un departamento de RH)') }}</flux:text>
                                     <div class="mt-5">
                                         <livewire:department.store />
@@ -211,7 +207,7 @@
                             <!-- Step 3: Setup Applications (Ejemplo) -->
                             @if ($currentStep === 3)
                                 <div class="max-w-2xl">
-                                    <flux:heading size="xl">{{ __('Paso 3: Configura aplicaciones') }}</flux:heading>
+                                    <flux:heading size="xl">{{ __('Configura aplicaciones') }}</flux:heading>
                                     <flux:text class="mt-2">{{ __('Configura las aplicaciones y formularios para tu organización.') }}</flux:text>
                                     <div class="mt-5">
                                         {{-- <livewire:application.store /> --}}
