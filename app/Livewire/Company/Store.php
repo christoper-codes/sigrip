@@ -15,7 +15,7 @@ class Store extends Component
     #[Validate(['sometimes', 'string'])]
     public ?string $description = null;
 
-    public function submit(): void
+    public function submit()
     {
         $this->validate();
 
@@ -26,5 +26,7 @@ class Store extends Component
         ]);
 
         Auth::user()->update(['company_id' => $company->id]);
+
+        $this->dispatch('nextStep');
     }
 }

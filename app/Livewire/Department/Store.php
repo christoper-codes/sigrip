@@ -15,7 +15,7 @@ class Store extends Component
     #[Validate(['string', 'min:3', 'max:255', 'email'])]
     public ?string $email = null;
 
-    #[Validate(['string', 'min:10', 'max:15', 'regex:/^\+?[0-9]{7,15}$/'])]
+    #[Validate(['string', 'min:10'])]
     public ?string $phone = null;
 
     #[Validate(['sometimes', 'string'])]
@@ -42,5 +42,7 @@ class Store extends Component
         if ($this->hr_department) {
             Auth::user()->update(['department_id' => $department->id]);
         }
+
+        $this->dispatch('nextStep');
     }
 }
