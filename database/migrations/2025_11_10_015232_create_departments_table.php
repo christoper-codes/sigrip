@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('company_id')->constrained('companies');
+            $table->foreignId('image_id')->nullable()->constrained('images');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->json('metadata')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
