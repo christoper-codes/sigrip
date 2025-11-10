@@ -3,7 +3,7 @@
 namespace App\Livewire\Company;
 
 use App\Models\Company;
-use App\Models\Organization;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -18,12 +18,13 @@ class Store extends Component
     public function submit(): void
     {
         $this->validate();
-        $organization_by_default = Organization::where('name', 'neura')->first();
 
         $company = Company::create([
-            'organization_id' => $organization_by_default->id,
+            'organization_id' => Auth::user()->organization->id,
             'name' => $this->name,
             'description' => $this->description,
         ]);
+
+        Auth::user()->update(['company_id' => $company->id]);
     }
 }

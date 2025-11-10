@@ -171,6 +171,13 @@
                                     <livewire:company.store />
                                 </div>
                             </div>
+                            <div class="mt-10 max-w-2xl">
+                                <flux:heading size="xl">{{ __('Crea un departamento') }}</flux:heading>
+                                <flux:text class="mt-2">{{ __('Completa el formulario para crear aplicaciones y usuarios. (Es necesario tener un departamento de RH)') }}</flux:text>
+                                <div class="mt-5">
+                                    <livewire:department.store />
+                                </div>
+                            </div>
                         </div>
                     @endcan
                 </div>

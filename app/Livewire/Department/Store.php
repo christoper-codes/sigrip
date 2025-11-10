@@ -3,6 +3,7 @@
 namespace App\Livewire\Department;
 
 use App\Models\Department;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -20,10 +21,21 @@ class Store extends Component
     #[Validate(['sometimes', 'string'])]
     public ?string $description = null;
 
+    public bool $hr_department = false;
+
     public function submit(): void
     {
         $this->validate();
 
+        $metadata = [
+            'hr_department' => $this->hr_department,
+        ];
 
+        Department::create([
+            'organization_id' => Auth::user()->organization->id,
+            'company_id' => Auth::user()->company->id,
+            'name' => $this->name,
+            'description' => $this->description,
+        ]);
     }
 }
