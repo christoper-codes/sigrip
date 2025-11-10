@@ -153,14 +153,8 @@
                     </div>
                      @can('viewCompanyAdmin', auth()->user())
                         <div x-cloak x-show="selectedTab === 'steps'"
-                            x-data="{
-                                has_department: {{ json_encode(auth()->user()->department?->metadata['hr_department'] ?? false) }},
-                            }"
-                            x-effect="
-                                if (selectedTab === 'steps' && has_department) {
-                                    new JSConfetti().addConfetti();
-                                }
-                            "
+                            x-data="{ has_department: {{ json_encode(auth()->user()->department?->metadata['hr_department'] ?? false) }} }"
+                            x-effect="if (selectedTab === 'steps' && has_department) new JSConfetti().addConfetti()"
                             id="tabpanelSteps" role="tabpanel" aria-label="steps">
                             <div x-data x-on:steps-completed.window="new JSConfetti().addConfetti();"></div>
                             <livewire:company.steps.index />
