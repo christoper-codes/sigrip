@@ -151,7 +151,7 @@
                      @can('viewCompanyAdmin', auth()->user())
                         <div x-cloak x-show="selectedTab === 'steps'"
                             x-data="{
-                                has_department: {{ auth()->user()->department->metadata['hr_department'] ?? false }},
+                                has_department: {{ json_encode(auth()->user()->department?->metadata['hr_department'] ?? false) }},
                             }"
                             x-effect="
                                 if (selectedTab === 'steps' && has_department) {

@@ -33,7 +33,6 @@ class Index extends Component
 
         if ($has_department) {
             $this->current_step = 3;
-            $this->dispatch('steps-completed');
         }
     }
 

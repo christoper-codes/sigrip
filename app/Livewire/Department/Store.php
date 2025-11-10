@@ -41,6 +41,7 @@ class Store extends Component
 
         if ($this->hr_department) {
             Auth::user()->update(['department_id' => $department->id]);
+            $this->dispatch('steps-completed');
             $this->dispatch('nextStep');
         }
     }
