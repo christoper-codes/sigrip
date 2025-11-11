@@ -56,10 +56,22 @@
                 </div>
 
                 <div class="w-full relative [filter:drop-shadow(0px_0px_40px_rgb(255_193_7_/_100%))_drop-shadow(0px_0px_80px_rgb(255_193_7_/_70%))_drop-shadow(0px_0px_120px_rgb(255_193_7_/_90%))]">
-                    <div class="w-full h-[2px] bg-gradient-to-r from-transparent via-white to-transparent [filter:drop-shadow(0px_0px_20px_rgb(255_255_255_/_100%))]"></div>
+                    <div class="w-full h-[2px] bg-gradient-to-r from-transparent via-dark/50 dark:via-light to-transparent [filter:drop-shadow(0px_0px_20px_rgb(255_255_255_/_100%))]"></div>
                 </div>
-                <div class="w-full ">
-                    <img class="w-full rounded-xl" src="https://framerusercontent.com/images/yOaKdJar2PZdG3Az8naxpXxmT8.png" alt="">
+                <div x-data="{ dark: document.documentElement.classList.contains('dark') }"
+                        x-init="
+                            const observer = new MutationObserver(() => {
+                                dark = document.documentElement.classList.contains('dark')
+                            })
+                            observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+                        "
+                        class="w-full"
+                    >
+                    {{-- light hero image --}}
+                    <img x-show="!dark" class="w-full rounded-lg shadow-2xl shadow-neutral-900/30 dark:shadow-white/10" src="/images/hero-light.png" alt="hero image">
+
+                    {{-- dark hero image --}}
+                    <img x-show="dark" class="w-full rounded-lg shadow-2xl shadow-neutral-900/30 dark:shadow-white/10" src="/images/hero-dark.png" alt="hero image">
                 </div>
             </div>
         </div>
