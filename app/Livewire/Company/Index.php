@@ -10,7 +10,6 @@ class Index extends Component
 {
     public array $companies = [];
 
-
     public function mount()
     {
         $this->companies = Company::where('organization_id', Auth::user()->organization->id)
