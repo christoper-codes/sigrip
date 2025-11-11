@@ -68,10 +68,10 @@
                         class="w-full"
                     >
                     {{-- light hero image --}}
-                    <img x-show="!dark" class="w-full rounded-lg shadow-2xl shadow-neutral-900/30 dark:shadow-white/10" src="/images/hero-light.png" alt="hero image">
+                    <img x-show="!dark" class="w-full rounded md:rounded-md shadow-2xl shadow-neutral-900/30 dark:shadow-white/10" src="/images/hero-light.png" alt="hero image">
 
                     {{-- dark hero image --}}
-                    <img x-show="dark" class="w-full rounded-lg shadow-2xl shadow-neutral-900/30 dark:shadow-white/10" src="/images/hero-dark.png" alt="hero image">
+                    <img x-show="dark" class="w-full rounded md:rounded-md shadow-2xl shadow-neutral-900/30 dark:shadow-white/10" src="/images/hero-dark.png" alt="hero image">
                 </div>
             </div>
         </div>
