@@ -26,7 +26,7 @@
     --color-zinc-900: var(--color-neutral-900);
     --color-zinc-950: var(--color-black);
 
-    --color-accent: var(--color-yellow-500);
+    --color-accent: var(--color-black);
     --color-accent-content: var(--color-yellow-500);
     --color-accent-foreground: var(--color-white);
 
