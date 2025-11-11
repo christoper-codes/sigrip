@@ -25,9 +25,12 @@ class Update extends Component
     public function submit()
     {
         $this->validate();
+
         $this->company->update([
             'name' => $this->name,
             'description' => $this->description,
         ]);
+
+        $this->dispatch('toast', message: __('Compañía actualizada correctamente.'), type: 'success');
     }
 }

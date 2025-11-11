@@ -38,7 +38,7 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 transform translate-x-0"
             x-transition:leave-end="opacity-0 transform translate-x-full"
-            class="z-50 pointer-events-auto relative w-full max-w-sm rounded-md py-5 pl-6 pr-4 shadow-lg bg-white">
+            class="z-50 pointer-events-auto relative w-full max-w-sm rounded-md py-5 pl-6 pr-4 shadow-lg bg-light-variant/50 dark:bg-dark-variant/50 border border-light-variant dark:border-dark-variant backdrop-blur-md">
             <div class="flex items-start">
                 <!-- Icons -->
                 <div x-show="notification.type === 'info'" class="flex-shrink-0">
@@ -63,9 +63,8 @@
                 </div>
 
                 <!-- Text -->
-                <div class="ml-3 w-0 flex-1 pt-0.5">
-                    <h2 class="font-md text-gray-900">{{ __('Nota:') }}</h2>
-                    <p x-text="notification.content" class="text-xs leading-5 text-gray-700"></p>
+                <div class="ml-3 w-0 flex-1">
+                    <p x-text="notification.content" class="text-xs leading-5 opacity-80"></p>
                 </div>
 
                 <!-- Remove button -->
