@@ -7,9 +7,9 @@
                     <p class="text-sm">{{ __('© 2025 NEURA. Todos los derechos reservados.') }}</p>
                     <p class="text-xs opacity-70">{{ __('NEURA® es una marca registrada.') }}</p>
                 </div>
-                <div class="p-2 rounded-lg border border-neutral-800 bg-gradient-to-b from-dark to-neutral-900 hover:from-dark hover:to-neutral-800 transition-all duration-500 flex items-center gap-3">
+                <a href="https://x.com" class="p-2 rounded-lg border border-neutral-800 bg-gradient-to-b from-dark to-neutral-900 hover:from-dark hover:to-neutral-800 transition-all duration-500 flex items-center gap-3">
                     <x-icons.x />
-                </div>
+                </a>
             </div>
             <div
                 x-data="{ dark: document.documentElement.classList.contains('dark') }"
