@@ -15,6 +15,8 @@ class Store extends Component
     #[Validate(['sometimes', 'string'])]
     public ?string $description = null;
 
+    public bool $wizard = false;
+
     public function submit()
     {
         $this->validate();
@@ -28,5 +30,9 @@ class Store extends Component
         Auth::user()->update(['company_id' => $company->id]);
 
         $this->dispatch('nextStep');
+
+        if(! $this->wizard) {
+            $this->redirect(url: route('company.index'), navigate: true);
+        }
     }
 }

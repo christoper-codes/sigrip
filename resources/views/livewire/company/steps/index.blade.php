@@ -27,7 +27,7 @@
             <flux:heading size="xl">{{ __('Crea tu compañía') }}</flux:heading>
             <flux:text class="mt-2">{{ __('Completa el formulario para configurar tu cuenta y agregar departamentos.') }}</flux:text>
             <div class="mt-5">
-                <livewire:company.store />
+                <livewire:company.store wizard="true"/>
             </div>
         </div>
     @endif
