@@ -12,7 +12,7 @@ class Index extends Component
 
     public function mount()
     {
-        $this->companies = Company::where('organization_id', Auth::user()->organization->id)->get()->toArray();
+        $this->companies = Company::where('id', Auth::user()->company->id)->get()->toArray();
     }
 
     public function render()
