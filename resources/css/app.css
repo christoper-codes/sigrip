@@ -68,6 +68,10 @@
 [data-flux-label] {
     @apply  !mb-0 !leading-tight;
 }
+[data-flux-modal] > dialog::backdrop {
+    background-color:  rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
 
 input:focus[data-flux-control],
 textarea:focus[data-flux-control],

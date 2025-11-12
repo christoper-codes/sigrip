@@ -9,16 +9,16 @@ use Livewire\Component;
 
 class Store extends Component
 {
-    #[Validate(['string', 'min:3', 'max:255'])]
+    #[Validate(['required', 'string', 'min:3', 'max:255'])]
     public ?string $name = null;
 
-    #[Validate(['string', 'min:3', 'max:255', 'email'])]
+    #[Validate(['required', 'string', 'min:3', 'max:255', 'email'])]
     public ?string $email = null;
 
-    #[Validate(['string', 'min:10'])]
+    #[Validate(['nullable', 'string', 'min:10'])]
     public ?string $phone = null;
 
-    #[Validate(['sometimes', 'string'])]
+    #[Validate(['nullable', 'string', 'max:255'])]
     public ?string $description = null;
 
     public bool $hr_department = false;

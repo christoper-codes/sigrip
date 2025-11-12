@@ -20,6 +20,19 @@
         <flux:error name="description"/>
     </flux:field>
     <flux:field>
+        <flux:modal.trigger name="manage-manager">
+            <flux:button class="py-6" variant="primary">{{ __('Administrador (agregar / actualizar)') }}</flux:button>
+        </flux:modal.trigger>
+     </flux:field>
+    <flux:modal name="manage-manager" class="md:w-96">
+        <div>
+            <div>
+                <flux:heading size="lg">Update profile</flux:heading>
+                <flux:text class="mt-2">Make changes to your personal details.</flux:text>
+            </div>
+        </div>
+    </flux:modal>
+    <flux:field>
         <flux:switch label="Es departamento de RH" wire:model="hr_department" align="left" name="hr_department"/>
         <flux:error name="hr_department" />
     </flux:field>
