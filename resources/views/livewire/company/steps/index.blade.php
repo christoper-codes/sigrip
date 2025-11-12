@@ -38,7 +38,7 @@
             <flux:heading size="xl">{{ __('Crea un departamento') }}</flux:heading>
             <flux:text class="mt-2">{{ __('Completa el formulario para crear aplicaciones y usuarios.') }} <br> <span class="font-bold">{{ __('(Es necesario tener un departamento de RH para continuar)') }}</span> </flux:text>
             <div class="mt-5">
-                <livewire:department.store hr_department="true" />
+                <livewire:department.store :hr_department="true" />
             </div>
         </div>
     @endif
