@@ -22,7 +22,9 @@
     </x-appearance.table>
     <div class="mt-10">
         <flux:heading size="lg">{{ __('Departamentos asociados') }}</flux:heading>
-        <flux:text class="mt-2">{{ __('Seleccione un departamento para ver más detalles') }}</flux:text>
+        <flux:text class="mt-2">
+            {{ $departments ?  __('Seleccione un departamento para ver más detalles') : __('No hay departamentos asociados a esta compañía.') }}
+        </flux:text>
 
         <div class="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($departments as $department)
