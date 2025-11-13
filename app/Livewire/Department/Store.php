@@ -3,6 +3,7 @@
 namespace App\Livewire\Department;
 
 use App\Models\Department;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -20,6 +21,11 @@ class Store extends Component
 
     #[Validate(['nullable', 'string', 'max:255'])]
     public ?string $description = null;
+
+    #[Validate(['required', 'string', 'max:255'])]
+    public ?string $administrator = null;
+
+    public array $potential_administrators = [];
 
     public bool $hr_department = false;
 
@@ -45,4 +51,16 @@ class Store extends Component
             $this->dispatch('nextStep');
         }
     }
+
+    public function searchAdministrator(): void
+    {
+        $search = trim(strtolower($this->administrator));
+        $this->potential_administrators = User::query()
+            ->where('organization_id', Auth::user()->organization->id)
+            ->where('name', 'like', "%{$search}%")
+            ->orWhere('email', 'like', "%{$search}%")
+            ->get()
+            ->toArray();
+    }
+
 }
