@@ -23,10 +23,14 @@ class Store extends Component
     #[Validate(['nullable', 'string', 'max:255'])]
     public ?string $description = null;
 
-    #[Validate(['required', 'string', 'max:255'])]
-    public ?string $administrator = null;
+    public ?string $search_manager = null;
 
-    public Collection $potential_administrators;
+    #[Validate(['nullable', 'int'])]
+    public ?int $manager = null;
+
+    public bool $save_manager = false;
+
+    public Collection $potential_managers;
 
     public bool $hr_department = false;
 
@@ -44,6 +48,7 @@ class Store extends Component
             'name' => $this->name,
             'description' => $this->description,
             'metadata' => $metadata,
+            'manager_id' => $this->manager,
         ]);
 
         if ($this->hr_department) {
@@ -53,11 +58,12 @@ class Store extends Component
         }
     }
 
-    public function searchAdministrator(): void
+    public function searchManager(): void
     {
-        $this->validateOnly('administrator');
-        $search = trim(strtolower($this->administrator));
-        $this->potential_administrators = User::query()
+        $this->validate(['search_manager' => 'required|string|min:3|max:255']);
+
+        $search = trim(strtolower($this->search_manager));
+        $this->potential_managers = User::query()
             ->where('organization_id', Auth::user()->organization->id)
             ->where('name', 'like', "%{$search}%")
             ->orWhere('email', 'like', "%{$search}%")

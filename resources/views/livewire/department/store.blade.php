@@ -40,31 +40,38 @@
             </div>
             <div class="mt-5 space-y-3">
                 <div>
-                    <form wire:submit.prevent='searchAdministrator'>
+                    <form wire:submit.prevent='searchManager'>
                         <flux:label>{{ __('Buscar y asignar administrador') }}</flux:label>
-                        <flux:input name="administrator" icon="magnifying-glass" placeholder="{{ __('Nombre o email') }}" class="mt-1" wire:model="administrator" autocomplete="off"/>
-                        <flux:error name="administrator" />
-                        <flux:button type="submit" variant="primary" class="mt-3">{{ __('buscar') }}</flux:button>
+                        <flux:input name="search_manager" icon="magnifying-glass" placeholder="{{ __('Nombre o email') }}" class="mt-1" wire:model="search_manager" autocomplete="off"/>
+                        <flux:error name="search_manager" />
+                        <flux:button type="submit" class="mt-3">{{ __('buscar') }}</flux:button>
                     </form>
 
-                    @if($potential_administrators && $potential_administrators->isNotEmpty())
-                        <flux:radio.group class="mt-5">
-                            @foreach ($potential_administrators as $administrator)
+                    @if($potential_managers && $potential_managers->isNotEmpty())
+                        <flux:radio.group class="mt-5" wire:model="manager">
+                            @foreach ($potential_managers as $manager)
                                 <flux:radio
-                                    name="role"
-                                    value="{{ $administrator->id }}"
-                                    label="{{ $administrator->name }}"
-                                    description="{{ $administrator->email }} - {{ $administrator->userRoles->pluck('name')->join(', ') }}"
+                                    value="{{ $manager->id }}"
+                                    label="{{ $manager->name }}"
+                                    description="{{ $manager->email }} - {{ $manager->userRoles->pluck('name')->join(', ') }}"
                                 />
                             @endforeach
                         </flux:radio.group>
                     @endif
+                    <div class="mt-5 flex justify-end items-center gap-2">
+                        <flux:modal.close>
+                            <flux:button>{{ __('Cancelar') }}</flux:button>
+                        </flux:modal.close>
+                        <flux:modal.close>
+                            <flux:button variant="primary" wire:click="$set('save_manager', true)">{{ __('Guardar') }}</flux:button>
+                        </flux:modal.close>
+                    </div>
                 </div>
                 <div class="my-5">
                     <flux:separator text="or" />
                 </div>
                 <a href="#" class="block w-full p-5 shadow-xl border border-neutral-300 dark:border-neutral-700 rounded-lg text-center">
-                    <flux:text>{{ __('Crear o actualizar un empleado con rol de administrador') }}</flux:text>
+                    <flux:text>{{ __('Actualizar un empleado con rol de administrador') }}</flux:text>
                 </a>
             </div>
         </div>
