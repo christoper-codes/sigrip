@@ -42,22 +42,25 @@
                 <div>
                     <form wire:submit.prevent='searchAdministrator'>
                         <flux:label>{{ __('Buscar y asignar administrador') }}</flux:label>
-                        <flux:input icon="magnifying-glass" placeholder="{{ __('Nombre o email') }}" class="mt-1" wire:model="administrator" autocomplete="off"/>
+                        <flux:input name="administrator" icon="magnifying-glass" placeholder="{{ __('Nombre o email') }}" class="mt-1" wire:model="administrator" autocomplete="off"/>
+                        <flux:error name="administrator" />
                         <flux:button type="submit" variant="primary" class="mt-3">{{ __('buscar') }}</flux:button>
                     </form>
 
-                    <flux:radio.group>
-                        @foreach ($potential_administrators as $administrator)
-                            <flux:radio
-                                name="role"
-                                value="{{ $administrator['id'] }}"
-                                label="{{ $administrator['name'] }}"
-                                description="{{ $administrator['email'] }} - administrator"
-                            />
-                        @endforeach
-                    </flux:radio.group>
+                    @if($potential_administrators && $potential_administrators->isNotEmpty())
+                        <flux:radio.group class="mt-5">
+                            @foreach ($potential_administrators as $administrator)
+                                <flux:radio
+                                    name="role"
+                                    value="{{ $administrator->id }}"
+                                    label="{{ $administrator->name }}"
+                                    description="{{ $administrator->email }} - {{ $administrator->userRoles->pluck('name')->join(', ') }}"
+                                />
+                            @endforeach
+                        </flux:radio.group>
+                    @endif
                 </div>
-                <div>
+                <div class="my-5">
                     <flux:separator text="or" />
                 </div>
                 <a href="#" class="block w-full p-5 shadow-xl border border-neutral-300 dark:border-neutral-700 rounded-lg text-center">
