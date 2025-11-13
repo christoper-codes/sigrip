@@ -21,14 +21,30 @@
     </flux:field>
     <flux:field>
         <flux:modal.trigger name="manage-manager">
-            <flux:button class="py-6" variant="primary">{{ __('Administrador (agregar / actualizar)') }}</flux:button>
+            <flux:button class="py-6">{{ __('Administrador del departamento') }}</flux:button>
         </flux:modal.trigger>
      </flux:field>
-    <flux:modal name="manage-manager" class="md:w-96">
+    <flux:modal name="manage-manager" class="w-[90%] md:w-xl">
         <div>
             <div>
-                <flux:heading size="lg">Update profile</flux:heading>
-                <flux:text class="mt-2">Make changes to your personal details.</flux:text>
+                <flux:heading size="lg">{{ __('Actualizar administrador') }}</flux:heading>
+                <div class="flex items-start gap-2 mt-2">
+                    <flux:icon.shield-exclamation class="text-primary" />
+                    <flux:text class="text-primary">{{ __('Este departamento aún no tiene un administrador asignado.') }}</flux:text>
+                </div>
+                <div class="mt-5 space-y-3">
+                    <div>
+                        <flux:label>{{ __('Buscar y asignar administrador') }}</flux:label>
+                        <flux:input icon="magnifying-glass" placeholder="{{ __('Nombre o email') }}" class="mt-1"/>
+                        <flux:button variant="primary" class="mt-3">{{ __('buscar') }}</flux:button>
+                    </div>
+                    <div>
+                        <flux:separator text="or" />
+                    </div>
+                    <a href="#" class="block w-full p-5 shadow-xl border border-neutral-300 dark:border-neutral-700 rounded-lg text-center">
+                        <flux:text>{{ __('Crear o actualizar un empleado con rol de administrador') }}</flux:text>
+                    </a>
+                </div>
             </div>
         </div>
     </flux:modal>
