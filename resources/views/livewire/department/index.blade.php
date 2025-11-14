@@ -23,7 +23,7 @@
         </td>
     </x-appearance.table>
     <div class="mt-10">
-        <flux:heading size="lg">{{ __('Departamentos asociados') }}</flux:heading>
-        <flux:text class="mt-2">{{ __('Seleccione un departamento para ver más detalles') }}</flux:text>
+        <flux:heading size="lg">{{ __('Aplicaciones activas') }}</flux:heading>
+        <flux:text class="mt-2">{{ __('Seleccione una aplicacion para ver más detalles') }}</flux:text>
     </div>
 </div>
