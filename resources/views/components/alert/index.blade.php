@@ -24,7 +24,11 @@
                 show: false,
                 init() {
                     this.$nextTick(() => this.show = true)
-                    setTimeout(() => this.transitionOut(), 4000)
+                    if(notification.type == 'success'){
+                        setTimeout(() => this.transitionOut(), 4000)
+                    } else {
+                        setTimeout(() => this.transitionOut(), 10000)
+                    }
                 },
                 transitionOut() {
                     this.show = false
@@ -46,6 +50,13 @@
                         <svg aria-hidden class="h-4 w-4 fill-blue-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
                     </div>
                     <span class="sr-only">Information:</span>
+                </div>
+
+                <div x-show="notification.type === 'warning'" class="flex-shrink-0">
+                    <div class="h-6 w-6 rounded-full border-2 border-yellow-500 flex items-center justify-center">
+                        <svg aria-hidden class="h-4 w-4 fill-yellow-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.981-1.742 2.981H4.42c-1.53 0-2.493-1.647-1.743-2.982l5.58-9.92zM11 13a1 1 0 10-2 0v2a1 1 0 102 0v-2zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                    </div>
+                    <span class="sr-only">Warning:</span>
                 </div>
 
                 <div x-show="notification.type === 'success'" class="flex-shrink-0">
@@ -79,7 +90,7 @@
 
                 <div
                     class="absolute top-0 right-0 bottom-0 w-1 h-auto rounded-r-full"
-                     x-bind:class="{ 'bg-blue-500': notification.type == 'info', 'bg-emerald-500': notification.type == 'success', 'bg-red-500': notification.type == 'error' }">
+                     x-bind:class="{ 'bg-blue-500': notification.type == 'info', 'bg-emerald-500': notification.type == 'success', 'bg-red-500': notification.type == 'error', 'bg-yellow-500': notification.type == 'warning' }">
                 </div>
             </div>
         </div>
