@@ -5,7 +5,7 @@
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
 
-        <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
+        <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6" x-data="{ busy: false }" x-on:submit="busy = true">
             @csrf
             <!-- Name -->
             <flux:input
@@ -50,12 +50,15 @@
                 viewable
             />
 
-            <div class="flex items-center justify-end">
-                <x-buttons.primary
-                    title="{{ __('Crear cuenta') }}"
-                    type="submit"
-                    class="!w-full !py-6"
-                />
+            <div class="flex items-center justify-end w-full">
+                <flux:button type="submit" :loading="'busy'" class="!whitespace-nowrap !w-full !py-6 cursor-pointer! rounded-full! !text-base !bg-dark dark:!bg-light hover:!bg-neutral-800 dark:hover:!bg-neutral-200 !transition-all !duration-500 !text-center !text-white dark:!text-neutral-800">
+                    <span x-show="busy">
+                        <x-flux::icon.loading />
+                    </span>
+                    <span x-show="! busy">
+                        {{ __('Crear cuenta') }}
+                    </span>
+                </flux:button>
             </div>
         </form>
 
