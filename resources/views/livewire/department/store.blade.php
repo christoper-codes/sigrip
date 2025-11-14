@@ -21,8 +21,12 @@
             <flux:error name="description"/>
         </flux:field>
         <flux:field>
+            <div class="flex items-start gap-2 mt-2">
+                <flux:icon.chat-bubble-oval-left />
+                <flux:text>{{ __('Esta sección es opcional') }}</flux:text>
+            </div>
             <flux:modal.trigger name="manage-manager">
-                <flux:button class="py-6">{{ __('Administrador del departamento') }}</flux:button>
+                <flux:button class="py-6">{{ __('Gerente del departamento') }}</flux:button>
             </flux:modal.trigger>
         </flux:field>
         <flux:field>
@@ -33,15 +37,15 @@
     </form>
     <flux:modal name="manage-manager" class="w-[90%] md:w-xl">
         <div>
-            <flux:heading size="lg">{{ __('Actualizar administrador') }}</flux:heading>
+            <flux:heading size="lg">{{ __('Actualizar gerente') }}</flux:heading>
             <div class="flex items-start gap-2 mt-2">
-                <flux:icon.shield-exclamation class="text-primary" />
-                <flux:text class="text-primary">{{ __('Este departamento aún no tiene un administrador asignado.') }}</flux:text>
+                <flux:icon.chat-bubble-oval-left-ellipsis />
+                <flux:text>{{ __('Busque y seleccione un gerente para el departamento.') }}</flux:text>
             </div>
             <div class="mt-5 space-y-3">
                 <div>
                     <form wire:submit.prevent='searchManager'>
-                        <flux:label>{{ __('Buscar y asignar administrador') }}</flux:label>
+                        <flux:label>{{ __('Buscar y asignar gerente') }}</flux:label>
                         <flux:input name="search_manager" icon="magnifying-glass" placeholder="{{ __('Nombre o email') }}" class="mt-1" wire:model="search_manager" autocomplete="off"/>
                         <flux:error name="search_manager" />
                         <flux:button type="submit" class="mt-3">{{ __('buscar') }}</flux:button>
@@ -68,9 +72,9 @@
                     </div>
                 </div>
                 <div class="my-5">
-                    <flux:separator text="or" />
+                    <flux:separator text="O puedes" />
                 </div>
-                <a href="#" class="block w-full p-5 shadow-xl border border-neutral-300 dark:border-neutral-700 rounded-lg text-center">
+                <a href="#" class="block w-full p-5  border border-neutral-300 dark:border-neutral-700 rounded-lg text-center">
                     <flux:text>{{ __('Actualizar un empleado con rol de gerente') }}</flux:text>
                 </a>
             </div>

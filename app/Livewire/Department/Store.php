@@ -39,11 +39,18 @@ class Store extends Component
     {
         $this->validate();
 
+        $hr_department = Department::where('company_id', Auth::user()->company->id)
+            ->where('metadata->hr_department', true)
+            ->exists();
+        if($this->hr_department && $hr_department) {
+            $this->dispatch('toast', message: __('Ya existe un departamento de RRHH en esta compañía.'), type: 'error');
+            return;
+        }
+
         if($this->save_manager && $this->manager) {
             $potential_manager = User::find($this->manager)->userRoles()
                 ->where('name', RoleEnum::DEPARTMENT_MANAGER->value)
                 ->exists();
-
             if (! $potential_manager) {
                 $this->dispatch('toast', message: __('El empleado seleccionado no tiene el rol de Gerente'), type: 'error');
                 return;
@@ -65,6 +72,9 @@ class Store extends Component
             $this->dispatch('steps-completed');
             $this->dispatch('nextStep');
         }
+
+        $this->dispatch('toast', message: __('Departamento creado correctamente.'), type: 'success');
+        $this->reset();
     }
 
     public function searchManager(): void
