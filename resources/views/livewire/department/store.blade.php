@@ -71,7 +71,7 @@
                     <flux:separator text="or" />
                 </div>
                 <a href="#" class="block w-full p-5 shadow-xl border border-neutral-300 dark:border-neutral-700 rounded-lg text-center">
-                    <flux:text>{{ __('Actualizar un empleado con rol de administrador') }}</flux:text>
+                    <flux:text>{{ __('Actualizar un empleado con rol de gerente') }}</flux:text>
                 </a>
             </div>
         </div>

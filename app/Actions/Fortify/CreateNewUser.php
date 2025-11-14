@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Enums\RoleEnum;
 use App\Models\Organization;
 use App\Models\Role;
 use App\Models\User;
@@ -36,7 +37,7 @@ class CreateNewUser implements CreatesNewUsers
             'notifications' => 0,
         ];
         $organization_by_default = Organization::where('name', 'neura')->first();
-        $role_by_default = Role::where('name', 'administrador')->first();
+        $role_by_default = Role::where('name', RoleEnum::COMPANY_ADMIN->value)->first();
 
         $user = User::create([
             'name' => $input['name'],

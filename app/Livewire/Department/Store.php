@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Department;
 
+use App\Enums\RoleEnum;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -38,10 +39,18 @@ class Store extends Component
     {
         $this->validate();
 
-        $metadata = [
-            'hr_department' => $this->hr_department,
-        ];
+        if($this->save_manager && $this->manager) {
+            $potential_manager = User::find($this->manager)->userRoles()
+                ->where('name', RoleEnum::DEPARTMENT_MANAGER->value)
+                ->exists();
 
+            if (! $potential_manager) {
+                $this->dispatch('toast', message: __('El empleado seleccionado no tiene el rol de Gerente'), type: 'error');
+                return;
+            }
+        }
+
+        $metadata = ['hr_department' => $this->hr_department];
         $department = Department::create([
             'organization_id' => Auth::user()->organization->id,
             'company_id' => Auth::user()->company->id,
