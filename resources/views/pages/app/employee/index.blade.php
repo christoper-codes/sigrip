@@ -1,9 +1,9 @@
-<x-layouts.app :title="__('Departments')">
+<x-layouts.app :title="__('Employees')">
     <div class="h-full w-full">
         <x-appearance.header>
             <div class="text-3xl leading-normal space-y-2">
-                <p class="uppercase">{{ __('Departamentos') }}</p>
-                <p class="text-sm opacity-70">{{ __('Lista y crea departamentos para tu compañía') }}</p>
+                <p class="uppercase">{{ __('Empleados') }}</p>
+                <p class="text-sm opacity-70">{{ __('Lista y crea empleados para los departamentos') }}</p>
             </div>
         </x-appearance.header>
         <div x-data="{ selectedTab: 'info' }" class="w-full">
@@ -23,7 +23,7 @@
             </div>
             <div class="px-2 mt-10">
                 <div x-cloak x-show="selectedTab === 'info'" id="tabpanelInfo" role="tabpanel" aria-label="info">
-                    <livewire:department.index />
+                    <livewire:employee.index />
                 </div>
                 <div x-cloak x-show="selectedTab === 'create'" id="tabpanelCreateUpdate" role="tabpanel" aria-label="create">
                     <div class="max-w-2xl">
