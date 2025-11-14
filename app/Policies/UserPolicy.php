@@ -8,21 +8,21 @@ class UserPolicy
 {
     public function viewSystemOwner(User $user): bool
     {
-        return $user->hasRole(role:'system_owner');
+        return $user->hasRole(role:'propietario');
     }
 
     public function viewCompanyAdmin(User $user): bool
     {
-        return $user->hasRole(role:'company_admin');
+        return $user->hasRole(role:'administrador');
     }
 
     public function viewDepartmentManager(User $user): bool
     {
-        return $user->hasRole(role:'department_manager');
+        return $user->hasRole(role:'gerente');
     }
 
     public function viewEmployee(User $user): bool
     {
-        return $user->hasRole(role:'employee');
+        return $user->hasRole(role:'empleado');
     }
 }
