@@ -2,16 +2,30 @@
 
 namespace App\Livewire\Employee;
 
+use App\Models\Department;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Index extends Component
 {
 
-    #[Validate(['required', 'integer'])]
-    public ?int $department = null;
     public array $employees = [];
+    public array $departments = [];
+
+    #[Validate(['required', 'int'])]
+    public ?int $department = null;
+
+    public function mount()
+    {
+        $this->departments = Department::where('company_id', Auth::user()->company?->id)
+            ->get()
+            ->toArray();
+        if(! $this->departments){
+          $this->dispatch('toast', message: __('No hay departamentos disponibles.'), type: 'warning');
+        }
+    }
 
     public function searchEmployees(): void
     {
@@ -21,7 +35,6 @@ class Index extends Component
             ->with('userRoles')
             ->get()
             ->toArray();
-        dd($this->employees);
     }
 
     public function render()

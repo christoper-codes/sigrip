@@ -2,10 +2,10 @@
    <form wire:submit.prevent='searchEmployees'>
         <flux:field class="max-w-md w-full">
             <flux:label>{{ __('Filtrar por departamento') }}</flux:label>
-            <flux:select class="!h-12" name="department" placeholder="{{ __('Selecciona un departamento') }}">
-                <flux:select.option>Photography</flux:select.option>
-                <flux:select.option>Design services</flux:select.option>
-                <flux:select.option>Web development</flux:select.option>
+            <flux:select class="!h-12" name="department" placeholder="{{ __('Selecciona un departamento') }}" wire:model="department">
+                @foreach ($departments as $department)
+                    <flux:select.option value="{{ $department['id'] }}">{{ $department['name'] }}</flux:select.option>)
+                @endforeach
             </flux:select>
             <flux:error name="department"/>
         </flux:field>
@@ -16,7 +16,7 @@
         :headers="[
             __('Nombre'),
             __('Email'),
-            __('Role'),
+            __('Roles'),
             __('Fecha de Creación'),
             __('Estado'),
             __('Aplicaciones')
@@ -27,7 +27,7 @@
     >
         <td class="p-4" x-text="item.name"></td>
         <td class="p-4" x-text="item.email || 'Sin email'"></td>
-        <td class="p-4" x-text="item.role"></td>
+        <td class="p-4" x-text="item.user_roles?.map(role => role.name).join(', ') || 'Sin roles'"></td>
         <td class="p-4" x-text="new Date(item.created_at).toLocaleDateString('es-MX')"></td>
         <td class="p-4">
             <x-appearance.badge status="active" />
