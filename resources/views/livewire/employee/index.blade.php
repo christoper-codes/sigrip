@@ -29,7 +29,7 @@
                     __('Roles'),
                     __('Fecha de Creación'),
                     __('Aplicaciones'),
-                    __('Estado')
+                    __('Actualizar roles')
                 ]"
                 :searchFields="['name']"
                 :perPage="10"
@@ -43,7 +43,14 @@
                     <flux:link href="{{ route('dashboard') }}">{{ __('Ver aplicaciones') }}</flux:link>
                 </td>
                 <td class="p-4">
-                    <x-appearance.badge status="active" />
+                    <flux:modal.trigger name="update-roles">
+                        <flux:button>{{ __('Actualizar roles') }}</flux:button>
+                    </flux:modal.trigger>
+                    <flux:modal name="update-roles" class="md:w-96">
+                        <div>
+                            <span x-text="item.name"></span>
+                        </div>
+                    </flux:modal>
                 </td>
             </x-appearance.table>
         </div>
