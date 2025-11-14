@@ -52,15 +52,23 @@
                     </form>
 
                     @if($potential_managers && $potential_managers->isNotEmpty())
-                        <flux:radio.group class="mt-5" wire:model="manager">
-                            @foreach ($potential_managers as $manager)
-                                <flux:radio
-                                    value="{{ $manager->id }}"
-                                    label="{{ $manager->name }}"
-                                    description="{{ $manager->email }} - {{ $manager->userRoles->pluck('name')->join(', ') }}"
-                                />
-                            @endforeach
-                        </flux:radio.group>
+                        <div
+                            x-data="{ animation: false }"
+                            x-init="$nextTick(() => animation = true)"
+                            x-show="animation"
+                            x-transition
+                            >
+
+                            <flux:radio.group class="mt-5" wire:model="manager">
+                                @foreach ($potential_managers as $manager)
+                                    <flux:radio
+                                        value="{{ $manager->id }}"
+                                        label="{{ $manager->name }}"
+                                        description="{{ $manager->email }} - {{ $manager->userRoles->pluck('name')->join(', ') }}"
+                                    />
+                                @endforeach
+                            </flux:radio.group>
+                        </div>
                     @endif
                     <div class="mt-5 flex justify-end items-center gap-2">
                         <flux:modal.close>
@@ -72,7 +80,7 @@
                     </div>
                 </div>
                 <div class="my-5">
-                    <flux:separator text="O puedes" />
+                    <flux:separator text="Or" />
                 </div>
                 <a href="#" class="block w-full p-5  border border-neutral-300 dark:border-neutral-700 rounded-lg text-center">
                     <flux:text>{{ __('Actualizar un empleado con rol de gerente') }}</flux:text>
