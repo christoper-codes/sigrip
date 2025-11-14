@@ -62,6 +62,7 @@ class Store extends Component
             'organization_id' => Auth::user()->organization->id,
             'company_id' => Auth::user()->company->id,
             'name' => $this->name,
+            'email' => $this->email,
             'description' => $this->description,
             'metadata' => $metadata,
             'manager_id' => $this->manager,
