@@ -4,6 +4,7 @@
         :headers="[
             __('Nombre'),
             __('Administrador'),
+            __('Email'),
             __('Descripción'),
             __('Fecha de Creación'),
             __('Estado')
@@ -13,7 +14,8 @@
         searchPlaceholder="{{ __('Buscar departamento...') }}"
     >
         <td class="p-4" x-text="item.name"></td>
-        <td class="p-4">{{ auth()->user()->name }}</td>
+        <td class="p-4" x-text="item.manager?.name || 'Sin administrador'"></td>
+        <td class="p-4" x-text="item.email || 'Sin email'"></td>
         <td class="p-4" x-text="item.description || 'Sin descripción'"></td>
         <td class="p-4" x-text="new Date(item.created_at).toLocaleDateString('es-MX')"></td>
         <td class="p-4">

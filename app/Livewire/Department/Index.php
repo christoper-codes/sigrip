@@ -12,7 +12,10 @@ class Index extends Component
 
     public function mount()
     {
-        $this->departments = Department::where('company_id', Auth::user()->company?->id)->get()->toArray();
+        $this->departments = Department::where('company_id', Auth::user()->company?->id)
+                ->with('manager')
+                ->get()
+                ->toArray();
     }
 
     public function render()
