@@ -41,16 +41,15 @@ class Index extends Component
 
     public function render()
     {
-        $paginatedItems = $this->getPaginatedItems();
-        $filteredItems = $this->getFilteredItems();
-        $totalResults = count($filteredItems);
-        $totalPages = $this->getTotalPages();
+        $paginated_items = $this->getPaginatedItems();
+        $filtered_items = $this->getFilteredItems();
+        $total_results = count($filtered_items);
+        $total_pages = $this->getTotalPages();
 
         return view('livewire.employee.index', [
-            'paginatedItems' => $paginatedItems,
-            'totalResults' => $totalResults,
-            'totalPages' => $totalPages
+            'paginated_items' => $paginated_items,
+            'total_results' => $total_results,
+            'total_pages' => $total_pages
         ]);
     }
-
 }

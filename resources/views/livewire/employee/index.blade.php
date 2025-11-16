@@ -68,7 +68,7 @@
                 search_placeholder="{{ __('Nombre o email') }}"
                 >
                 <x-slot:table>
-                    @foreach ($paginatedItems as $employee)
+                    @foreach ($paginated_items as $employee)
                         <tr>
                             <td class="p-4">{{ $employee['name'] }}</td>
                             <td class="p-4">{{ $employee['email'] ?? 'Sin email' }}</td>

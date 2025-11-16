@@ -5,34 +5,34 @@ namespace App\Livewire\Traits;
 trait Table
 {
     public string $search_query = '';
-    public int $currentPage = 1;
-    public int $perPage = 10;
-    public array $searchFields = ['name', 'email'];
+    public int $current_page = 1;
+    public int $per_page = 10;
+    public array $search_fields = ['name', 'email'];
 
     public function updatedSearchQuery(): void
     {
-        $this->currentPage = 1;
+        $this->current_page = 1;
     }
 
     public function nextPage(): void
     {
-        $totalPages = $this->getTotalPages();
-        if ($this->currentPage < $totalPages) {
-            $this->currentPage++;
+        $total_pages = $this->getTotalPages();
+        if ($this->current_page < $total_pages) {
+            $this->current_page++;
         }
     }
 
     public function previousPage(): void
     {
-        if ($this->currentPage > 1) {
-            $this->currentPage--;
+        if ($this->current_page > 1) {
+            $this->current_page--;
         }
     }
 
     public function getTotalPages(): int
     {
-        $filteredItems = $this->getFilteredItems();
-        return ceil(count($filteredItems) / $this->perPage);
+        $filtered_items = $this->getFilteredItems();
+        return ceil(count($filtered_items) / $this->per_page);
     }
 
     public function getFilteredItems(): array
@@ -42,7 +42,7 @@ trait Table
         }
 
         return array_filter($this->employees, function ($item) {
-            foreach ($this->searchFields as $field) {
+            foreach ($this->search_fields as $field) {
                 $value = data_get($item, $field);
                 if ($value && str_contains(strtolower($value), strtolower($this->search_query))) {
                     return true;
@@ -54,8 +54,8 @@ trait Table
 
     public function getPaginatedItems(): array
     {
-        $filteredItems = $this->getFilteredItems();
-        $offset = ($this->currentPage - 1) * $this->perPage;
-        return array_slice($filteredItems, $offset, $this->perPage);
+        $filtered_items = $this->getFilteredItems();
+        $offset = ($this->current_page - 1) * $this->per_page;
+        return array_slice($filtered_items, $offset, $this->per_page);
     }
 }
