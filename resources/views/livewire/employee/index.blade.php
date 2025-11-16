@@ -92,6 +92,13 @@
                             </td>
                         </tr>
                     @endforeach
+                    @if(! $paginated_items)
+                        <tr>
+                            <td colspan="6" class="p-8 text-center opacity-70">
+                                {{ __('No se encontraron resultados') }}
+                            </td>
+                        </tr>
+                    @endif
                 </x-slot:table>
             </x-appearance.livewiretable>
         </div>
