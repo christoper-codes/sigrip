@@ -27,6 +27,8 @@ class Index extends Component
         if(! $this->departments){
           $this->dispatch('toast', message: __('No hay departamentos disponibles.'), type: 'warning');
         }
+
+        $this->search_fields = ['name', 'email'];
     }
 
     public function searchEmployees(): void

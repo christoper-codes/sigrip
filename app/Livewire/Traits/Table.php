@@ -7,7 +7,7 @@ trait Table
     public string $search_query = '';
     public int $current_page = 1;
     public int $per_page = 10;
-    public array $search_fields = ['name', 'email'];
+    public array $search_fields = [];
 
     public function updatedSearchQuery(): void
     {
