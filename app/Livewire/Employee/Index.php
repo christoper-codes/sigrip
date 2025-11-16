@@ -51,7 +51,8 @@ class Index extends Component
         return view('livewire.employee.index', [
             'paginated_items' => $paginated_items,
             'total_results' => $total_results,
-            'total_pages' => $total_pages
+            'total_pages' => $total_pages,
+            'current_page' => $this->current_page
         ]);
     }
 }

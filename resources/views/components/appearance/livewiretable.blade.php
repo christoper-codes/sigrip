@@ -1,6 +1,9 @@
 @props([
     'search_placeholder' => '',
-    'headers' => []
+    'headers' => [],
+    'total_results',
+    'current_page',
+    'total_pages'
 ])
 
 <div class="space-y-5">
@@ -30,28 +33,28 @@
     </div>
 
     {{-- Pagination controls --}}
-    {{-- <div class="w-full flex flex-col md:flex-row md:items-center justify-between">
-        <flux:heading>{{ __('Resultados') }}: {{ $totalResults }}</flux:heading>
+    <div class="w-full flex flex-col md:flex-row md:items-center justify-between">
+        <flux:heading>{{ __('Resultados') }}: {{ $total_results }}</flux:heading>
         <div class="flex items-center justify-between md:justify-around gap-5">
-            <flux:text class="mt-2">{{ __('Página') }} {{ $currentPage }} {{ __('de') }} {{ max(1, $totalPages) }}</flux:text>
+            <flux:text class="mt-2">{{ __('Página') }} {{ $current_page }} {{ __('de') }} {{ max(1, $total_pages) }}</flux:text>
             <div class="flex items-center gap-2">
                 <flux:button
                     variant="primary"
                     wire:click="previousPage"
-                    :disabled="$currentPage <= 1"
-                    :class="$currentPage <= 1 ? 'opacity-50 cursor-not-allowed' : ''"
+                    :disabled="$current_page <= 1"
+                    :class="$current_page <= 1 ? 'opacity-50 cursor-not-allowed' : ''"
                 >
                     {{ __('Anterior') }}
                 </flux:button>
                 <flux:button
                     variant="primary"
                     wire:click="nextPage"
-                    :disabled="$currentPage >= $totalPages"
-                    :class="$currentPage >= $totalPages ? 'opacity-50 cursor-not-allowed' : ''"
+                    :disabled="$current_page >= $total_pages"
+                    :class="$current_page >= $total_pages ? 'opacity-50 cursor-not-allowed' : ''"
                 >
                     {{ __('Siguiente') }}
                 </flux:button>
             </div>
         </div>
-    </div> --}}
+    </div>
 </div>
