@@ -54,6 +54,44 @@
                 </td>
             </x-appearance.table>
         </div>
+
+        <div class="mt-10">
+            <x-appearance.livewiretable
+                :headers="[
+                    __('Nombre'),
+                    __('Email'),
+                    __('Roles'),
+                    __('Fecha de Creación'),
+                    __('Aplicaciones'),
+                    __('Actualizar roles')
+                ]"
+                search_placeholder="{{ __('Nombre o email') }}"
+                >
+                <x-slot:table>
+                    @foreach ($paginatedItems as $employee)
+                        <tr>
+                            <td class="p-4">{{ $employee['name'] }}</td>
+                            <td class="p-4">{{ $employee['email'] ?? 'Sin email' }}</td>
+                            <td class="p-4">{{ implode(', ', array_map(fn($role) => $role['name'], $employee['user_roles'] ?? [])) ?: 'Sin roles' }}</td>
+                            <td class="p-4">{{ $employee['created_at'] }}</td>
+                            <td class="p-4">
+                                <flux:link href="{{ route('dashboard') }}">{{ __('Ver aplicaciones') }}</flux:link>
+                            </td>
+                            <td class="p-4">
+                                <flux:modal.trigger name="update-roles-{{ $employee['id'] }}">
+                                    <flux:button>{{ __('Actualizar roles') }}</flux:button>
+                                </flux:modal.trigger>
+                                <flux:modal name="update-roles-{{ $employee['id'] }}" class="md:w-96">
+                                    <div>
+                                        <span>{{ $employee['name'] }}</span>
+                                    </div>
+                                </flux:modal>
+                            </td>
+                        </tr>
+                    @endforeach
+                </x-slot:table>
+            </x-appearance.livewiretable>
+        </div>
     @endif
 </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Employee;
 
+use App\Livewire\Traits\Table;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,7 @@ use Livewire\Component;
 
 class Index extends Component
 {
+    use Table;
 
     public array $employees = [];
     public array $departments = [];
@@ -39,6 +41,16 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.employee.index');
+        $paginatedItems = $this->getPaginatedItems();
+        $filteredItems = $this->getFilteredItems();
+        $totalResults = count($filteredItems);
+        $totalPages = $this->getTotalPages();
+
+        return view('livewire.employee.index', [
+            'paginatedItems' => $paginatedItems,
+            'totalResults' => $totalResults,
+            'totalPages' => $totalPages
+        ]);
     }
+
 }
