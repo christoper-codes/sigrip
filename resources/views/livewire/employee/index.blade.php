@@ -45,8 +45,15 @@
                                 <flux:link href="{{ route('dashboard') }}">{{ __('Ver aplicaciones') }}</flux:link>
                             </td>
                             <td class="p-4">
-                                 <flux:button wire:click="openRoleModal({{ $employee['id'] }})">
-                                    {{ __('Actualizar roles') }}
+                                <flux:button
+                                    class="!w-full"
+                                    wire:click="openRoleModal({{ $employee['id'] }})"
+                                    :loading="false"
+                                    x-data="{ loading: false }"
+                                    x-on:click="loading = true; $wire.openRoleModal({{ $employee['id'] }}).then(() => loading = false)"
+                                >
+                                    <span x-show="!loading">{{ __('Actualizar roles') }}</span>
+                                    <span x-show="loading"><flux:icon.loading class="!size-4"/></span>
                                 </flux:button>
                             </td>
                         </tr>
