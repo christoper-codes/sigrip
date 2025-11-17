@@ -42,6 +42,7 @@ class Index extends Component
             ->with('userRoles')
             ->get()
             ->toArray();
+        $this->current_page = 1;
     }
 
     public function openRoleModal(int $employee_id): void
