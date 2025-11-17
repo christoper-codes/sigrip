@@ -9,7 +9,8 @@ use App\Models\User;
 trait Roles
 {
     public array $roles = [];
-    public array $user_roles = [];
+    public array $employee_roles = [];
+    public ?int $selected_employee_id = null;
 
     public function loadRoles(int $employee_id): void
     {
@@ -17,8 +18,17 @@ trait Roles
             return $role->name !== RoleEnum::SYSTEM_OWNER->value;
         })->toArray();
 
-        $this->user_roles = User::find($employee_id)
+        $this->employee_roles = User::find($employee_id)
             ->userRoles
+            ->pluck('id')
             ->toArray();
+    }
+
+    public function updateRoles(): void
+    {
+        $user = User::find($this->selected_employee_id);
+        $user->userRoles()->sync($this->employee_roles);
+
+        $this->dispatch('toast', message: __('Roles actualizados correctamente.'), type: 'success');
     }
 }

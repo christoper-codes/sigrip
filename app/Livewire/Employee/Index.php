@@ -6,6 +6,7 @@ use App\Livewire\Traits\Roles;
 use App\Livewire\Traits\Table;
 use App\Models\Department;
 use App\Models\User;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -41,6 +42,21 @@ class Index extends Component
             ->with('userRoles')
             ->get()
             ->toArray();
+    }
+
+    public function openRoleModal(int $employee_id): void
+    {
+        $this->selected_employee_id = $employee_id;
+        $this->loadRoles($employee_id);
+
+        Flux::modal('update-roles-modal')->show();
+    }
+
+    public function updateEmployeeRoles(): void
+    {
+        $this->updateRoles();
+
+        Flux::modal('update-roles-modal')->close();
     }
 
     public function render()

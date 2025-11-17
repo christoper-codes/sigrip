@@ -45,16 +45,9 @@
                                 <flux:link href="{{ route('dashboard') }}">{{ __('Ver aplicaciones') }}</flux:link>
                             </td>
                             <td class="p-4">
-                                <flux:modal.trigger name="update-roles-{{ $employee['id'] }}">
-                                    <flux:button>{{ __('Actualizar roles') }}</flux:button>
-                                </flux:modal.trigger>
-                                <flux:modal name="update-roles-{{ $employee['id'] }}" class="md:w-96">
-                                    <div>
-                                        @if($employee && isset($employee['id']))
-
-                                        @endif
-                                    </div>
-                                </flux:modal>
+                                 <flux:button wire:click="openRoleModal({{ $employee['id'] }})">
+                                    {{ __('Actualizar roles') }}
+                                </flux:button>
                             </td>
                         </tr>
                     @endforeach
@@ -69,5 +62,36 @@
             </x-appearance.livewiretable>
         </div>
     @endif
+    <flux:modal name="update-roles-modal" class="md:w-96">
+        <div>
+            @if($selected_employee_id && $roles)
+                <flux:heading size="lg">
+                    Actualizar roles del empleado
+                </flux:heading>
+
+                <flux:checkbox.group wire:model="employee_roles">
+                    @foreach ($roles as $role)
+                        <flux:checkbox
+                            value="{{ $role['id'] }}"
+                            label="{{ $role['name'] }}"
+                            description="{{ $role['description'] ?? '' }}"
+                        />
+                    @endforeach
+                </flux:checkbox.group>
+
+                <div class="flex justify-end gap-2 mt-4">
+                    <flux:modal.close>
+                        <flux:button variant="ghost">
+                            {{ __('Cancelar') }}
+                        </flux:button>
+                    </flux:modal.close>
+
+                    <flux:button variant="primary" wire:click="updateEmployeeRoles">
+                        {{ __('Actualizar') }}
+                    </flux:button>
+                </div>
+            @endif
+        </div>
+    </flux:modal>
 </div>
 
