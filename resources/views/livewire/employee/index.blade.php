@@ -62,13 +62,9 @@
             </x-appearance.livewiretable>
         </div>
     @endif
-    <flux:modal name="update-roles-modal" class="md:w-96">
-        <div>
+    <flux:modal name="update-roles-modal" class="w-[90%] md:w-lg">
+        <div class="pt-5 px-2">
             @if($selected_employee_id && $roles)
-                <flux:heading size="lg">
-                    Actualizar roles del empleado
-                </flux:heading>
-
                 <flux:checkbox.group wire:model="employee_roles">
                     @foreach ($roles as $role)
                         <flux:checkbox
@@ -79,7 +75,7 @@
                     @endforeach
                 </flux:checkbox.group>
 
-                <div class="flex justify-end gap-2 mt-4">
+                <div class="flex justify-end gap-2 mt-6">
                     <flux:modal.close>
                         <flux:button variant="ghost">
                             {{ __('Cancelar') }}
