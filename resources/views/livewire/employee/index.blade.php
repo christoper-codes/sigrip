@@ -30,9 +30,10 @@
                     __('Actualizar roles')
                 ]"
                 search_placeholder="{{ __('Nombre o email') }}"
-                total_results="{{ $total_results }}"
-                current_page="{{ $current_page }}"
-                total_pages="{{ $total_pages }}"
+                :total_results="$total_results"
+                :current_page="$current_page"
+                :total_pages="$total_pages"
+                :paginated_items="$paginated_items"
                 >
                 <x-slot:table>
                     @foreach ($paginated_items as $employee)
@@ -58,13 +59,6 @@
                             </td>
                         </tr>
                     @endforeach
-                    @if(! $paginated_items)
-                        <tr>
-                            <td colspan="6" class="p-8 text-center opacity-70">
-                                {{ __('No se encontraron resultados') }}
-                            </td>
-                        </tr>
-                    @endif
                 </x-slot:table>
             </x-appearance.livewiretable>
         </div>

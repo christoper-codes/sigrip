@@ -1,9 +1,10 @@
 @props([
     'search_placeholder' => '',
     'headers' => [],
-    'total_results',
-    'current_page',
-    'total_pages'
+    'total_results' => 0,
+    'current_page' => 1,
+    'total_pages' => 1,
+    'paginated_items' => [],
 ])
 
 <div class="space-y-5">
@@ -27,7 +28,15 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-light-variant dark:divide-dark-variant">
-               {{ $table }}
+                {{ $table }}
+
+                @if(! $paginated_items || count($paginated_items) === 0)
+                    <tr>
+                        <td colspan="{{ count($headers) }}" class="p-8 text-center opacity-70">
+                            {{ __('No se encontraron resultados') }}
+                        </td>
+                    </tr>
+                @endif
             </tbody>
         </table>
     </div>
