@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Employee;
 
+use App\Livewire\Traits\Roles;
 use App\Livewire\Traits\Table;
 use App\Models\Department;
 use App\Models\User;
@@ -12,6 +13,7 @@ use Livewire\Component;
 class Index extends Component
 {
     use Table;
+    use Roles;
 
     public array $employees = [];
     public array $departments = [];

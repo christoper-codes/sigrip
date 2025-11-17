@@ -50,7 +50,9 @@
                                 </flux:modal.trigger>
                                 <flux:modal name="update-roles-{{ $employee['id'] }}" class="md:w-96">
                                     <div>
-                                        <span>{{ $employee['name'] }}</span>
+                                        @if($employee && isset($employee['id']))
+
+                                        @endif
                                     </div>
                                 </flux:modal>
                             </td>
