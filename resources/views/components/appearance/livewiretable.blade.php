@@ -17,6 +17,7 @@
             icon="magnifying-glass"
             placeholder="{{ $search_placeholder }}"
             wire:model.live="search_query"
+            utocomplete="off"
         />
     </div>
 
@@ -26,7 +27,7 @@
             <thead class="border-b bg-light-variant dark:bg-dark-variant text-sm border-light-variant dark:border-dark-variant">
                 <tr>
                     @foreach($headers as $index => $header)
-                        <th class="p-4">
+                        <th class="p-4 whitespace-nowrap">
                             @php
                                 if (is_array($header)) {
                                     $label = $header['label'] ?? '';
