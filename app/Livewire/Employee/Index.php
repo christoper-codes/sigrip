@@ -37,7 +37,7 @@ class Index extends Component
             ['label' => __('Roles')],
             ['label' => __('Fecha de Creación'), 'field' => 'created_at', 'sortable' => true],
             ['label' => __('Aplicaciones')],
-            ['label' => __('Acciones')],
+            ['label' => __('Actualizar roles')],
         ];
     }
 
