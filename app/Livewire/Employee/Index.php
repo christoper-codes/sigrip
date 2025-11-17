@@ -44,6 +44,7 @@ class Index extends Component
             ->toArray();
         $this->current_page = 1;
         $this->search_query = '';
+        $this->refreshTableData();
     }
 
     public function openRoleModal(int $employee_id): void
@@ -63,16 +64,6 @@ class Index extends Component
 
     public function render()
     {
-        $paginated_items = $this->getPaginatedItems();
-        $filtered_items = $this->getFilteredItems();
-        $total_results = count($filtered_items);
-        $total_pages = $this->getTotalPages();
-
-        return view('livewire.employee.index', [
-            'paginated_items' => $paginated_items,
-            'total_results' => $total_results,
-            'total_pages' => $total_pages,
-            'current_page' => $this->current_page
-        ]);
+        return view('livewire.employee.index');
     }
 }

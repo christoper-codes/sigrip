@@ -6,12 +6,17 @@ trait Table
 {
     public string $search_query = '';
     public int $current_page = 1;
-    public int $per_page = 10;
+    public int $per_page = 2;
     public array $search_fields = [];
+    public array $paginated_items = [];
+    public array $filtered_items = [];
+    public int $total_results = 0;
+    public int $total_pages = 0;
 
     public function updatedSearchQuery(): void
     {
         $this->current_page = 1;
+        $this->refreshTableData();
     }
 
     public function nextPage(): void
@@ -20,6 +25,7 @@ trait Table
         if ($this->current_page < $total_pages) {
             $this->current_page++;
         }
+        $this->refreshTableData();
     }
 
     public function previousPage(): void
@@ -27,6 +33,7 @@ trait Table
         if ($this->current_page > 1) {
             $this->current_page--;
         }
+        $this->refreshTableData();
     }
 
     public function getTotalPages(): int
@@ -57,5 +64,13 @@ trait Table
         $filtered_items = $this->getFilteredItems();
         $offset = ($this->current_page - 1) * $this->per_page;
         return array_slice($filtered_items, $offset, $this->per_page);
+    }
+
+    public function refreshTableData(): void
+    {
+        $this->filtered_items = $this->getFilteredItems();
+        $this->total_results = count($this->filtered_items);
+        $this->total_pages = $this->getTotalPages();
+        $this->paginated_items = $this->getPaginatedItems();
     }
 }
