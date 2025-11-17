@@ -8,6 +8,7 @@ use App\Models\User;
 
 trait Roles
 {
+    public array $headers = [];
     public array $roles = [];
     public array $employee_roles = [];
     public ?int $selected_employee_id = null;

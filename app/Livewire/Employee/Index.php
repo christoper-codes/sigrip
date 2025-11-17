@@ -16,9 +16,7 @@ class Index extends Component
     use Table;
     use Roles;
 
-    public array $table_items = [];
     public array $departments = [];
-    public array $headers = [];
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;

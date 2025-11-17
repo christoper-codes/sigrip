@@ -5,14 +5,18 @@ namespace App\Livewire\Traits;
 trait Table
 {
     public array $headers = [];
-    public string $search_query = '';
+    public array $table_items = [];
     public int $current_page = 1;
     public int $per_page = 10;
+
     public array $search_fields = [];
+    public string $search_query = '';
+
     public array $paginated_items = [];
     public array $filtered_items = [];
     public int $total_results = 0;
     public int $total_pages = 0;
+
     public string $sort_field = '';
     public string $sort_direction = 'asc';
     public array $sortable_fields = [];
@@ -25,7 +29,7 @@ trait Table
 
     public function sortBy(string $field): void
     {
-        $canSort = false;
+        $can_sort = false;
 
         if (isset($this->headers) && is_array($this->headers)) {
             foreach ($this->headers as $header) {
@@ -33,15 +37,15 @@ trait Table
                     isset($header['field']) &&
                     $header['field'] === $field &&
                     ($header['sortable'] ?? false)) {
-                    $canSort = true;
+                    $can_sort = true;
                     break;
                 }
             }
         } elseif (isset($this->sortable_fields) && in_array($field, $this->sortable_fields)) {
-            $canSort = true;
+            $can_sort = true;
         }
 
-        if (!$canSort) {
+        if (!$can_sort) {
             return;
         }
 
