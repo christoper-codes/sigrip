@@ -16,7 +16,7 @@ class Index extends Component
     use Table;
     use Roles;
 
-    public array $employees = [];
+    public array $table_items = [];
     public array $departments = [];
 
     #[Validate(['required', 'int'])]
@@ -38,7 +38,7 @@ class Index extends Component
     {
         $this->validate();
 
-        $this->employees = User::where('department_id', $this->department)
+        $this->table_items = User::where('department_id', $this->department)
             ->with('userRoles')
             ->get()
             ->toArray();

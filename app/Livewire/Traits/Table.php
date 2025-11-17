@@ -38,10 +38,10 @@ trait Table
     public function getFilteredItems(): array
     {
         if (empty($this->search_query)) {
-            return $this->employees;
+            return $this->table_items;
         }
 
-        return array_filter($this->employees, function ($item) {
+        return array_filter($this->table_items, function ($item) {
             foreach ($this->search_fields as $field) {
                 $value = data_get($item, $field);
                 if ($value && str_contains(strtolower($value), strtolower($this->search_query))) {

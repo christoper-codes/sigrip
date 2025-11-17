@@ -12,7 +12,7 @@
         </flux:field>
         <flux:button type="submit" variant="primary" class="mt-3">{{ __('Buscar empleados') }}</flux:button>
    </form>
-   @if($employees)
+   @if($table_items)
         <div x-data="{ animation: false }"
             x-init="$nextTick(() => animation = true)"
             x-show="animation"
