@@ -52,7 +52,7 @@
                                     x-data="{ loading: false }"
                                     x-on:click="loading = true; $wire.openRoleModal({{ $employee['id'] }}).then(() => loading = false)"
                                 >
-                                    <span x-show="!loading">{{ __('Actualizar roles') }}</span>
+                                    <span x-show="!loading">{{ __('Actualizar') }}</span>
                                     <span x-show="loading"><flux:icon.loading class="!size-4"/></span>
                                 </flux:button>
                             </td>

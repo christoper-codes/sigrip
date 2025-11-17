@@ -43,6 +43,7 @@ class Index extends Component
             ->get()
             ->toArray();
         $this->current_page = 1;
+        $this->search_query = '';
     }
 
     public function openRoleModal(int $employee_id): void
