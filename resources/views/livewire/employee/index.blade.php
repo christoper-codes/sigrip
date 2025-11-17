@@ -21,19 +21,14 @@
             x-transition:enter-end="opacity-100 transform translate-x-0"
             class="mt-10">
             <x-appearance.livewiretable
-                :headers="[
-                    __('Nombre'),
-                    __('Email'),
-                    __('Roles'),
-                    __('Fecha de Creación'),
-                    __('Aplicaciones'),
-                    __('Actualizar roles')
-                ]"
+                :headers="$headers"
                 search_placeholder="{{ __('Nombre o email') }}"
                 :total_results="$total_results"
                 :current_page="$current_page"
                 :total_pages="$total_pages"
                 :paginated_items="$paginated_items"
+                :sort_field="$sort_field"
+                :sort_direction="$sort_direction"
                 >
                 <x-slot:table>
                     @foreach ($paginated_items as $employee)

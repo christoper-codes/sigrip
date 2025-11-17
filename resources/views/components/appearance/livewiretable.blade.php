@@ -5,6 +5,9 @@
     'current_page' => 1,
     'total_pages' => 1,
     'paginated_items' => [],
+    'sortable_fields' => [],
+    'sort_field' => '',
+    'sort_direction' => 'asc',
 ])
 
 <div class="space-y-5">
@@ -22,8 +25,41 @@
         <table class="w-full text-left text-sm">
             <thead class="border-b bg-light-variant dark:bg-dark-variant text-sm border-light-variant dark:border-dark-variant">
                 <tr>
-                    @foreach($headers as $header)
-                        <th class="p-4">{{ $header }}</th>
+                    @foreach($headers as $index => $header)
+                        <th class="p-4">
+                            @php
+                                if (is_array($header)) {
+                                    $label = $header['label'] ?? '';
+                                    $field = $header['field'] ?? null;
+                                    $sortable = $header['sortable'] ?? false;
+                                } else {
+                                    $label = $header;
+                                    $field = $sortable_fields[$index] ?? null;
+                                    $sortable = $field && in_array($field, $sortable_fields);
+                                }
+                            @endphp
+
+                            @if($sortable && $field)
+                                <button
+                                    wire:click="sortBy('{{ $field }}')"
+                                    class="flex items-center gap-2 font-medium cursor-pointer"
+                                >
+                                    <span>{{ $label }}</span>
+
+                                    @if($sort_field === $field)
+                                        @if($sort_direction === 'asc')
+                                            <flux:icon.chevron-up class="size-4" />
+                                        @else
+                                            <flux:icon.chevron-down class="size-4" />
+                                        @endif
+                                    @else
+                                        <flux:icon.chevron-up-down class="size-4 opacity-50" />
+                                    @endif
+                                </button>
+                            @else
+                                {{ $label }}
+                            @endif
+                        </th>
                     @endforeach
                 </tr>
             </thead>

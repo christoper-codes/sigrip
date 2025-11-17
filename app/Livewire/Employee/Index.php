@@ -18,6 +18,7 @@ class Index extends Component
 
     public array $table_items = [];
     public array $departments = [];
+    public array $headers = [];
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -32,6 +33,14 @@ class Index extends Component
         }
 
         $this->search_fields = ['name', 'email'];
+        $this->headers = [
+            ['label' => __('Nombre'), 'field' => 'name', 'sortable' => true],
+            ['label' => __('Email'), 'field' => 'email', 'sortable' => true],
+            ['label' => __('Roles')],
+            ['label' => __('Fecha de Creación'), 'field' => 'created_at', 'sortable' => true],
+            ['label' => __('Aplicaciones')],
+            ['label' => __('Acciones')],
+        ];
     }
 
     public function searchEmployees(): void
