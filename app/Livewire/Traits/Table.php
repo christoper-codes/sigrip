@@ -6,7 +6,7 @@ trait Table
 {
     public string $search_query = '';
     public int $current_page = 1;
-    public int $per_page = 2;
+    public int $per_page = 10;
     public array $search_fields = [];
     public array $paginated_items = [];
     public array $filtered_items = [];
