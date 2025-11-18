@@ -27,6 +27,11 @@ trait Roles
 
     public function updateRoles(): void
     {
+        if(! $this->employee_roles){
+            $this->dispatch('toast', message: __('Debe seleccionar al menos un rol.'), type: 'error');
+            return;
+        }
+
         $user = User::find($this->selected_employee_id);
         $user->userRoles()->sync($this->employee_roles);
 
