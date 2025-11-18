@@ -66,6 +66,14 @@ class Index extends Component
     public function updateEmployeeRoles(): void
     {
         $this->updateRoles();
+        $this->table_items = collect($this->table_items)->map(function ($item) {
+            if ($item['id'] === $this->selected_employee_id) {
+                $item['user_roles'] = User::find($this->selected_employee_id)->userRoles->toArray();
+            }
+            return $item;
+        })->toArray();
+
+        $this->refreshTableData();
 
         Flux::modal('update-roles-modal')->close();
     }
