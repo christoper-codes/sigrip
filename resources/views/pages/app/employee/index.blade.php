@@ -20,6 +20,12 @@
                         <span>{{ __('Crear') }}</span>
                     </div>
                 </button>
+                <button x-on:click="selectedTab = 'upload'" x-bind:aria-selected="selectedTab === 'upload'" x-bind:tabindex="selectedTab === 'upload' ? '0' : '-1'" x-bind:class="selectedTab === 'upload' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelUpload">
+                    <div class="flex items-center gap-2">
+                        <flux:icon.arrow-up-on-square class="size-5" />
+                        <span>{{ __('Subir') }}</span>
+                    </div>
+                </button>
             </div>
             <div class="px-2 mt-10">
                 <div x-cloak x-show="selectedTab === 'info'" id="tabpanelInfo" role="tabpanel" aria-label="info">
@@ -28,9 +34,18 @@
                 <div x-cloak x-show="selectedTab === 'create'" id="tabpanelCreateUpdate" role="tabpanel" aria-label="create">
                     <div class="max-w-2xl">
                         <flux:heading size="xl">{{ __('Agregar Empleados') }}</flux:heading>
-                        <flux:text class="mt-2">{{ __('Completa el formulario para agregar un nuevo empleado a un departamento o puedes importar empleados desde un archivo CSV o XLSX.') }}</flux:text>
+                        <flux:text class="mt-2">{{ __('Completa el formulario para agregar un nuevo empleado a un departamento.') }}</flux:text>
                         <div class="mt-5">
                             <livewire:employee.store />
+                        </div>
+                    </div>
+                </div>
+                <div x-cloak x-show="selectedTab === 'upload'" id="tabpanelUpload" role="tabpanel" aria-label="upload">
+                    <div class="max-w-2xl">
+                        <flux:heading size="xl">{{ __('Subir Empleados') }}</flux:heading>
+                        <flux:text class="mt-2">{{ __('Sube un archivo CSV para agregar múltiples empleados a los departamentos.') }}</flux:text>
+                        <div class="mt-5">
+                            <livewire:employee.upload />
                         </div>
                     </div>
                 </div>
