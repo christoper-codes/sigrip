@@ -16,7 +16,7 @@ trait Roles
     public function loadRoles(int $employee_id): void
     {
         $this->roles = Role::all()->filter(function ($role) {
-            return $role->name !== RoleEnum::SYSTEM_OWNER->value;
+            return $role->name !== RoleEnum::SYSTEM_OWNER->value && $role->name !== RoleEnum::COMPANY_ADMIN->value;
         })->toArray();
 
         $this->employee_roles = User::find($employee_id)
