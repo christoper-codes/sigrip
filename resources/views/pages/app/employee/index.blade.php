@@ -27,10 +27,10 @@
                 </div>
                 <div x-cloak x-show="selectedTab === 'create'" id="tabpanelCreateUpdate" role="tabpanel" aria-label="create">
                     <div class="max-w-2xl">
-                        <flux:heading size="xl">{{ __('Crea tu compañía') }}</flux:heading>
-                        <flux:text class="mt-2">{{ __('Completa el formulario para configurar tu cuenta y agregar departamentos.') }}</flux:text>
+                        <flux:heading size="xl">{{ __('Agregar Empleados') }}</flux:heading>
+                        <flux:text class="mt-2">{{ __('Completa el formulario para agregar un nuevo empleado a un departamento o puedes importar empleados desde un archivo CSV o XLSX.') }}</flux:text>
                         <div class="mt-5">
-                            <livewire:department.store :hr_department="false" />
+                            <livewire:employee.store />
                         </div>
                     </div>
                 </div>
