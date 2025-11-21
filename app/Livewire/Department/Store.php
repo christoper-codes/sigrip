@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Department;
 
+use App\Enums\NotificationTypesEnum;
 use App\Enums\RoleEnum;
 use App\Models\Department;
 use App\Models\User;
@@ -74,7 +75,7 @@ class Store extends Component
             $this->dispatch('nextStep');
         }
 
-        $this->dispatch('toast', message: __('Departamento creado correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Departamento creado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
         $this->reset();
     }
 
