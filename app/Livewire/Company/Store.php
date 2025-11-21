@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class Store extends Component
 {
-    #[Validate(['string', 'min:3', 'max:255'])]
+    #[Validate(['string', 'min:3', 'max:255', 'unique:companies,name'])]
     public ?string $name = null;
 
     #[Validate(['sometimes', 'string'])]
