@@ -43,7 +43,7 @@
                 <div x-cloak x-show="selectedTab === 'upload'" id="tabpanelUpload" role="tabpanel" aria-label="upload">
                     <div class="max-w-2xl">
                         <flux:heading size="xl">{{ __('Subir Empleados') }}</flux:heading>
-                        <flux:text class="mt-2">{{ __('Sube un archivo CSV para agregar múltiples empleados a los departamentos.') }}</flux:text>
+                        <flux:text class="mt-2">{{ __('Sube un archivo CSV para agregar múltiples empleados a un departamento.') }}</flux:text>
                         <div class="mt-5">
                             <livewire:employee.upload />
                         </div>
