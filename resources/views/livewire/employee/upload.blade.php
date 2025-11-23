@@ -43,6 +43,12 @@
             <flux:field>
                 <flux:label>{{ __('Selecciona un archivo a importar') }}</flux:label>
                 <flux:input type="file" name="employee_file" wire:model="employee_file" accept=".xlsx, .csv" />
+                <div wire:loading wire:target="employee_file">
+                    <div class="flex items-center gap-1">
+                        <flux:icon.loading class="size-3"/>
+                        <flux:text class="!text-xs">{{ __('Cargando archivo') }}</flux:text>
+                    </div>
+                </div>
                 <flux:error name="employee_file" class="!mt-0"/>
             </flux:field>
 
