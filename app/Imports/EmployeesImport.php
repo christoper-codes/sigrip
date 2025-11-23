@@ -7,20 +7,39 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 
 class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
 {
     use Importable;
 
-    protected int $company_id;
-    protected int $department_id;
-    protected array $user_roles;
+    protected ?int $company_id;
+    protected ?int $department_id;
+    protected ?array $user_roles;
 
-    public function __construct(int $department_id, array $user_roles, ?int $company_id = null)
+    public function __construct(?int $department_id = null, ?array $user_roles = null, ?int $company_id = null)
     {
         $this->department_id = $department_id;
         $this->user_roles = $user_roles;
         $this->company_id = $company_id;
+    }
+
+    public static function validateHeaders(string $file_path): void
+    {
+        $rows = Excel::toCollection(new self(0, [], null), $file_path)->first();
+        if ($rows->isEmpty()) {
+            throw new \Exception(__('El archivo está vacío.'));
+        }
+        $expected = ['nombre_completo', 'correo_electronico', 'password'];
+        $actual   = array_keys($rows->first()->toArray());
+        $actual   = array_map(fn($h) => trim(mb_strtolower($h)), $actual);
+
+        if ($actual !== $expected) {
+            throw new \Exception(
+                __('El archivo debe tener las columnas exactamente como: "nombre completo", "correo electronico", "password".')
+            );
+        }
     }
 
     public function collection(Collection $rows)

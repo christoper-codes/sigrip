@@ -49,13 +49,17 @@ class Upload extends Component
         $this->validate();
         DB::beginTransaction();
         try {
+            EmployeesImport::validateHeaders(
+                file_path:$this->employee_file->getRealPath()
+            );
+
             (new EmployeesImport(
                 department_id: $this->department,
                 user_roles: $this->user_roles,
                 company_id: Auth::user()->company?->id,
             ))->import($this->employee_file->getRealPath());
-            DB::commit();
 
+            DB::commit();
             $this->dispatch('toast', message: __('Empleados guardados correctamente.'), type: 'success');
             $this->reset(['department', 'user_roles']);
         } catch (Exception $e) {
