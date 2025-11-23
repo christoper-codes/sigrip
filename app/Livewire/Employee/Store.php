@@ -53,6 +53,7 @@ class Store extends Component
             'password' => bcrypt($this->password),
             'department_id' => $this->department,
             'company_id' => Auth::user()->company?->id,
+            'organization_id' => Auth::user()->organization?->id,
         ]);
         $user->userRoles()->attach($this->user_roles);
 
