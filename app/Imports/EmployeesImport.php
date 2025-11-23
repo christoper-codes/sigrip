@@ -2,6 +2,9 @@
 
 namespace App\Imports;
 
+use App\Models\Organization;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -12,12 +15,14 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
 {
     use Importable;
 
+    protected int $organization_id;
     protected ?int $company_id;
     protected ?int $department_id;
     protected ?array $user_roles;
 
-    public function __construct(?int $department_id = null, ?array $user_roles = null, ?int $company_id = null)
+    public function __construct(?int $organization_id = null, ?int $department_id = null, ?array $user_roles = null, ?int $company_id = null)
     {
+        $this->organization_id = $organization_id;
         $this->department_id = $department_id;
         $this->user_roles = $user_roles;
         $this->company_id = $company_id;
@@ -43,13 +48,18 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
         }
 
         foreach ($rows as $row) {
-            // Aquí puedes guardar o procesar cada fila válida
-            // Ejemplo:
-            // User::create([
-            //     'name' => $row['nombre_completo'],
-            //     'email' => $row['correo_electronico'],
-            //     'password' => bcrypt($row['password']),
-            // ]);
+            $metadata = ['notifications' => 0];
+            $user = User::create([
+                'name' => $row['nombre_completo'],
+                'email' => $row['correo_electronico'],
+                'password' => bcrypt($row['password']),
+                'department_id' => $this->department_id,
+                'company_id' => $this->company_id,
+                'organization_id' => $this->organization_id,
+                'metadata' => $metadata,
+            ]);
+
+            $user->userRoles()->attach($this->user_roles ?? []);
         }
     }
 

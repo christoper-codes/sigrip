@@ -55,6 +55,7 @@ class Upload extends Component
         DB::beginTransaction();
         try {
             (new EmployeesImport(
+                organization_id: Auth::user()->organization?->id,
                 department_id: $this->department,
                 user_roles: $this->user_roles,
                 company_id: Auth::user()->company?->id,
