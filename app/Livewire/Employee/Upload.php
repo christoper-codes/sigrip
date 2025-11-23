@@ -60,7 +60,7 @@ class Upload extends Component
             $this->reset(['department', 'user_roles']);
         } catch (Exception $e) {
             DB::rollBack();
-            $this->import_errors = $e->getMessage();
+            $this->import_errors = __('Error al guardar los empleados: ') . $e->getMessage();
             $this->dispatch('toast', message: __('Error al guardar los empleados: ') . $e->getMessage(), type: 'error');
         }
 

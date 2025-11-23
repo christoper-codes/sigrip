@@ -25,13 +25,30 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
 
     public function collection(Collection $rows)
     {
+        $expected = ['nombre_completo', 'correo_electronico', 'password'];
+        $first_row = $rows->first();
+        if ($first_row) {
+            $actual = array_keys($first_row->toArray());
+            $actual = array_map(fn($header) => trim(mb_strtolower($header)), $actual);
+
+            if ($actual !== $expected) {
+                throw new \Exception(
+                    __('El archivo debe tener las columnas exactamente: "nombre_completo", "correo_electronico", "password" (en minúsculas y sin tildes).')
+                );
+            }
+        }
+
+        if ($rows->count() === 0) {
+            throw new \Exception(__('El archivo debe contener al menos un registro de empleado.'));
+        }
+
         foreach ($rows as $row) {
             // Aquí puedes guardar o procesar cada fila válida
             // Ejemplo:
             // User::create([
-            //     'name' => $row['nombre completo'],
-            //     'email' => $row['correo electronico'],
-            //     'password' => bcrypt($row['contraseña']),
+            //     'name' => $row['nombre_completo'],
+            //     'email' => $row['correo_electronico'],
+            //     'password' => bcrypt($row['password']),
             // ]);
         }
     }
@@ -39,21 +56,21 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return [
-            '*.nombre completo' => 'required|string|min:3',
-            '*.correo electronico' => 'required|email',
-            '*.contraseña' => 'required|string|min:8',
+            '*.nombre_completo' => 'required|string|min:3',
+            '*.correo_electronico' => 'required|email',
+            '*.password' => 'required|min:8',
         ];
     }
 
     public function customValidationMessages()
     {
         return [
-            '*.nombre completo.required' => __('El nombre completo es obligatorio.'),
-            '*.nombre completo.min' => __('El nombre completo debe tener al menos 3 caracteres.'),
-            '*.correo electronico.required' => __('El correo electrónico es obligatorio.'),
-            '*.correo electronico.email' => __('El correo electrónico debe ser válido.'),
-            '*.contraseña.required' => __('La contraseña es obligatoria.'),
-            '*.contraseña.min' => __('La contraseña debe tener al menos 8 caracteres.'),
+            '*.nombre_completo.required' => __('El nombre completo es obligatorio.'),
+            '*.nombre_completo.min' => __('El nombre completo debe tener al menos 3 caracteres.'),
+            '*.correo_electronico.required' => __('El correo electrónico es obligatorio.'),
+            '*.correo_electronico.email' => __('El correo electrónico debe ser válido.'),
+            '*.password.required' => __('El password es obligatorio.'),
+            '*.password.min' => __('El password debe tener al menos 8 caracteres.'),
         ];
     }
 }
