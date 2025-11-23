@@ -48,6 +48,10 @@ class Upload extends Component
     public function submit(): void
     {
         $this->validate();
+        if (!$this->employee_file || !$this->employee_file->isValid()) {
+            $this->dispatch('toast', message: __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.'), type: 'warning');
+            return;
+        }
         DB::beginTransaction();
         try {
             EmployeesImport::validateHeaders(
