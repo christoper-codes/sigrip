@@ -1,16 +1,6 @@
 <div>
     <form wire:submit.prevent="submit" class="space-y-6 px-5 py-6 lg:px-7 lg:py-7 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-xl">
         <flux:field>
-            <flux:label>{{ __('Selecciona un departamento') }}</flux:label>
-            <flux:select class="!h-12" name="department" wire:model.live="department">
-                <flux:select.option value="" >{{ __('Selecciona un departamento') }}</flux:select.option>
-                @foreach ($departments as $department)
-                    <flux:select.option value="{{ $department['id'] }}">{{ $department['name'] }}</flux:select.option>
-                @endforeach
-            </flux:select>
-            <flux:error name="department" class="!mt-0"/>
-        </flux:field>
-        <flux:field>
             <flux:label>{{ __('Nombre completo') }}</flux:label>
             <flux:input name="name" wire:model="name" icon="briefcase" placeholder="{{ __('John Doe') }}"/>
             <flux:error name="name" />
@@ -29,6 +19,29 @@
             <flux:label>{{ __('Confirmar Contraseña') }}</flux:label>
             <flux:input name="password_confirmation" type="password" wire:model="password_confirmation" icon="lock-closed" placeholder="●●●●●●●●" viewable />
             <flux:error name="password_confirmation" />
+        </flux:field>
+                <flux:field>
+            <flux:label>{{ __('Selecciona un departamento') }}</flux:label>
+            <flux:select class="!h-12" name="department" wire:model.live="department">
+                <flux:select.option value="" >{{ __('Selecciona un departamento') }}</flux:select.option>
+                @foreach ($departments as $department)
+                    <flux:select.option value="{{ $department['id'] }}">{{ $department['name'] }}</flux:select.option>
+                @endforeach
+            </flux:select>
+            <flux:error name="department" class="!mt-0"/>
+        </flux:field>
+        <flux:field>
+            <flux:label class="!mb-3">{{ __('Asignar roles') }}</flux:label>
+            <flux:checkbox.group wire:model="user_roles">
+                @foreach ($roles as $role)
+                    <flux:checkbox
+                        value="{{ $role['id'] }}"
+                        label="{{ $role['name'] }}"
+                        description="{{ $role['description'] }}"
+                    />
+                @endforeach
+            </flux:checkbox.group>
+            <flux:error name="user_roles" class="!mt-0"/>
         </flux:field>
         <flux:button type="submit" variant="primary">{{ __('Guardar') }}</flux:button>
     </form>

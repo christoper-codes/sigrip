@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Employee;
 
+use App\Enums\RoleEnum;
 use App\Models\Department;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
@@ -11,9 +13,13 @@ use Livewire\Component;
 class Store extends Component
 {
     public array $departments = [];
+    public array $roles = [];
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
+
+    #[Validate(['required', 'array', 'min:1'])]
+    public array $user_roles = [];
 
     #[Validate(['required', 'string', 'max:255'])]
     public ?string $name = null;
@@ -32,6 +38,10 @@ class Store extends Component
         $this->departments = Department::where('company_id', Auth::user()->company?->id)
             ->get()
             ->toArray();
+
+        $this->roles = Role::all()->filter(function ($role) {
+            return $role->name !== RoleEnum::SYSTEM_OWNER->value && $role->name !== RoleEnum::COMPANY_ADMIN->value;
+        })->toArray();
     }
 
     public function submit(): void
@@ -44,9 +54,10 @@ class Store extends Component
             'department_id' => $this->department,
             'company_id' => Auth::user()->company?->id,
         ]);
+        $user->userRoles()->attach($this->user_roles);
 
         $this->dispatch('toast', message: __('Empleado creado correctamente.'), type: 'success');
-        $this->reset(['department', 'name', 'email', 'password', 'password_confirmation']);
+        $this->reset(['department', 'name', 'email', 'password', 'password_confirmation', 'user_roles']);
     }
 
     public function render()
