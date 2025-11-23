@@ -14,6 +14,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Validators\ValidationException;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class Upload extends Component
@@ -63,11 +64,21 @@ class Upload extends Component
             $this->dispatch('toast', message: __('Empleados guardados correctamente.'), type: 'success');
             $this->reset(['department', 'user_roles', 'employee_file']);
             $this->import_errors = null;
-        } catch (Exception $e) {
+        } catch (ValidationException $e) {
             DB::rollBack();
             $this->reset(['employee_file']);
-            $this->import_errors = __('Error al guardar los empleados: ') . $e->getMessage();
-            $this->dispatch('toast', message: __('Error al guardar los empleados: ') . $e->getMessage(), type: 'error');
+            $failure = $e->failures()[0] ?? null;
+            if ($failure) {
+                $row = $failure->row();
+                $values = $failure->values();
+                $identificador = __('Para el usuario: ') . " " . ($values['nombre_completo'] ?? ($values['correo_electronico'] ?? "Fila $row"));
+                $error = $failure->errors()[0] ?? $e->getMessage();
+                $this->import_errors = __('Error al guardar los empleados: ') . $error . " ($identificador)";
+                $this->dispatch('toast', message: $this->import_errors, type: 'error');
+            } else {
+                $this->import_errors = __('Error al guardar los empleados: ') . $e->getMessage();
+                $this->dispatch('toast', message: $this->import_errors, type: 'error');
+            }
         }
 
     }

@@ -79,7 +79,8 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
             '*.correo_electronico' => [
                 'required',
                 'email',
-                'regex:/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/'
+                'regex:/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/',
+                'unique:users,email',
             ],
             '*.password' => 'required|min:8',
         ];
@@ -92,6 +93,8 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
             '*.nombre_completo.min' => __('El nombre completo debe tener al menos 3 caracteres.'),
             '*.correo_electronico.required' => __('El correo electrónico es obligatorio.'),
             '*.correo_electronico.email' => __('El correo electrónico debe ser válido.'),
+            '*.correo_electronico.regex' => __('El correo electrónico debe tener un formato válido.'),
+            '*.correo_electronico.unique' => __('El correo electrónico ya está en uso.'),
             '*.password.required' => __('El password es obligatorio.'),
             '*.password.min' => __('El password debe tener al menos 8 caracteres.'),
         ];
