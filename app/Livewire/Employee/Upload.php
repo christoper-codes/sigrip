@@ -54,10 +54,6 @@ class Upload extends Component
         }
         DB::beginTransaction();
         try {
-            EmployeesImport::validateHeaders(
-                file_path:$this->employee_file->getRealPath()
-            );
-
             (new EmployeesImport(
                 department_id: $this->department,
                 user_roles: $this->user_roles,

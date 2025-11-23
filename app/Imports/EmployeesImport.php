@@ -7,8 +7,6 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 
 class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
 {
@@ -25,23 +23,6 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
         $this->company_id = $company_id;
     }
 
-    public static function validateHeaders(string $file_path): void
-    {
-        $rows = Excel::toCollection(new self(0, [], null), $file_path)->first();
-        if ($rows->isEmpty()) {
-            throw new \Exception(__('El archivo está vacío.'));
-        }
-        $expected = ['nombre_completo', 'correo_electronico', 'password'];
-        $actual   = array_keys($rows->first()->toArray());
-        $actual   = array_map(fn($h) => trim(mb_strtolower($h)), $actual);
-
-        if ($actual !== $expected) {
-            throw new \Exception(
-                __('El archivo debe tener las columnas exactamente como: "nombre completo", "correo electronico", "password".')
-            );
-        }
-    }
-
     public function collection(Collection $rows)
     {
         $expected = ['nombre_completo', 'correo_electronico', 'password'];
@@ -52,7 +33,7 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
 
             if ($actual !== $expected) {
                 throw new \Exception(
-                    __('El archivo debe tener las columnas exactamente: "nombre_completo", "correo_electronico", "password" (en minúsculas y sin tildes).')
+                    __('El archivo debe tener las columnas exactamente como: "nombre completo", "correo electronico", "password" (en minúsculas y sin tildes).')
                 );
             }
         }
