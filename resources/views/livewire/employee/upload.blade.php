@@ -17,7 +17,14 @@
     </div>
 
     <div class="w-full flex flex-col border border-neutral-300 dark:border-neutral-900 p-5 md:p-10 rounded-2xl">
-        <form wire:submit.prevent='submit' class="w-full max-w-md space-y-6">
+        <flux:heading size="xl">{{ __('Asociar empleados a un departamento') }}</flux:heading>
+        <ul class="text-sm opacity-70 space-y-2 mt-3">
+            <li class="list-disc list-inside">{{ __('Columnas obligatorias (en minusculas sin tilde): nombre completo, correo electronico y password') }}</li>
+            <li class="list-disc list-inside">{{ __('Correo electronico valido') }}</li>
+            <li class="list-disc list-inside">{{ __('Password con minimo 8 caracteres') }}</li>
+        </ul>
+
+        <form wire:submit.prevent='submit' class="w-full max-w-xl space-y-6 mt-10 p-0 lg:p-10 rounded-2xl lg:border border-neutral-300 dark:border-neutral-900">
             <flux:field>
                 <flux:label>{{ __('Selecciona un departamento') }}</flux:label>
                 <flux:select class="!h-12" name="department" wire:model.live="department">
@@ -41,7 +48,7 @@
                 <flux:error name="user_roles" class="!mt-0"/>
             </flux:field>
             <flux:field>
-                <flux:label>{{ __('Selecciona un archivo a importar') }}</flux:label>
+                <flux:label>{{ __('Subir archivo de empleados') }}</flux:label>
                 <flux:input type="file" name="employee_file" wire:model="employee_file" accept=".xlsx, .csv" />
                 <div wire:loading wire:target="employee_file">
                     <div class="flex items-center gap-1">
