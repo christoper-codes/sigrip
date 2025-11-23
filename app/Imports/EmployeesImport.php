@@ -74,9 +74,13 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
 
     public function rules(): array
     {
-        return [
+         return [
             '*.nombre_completo' => 'required|string|min:3',
-            '*.correo_electronico' => 'required|email',
+            '*.correo_electronico' => [
+                'required',
+                'email',
+                'regex:/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/'
+            ],
             '*.password' => 'required|min:8',
         ];
     }

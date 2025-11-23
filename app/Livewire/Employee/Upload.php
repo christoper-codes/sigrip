@@ -61,9 +61,11 @@ class Upload extends Component
 
             DB::commit();
             $this->dispatch('toast', message: __('Empleados guardados correctamente.'), type: 'success');
-            $this->reset(['department', 'user_roles']);
+            $this->reset(['department', 'user_roles', 'employee_file']);
+            $this->import_errors = null;
         } catch (Exception $e) {
             DB::rollBack();
+            $this->reset(['employee_file']);
             $this->import_errors = __('Error al guardar los empleados: ') . $e->getMessage();
             $this->dispatch('toast', message: __('Error al guardar los empleados: ') . $e->getMessage(), type: 'error');
         }
