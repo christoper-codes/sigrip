@@ -47,6 +47,12 @@
             </flux:field>
 
             <flux:button type="submit" variant="primary">{{ __('Guardar empleados') }}</flux:button>
+            @if($import_errors)
+                <div class="flex items-center gap-2 ">
+                    <flux:icon.exclamation-triangle class="text-red-500 size-5" />
+                    <flux:text class="!text-red-500">{{ $import_errors }}</flux:text>
+                </div>
+            @endif
         </form>
     </div>
 </div>
