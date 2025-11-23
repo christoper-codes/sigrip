@@ -9,10 +9,44 @@
             <flux:heading size="lg" class="mt-2">{{ __('Cifrado de datos') }}</flux:heading>
             <flux:text class="mt-2">{{ __('Los datos están protegidos mediante cifrado para garantizar la seguridad durante el guardado.') }}</flux:text>
         </div>
-        <div class="flex flex-col border border-neutral-200 dark:border-neutral-900 p-5 rounded-2xl w-full">
+        <div class="flex flex-col border border-neutral-300 dark:border-neutral-900 p-5 rounded-2xl w-full">
             <flux:icon.exclamation-circle />
             <flux:heading size="lg" class="mt-2">{{ __('Contraseñas') }}</flux:heading>
             <flux:text class="mt-2">{{ __('Se recomienda utilizar contraseñas seguras para proteger la información de los empleados.') }}</flux:text>
         </div>
+    </div>
+
+    <div class="w-full flex flex-col border border-neutral-300 dark:border-neutral-900 p-5 md:p-10 rounded-2xl">
+        <form wire:submit.prevent='submit' class="w-full max-w-md space-y-6">
+            <flux:field>
+                <flux:label>{{ __('Selecciona un departamento') }}</flux:label>
+                <flux:select class="!h-12" name="department" wire:model.live="department">
+                    <flux:select.option value="" >{{ __('Selecciona un departamento') }}</flux:select.option>
+                    @foreach ($departments as $department)
+                        <flux:select.option value="{{ $department['id'] }}">{{ $department['name'] }}</flux:select.option>
+                    @endforeach
+                </flux:select>
+                <flux:error name="department" class="!mt-0"/>
+            </flux:field>
+            <flux:field>
+                <flux:label class="!mb-3">{{ __('Asignar roles a los empleados') }}</flux:label>
+                <flux:checkbox.group wire:model="user_roles">
+                    @foreach ($roles as $role)
+                        <flux:checkbox
+                            value="{{ $role['id'] }}"
+                            label="{{ $role['name'] }}"
+                        />
+                    @endforeach
+                </flux:checkbox.group>
+                <flux:error name="user_roles" class="!mt-0"/>
+            </flux:field>
+            <flux:field>
+                <flux:label>{{ __('Selecciona un archivo a importar') }}</flux:label>
+                <flux:input type="file" name="employee_file" wire:model="employee_file" accept=".xlsx, .csv" />
+                <flux:error name="employee_file" class="!mt-0"/>
+            </flux:field>
+
+            <flux:button type="submit" variant="primary">{{ __('Guardar empleados') }}</flux:button>
+        </form>
     </div>
 </div>

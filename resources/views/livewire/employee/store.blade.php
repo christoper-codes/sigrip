@@ -20,7 +20,7 @@
             <flux:input name="password_confirmation" type="password" wire:model="password_confirmation" icon="lock-closed" placeholder="●●●●●●●●" viewable />
             <flux:error name="password_confirmation" />
         </flux:field>
-                <flux:field>
+        <flux:field>
             <flux:label>{{ __('Selecciona un departamento') }}</flux:label>
             <flux:select class="!h-12" name="department" wire:model.live="department">
                 <flux:select.option value="" >{{ __('Selecciona un departamento') }}</flux:select.option>
