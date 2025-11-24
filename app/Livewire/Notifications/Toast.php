@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Notifications;
 
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -31,6 +32,11 @@ class Toast extends Component
     #[On('echo:notification.{user_id},NotificationEvent')]
     public function receiveNotification(array $notification): void
     {
+        Notification::create([
+            'user_id' => Auth::user()->id,
+            'metadata' => $notification['notification'],
+        ]);
+
        $this->js("
             window.dispatchEvent(new CustomEvent('notify', {
                 detail: {
