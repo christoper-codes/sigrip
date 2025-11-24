@@ -23,6 +23,7 @@ class CreateEmployeesJob implements ShouldQueue
         public int $organization_id,
         public int $company_id,
         public int $department_id,
+        public ?string $department_name,
         public array $user_roles,
         public int $user_id,
     )
@@ -53,7 +54,8 @@ class CreateEmployeesJob implements ShouldQueue
             event(new NotificationEvent(
                 notification: [
                     'type' => 'success',
-                    'message' => __('Empleados creados correctamente.'),
+                    'title' => __('Empleados creados'),
+                    'message' => __('Empleados creados correctamente para el departamento: :department', ['department' => $this->department_name ?? 'N/A']),
                     'user_id' => $this->user_id,
                 ],
                 user_id: $this->user_id,

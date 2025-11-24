@@ -17,12 +17,14 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
     protected int $organization_id;
     protected ?int $company_id;
     protected ?int $department_id;
+    protected ?string $department_name;
     protected ?array $user_roles;
 
-    public function __construct(?int $organization_id = null, ?int $department_id = null, ?array $user_roles = null, ?int $company_id = null)
+    public function __construct(?int $organization_id = null, ?int $department_id = null, ?string $department_name = null, ?array $user_roles = null, ?int $company_id = null)
     {
         $this->organization_id = $organization_id;
         $this->department_id = $department_id;
+        $this->department_name = $department_name;
         $this->user_roles = $user_roles;
         $this->company_id = $company_id;
     }
@@ -51,6 +53,7 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
             organization_id: $this->organization_id,
             company_id: $this->company_id,
             department_id: $this->department_id,
+            department_name: $this->department_name,
             user_roles: $this->user_roles,
             user_id: Auth::user()->id,
         );

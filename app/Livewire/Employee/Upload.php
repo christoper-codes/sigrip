@@ -54,9 +54,12 @@ class Upload extends Component
         }
         DB::beginTransaction();
         try {
+            $department_name = collect($this->departments)->firstWhere('id', $this->department)['name'] ?? 'N/A';
+
             (new EmployeesImport(
                 organization_id: Auth::user()->organization?->id,
                 department_id: $this->department,
+                department_name: $department_name,
                 user_roles: $this->user_roles,
                 company_id: Auth::user()->company?->id,
             ))->import($this->employee_file->getRealPath());
