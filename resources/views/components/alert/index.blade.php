@@ -25,9 +25,9 @@
                 init() {
                     this.$nextTick(() => this.show = true)
                     if(notification.type == 'success'){
-                        setTimeout(() => this.transitionOut(), 5000)
-                    } else {
                         setTimeout(() => this.transitionOut(), 10000)
+                    } else {
+                        setTimeout(() => this.transitionOut(), 15000)
                     }
                 },
                 transitionOut() {

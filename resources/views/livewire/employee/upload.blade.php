@@ -16,9 +16,10 @@
         </div>
     </div>
 
-    <div class="w-full flex flex-col border border-neutral-300 dark:border-neutral-900 p-5 md:p-10 rounded-2xl">
+    <div class="w-full flex flex-col">
         <flux:heading size="xl">{{ __('Asociar empleados a un departamento') }}</flux:heading>
-        <ul class="text-sm opacity-70 space-y-2 mt-3">
+        <flux:text class="mt-2">{{ __('Puntos a considerar antes de subir el archivo de empleados:') }}</flux:text>
+        <ul class="text-sm opacity-70 space-y-2 mt-6">
             <li class="list-disc list-inside">{{ __('Columnas obligatorias (en minusculas sin tilde): nombre completo, correo electronico y password') }}</li>
             <li class="list-disc list-inside">{{ __('Correo electronico valido') }}</li>
             <li class="list-disc list-inside">{{ __('Password con minimo 8 caracteres') }}</li>

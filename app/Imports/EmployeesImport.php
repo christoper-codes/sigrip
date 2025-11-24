@@ -2,9 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\Organization;
-use App\Models\Role;
-use App\Models\User;
+use App\Jobs\CreateEmployeesJob;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -47,20 +45,13 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
             throw new \Exception(__('El archivo debe contener al menos un registro de empleado.'));
         }
 
-        foreach ($rows as $row) {
-            $metadata = ['notifications' => 0];
-            $user = User::create([
-                'name' => $row['nombre_completo'],
-                'email' => $row['correo_electronico'],
-                'password' => bcrypt($row['password']),
-                'department_id' => $this->department_id,
-                'company_id' => $this->company_id,
-                'organization_id' => $this->organization_id,
-                'metadata' => $metadata,
-            ]);
-
-            $user->userRoles()->attach($this->user_roles ?? []);
-        }
+        CreateEmployeesJob::dispatch(
+            employees: $rows->toArray(),
+            organization_id: $this->organization_id,
+            company_id: $this->company_id,
+            department_id: $this->department_id,
+            user_roles: $this->user_roles,
+        );
     }
 
     public function rules(): array

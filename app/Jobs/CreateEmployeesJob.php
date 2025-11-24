@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Jobs;
+
+use App\Models\User;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\DB;
+
+class CreateEmployeesJob implements ShouldQueue
+{
+    use Queueable;
+
+    public int $tries = 1;
+    public int $backoff = 5;
+
+    /**
+     * Create a new job instance.
+     */
+    public function __construct(
+        public array $employees,
+        public int $organization_id,
+        public int $company_id,
+        public int $department_id,
+        public array $user_roles,
+    )
+    {
+       $this->onQueue('employees');
+    }
+
+    /**
+     * Execute the job.
+     */
+    public function handle(): void
+    {
+        DB::beginTransaction();
+        try {
+            foreach ($this->employees as $employee) {
+                $user = User::create([
+                    'name' => $employee['nombre_completo'],
+                    'email' => $employee['correo_electronico'],
+                    'password' => bcrypt($employee['password']),
+                    'department_id' => $this->department_id,
+                    'company_id' => $this->company_id,
+                    'organization_id' => $this->organization_id,
+                    'metadata' => ['notifications' => 0],
+                ]);
+                $user->userRoles()->attach($this->user_roles ?? []);
+            }
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+}
