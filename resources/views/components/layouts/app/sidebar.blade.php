@@ -89,13 +89,8 @@
 
             <flux:spacer />
             <div class="flex items-center gap-3">
-                <div class="relative lg:hidden">
-                    <div class="flex items-center justify-center p-2 rounded-full border border-neutral-300 dark:border-neutral-700 bg-light-variant dark:bg-dark-variant">
-                        <flux:icon.bell class="size-4"/>
-                    </div>
-                    <div class="absolute -top-1 -right-1 text-light bg-primary text-xs rounded-full h-4.5 w-4.5 flex items-center justify-center font-semibold">
-                        <span>{{ auth()->user()->metadata['notifications'] ?? 0 }}</span>
-                    </div>
+                <div class="lg:hidden">
+                    <livewire:notifications.bell-alert />
                 </div>
                 <flux:dropdown position="top" align="end">
                     <flux:profile
