@@ -31,11 +31,6 @@ class Toast extends Component
     #[On('echo:notification.{user_id},NotificationEvent')]
     public function receiveNotification(array $notification): void
     {
-       $user = Auth::user();
-       $metadata = $user->metadata;
-       $metadata['notifications'] = ($metadata['notifications'] ?? 0) + 1;
-       $user->update(['metadata' => $metadata]);
-
        $this->js("
             window.dispatchEvent(new CustomEvent('notify', {
                 detail: {
