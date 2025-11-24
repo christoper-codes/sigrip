@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Jobs\CreateEmployeesJob;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
@@ -51,6 +52,7 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
             company_id: $this->company_id,
             department_id: $this->department_id,
             user_roles: $this->user_roles,
+            user_id: Auth::user()->id,
         );
     }
 

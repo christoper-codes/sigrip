@@ -2,11 +2,18 @@
 
 namespace App\Livewire\Notifications;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Toast extends Component
 {
+    public ?int $user_id = 0;
+
+    public function mount(): void
+    {
+        $this->user_id = Auth::user()->id;
+    }
 
     #[On('toast')]
     public function showToast(string $message, string $type = 'success'): void
@@ -16,6 +23,24 @@ class Toast extends Component
                 detail: {
                     type: '{$type}',
                     content: '{$message}'
+                }
+            }));
+        ");
+    }
+
+    #[On('echo:notification.{user_id},NotificationEvent')]
+    public function receiveNotification(array $notification): void
+    {
+       $user = Auth::user();
+       $metadata = $user->metadata;
+       $metadata['notifications'] = ($metadata['notifications'] ?? 0) + 1;
+       $user->update(['metadata' => $metadata]);
+
+       $this->js("
+            window.dispatchEvent(new CustomEvent('notify', {
+                detail: {
+                    type: '{$notification['notification']['type']}',
+                    content: '{$notification['notification']['message']}'
                 }
             }));
         ");

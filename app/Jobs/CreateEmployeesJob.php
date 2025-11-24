@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\NotificationEvent;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -23,6 +24,7 @@ class CreateEmployeesJob implements ShouldQueue
         public int $company_id,
         public int $department_id,
         public array $user_roles,
+        public int $user_id,
     )
     {
        $this->onQueue('employees');
@@ -48,6 +50,14 @@ class CreateEmployeesJob implements ShouldQueue
                 $user->userRoles()->attach($this->user_roles ?? []);
             }
             DB::commit();
+            event(new NotificationEvent(
+                notification: [
+                    'type' => 'success',
+                    'message' => __('Empleados creados correctamente.'),
+                    'user_id' => $this->user_id,
+                ],
+                user_id: $this->user_id,
+            ));
         } catch (\Throwable $e) {
             DB::rollBack();
             throw $e;
