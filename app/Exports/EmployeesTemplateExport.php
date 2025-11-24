@@ -20,7 +20,7 @@ class EmployeesTemplateExport implements FromArray, WithHeadings, WithStyles, Wi
         return [
             'nombre completo',
             'correo electronico',
-            'contraseña',
+            'password',
         ];
     }
 
