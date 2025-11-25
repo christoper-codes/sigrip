@@ -55,7 +55,7 @@ class CreateEmployeesJob implements ShouldQueue
                 notification: [
                     'type' => 'success',
                     'title' => __('Empleados creados'),
-                    'message' => __('Empleados creados correctamente para el departamento: :department', ['department' => $this->department_name ?? 'N/A']),
+                    'message' => __('Los nuevos empleados fueron creados correctamente para el departamento: :department', ['department' => $this->department_name ?? 'N/A']),
                     'url' => route('employee.index'),
                     'user_id' => $this->user_id,
                 ],
