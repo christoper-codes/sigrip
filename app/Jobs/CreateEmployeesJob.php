@@ -56,6 +56,7 @@ class CreateEmployeesJob implements ShouldQueue
                     'type' => 'success',
                     'title' => __('Empleados creados'),
                     'message' => __('Empleados creados correctamente para el departamento: :department', ['department' => $this->department_name ?? 'N/A']),
+                    'url' => route('employee.index'),
                     'user_id' => $this->user_id,
                 ],
                 user_id: $this->user_id,
