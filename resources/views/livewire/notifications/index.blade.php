@@ -10,7 +10,7 @@
                         <flux:callout.heading>{{ $notification['metadata']['title'] }}</flux:callout.heading>
                         <flux:callout.text class="truncate! w-32!">{{ $notification['metadata']['message'] }}</flux:callout.text>
                         <x-slot name="actions" class="@md:h-full m-0!">
-                            <flux:button icon="cursor-arrow-rays" variant="filled" class="cursor-pointer!">{{ __('Leer') }}</flux:button>
+                            <flux:button wire:click="markAsRead({{ $notification['id'] }})" icon="cursor-arrow-rays" variant="filled" class="cursor-pointer!">{{ __('Leer') }}</flux:button>
                         </x-slot>
                     </flux:callout>
                 @endforeach
@@ -26,11 +26,27 @@
                         <flux:callout.heading>{{ $notification['metadata']['title'] }}</flux:callout.heading>
                         <flux:callout.text class="truncate! w-32!">{{ $notification['metadata']['message'] }}</flux:callout.text>
                         <x-slot name="actions" class="@md:h-full m-0!">
-                            <flux:button icon="cursor-arrow-rays" variant="filled" class="cursor-pointer!">{{ __('Leer') }}</flux:button>
+                            <flux:button wire:click="markAsRead({{ $notification['id'] }})" icon="cursor-arrow-rays" variant="filled" class="cursor-pointer!">{{ __('Leer') }}</flux:button>
                         </x-slot>
                     </flux:callout>
                 @endforeach
             </div>
         </div>
     </div>
+    <flux:modal name="read-notification" class="w-full max-w-md">
+        <div class="space-y-6">
+            <div>
+                <flux:heading size="lg">{{ $title_notification }}</flux:heading>
+                <flux:text class="mt-2">
+                    {{ $message_notification }}
+                </flux:text>
+            </div>
+            <div class="flex gap-2">
+                <flux:spacer />
+                <flux:modal.close>
+                    <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
+                </flux:modal.close>
+            </div>
+        </div>
+    </flux:modal>
 </div>
