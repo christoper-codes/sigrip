@@ -3,6 +3,7 @@
 namespace App\Livewire\Notifications;
 
 use App\Models\Notification;
+use App\Models\User;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -37,9 +38,16 @@ class Index extends Component
         $this->title_notification = $notification['metadata']['title'];
         $this->message_notification = $notification['metadata']['message'];
         if(is_null($notification['read_at'])) {
+            $notification['read_at'] = now()->toDateTimeString();
+            $this->notifications[array_search($notification_id, array_column($this->notifications, 'id'))] = $notification;
             $this->unread_notifications = array_filter($this->unread_notifications, fn($n) => $n['id'] !== $notification_id);
             $this->read_notifications[] = $notification;
             Notification::where('id', $notification_id)->update(['read_at' => now()]);
+
+            $user = Auth::user();
+            $metadata = $user->metadata;
+            $metadata['notifications'] = ($metadata['notifications'] ?? 1) - 1;
+            $user->update(['metadata' => $metadata]);
         }
 
         Flux::modal('read-notification')->show();
