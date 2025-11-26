@@ -24,6 +24,7 @@ class Department extends Model
     {
         return [
             'metadata' => 'array',
+            'created_at' => 'datetime:d/m/Y H:i',
         ];
     }
 
