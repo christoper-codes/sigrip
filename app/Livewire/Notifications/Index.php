@@ -3,7 +3,6 @@
 namespace App\Livewire\Notifications;
 
 use App\Models\Notification;
-use App\Models\User;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
