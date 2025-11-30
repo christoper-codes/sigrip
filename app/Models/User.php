@@ -57,6 +57,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'metadata' => 'array',
+            'created_at' => 'datetime:d/m/Y H:i',
         ];
     }
 
