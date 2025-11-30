@@ -16,6 +16,13 @@ class Company extends Model
         'description',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'datetime:d/m/Y H:i',
+        ];
+    }
+
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);
