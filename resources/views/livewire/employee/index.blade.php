@@ -51,6 +51,9 @@
                                     <span x-show="!loading">{{ __('Actualizar') }}</span>
                                     <span x-show="loading"><flux:icon.loading class="!size-4"/></span>
                                 </flux:button>
+                                <td class="p-4">
+                                    <flux:button icon="trash" wire:click="confirmDestroy({{ $employee['id'] }}, '{{ $employee['name'] }}')"></flux:button>
+                                </td>
                             </td>
                         </tr>
                     @endforeach
@@ -88,6 +91,27 @@
                     </flux:button>
                 </div>
             @endif
+        </div>
+    </flux:modal>
+
+    <flux:modal name="confirm-destroy-employee-modal" class="w-[90%] md:w-md">
+        <div class="space-y-6">
+            <div>
+                <flux:heading size="lg">{{ __('¿Estás seguro de eliminar este empleado?') }}</flux:heading>
+                <flux:text class="mt-2">
+                    {{ __('Esta acción no se puede deshacer. El empleado perderá acceso a su cuenta.') }}
+                </flux:text>
+                <flux:text class="mt-4">
+                    {{ __('Empleado:') }} <span class="font-semibold">{{ $employee_name }}</span>
+                </flux:text>
+            </div>
+            <div class="flex gap-2">
+                <flux:spacer />
+                <flux:modal.close>
+                    <flux:button variant="ghost">{{ __('Cancelar') }}</flux:button>
+                </flux:modal.close>
+                <flux:button type="submit" variant="danger" wire:click="destroyEmployee">{{ __('Eliminar') }}</flux:button>
+            </div>
         </div>
     </flux:modal>
 </div>
