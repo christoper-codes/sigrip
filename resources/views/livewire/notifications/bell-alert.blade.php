@@ -1,4 +1,4 @@
-<a href="{{ route('notification.index') }}" class="relative">
+<a href="{{ route('notification.index') }}" class="relative" wire:navigate>
     <div class="flex items-center justify-center p-2 lg:p-3 rounded-full border border-neutral-300 dark:border-neutral-700 bg-light-variant dark:bg-dark-variant">
         <flux:icon.bell class="size-4 lg:size-5"/>
     </div>
