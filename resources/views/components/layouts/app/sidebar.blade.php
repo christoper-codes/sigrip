@@ -100,7 +100,11 @@
 
             <flux:spacer />
             <div class="flex items-center gap-3">
-                <div class="lg:hidden">
+                <div class="flex items-center gap-x-3 lg:hidden">
+                    <div x-data class="flex items-center justify-center p-2 lg:p-3 rounded-full border border-neutral-300 dark:border-neutral-700 bg-light-variant dark:bg-dark-variant">
+                        <flux:icon.sun x-show="$flux.appearance === 'light'" x-on:click="$flux.dark = ! $flux.dark" class="cursor-pointer size-4! lg:size-5!" />
+                        <flux:icon.moon x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" class="cursor-pointer size-4! lg:size-5!" />
+                    </div>
                     <livewire:notifications.bell-alert />
                 </div>
                 <flux:dropdown position="top" align="end">
