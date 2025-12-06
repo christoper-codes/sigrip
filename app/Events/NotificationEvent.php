@@ -17,7 +17,8 @@ class NotificationEvent implements ShouldBroadcast, ShouldQueue
     /**
      * Create a new event instance.
      */
-    public function __construct(public array $notification, public int $user_id){
+    public function __construct(public array $notification, public int $user_id)
+    {
         $this->onQueue('notifications');
     }
 

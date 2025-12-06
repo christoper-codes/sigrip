@@ -37,6 +37,11 @@ class Toast extends Component
             'metadata' => $notification['notification'],
         ]);
 
+        $user = Auth::user();
+        $metadata = $user->metadata;
+        $metadata['notifications'] = ($metadata['notifications'] ?? 0) + 1;
+        $user->update(['metadata' => $metadata]);
+
        $this->js("
             window.dispatchEvent(new CustomEvent('notify', {
                 detail: {

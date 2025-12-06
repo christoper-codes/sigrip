@@ -20,12 +20,7 @@ class BellAlert extends Component
     #[On('echo:notification.{user_id},NotificationEvent')]
     public function receiveNotification(array $notification): void
     {
-        $user = Auth::user();
-        $metadata = $user->metadata;
-        $metadata['notifications'] = ($metadata['notifications'] ?? 0) + 1;
-        $user->update(['metadata' => $metadata]);
-
-        $this->notifications = (int) $metadata['notifications'];
+        $this->notifications += 1;
     }
 
     public function render()
