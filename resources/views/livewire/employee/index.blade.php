@@ -57,7 +57,12 @@
                 </x-slot:table>
             </x-appearance.livewiretable>
         </div>
+    @else
+        <div class="mt-10 max-w-2xl w-full">
+            <flux:callout color="fuchsia" icon="information-circle" heading="{{ __('No se ha seleccionado un departamento') }}" />
+        </div>
     @endif
+
     <flux:modal name="update-roles-modal" class="w-[90%] md:w-lg">
         <div class="pt-5 px-2">
             @if($selected_employee_id && $roles)
