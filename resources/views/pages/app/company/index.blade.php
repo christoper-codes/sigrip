@@ -1,4 +1,4 @@
-<x-layouts.app :title="__('Dashboard')">
+<x-layouts.app :title="__('Compañía')">
     <div class="h-full w-full">
         <x-appearance.header>
             <div class="text-3xl leading-normal space-y-2">
