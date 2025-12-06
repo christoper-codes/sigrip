@@ -14,6 +14,8 @@ class Index extends Component
     public array $read_notifications = [];
     public ?string $title_notification = null;
     public ?string $message_notification = null;
+    public ?string $url_notification = null;
+    public ?string $created_at_notification = null;
 
     public function mount(): void
     {
@@ -36,6 +38,9 @@ class Index extends Component
         $notification = $this->notifications[array_search($notification_id, array_column($this->notifications, 'id'))];
         $this->title_notification = $notification['metadata']['title'];
         $this->message_notification = $notification['metadata']['message'];
+        $this->url_notification = $notification['metadata']['url'] ?? null;
+        $this->created_at_notification = $notification['created_at'];
+
         if(is_null($notification['read_at'])) {
             $notification['read_at'] = now()->toDateTimeString();
             $this->notifications[array_search($notification_id, array_column($this->notifications, 'id'))] = $notification;
