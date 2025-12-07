@@ -22,6 +22,7 @@ class QuestionnaireSeeder extends Seeder
             'name' => 'Escaneo emocional mensual (NOM-035)',
             'description' => 'Cuestionario para identificar y evaluar los factores de riesgo psicosocial en el entorno laboral, conforme a la NOM-035',
             'metadata' => json_decode($monthly_scan, true),
+            'is_base' => true,
             'is_active' => true,
         ]);
 
@@ -31,6 +32,7 @@ class QuestionnaireSeeder extends Seeder
             'name' => 'Escaneo emocional semanal (NOM-035)',
             'description' => 'Cuestionario semanal para monitorear el bienestar emocional de los empleados, conforme a la NOM-035',
             'metadata' => json_decode($weekly_scan, true),
+            'is_base' => true,
             'is_active' => true,
         ]);
 
@@ -40,6 +42,7 @@ class QuestionnaireSeeder extends Seeder
             'name' => 'Test de honestidad laboral (NOM-035)',
             'description' => 'Evaluación diseñada para medir la honestidad y la integridad de los empleados en el entorno laboral.',
             'metadata' => json_decode($honestly_test, true),
+            'is_base' => true,
             'is_active' => true,
         ]);
     }

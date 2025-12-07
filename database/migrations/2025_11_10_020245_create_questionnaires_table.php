@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->json('metadata')->nullable();
+            $table->boolean('is_base')->default(false);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

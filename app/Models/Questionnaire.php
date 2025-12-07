@@ -14,6 +14,7 @@ class Questionnaire extends Model
         'name',
         'description',
         'metadata',
+        'is_base',
         'is_active',
     ];
 
