@@ -1,5 +1,5 @@
 <div class="w-full flex flex-col gap-14">
-    <flux:button icon="arrow-down" wire:click='downloadTemplate' class="!w-full !max-w-xs !py-8 !border !border-green-600 !bg-green-300/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-green-300/5 !transition-colors !shadow-xl/50 !shadow-green-500/20">
+    <flux:button icon="arrow-down" wire:click='downloadTemplate' class="!w-full !max-w-xs !py-8 !border !border-primary !bg-primary/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
         {{ __('Descargar plantilla') }}
     </flux:button>
 

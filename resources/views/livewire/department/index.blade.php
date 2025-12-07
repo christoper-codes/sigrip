@@ -26,6 +26,13 @@
      </x-appearance.livewiretable>
 
     <div class="mt-10">
+        <flux:heading size="lg">{{ __('Agregar empleados') }}</flux:heading>
+        <flux:button href="{{ route('employee.index') }}" icon="users" class="mt-5! !w-full !max-w-xs !py-8 !border !border-primary !bg-primary/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
+            {{ __('Empleados') }}
+        </flux:button>
+    </div>
+
+    <div class="mt-10">
         <flux:heading size="lg">{{ __('Aplicaciones activas') }}</flux:heading>
         <flux:text class="mt-2">{{ __('Seleccione una aplicacion para ver más detalles') }}</flux:text>
     </div>
