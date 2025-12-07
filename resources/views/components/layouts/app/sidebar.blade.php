@@ -23,20 +23,24 @@
                 </flux:navlist.group>
             </flux:navlist>
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Seguimiento')" class="grid">
-                    <flux:navlist.item class="!py-5" icon="bell" :href="route('notification.index')" :current="request()->routeIs('notification.index')" wire:navigate>
-                        <span>{{ __('Notificaciones') }}</span>
-                        @if(auth()->user()->metadata['notifications'] > 0)
-                            <div class="inline rounded-sm border border-primary bg-primary/10 text-center text-xs px-2 py-0.5 ml-1">
-                                {{ auth()->user()->metadata['notifications'] }}
-                            </div>
-                        @endif
-                    </flux:navlist.item>
+                <flux:navlist.group :heading="__('Core')" class="grid">
+                    <flux:sidebar.group expandable :heading="__('Principales')" class="grid">
+                        <flux:sidebar.item class="!py-5 cursor-pointer!" icon="squares-plus" :href="route('application.index')" :current="request()->routeIs('application.index')" wire:navigate>{{ __('Aplicaciones') }}</flux:sidebar.item>
+                    </flux:sidebar.group>
                 </flux:navlist.group>
             </flux:navlist>
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Core')" class="grid">
-                    <flux:navlist.item class="!py-5" icon="squares-plus" :href="route('application.index')" :current="request()->routeIs('application.index')" wire:navigate>{{ __('Aplicaciones') }}</flux:navlist.item>
+                <flux:navlist.group :heading="__('Seguimiento')" class="grid">
+                     <flux:sidebar.group expandable :expanded="request()->routeIs('notification.index')" :heading="__('Primordial')" class="grid">
+                        <flux:sidebar.item class="!py-5 cursor-pointer!" icon="bell" :href="route('notification.index')" :current="request()->routeIs('notification.index')" wire:navigate>
+                            <span>{{ __('Notificaciones') }}</span>
+                            @if(auth()->user()->metadata['notifications'] > 0)
+                                <div class="inline rounded-sm border border-primary bg-primary/10 text-center text-xs px-2 py-0.5 ml-1">
+                                    {{ auth()->user()->metadata['notifications'] }}
+                                </div>
+                            @endif
+                        </flux:sidebar.item>
+                    </flux:sidebar.group>
                 </flux:navlist.group>
             </flux:navlist>
 
