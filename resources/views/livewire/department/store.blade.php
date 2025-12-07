@@ -53,21 +53,31 @@
 
                     @if($potential_managers && $potential_managers->isNotEmpty())
                         <div
-                            x-data="{ animation: false }"
+                            x-data="{
+                                selected: @entangle('manager'),
+                                animation: false,
+                                toggle(id) {
+                                    if (this.selected === id) {
+                                        this.selected = null;
+                                    } else {
+                                        this.selected = id;
+                                    }
+                                }
+                            }"
                             x-init="$nextTick(() => animation = true)"
                             x-show="animation"
                             x-transition
                             >
-
-                            <flux:radio.group class="mt-5" wire:model="manager">
+                            <flux:checkbox.group class="mt-5">
                                 @foreach ($potential_managers as $manager)
-                                    <flux:radio
+                                    <flux:checkbox
                                         value="{{ $manager->id }}"
                                         label="{{ $manager->name }}"
                                         description="{{ $manager->email }} - {{ $manager->userRoles->pluck('name')->join(', ') }}"
+                                        @click="toggle({{ $manager->id }})"
                                     />
                                 @endforeach
-                            </flux:radio.group>
+                            </flux:checkbox.group>
                         </div>
                     @endif
                     <div class="mt-5 flex justify-end items-center gap-2">
@@ -82,7 +92,7 @@
                 <div class="my-5">
                     <flux:separator text="Or" />
                 </div>
-                <a href="#" class="block w-full p-5  border border-neutral-300 dark:border-neutral-700 rounded-lg text-center">
+                <a href="{{ route('employee.index') }}" wire:navigate class="block w-full p-5  border border-neutral-300 dark:border-neutral-700 rounded-lg text-center">
                     <flux:text>{{ __('Actualizar un empleado con rol de gerente') }}</flux:text>
                 </a>
             </div>

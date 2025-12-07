@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class CreateEmployeesJob implements ShouldQueue
 {
@@ -65,5 +66,22 @@ class CreateEmployeesJob implements ShouldQueue
             DB::rollBack();
             throw $e;
         }
+    }
+
+    /**
+     * Handle a job failure.
+     */
+    public function failed(?Throwable $exception): void
+    {
+        event(new NotificationEvent(
+            notification: [
+                'type' => 'error',
+                'title' => __('Error al crear empleados'),
+                'message' => __('Ocurrió un error al crear los empleados. Por favor, intente nuevamente.'),
+                'url' => route('employee.index'),
+                'user_id' => $this->user_id,
+            ],
+            user_id: $this->user_id,
+        ));
     }
 }
