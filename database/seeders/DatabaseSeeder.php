@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             OrganizationSeeder::class,
             RoleSeeder::class,
             QuestionnaireCategorySeeder::class,
+            QuestionnaireSeeder::class,
         ]);
     }
 }
