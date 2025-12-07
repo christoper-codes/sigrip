@@ -50,7 +50,8 @@ class Index extends Component
 
             $user = Auth::user();
             $metadata = $user->metadata;
-            $metadata['notifications'] = ($metadata['notifications'] ?? 1) - 1;
+            $notifications = ($metadata['notifications'] ?? 1) - 1;
+            $metadata['notifications'] = $notifications < 0 ? 0 : $notifications;
             $user->update(['metadata' => $metadata]);
         }
 
