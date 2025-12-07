@@ -34,6 +34,11 @@
                     </flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
+            <flux:navlist variant="outline">
+                <flux:navlist.group :heading="__('Core')" class="grid">
+                    <flux:navlist.item class="!py-5" icon="squares-plus" :href="route('application.index')" :current="request()->routeIs('application.index')" wire:navigate>{{ __('Aplicaciones') }}</flux:navlist.item>
+                </flux:navlist.group>
+            </flux:navlist>
 
             <flux:spacer />
 
