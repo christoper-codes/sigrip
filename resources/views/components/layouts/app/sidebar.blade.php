@@ -16,9 +16,9 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Administración')" class="grid">
-                    <flux:navlist.item class="!py-5" icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item class="!py-5" icon="bolt" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                     <flux:navlist.item class="!py-5" icon="building-office" :href="route('company.index')" :current="request()->routeIs('company.index')" wire:navigate>{{ __('Compañia') }}</flux:navlist.item>
-                    <flux:navlist.item class="!py-5" icon="building-office-2" :href="route('department.index')" :current="request()->routeIs('department.index')" wire:navigate>{{ __('Departamentos') }}</flux:navlist.item>
+                    <flux:navlist.item class="!py-5" icon="cube" :href="route('department.index')" :current="request()->routeIs('department.index')" wire:navigate>{{ __('Departamentos') }}</flux:navlist.item>
                     <flux:navlist.item class="!py-5" icon="users" :href="route('employee.index')" :current="request()->routeIs('employee.index')" wire:navigate>{{ __('Empleados') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
