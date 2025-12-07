@@ -47,7 +47,7 @@
                         <button x-on:click="selectedTab = 'steps'" x-bind:aria-selected="selectedTab === 'steps'" x-bind:tabindex="selectedTab === 'steps' ? '0' : '-1'" x-bind:class="selectedTab === 'steps' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelSteps">
                             <div class="flex items-center gap-2">
                                 <flux:icon.cube class="size-5" />
-                                <span>{{ __('Pasos faltantes') }}</span>
+                                <span>{{ __('Pasos iniciales') }}</span>
                             </div>
                         </button>
                     @endcan
@@ -118,25 +118,25 @@
                                 </div>
                                 <div class="relative lg:row-span-2">
                                     <div class="absolute inset-px rounded-lg bg-light-variant dark:bg-dark-variant border border-neutral-200 dark:border-neutral-800 max-lg:rounded-b-4xl lg:rounded-r-4xl"></div>
-                                    <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
-                                    <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
-                                        <p class="mt-2 text-lg font-medium tracking-tight max-lg:text-center">{{ __('Potenciado por IA') }}</p>
-                                        <p class="mt-2 lg:max-w-lg text-sm/6 opacity-70 text-center lg:text-start">{{ __('Motor de inteligencia artificial que monitorea continuamente las respuestas y comportamientos. Genera alertas y tickets preventivos cuando detecta riesgos psicosociales.') }}</p>
-                                    </div>
-                                    <div class="flex justify-center items-center pt-8">
-                                        <div class="relative w-52 h-52">
-                                            <svg class="w-52 h-52 transform -rotate-90" viewBox="0 0 36 36">
-                                                <path class="text-gray-200 dark:text-gray-700" stroke="currentColor" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
-                                                <path class="text-blue-600" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="100, 100" stroke-dashoffset="0" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" style="animation: progress 6s ease-in-out;"></path>
-                                            </svg>
-                                            <div class="absolute inset-0 flex items-center justify-center">
-                                                <span class="font-semibold">100%</span>
+                                    <div class="relative flex justify-between h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
+                                        <div class="px-8 pt-8 sm:px-10 sm:pt-10">
+                                            <p class="mt-2 text-lg font-medium tracking-tight max-lg:text-center">{{ __('Potenciado por IA') }}</p>
+                                            <p class="mt-2 lg:max-w-lg text-sm/6 opacity-70 text-center lg:text-start">{{ __('Motor de inteligencia artificial que monitorea continuamente las respuestas y comportamientos. Genera alertas y tickets preventivos cuando detecta riesgos psicosociales.') }}</p>
+                                        </div>
+                                        <div class="flex justify-center items-center px-8 sm:px-10 py-10">
+                                            <div class="relative w-52 h-52">
+                                                <svg class="w-52 h-52 transform -rotate-90" viewBox="0 0 36 36">
+                                                    <path class="text-gray-200 dark:text-gray-700" stroke="currentColor" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                                    <path class="text-blue-600" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="100, 100" stroke-dashoffset="0" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" style="animation: progress 5s ease-in-out;"></path>
+                                                </svg>
+                                                <div class="absolute inset-0 flex items-center justify-center">
+                                                    <span class="font-semibold">100%</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="px-8 pb-8 pt-8 sm:px-10 sm:pt-10 sm:pb-0">
-                                        <p class="lg:max-w-lg text-sm/6 opacity-70 text-center lg:text-start">{{__('Previene demandas laborales, mejora clima organizacional y optimiza decisiones de RH basadas en datos.')}}</p>
-                                    </div>
+                                        <div class="px-8 pb-8 sm:px-10 sm:pb-10">
+                                            <p class="lg:max-w-lg text-sm/6 opacity-70 text-center lg:text-start">{{__('Previene demandas laborales, mejora clima organizacional y optimiza decisiones de RH basadas en datos.')}}</p>
+                                        </div>
                                     </div>
                                     <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-white/15 max-lg:rounded-b-4xl lg:rounded-r-4xl"></div>
                                 </div>

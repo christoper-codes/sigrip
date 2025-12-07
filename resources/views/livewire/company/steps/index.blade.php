@@ -46,11 +46,11 @@
     <!-- Step 3: Setup Applications -->
     @if ($current_step === 3)
         <div class="max-w-2xl">
-            <flux:heading size="xl">{{ __('Configurar aplicaciones') }}</flux:heading>
+            <flux:heading size="xl">{{ __('Manejar aplicaciones') }}</flux:heading>
             <flux:text class="mt-2">{{ __('Configura y crea aplicaciones (formularios) para tu organización.') }}</flux:text>
             <div class="mt-10">
                 <x-links.primary
-                    url="{{ route('dashboard') }}"
+                    url="{{ route('application.index') }}"
                     title="{{ __('Crear aplicación') }}"
                     class="!py-4 !px-7"
                 />
