@@ -3,10 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\QuestionnaireCategory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class QuestionnaireSeeder extends Seeder
+class QuestionnaireCategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
