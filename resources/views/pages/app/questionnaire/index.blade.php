@@ -23,7 +23,7 @@
             </div>
             <div class="px-2 mt-10">
                 <div x-cloak x-show="selectedTab === 'info'" id="tabpanelInfo" role="tabpanel" aria-label="info">
-                    <livewire:application.index />
+                    <livewire:questionnaire.index />
                 </div>
                 <div x-cloak x-show="selectedTab === 'create'" id="tabpanelCreateUpdate" role="tabpanel" aria-label="create">
                     <div class="max-w-2xl">

@@ -42,13 +42,8 @@
             <flux:checkbox name="remember" :label="__('Recordar sesión')" :checked="old('remember')" />
 
             <div class="flex items-center justify-end w-full">
-                <flux:button type="submit" :loading="'busy'" class="!whitespace-nowrap !w-full !py-6 cursor-pointer! rounded-full! !text-base !bg-dark dark:!bg-light hover:!bg-neutral-800 dark:hover:!bg-neutral-200 !transition-all !duration-500 !text-center !text-white dark:!text-neutral-800">
-                    <span x-show="busy">
-                        <x-flux::icon.loading />
-                    </span>
-                    <span x-show="! busy">
-                        {{ __('Iniciar sesión') }}
-                    </span>
+                <flux:button x-bind:disabled="busy" type="submit" class="!whitespace-nowrap !w-full !py-6 cursor-pointer! rounded-full! !text-base !bg-dark dark:!bg-light hover:!bg-neutral-800 dark:hover:!bg-neutral-200 !transition-all !duration-500 !text-center !text-white dark:!text-neutral-800">
+                    {{ __('Iniciar sesión') }}
                 </flux:button>
             </div>
         </form>
