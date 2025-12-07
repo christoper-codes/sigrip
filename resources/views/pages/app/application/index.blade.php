@@ -32,7 +32,13 @@
                     <livewire:application.index />
                 </div>
                 <div x-cloak x-show="selectedTab === 'create'" id="tabpanelCreateUpdate" role="tabpanel" aria-label="create">
-
+                    <div class="max-w-2xl">
+                        <flux:heading size="xl">{{ __('Crear nueva aplicación') }}</flux:heading>
+                        <flux:text class="mt-2">{{ __('Completa el formulario crear y asociar la aplicación.') }}</flux:text>
+                        <div class="mt-5">
+                            <livewire:application.store />
+                        </div>
+                    </div>
                 </div>
                 <div x-cloak x-show="selectedTab === 'details'" id="tabpanelDetails" role="tabpanel" aria-label="details">
 
