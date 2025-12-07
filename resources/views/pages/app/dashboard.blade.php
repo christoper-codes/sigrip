@@ -1,5 +1,5 @@
 <x-layouts.app :title="__('Dashboard')">
-    <div class="h-full w-full">
+    <div class="h-full w-full relative">
         <x-appearance.header>
             <div x-data="{
                     greeting: '',
