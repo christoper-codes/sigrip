@@ -18,6 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('employees', 'pages.app.employee.index')->name('employee.index');
     Route::view('notifications', 'pages.app.notification.index')->name('notification.index');
     Route::view('applications', 'pages.app.application.index')->name('application.index');
+    Route::view('questionnaires', 'pages.app.questionnaire.index')->name('questionnaire.index');
 });
 
 /*

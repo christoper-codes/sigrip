@@ -26,6 +26,7 @@
                 <flux:navlist.group :heading="__('Core')" class="grid">
                     <flux:sidebar.group expandable :heading="__('Principales')" class="grid">
                         <flux:sidebar.item class="!py-5 cursor-pointer!" icon="squares-plus" :href="route('application.index')" :current="request()->routeIs('application.index')" wire:navigate>{{ __('Aplicaciones') }}</flux:sidebar.item>
+                        <flux:sidebar.item class="!py-5 cursor-pointer!" icon="clipboard-document-list" :href="route('questionnaire.index')" :current="request()->routeIs('questionnaire.index')" wire:navigate>{{ __('Questionarios') }}</flux:sidebar.item>
                     </flux:sidebar.group>
                 </flux:navlist.group>
             </flux:navlist>
