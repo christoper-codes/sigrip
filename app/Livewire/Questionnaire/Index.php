@@ -3,6 +3,8 @@
 namespace App\Livewire\Questionnaire;
 
 use App\Livewire\Traits\Table;
+use App\Models\Questionnaire;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Index extends Component
@@ -11,6 +13,13 @@ class Index extends Component
 
     public function mount()
     {
+        $this->table_items = Questionnaire::where(function ($query) {
+            $query->where('is_base', true)
+            ->orWhere('company_id', Auth::user()->company?->id);
+        })
+        ->with('category')
+        ->get()->toArray();
+
         $this->search_fields = ['name'];
         $this->headers = [
             ['label' => __('Nombre'), 'field' => 'name', 'sortable' => true],
@@ -20,8 +29,9 @@ class Index extends Component
             ['label' => __('Risk de evaluación')],
             ['label' => __('Fecha de Creación'), 'field' => 'created_at', 'sortable' => true],
             ['label' => __('Estado')],
-            ['label' => __('Acciones')],
+            ['label' => __('Activar')],
         ];
+        $this->refreshTableData();
     }
 
     public function render()
