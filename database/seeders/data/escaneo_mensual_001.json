@@ -1,0 +1,577 @@
+{
+  "questionnaire_id": "plan_escaneo_emocional_mensual",
+  "title": "Plan de escaneo emocional mensual",
+  "subtitle": "Evaluación emocional periódica",
+  "instructions": "Responde con sinceridad. No hay respuestas correctas o incorrectas.",
+  "objectives": [
+    "Detectar focos emocionales",
+    "Comparar bienestar mes a mes",
+    "Activar alertas automáticas si aplica"
+  ],
+  "themes": [
+    {
+      "name": "Escaneo general",
+      "description": "Evaluación del estado emocional general y factores básicos de bienestar laboral.",
+      "questions": [
+        {
+          "id": "q1_base",
+          "text": "¿Cómo te sentiste en general este mes?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Muy mal" },
+            { "value": 2, "label": "Mal" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Bien" },
+            { "value": 5, "label": "Muy bien" }
+          ],
+          "month": null,
+          "week": null,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q2_base",
+          "text": "¿Te has sentido estresado/a en el trabajo este mes?",
+          "type": "radio_button",
+          "options": [
+            { "value": 1, "label": "Sí, constantemente" },
+            { "value": 2, "label": "Sí, a veces" },
+            { "value": 3, "label": "No" }
+          ],
+          "month": null,
+          "week": null,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q3_base",
+          "text": "¿Qué tan motivado/a estuviste con tus responsabilidades laborales?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada motivado" },
+            { "value": 2, "label": "Poco motivado" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Motivado" },
+            { "value": 5, "label": "Muy motivado" }
+          ],
+          "month": null,
+          "week": null,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q4_base",
+          "text": "¿Qué tanto apoyo sentiste de tu supervisor/a y compañeros?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada de apoyo" },
+            { "value": 2, "label": "Poco apoyo" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Apoyo adecuado" },
+            { "value": 5, "label": "Mucho apoyo" }
+          ],
+          "month": null,
+          "week": null,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q5_base",
+          "text": "¿Sientes que tu esfuerzo fue reconocido este mes?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada reconocido" },
+            { "value": 2, "label": "Poco reconocido" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Reconocido" },
+            { "value": 5, "label": "Muy reconocido" }
+          ],
+          "month": null,
+          "week": null,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Bienestar General",
+      "description": "Evaluación de la satisfacción personal y energía en el desempeño laboral.",
+      "questions": [
+        {
+          "id": "q1_m1",
+          "text": "¿Qué tan satisfecho/a estás con tu desempeño este mes?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Muy insatisfecho" },
+            { "value": 2, "label": "Insatisfecho" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Satisfecho" },
+            { "value": 5, "label": "Muy satisfecho" }
+          ],
+          "month": 1,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q2_m1",
+          "text": "¿Te sentiste con energía suficiente para realizar tu trabajo?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Muy insatisfecho" },
+            { "value": 2, "label": "Insatisfecho" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Satisfecho" },
+            { "value": 5, "label": "Muy satisfecho" }
+          ],
+          "month": 1,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Manejo del Estrés",
+      "description": "Evaluación del control del estrés y adecuación de la carga laboral.",
+      "questions": [
+        {
+          "id": "q1_m2",
+          "text": "¿Qué tan controlable sentiste tu nivel de estrés este mes?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada controlable" },
+            { "value": 2, "label": "Poco controlable" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Controlable" },
+            { "value": 5, "label": "Muy controlable" }
+          ],
+          "month": 2,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q2_m2",
+          "text": "¿Tu carga laboral fue adecuada a tus capacidades?",
+          "type": "radio_button",
+          "options": [
+            { "value": 1, "label": "No, demasiado trabajo" },
+            { "value": 2, "label": "No, muy poco trabajo" },
+            { "value": 3, "label": "Sí" }
+          ],
+          "month": 2,
+          "is_fixed": false,
+          "critical_values": [1],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Motivación y Sentido",
+      "description": "Evaluación del propósito en el trabajo y orgullo por el rol desempeñado.",
+      "questions": [
+        {
+          "id": "q1_m3",
+          "text": "¿Sientes que tu trabajo tiene un propósito claro?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada claro" },
+            { "value": 2, "label": "Poco claro" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Claro" },
+            { "value": 5, "label": "Muy claro" }
+          ],
+          "month": 3,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q2_m3",
+          "text": "¿Qué tan orgulloso/a te sientes de tu rol en la empresa?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada orgulloso" },
+            { "value": 2, "label": "Poco orgulloso" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Orgulloso" },
+            { "value": 5, "label": "Muy orgulloso" }
+          ],
+          "month": 3,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Relaciones Interpersonales",
+      "description": "Evaluación de las relaciones laborales y comunicación en el equipo.",
+      "questions": [
+        {
+          "id": "q1_m4",
+          "text": "¿Cómo calificarías la relación con tus compañeros de trabajo?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada de apoyo" },
+            { "value": 2, "label": "Poco apoyo" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Apoyo adecuado" },
+            { "value": 5, "label": "Mucho apoyo" }
+          ],
+          "month": 4,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q2_m4",
+          "text": "¿Te sentiste escuchado/a cuando compartiste ideas?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada escuchado" },
+            { "value": 2, "label": "Poco escuchado" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Escuchado" },
+            { "value": 5, "label": "Muy escuchado" }
+          ],
+          "month": 4,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Reconocimiento y Logros",
+      "description": "Evaluación de la satisfacción con logros e impacto del trabajo en el equipo.",
+      "questions": [
+        {
+          "id": "q1_m5",
+          "text": "¿Qué tan satisfecho/a estás con los logros alcanzados este mes?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Muy insatisfecho" },
+            { "value": 2, "label": "Insatisfecho" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Satisfecho" },
+            { "value": 5, "label": "Muy satisfecho" }
+          ],
+          "month": 5,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q2_m5",
+          "text": "¿Qué tanto crees que tu esfuerzo impactó positivamente en el equipo?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada impactante" },
+            { "value": 2, "label": "Poco impactante" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Impactante" },
+            { "value": 5, "label": "Muy impactante" }
+          ],
+          "month": 5,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Balance Vida-Trabajo",
+      "description": "Evaluación del equilibrio entre responsabilidades laborales y vida personal.",
+      "questions": [
+        {
+          "id": "q1_m6",
+          "text": "¿Qué tan fácil fue equilibrar tu vida personal con el trabajo?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada fácil" },
+            { "value": 2, "label": "Poco fácil" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Fácil" },
+            { "value": 5, "label": "Muy fácil" }
+          ],
+          "month": 6,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q2_m6",
+          "text": "¿Tu jornada laboral te permitió descansar y recuperarte adecuadamente?",
+          "type": "radio_button",
+          "options": [
+            { "value": 1, "label": "No" },
+            { "value": 2, "label": "Sí" }
+          ],
+          "month": 6,
+          "is_fixed": false,
+          "critical_values": [1],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Resiliencia y Adaptación",
+      "description": "Evaluación de la capacidad de adaptación y preparación para enfrentar retos.",
+      "questions": [
+        {
+          "id": "q1_m7",
+          "text": "¿Qué tan preparado/a te sentiste para afrontar los retos del mes?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada preparado" },
+            { "value": 2, "label": "Poco preparado" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Preparado" },
+            { "value": 5, "label": "Muy preparado" }
+          ],
+          "month": 7,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q2_m7",
+          "text": "¿Te adaptaste con facilidad a los cambios surgidos en tu área?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada fácil" },
+            { "value": 2, "label": "Poco fácil" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Fácil" },
+            { "value": 5, "label": "Muy fácil" }
+          ],
+          "month": 7,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Innovación y Creatividad",
+      "description": "Evaluación de la capacidad de proponer ideas y encontrar mejoras en el trabajo.",
+      "questions": [
+        {
+          "id": "q1_m8",
+          "text": "¿Qué tanto sientes que puedes proponer nuevas ideas?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada creativo" },
+            { "value": 2, "label": "Poco creativo" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Creativo" },
+            { "value": 5, "label": "Muy creativo" }
+          ],
+          "month": 8,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q2_m8",
+          "text": "¿Este mes encontraste una manera distinta de mejorar tu trabajo?",
+          "type": "radio_button",
+          "options": [
+            { "value": 1, "label": "No" },
+            { "value": 2, "label": "Sí" }
+          ],
+          "month": 8,
+          "is_fixed": false,
+          "critical_values": [1],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Apoyo del Liderazgo",
+      "description": "Evaluación de la claridad en comunicación y disponibilidad del liderazgo.",
+      "questions": [
+        {
+          "id": "q1_m9",
+          "text": "¿Qué tan clara fue la comunicación de tu supervisor este mes?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada claro" },
+            { "value": 2, "label": "Poco claro" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Claro" },
+            { "value": 5, "label": "Muy claro" }
+          ],
+          "month": 9,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q2_m9",
+          "text": "¿Tu jefe inmediato se mostró disponible para apoyarte?",
+          "type": "radio_button",
+          "options": [
+            { "value": 1, "label": "No" },
+            { "value": 2, "label": "A veces" },
+            { "value": 3, "label": "Sí, siempre" }
+          ],
+          "month": 9,
+          "is_fixed": false,
+          "critical_values": [1],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Seguridad Psicológica",
+      "description": "Evaluación de la libertad para expresarse y confianza en el apoyo organizacional.",
+      "questions": [
+        {
+          "id": "q1_m10",
+          "text": "¿Te sentiste libre de expresar tus preocupaciones sin miedo?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada libre" },
+            { "value": 2, "label": "Poco libre" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Libre" },
+            { "value": 5, "label": "Muy libre" }
+          ],
+          "month": 10,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q2_m10",
+          "text": "¿Confías en que la empresa te apoyaría si tuvieras un problema personal?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada confiable" },
+            { "value": 2, "label": "Poco confiable" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Confiable" },
+            { "value": 5, "label": "Muy confiable" }
+          ],
+          "month": 10,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Satisfacción y Orgullo",
+      "description": "Evaluación de la satisfacción general con la empresa y disposición a recomendarla.",
+      "questions": [
+        {
+          "id": "q1_m11",
+          "text": "¿Qué tan satisfecho/a estás de trabajar en esta empresa?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada satisfecho" },
+            { "value": 2, "label": "Poco satisfecho" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Satisfecho" },
+            { "value": 5, "label": "Muy satisfecho" }
+          ],
+          "month": 11,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q2_m11",
+          "text": "¿Recomendarías a alguien unirse a tu equipo?",
+          "type": "radio_button",
+          "options": [
+            { "value": 1, "label": "No" },
+            { "value": 2, "label": "Sí" }
+          ],
+          "month": 11,
+          "is_fixed": false,
+          "critical_values": [1],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Cierre Anual",
+      "description": "Evaluación final del bienestar general y percepción de valoración durante el año.",
+      "questions": [
+        {
+          "id": "q1_m12",
+          "text": "¿Cómo calificarías tu bienestar general durante el año?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Muy mal" },
+            { "value": 2, "label": "Mal" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Bien" },
+            { "value": 5, "label": "Muy bien" }
+          ],
+          "month": 12,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q2_m12",
+          "text": "¿Qué tan valorado/a te has sentido a lo largo del año?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada valorado" },
+            { "value": 2, "label": "Poco valorado" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Valorado" },
+            { "value": 5, "label": "Muy valorado" }
+          ],
+          "month": 12,
+          "is_fixed": false,
+          "critical_values": [1, 2],
+          "weight": 1
+        }
+      ]
+    }
+  ],
+  "risk_evaluation": {
+    "green": [
+      {
+        "label": "Bienestar alto",
+        "criteria": "promedio mayor o igual a 4.0 y sin respuestas críticas",
+        "min": 4.0,
+        "max": 5.0,
+        "rh_recommendations": null,
+        "worker_message": null
+      }
+    ],
+    "yellow": [
+      {
+        "label": "Riesgo moderado",
+        "criteria": "promedio entre 2.6 y 3.9 o una alerta moderada",
+        "min": 2.6,
+        "max": 3.9,
+        "rh_recommendations": null,
+        "worker_message": null
+      }
+    ],
+    "red": [
+      {
+        "label": "Riesgo crítico",
+        "criteria": "promedio menor o igual a 2.5 o cualquier respuesta crítica",
+        "min": 0,
+        "max": 2.5,
+        "rh_recommendations": null,
+        "worker_message": null
+      }
+    ]
+  }
+}

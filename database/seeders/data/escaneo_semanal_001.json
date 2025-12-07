@@ -1,0 +1,352 @@
+{
+  "questionnaire_id": "escaneo_emocional_semanal",
+  "title": "Escaneo emocional semanal",
+  "subtitle": "Evaluación emocional semanal",
+  "instructions": "Responde con sinceridad. No hay respuestas correctas o incorrectas.",
+  "objectives": [
+    "Medir el estado emocional y patrones de conducta de los empleados",
+    "Identificar cambios significativos en bienestar emocional",
+    "Prevenir estrés, agotamiento o disminución del compromiso"
+  ],
+  "themes": [
+    {
+      "name": "Estado emocional general",
+      "description": "Evaluación del estado emocional básico, nivel de estrés y motivación durante la semana.",
+      "questions": [
+        {
+          "id": "q1_w1",
+          "text": "¿Cómo te sientes en general esta semana?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Muy mal" },
+            { "value": 2, "label": "Mal" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Bien" },
+            { "value": 5, "label": "Muy bien" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q2_w1",
+          "text": "¿Te has sentido estresado/a en el trabajo durante esta semana?",
+          "type": "select",
+          "options": [
+            { "value": 2, "label": "No" },
+            { "value": 1, "label": "Sí" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1],
+          "weight": 1
+        },
+        {
+          "id": "q3_w1",
+          "text": "¿Te sientes optimista sobre tus tareas y responsabilidades laborales?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada optimista" },
+            { "value": 2, "label": "Poco optimista" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Optimista" },
+            { "value": 5, "label": "Muy optimista" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q4_w1",
+          "text": "¿Te sientes generalmente motivado/a para realizar tu trabajo?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada motivado" },
+            { "value": 2, "label": "Poco motivado" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Motivado" },
+            { "value": 5, "label": "Muy motivado" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q5_w1",
+          "text": "¿Has sentido que el trabajo está afectando tu bienestar emocional?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Sí, mucho" },
+            { "value": 2, "label": "Algo" },
+            { "value": 3, "label": "No, para nada" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Relaciones y Apoyo Emocional",
+      "description": "Evaluación del apoyo del supervisor, relaciones con compañeros y retroalimentación recibida.",
+      "questions": [
+        {
+          "id": "q6_w1",
+          "text": "¿Sientes que has recibido suficiente apoyo de tu supervisor/a esta semana?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada de apoyo" },
+            { "value": 2, "label": "Poco apoyo" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Apoyo adecuado" },
+            { "value": 5, "label": "Mucho apoyo" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q7_w1",
+          "text": "¿Cómo calificarías la relación con tus compañeros de trabajo?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Muy mala" },
+            { "value": 2, "label": "Mala" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Buena" },
+            { "value": 5, "label": "Muy buena" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q8_w1",
+          "text": "¿Te has sentido aislado/a o desconectado/a de tu equipo?",
+          "type": "select",
+          "options": [
+            { "value": 2, "label": "No" },
+            { "value": 1, "label": "Sí" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1],
+          "weight": 1
+        },
+        {
+          "id": "q9_w1",
+          "text": "¿Recibes retroalimentación constructiva que te ayude a mejorar tu desempeño?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nunca" },
+            { "value": 2, "label": "Rara vez" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "A veces" },
+            { "value": 5, "label": "Siempre" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Manejo del Estrés y Carga Laboral",
+      "description": "Evaluación de la carga laboral, capacidad de concentración y equilibrio vida-trabajo.",
+      "questions": [
+        {
+          "id": "q10_w1",
+          "text": "¿Consideras que tienes una carga laboral adecuada para ti?",
+          "type": "select",
+          "options": [
+            { "value": 3, "label": "Sí" },
+            { "value": 2, "label": "No, demasiado trabajo" },
+            { "value": 1, "label": "No, muy poco trabajo" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q11_w1",
+          "text": "¿Has sentido que tus responsabilidades laborales son abrumadoras esta semana?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Muy abrumadoras" },
+            { "value": 2, "label": "Abundan pero manejables" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Poco abrumadoras" },
+            { "value": 5, "label": "Nada abrumadoras" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q12_w1",
+          "text": "¿Has experimentado problemas para concentrarte en tu trabajo esta semana?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Sí" },
+            { "value": 2, "label": "No" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1],
+          "weight": 1
+        },
+        {
+          "id": "q13_w1",
+          "text": "¿Te ha resultado difícil equilibrar el trabajo con tu vida personal esta semana?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Muy difícil" },
+            { "value": 2, "label": "Difícil" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Fácil" },
+            { "value": 5, "label": "Muy fácil" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Satisfacción y Logros",
+      "description": "Evaluación de satisfacción con logros, reconocimiento recibido y ambiente laboral.",
+      "questions": [
+        {
+          "id": "q14_w1",
+          "text": "¿Te sientes satisfecho/a con los logros que has alcanzado esta semana?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada satisfecho" },
+            { "value": 2, "label": "Poco satisfecho" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Satisfecho" },
+            { "value": 5, "label": "Muy satisfecho" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q15_w1",
+          "text": "¿Te sientes que tus esfuerzos son reconocidos y valorados por la empresa?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada valorados" },
+            { "value": 2, "label": "Poco valorados" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "Valorados" },
+            { "value": 5, "label": "Totalmente valorados" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        },
+        {
+          "id": "q16_w1",
+          "text": "¿Qué tan a gusto te sientes con el ambiente laboral en general?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Nada a gusto" },
+            { "value": 2, "label": "Poco a gusto" },
+            { "value": 3, "label": "Neutral" },
+            { "value": 4, "label": "A gusto" },
+            { "value": 5, "label": "Muy a gusto" }
+          ],
+          "month": null,
+          "week": 1,
+          "is_fixed": true,
+          "critical_values": [1, 2],
+          "weight": 1
+        }
+      ]
+    }
+  ],
+  "risk_evaluation": {
+    "green": [
+      {
+        "label": "Bienestar adecuado",
+        "criteria": "Promedio general entre 4.0 y 5.0 sin respuestas críticas (1 o 2).",
+        "min": 4.0,
+        "max": 5.0
+      },
+      {
+        "label": "Sin señales de alerta",
+        "criteria": "No se detectan caídas significativas respecto a la semana anterior ni respuestas que indiquen estrés o aislamiento.",
+        "min": null,
+        "max": null
+      }
+    ],
+    "yellow": [
+      {
+        "label": "Riesgo moderado",
+        "criteria": "Promedio entre 3.0 y 3.9 o 1 respuesta crítica.",
+        "min": 3.0,
+        "max": 3.9
+      },
+      {
+        "label": "Cambio emocional detectado",
+        "criteria": "Descenso de 2 puntos o más en motivación, satisfacción o bienestar respecto a la semana anterior.",
+        "min": null,
+        "max": null
+      }
+    ],
+    "red": [
+      {
+        "label": "Riesgo alto/ crítico",
+        "criteria": "Promedio menor a 3.0 o 2 o más respuestas críticas.",
+        "min": 1.0,
+        "max": 2.9,
+        "rh_recommendations": null,
+        "worker_message": null
+      },
+      {
+        "label": "Estrés o sobrecarga crítica",
+        "criteria": "Reporta estrés elevado de forma constante o indica carga laboral excesiva.",
+        "min": null,
+        "max": null,
+        "rh_recommendations": null,
+        "worker_message": null
+      },
+      {
+        "label": "Relaciones afectadas",
+        "criteria": "Calificación de 1 o 2 en relaciones laborales, sensación de aislamiento o falta de apoyo.",
+        "min": null,
+        "max": null,
+        "rh_recommendations": null,
+        "worker_message": null
+      }
+    ]
+  }
+}

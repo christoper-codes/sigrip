@@ -1,0 +1,48 @@
+{
+  "questionnaire_id": "plan_escaneo_emocional_mensual",
+  "title": "Plan de escaneo emocional mensual",
+  "answers": [
+    {
+      "question_id": "q1_base",
+      "value": 4,
+      "critical_values": [1, 2],
+      "weight": 1
+    },
+    {
+      "question_id": "q2_base",
+      "value": 2,
+      "critical_values": [1, 2],
+      "weight": 1
+    },
+    {
+      "question_id": "q3_base",
+      "value": 3,
+      "critical_values": [1, 2],
+      "weight": 1
+    },
+    {
+      "question_id": "q4_base",
+      "value": 5,
+      "critical_values": [1, 2],
+      "weight": 1
+    },
+    {
+      "question_id": "q5_base",
+      "value": 4,
+      "critical_values": [1, 2],
+      "weight": 1
+    },
+    {
+      "question_id": "q1_m1",
+      "value": 3,
+      "critical_values": [1, 2],
+      "weight": 1
+    },
+    {
+      "question_id": "q2_m1",
+      "value": 4,
+      "critical_values": [1, 2],
+      "weight": 1
+    }
+  ]
+}

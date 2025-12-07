@@ -1,0 +1,500 @@
+{
+  "questionnaire_id": "test_de_honestidad",
+  "title": "Test de honestidad laboral",
+  "subtitle": "Breve escala Likert para evaluar tendencia a la honestidad y riesgos éticos",
+  "instructions": "Contesta con sinceridad. El test es anónimo y toma 5-10 minutos. Usa la escala del 1 al 5.",
+  "objectives": [
+    "Evaluar integridad personal",
+    "Detectar riesgos de incumplimiento ético",
+    "Identificar tendencias de transparencia y responsabilidad"
+  ],
+  "themes": [
+    {
+        "name": "Integridad personal",
+        "description": "Evalúa la coherencia entre valores personales y acciones en el entorno laboral.",
+        "questions": [
+            {
+                "id": "h_q1",
+                "text": "Siempre actúo de manera coherente con mis valores.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            },
+            {
+                "id": "h_q2",
+                "text": "Evito aprovecharme de situaciones que podrían beneficiar solo a mí.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            },
+            {
+                "id": "h_q3",
+                "text": "Me esfuerzo por ser justo con todos en el trabajo.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            },
+            {
+                "id": "h_q4",
+                "text": "Admito cuando cometo un error aunque nadie me vea.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            }
+         ]
+    },
+    {
+        "name": "Cumplimiento de normas",
+        "description": "Mide la adherencia a políticas y procedimientos establecidos en el entorno laboral.",
+        "questions": [
+            {
+                "id": "h_q5",
+                "text": "Sigo todas las políticas de la empresa incluso cuando nadie supervisa.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            },
+            {
+                "id": "h_q6",
+                "text": "Evito tomar atajos que vayan en contra de los procedimientos establecidos.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+            ],
+            "month": null,
+            "week": null,
+            "is_fixed": true,
+            "critical_values": [1, 2],
+            "weight": 1
+            },
+            {
+                "id": "h_q7",
+                "text": "Me aseguro de cumplir con los horarios y responsabilidades asignadas.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            },
+            {
+                "id": "h_q8",
+                "text": "Nunca modifico información laboral para beneficio propio.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "name": "Transparencia",
+        "description": "Evalúa la disposición a ser transparente y asumir responsabilidades en el entorno laboral.",
+        "questions": [
+            {
+                "id": "h_q9",
+                "text": "Informo a mi superior cuando detecto problemas o irregularidades.",
+                "type": "select", "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            },
+            {
+                "id": "h_q10",
+                "text": "Comunico la verdad aunque sea difícil.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            },
+            {
+                "id": "h_q11",
+                "text": "No oculto errores que puedan afectar a mi equipo.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            },
+            {
+                "id": "h_q12",
+                "text": "Comparto información relevante con mis compañeros y líderes.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "name": "Responsabilidad ética",
+        "description": "Mide el compromiso con comportamientos éticos y responsables en el entorno laboral.",
+        "questions": [
+            {
+                "id": "h_q13",
+                "text": "Me responsabilizo de mis decisiones, aunque tengan consecuencias negativas.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            },
+            {
+                "id": "h_q14",
+                "text": "Denuncio comportamientos que considero poco éticos.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            },
+            {
+                "id": "h_q15",
+                "text": "Evito acciones que puedan perjudicar a otros para obtener ventajas.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            },
+            {
+                "id": "h_q16",
+                "text": "Cumplo con compromisos y promesas hechas dentro del trabajo.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": true,
+                "critical_values": [1, 2],
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "name": "Control - Deseabilidad social",
+        "description": "Evalúa la tendencia a responder de manera socialmente deseable y el equilibrio en la autoevaluación ética.",
+        "questions": [
+            {
+                "id": "h_q17",
+                "text": "Siempre digo la verdad, incluso si no es conveniente.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": false,
+                "critical_values": [1,2],
+                "weight": 1
+            },
+            {
+                "id": "h_q18",
+                "text": "Nunca he hecho algo que pueda considerarse deshonesto.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": false,
+                "critical_values": [1,2],
+                "weight": 1
+            },
+            {
+                "id": "h_q19",
+                "text": "Siempre trato de ayudar a los demás en el trabajo.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": false,
+                "critical_values": [1,2],
+                "weight": 1
+            },
+            {
+                "id": "h_q20",
+                "text": "Todos en mi equipo confían en que actúo de manera ética.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": false,
+                "critical_values": [1,2],
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "name": "Control - Balance",
+        "description": "Evalúa el equilibrio en la autoevaluación ética y la capacidad de autocontrol.",
+        "questions": [
+            {
+                "id": "h_q21",
+                "text": "Rara vez he omitido información importante para evitar problemas.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": false,
+                "critical_values": [1,2],
+                "weight": 1
+            },
+            {
+                "id": "h_q22",
+                "text": "Si me equivoco, lo admito públicamente.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": false,
+                "critical_values": [1,2],
+                "weight": 1
+            },
+            {
+                "id": "h_q23",
+                "text": "Evito exagerar mis logros para causar buena impresión.",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": false,
+                "critical_values": [1,2],
+                "weight": 1
+            },
+            {
+                "id": "h_q24",
+                "text": "Mis decisiones reflejan mis valores personales más que la conveniencia.",
+                "type": "select", "options":
+                [
+                    { "value": 1, "label": "Totalmente en desacuerdo" },
+                    { "value": 2, "label": "En desacuerdo" },
+                    { "value": 3, "label": "Ni de acuerdo ni en desacuerdo" },
+                    { "value": 4, "label": "De acuerdo" },
+                    { "value": 5, "label": "Totalmente de acuerdo" }
+                ],
+                "month": null,
+                "week": null,
+                "is_fixed": false,
+                "critical_values": [1,2],
+                "weight": 1
+            }
+        ]
+    }
+  ],
+  "risk_evaluation": {
+    "green": [
+      {
+        "label": "Bajo riesgo ético",
+        "criteria": "Promedio >= 4.5 en todas las dimensiones y sin respuestas críticas",
+        "min": 4.5,
+        "max": 5.0
+      }
+    ],
+    "yellow": [
+      {
+        "label": "Riesgo leve",
+        "criteria": "Promedio entre 3.5 y 4.4 en dimensiones principales O puntuaciones mixtas",
+        "min": 3.5,
+        "max": 4.4
+      },
+      {
+        "label": "Control de deseabilidad social",
+        "criteria": "Más de 6 respuestas perfectas en preguntas de control (h_q17-h_q24)",
+        "min": null,
+        "max": null
+      }
+    ],
+    "red": [
+      {
+        "label": "Riesgo moderado",
+        "criteria": "Promedio entre 2.5 y 3.4 en cualquier dimensión O respuestas críticas ocasionales",
+        "min": 2.5,
+        "max": 3.4
+      },
+      {
+        "label": "Riesgo alto",
+        "criteria": "Promedio entre 2.0 y 2.4 en múltiples dimensiones O patrones preocupantes",
+        "min": 2.0,
+        "max": 2.4
+      },
+      {
+        "label": "Riesgo crítico",
+        "criteria": "Promedio <= 1.9 en cualquier dimensión O múltiples respuestas críticas",
+        "min": 0,
+        "max": 1.9
+      }
+    ]
+  }
+}
