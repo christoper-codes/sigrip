@@ -44,6 +44,16 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
             }
         }
 
+        $emails = $rows->pluck('correo_electronico')->map(fn($e) => mb_strtolower(trim($e)))->toArray();
+        $seen = [];
+        foreach ($emails as $email) {
+            if (in_array($email, $seen)) {
+                throw new \Exception(__('El archivo contiene correos electrónicos duplicados: :email', ['email' => $email]));
+            }
+            $seen[] = $email;
+        }
+
+
         if ($rows->count() === 0) {
             throw new \Exception(__('El archivo debe contener al menos un registro de empleado.'));
         }
