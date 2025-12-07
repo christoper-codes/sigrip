@@ -43,4 +43,9 @@ class Organization extends Model
     {
         return $this->hasMany(Company::class);
     }
+
+    public function questionnaires(): HasMany
+    {
+        return $this->hasMany(Questionnaire::class);
+    }
 }
