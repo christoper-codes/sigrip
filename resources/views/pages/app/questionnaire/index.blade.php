@@ -39,7 +39,7 @@
                         <flux:heading size="xl">{{ __('Crear un nuevo questionario') }}</flux:heading>
                         <flux:text class="mt-2">{{ __('Completa el formulario para crear y asociarlo a tu compañia.') }}</flux:text>
                         <div class="mt-10">
-
+                            <livewire:questionnaire.store />
                         </div>
                     </div>
                 </div>
