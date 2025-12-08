@@ -143,7 +143,7 @@
                             </div>
                         </div>
                     </div>
-                     @can('viewCompanyAdmin', auth()->user())
+                     @canany(['viewCompanyAdmin', 'viewSystemOwner'], auth()->user())
                         <div x-cloak x-show="selectedTab === 'steps'"
                             x-data="{ has_department: {{ json_encode(auth()->user()->department?->metadata['hr_department'] ?? false) }} }"
                             x-effect="if (selectedTab === 'steps' && has_department) new JSConfetti().addConfetti()"
@@ -151,7 +151,7 @@
                             <div x-data x-on:steps-completed.window="new JSConfetti().addConfetti();"></div>
                             <livewire:company.steps.index />
                         </div>
-                    @endcan
+                    @endcanany
                 </div>
             </div>
         </div>
