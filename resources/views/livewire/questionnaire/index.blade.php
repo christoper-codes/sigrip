@@ -19,11 +19,11 @@
                     <td class="p-4"><flux:button variant="filled">{{ __('Ver detalles') }}</flux:button></td>
                     <td class="p-4">{{ $questionnaire['created_at'] }}</td>
                     <td class="p-4">
-                        <x-appearance.badge status="active" />
+                        <x-appearance.badge :status="$questionnaire['is_active'] ? 'active' : 'inactive'" />
                     </td>
                     <td class="p-4">
                         <flux:field variant="inline">
-                           <flux:switch wire:click="updateStatus({{ $questionnaire['id'] }})" />
+                           <flux:switch wire:click="updateStatus({{ $questionnaire['id'] }})" :checked="(bool) $questionnaire['is_active']" />
                         </flux:field>
                     </td>
                 </tr>

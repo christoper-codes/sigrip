@@ -34,6 +34,15 @@ class Index extends Component
         $this->refreshTableData();
     }
 
+    public function updateStatus(int $id): void
+    {
+        $questionnaire = Questionnaire::find($id);
+        $questionnaire->is_active = ! $questionnaire->is_active;
+        $questionnaire->save();
+        $this->dispatch('toast', message: __('Estado actualizado correctamente.'), type: 'success');
+        $this->mount();
+    }
+
     public function render()
     {
         return view('livewire.questionnaire.index');
