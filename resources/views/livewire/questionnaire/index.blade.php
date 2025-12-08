@@ -139,6 +139,12 @@
                 @endforeach
                 </div>
             </div>
+            <div class="flex gap-2">
+                <flux:spacer />
+                <flux:modal.close>
+                    <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
+                </flux:modal.close>
+            </div>
         </div>
     </flux:modal>
 </div>
