@@ -26,9 +26,15 @@
                     <flux:heading size="xl">{{ __('Cuestionarios activos e inactivos') }}</flux:heading>
                     <flux:text class="mt-2">{{ __('Información de cuestionarios bases basada en: ') }}</flux:text>
                     <ul class="list-disc ml-5">
-                        <li class="mt-2 underline"><flux:text>{{ __('Decreto 1072 de 2015') }}</flux:text></li>
-                        <li class="mt-2 underline"><flux:text>{{ __('Resolución 2646 de 2008') }}</flux:text></li>
-                        <li class="mt-2 underline"><flux:text>{{ __('Resolución 0312 de 2019') }}</flux:text></li>
+                        <li class="mt-2">
+                            <div class="flex items-center gap-x-2 opacity-70 text-xs">
+                                <flux:link href="#">{{ __('Decreto 1072 de 2015') }}</flux:link>
+                                <span>-</span>
+                                <flux:link href="#">{{ __('Decreto NOM 035') }}</flux:link>
+                                <span>-</span>
+                                <flux:link href="#">{{ __('Normas 2018') }}</flux:link>
+                            </div>
+                        </li>
                     </ul>
                     <div class="mt-10">
                         <livewire:questionnaire.index />
