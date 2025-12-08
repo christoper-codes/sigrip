@@ -23,14 +23,23 @@
             </div>
             <div class="px-2 mt-10">
                 <div x-cloak x-show="selectedTab === 'info'" id="tabpanelInfo" role="tabpanel" aria-label="info">
-                    <livewire:questionnaire.index />
+                    <flux:heading size="xl">{{ __('Cuestionarios activos e inactivos') }}</flux:heading>
+                    <flux:text class="mt-2">{{ __('Información de cuestionarios bases basada en: ') }}</flux:text>
+                    <ul class="list-disc ml-5">
+                        <li class="mt-2 underline"><flux:text>{{ __('Decreto 1072 de 2015') }}</flux:text></li>
+                        <li class="mt-2 underline"><flux:text>{{ __('Resolución 2646 de 2008') }}</flux:text></li>
+                        <li class="mt-2 underline"><flux:text>{{ __('Resolución 0312 de 2019') }}</flux:text></li>
+                    </ul>
+                    <div class="mt-10">
+                        <livewire:questionnaire.index />
+                    </div>
                 </div>
                 <div x-cloak x-show="selectedTab === 'create'" id="tabpanelCreateUpdate" role="tabpanel" aria-label="create">
                     <div class="max-w-2xl">
-                        <flux:heading size="xl">{{ __('Crear nueva aplicación') }}</flux:heading>
-                        <flux:text class="mt-2">{{ __('Completa el formulario crear y asociar la aplicación.') }}</flux:text>
-                        <div class="mt-5">
-                            <livewire:application.store />
+                        <flux:heading size="xl">{{ __('Crear un nuevo questionario') }}</flux:heading>
+                        <flux:text class="mt-2">{{ __('Completa el formulario para crear y asociarlo a tu compañia.') }}</flux:text>
+                        <div class="mt-10">
+
                         </div>
                     </div>
                 </div>
