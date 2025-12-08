@@ -23,14 +23,14 @@
                     <span class="text-sm opacity-70" x-text="currentDateTime"></span>
                 </div>
 
-                @can('viewCompanyAdmin', auth()->user())
+                @canany(['viewCompanyAdmin', 'viewSystemOwner'], auth()->user())
                     <div class="mt-4">
                         <x-buttons.primary
                             title="{{ __('Comenzar') }}"
                             x-on:click="$dispatch('go-to-steps')"
                         />
                     </div>
-                @endcan
+                @endcanany
             </div>
         </x-appearance.header>
 
@@ -43,14 +43,14 @@
                             <span>{{ __('Performance') }}</span>
                         </div>
                     </button>
-                    @can('viewCompanyAdmin', auth()->user())
+                   @canany(['viewCompanyAdmin', 'viewSystemOwner'], auth()->user())
                         <button x-on:click="selectedTab = 'steps'" x-bind:aria-selected="selectedTab === 'steps'" x-bind:tabindex="selectedTab === 'steps' ? '0' : '-1'" x-bind:class="selectedTab === 'steps' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelSteps">
                             <div class="flex items-center gap-2">
                                 <flux:icon.cube class="size-5" />
                                 <span>{{ __('Pasos iniciales') }}</span>
                             </div>
                         </button>
-                    @endcan
+                   @endcanany
                 </div>
                 <div class="px-2 mt-10">
                     <div x-cloak x-show="selectedTab === 'performance'" id="tabpanelPerformance" role="tabpanel" aria-label="performance">

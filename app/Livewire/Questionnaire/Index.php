@@ -39,6 +39,7 @@ class Index extends Component
         $questionnaire = Questionnaire::find($id);
         $questionnaire->is_active = ! $questionnaire->is_active;
         $questionnaire->save();
+
         $this->dispatch('toast', message: __('Estado actualizado correctamente.'), type: 'success');
         $this->mount();
     }
