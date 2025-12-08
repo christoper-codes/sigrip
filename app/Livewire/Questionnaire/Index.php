@@ -13,6 +13,7 @@ class Index extends Component
     use Table;
 
     public ?array $questionnaire_data = null;
+    public ?int $total_questions = null;
 
     public function mount()
     {
@@ -41,6 +42,9 @@ class Index extends Component
     {
         $questionnaire = Questionnaire::find($id);
         $this->questionnaire_data = $questionnaire->metadata;
+        $this->total_questions = collect($this->questionnaire_data['themes'] ?? [])->sum(function ($theme) {
+            return count($theme['questions'] ?? []);
+        });
 
         Flux::modal('questionnaire-details-modal')->show();
     }
