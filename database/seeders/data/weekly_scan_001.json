@@ -6,7 +6,8 @@
   "objectives": [
     "Medir el estado emocional y patrones de conducta de los empleados",
     "Identificar cambios significativos en bienestar emocional",
-    "Prevenir estrés, agotamiento o disminución del compromiso"
+    "Prevenir estrés, agotamiento o disminución del compromiso",
+    "Activar alertas automáticas si aplica"
   ],
   "themes": [
     {

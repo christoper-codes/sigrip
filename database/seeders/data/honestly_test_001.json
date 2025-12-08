@@ -6,7 +6,8 @@
   "objectives": [
     "Evaluar integridad personal",
     "Detectar riesgos de incumplimiento ético",
-    "Identificar tendencias de transparencia y responsabilidad"
+    "Identificar tendencias de transparencia y responsabilidad",
+    "Activar alertas automáticas si aplica"
   ],
   "themes": [
     {
@@ -465,7 +466,7 @@
     "yellow": [
       {
         "label": "Riesgo leve",
-        "criteria": "Promedio entre 3.5 y 4.4 en dimensiones principales O puntuaciones mixtas",
+        "criteria": "Promedio entre 3.5 y 4.4 en dimensiones principales o puntuaciones mixtas",
         "min": 3.5,
         "max": 4.4
       },
@@ -479,19 +480,19 @@
     "red": [
       {
         "label": "Riesgo moderado",
-        "criteria": "Promedio entre 2.5 y 3.4 en cualquier dimensión O respuestas críticas ocasionales",
+        "criteria": "Promedio entre 2.5 y 3.4 en cualquier dimensión o respuestas críticas ocasionales",
         "min": 2.5,
         "max": 3.4
       },
       {
         "label": "Riesgo alto",
-        "criteria": "Promedio entre 2.0 y 2.4 en múltiples dimensiones O patrones preocupantes",
+        "criteria": "Promedio entre 2.0 y 2.4 en múltiples dimensiones o patrones preocupantes",
         "min": 2.0,
         "max": 2.4
       },
       {
         "label": "Riesgo crítico",
-        "criteria": "Promedio <= 1.9 en cualquier dimensión O múltiples respuestas críticas",
+        "criteria": "Promedio <= 1.9 en cualquier dimensión o múltiples respuestas críticas",
         "min": 0,
         "max": 1.9
       }
