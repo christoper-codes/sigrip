@@ -4,12 +4,15 @@ namespace App\Livewire\Questionnaire;
 
 use App\Livewire\Traits\Table;
 use App\Models\Questionnaire;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Index extends Component
 {
     use Table;
+
+    public ?array $questionnaire_data = null;
 
     public function mount()
     {
@@ -32,6 +35,14 @@ class Index extends Component
             ['label' => __('Activar')],
         ];
         $this->refreshTableData();
+    }
+
+    public function showDetails(int $id): void
+    {
+        $questionnaire = Questionnaire::find($id);
+        $this->questionnaire_data = $questionnaire->metadata;
+
+        Flux::modal('questionnaire-details-modal')->show();
     }
 
     public function updateStatus(int $id): void
