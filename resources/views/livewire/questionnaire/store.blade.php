@@ -1,5 +1,20 @@
 <div>
-    <form wire:submit.prevent="submit" class="space-y-6 px-5 py-6 lg:px-7 lg:py-7 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-xl">
+    <div>
+        <flux:heading size="lg">{{ __('Archivo base de preguntas') }}</flux:heading>
+        <flux:text class="mt-2">{{ __('Puntos a considerar antes de subir el archivo de preguntas:') }}</flux:text>
+        <ul class="text-sm opacity-70 space-y-2 mt-6">
+            <li class="list-disc list-inside">{{ __('Columnas obligatorias (en minusculas sin tilde): ') }}</li>
+        </ul>
+        <div class="mt-5 flex items-center gap-3">
+            <flux:button icon="arrow-down" wire:click='downloadTemplate' class="!w-full !max-w-xs !py-8 !border !border-primary !bg-primary/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
+                {{ __('Descargar plantilla') }}
+            </flux:button>
+            <flux:button icon="arrow-down" wire:click='downloadExample' class="!w-full !max-w-xs !py-8 !border !border-fuchsia-500 !bg-fuchsia-500/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-fuchsia-500/5 !transition-colors !shadow-xl/50 !shadow-fuchsia-500/20">
+                {{ __('Descargar ejemplo') }}
+            </flux:button>
+        </div>
+    </div>
+    <form wire:submit.prevent="submit" class="mt-14 space-y-6 px-5 py-6 lg:px-7 lg:py-7 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-xl">
         <flux:field>
             <flux:label>{{ __('Titulo') }}</flux:label>
             <flux:input name="title" wire:model="title" icon="cube" placeholder="{{ __('Plan de escaneo periodico') }}"/>
@@ -80,6 +95,17 @@
                     </flux:button>
                 </div>
             </div>
+        </flux:field>
+        <flux:field>
+            <flux:label>{{ __('Subir archivo de preguntas') }}</flux:label>
+            <flux:input type="file" name="questions_file" wire:model="questions_file" accept=".xlsx, .csv" />
+            <div wire:loading wire:target="questions_file">
+                <div class="flex items-center gap-1">
+                    <flux:icon.loading class="size-3"/>
+                    <flux:text class="!text-xs">{{ __('Cargando archivo') }}</flux:text>
+                </div>
+            </div>
+            <flux:error name="questions_file" class="!mt-0"/>
         </flux:field>
 
         <flux:button type="submit" variant="primary">{{ __('Guardar') }}</flux:button>
