@@ -47,12 +47,12 @@
         <div class="space-y-4">
             <div>
                 <flux:heading size="xl">{{ $questionnaire_data['title'] ?? '' }}</flux:heading>
-                <flux:text class="mt-2">{{ $questionnaire_data['subtitle'] ?? '' }}</flux:text>
+                <flux:text class="mt-1">{{ $questionnaire_data['subtitle'] ?? '' }}</flux:text>
             </div>
 
             <div>
                 <flux:heading size="lg">{{ __('Preguntas separadas por temas') }}</flux:heading>
-                <flux:text>{{ __('Total: ') . $total_questions }}</flux:text>
+                <flux:text class="mt-1">{{ __('Total: ') . $total_questions }}</flux:text>
                 <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
                     @foreach($questionnaire_data['themes'] ?? [] as $theme)
                         <div class="mb-4">
@@ -92,7 +92,7 @@
         <div class="space-y-4">
              <div>
                 <flux:heading size="xl">{{ $questionnaire_data['title'] ?? '' }}</flux:heading>
-                <flux:text class="mt-2">{{ $questionnaire_data['subtitle'] ?? '' }}</flux:text>
+                <flux:text class="mt-1">{{ $questionnaire_data['subtitle'] ?? '' }}</flux:text>
             </div>
             <div>
                 <flux:heading size="lg">{{ __('Objetivos') }}</flux:heading>
