@@ -1,7 +1,7 @@
 <div>
      <x-appearance.livewiretable
         :headers="$headers"
-        search_placeholder="{{ __('Nombre del departamento') }}"
+        search_placeholder="{{ __('Nombre del cuestionario') }}"
         :total_results="$total_results"
         :current_page="$current_page"
         :total_pages="$total_pages"
@@ -48,8 +48,6 @@
             <div>
                 <flux:heading size="xl">{{ $questionnaire_data['title'] ?? '' }}</flux:heading>
                 <flux:text class="mt-2">{{ $questionnaire_data['subtitle'] ?? '' }}</flux:text>
-                <flux:heading size="lg" class="mt-4">{{ __('Instrucciones') }}</flux:heading>
-                <flux:text>{{ $questionnaire_data['instructions'] ?? '' }}</flux:text>
             </div>
 
             <div>
