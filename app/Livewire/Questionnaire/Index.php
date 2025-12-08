@@ -49,6 +49,14 @@ class Index extends Component
         Flux::modal('questionnaire-details-modal')->show();
     }
 
+    public function showRiskDetails(int $id): void
+    {
+        $questionnaire = Questionnaire::find($id);
+        $this->questionnaire_data = $questionnaire->metadata;
+
+        Flux::modal('questionnaire-risk-modal')->show();
+    }
+
     public function updateStatus(int $id): void
     {
         $questionnaire = Questionnaire::find($id);

@@ -22,7 +22,13 @@
                             {{ __('Ver detalles') }}
                         </flux:button>
                     </td>
-                    <td class="p-4"><flux:button variant="filled">{{ __('Ver detalles') }}</flux:button></td>
+                    <td class="p-4">
+                        <flux:button
+                            variant="filled"
+                            wire:click="showRiskDetails({{ $questionnaire['id'] }})">
+                            {{ __('Ver detalles') }}
+                        </flux:button>
+                    </td>
                     <td class="p-4">{{ $questionnaire['created_at'] }}</td>
                     <td class="p-4">
                         <x-appearance.badge :status="$questionnaire['is_active'] ? 'active' : 'inactive'" />
@@ -80,6 +86,58 @@
                 <flux:modal.close>
                     <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
                 </flux:modal.close>
+            </div>
+        </div>
+    </flux:modal>
+
+    <flux:modal name="questionnaire-risk-modal" class="w-[90%] lg:w-full!">
+        <div class="space-y-4">
+             <div>
+                <flux:heading size="xl">{{ $questionnaire_data['title'] ?? '' }}</flux:heading>
+                <flux:text class="mt-2">{{ $questionnaire_data['subtitle'] ?? '' }}</flux:text>
+            </div>
+            <div>
+                <flux:heading size="lg">{{ __('Objetivos') }}</flux:heading>
+                <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+                    <ul class="list-disc ml-6 text-xs">
+                        @foreach($questionnaire_data['objectives'] ?? [] as $objective)
+                            <li>
+                                <flux:text>{{ $objective }}</flux:text>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <flux:heading size="lg">{{ __('Instrucciones') }}</flux:heading>
+                <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+                    <ul class="list-disc ml-6 text-xs">
+                        <li>
+                            <flux:text>{{ $questionnaire_data['instructions'] ?? '' }}</flux:text>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <flux:heading size="lg">{{ __('Evaluación de riesgo') }}</flux:heading>
+                <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+                     @foreach($questionnaire_data['risk_evaluation'] ?? [] as $color => $risks)
+                    @foreach($risks as $risk)
+                        <div class="mb-5">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="size-3.5 rounded
+                                    @if($color == 'red') bg-red-500
+                                    @elseif($color == 'yellow') bg-yellow-500
+                                    @elseif($color == 'green') bg-green-500
+                                    @endif
+                                "></div>
+                                <p class="font-semibold capitalize text-xs">{{ $color }}:</p>
+                            </div>
+                            <flux:text>{{ $risk['label'] ?? '' }} ({{ $risk['criteria'] ?? '' }})</flux:text>
+                        </div>
+                    @endforeach
+                @endforeach
+                </div>
             </div>
         </div>
     </flux:modal>
