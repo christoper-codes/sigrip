@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Questionnaire;
 
+use App\Actions\Questionnaire\BuildMetadataAction;
 use App\Exports\QuestionnaireTemplateExport;
 use App\Imports\QuestionnaireImport;
 use App\Models\Questionnaire;
@@ -66,7 +67,15 @@ class Store extends Component
         DB::beginTransaction();
         try {
             $rows = Excel::toArray(new QuestionnaireImport(), $this->questionnaire_file->getRealPath())[0];
-            $metadata = $this->buildMetadata($rows);
+            $metadata = (new BuildMetadataAction)->execute(
+                rows: $rows,
+                yellow_risk_evaluation: $this->yellow_risk_evaluation,
+                red_risk_evaluation: $this->red_risk_evaluation,
+                title: $this->title,
+                subtitle: $this->subtitle,
+                instructions: $this->instructions,
+                objectives: $this->objectives
+            );
 
             Questionnaire::create([
                 'questionnaire_category_id' => $this->questionnaire_category,
@@ -100,72 +109,6 @@ class Store extends Component
             $this->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
             $this->dispatch('toast', message: $this->import_errors, type: 'error');
         }
-    }
-
-    public function buildMetadata(array $rows): array
-    {
-        $themes = [];
-        foreach ($rows as $row) {
-            $theme = trim($row['tema']);
-            $description = trim($row['descripcion']);
-            $type = strtolower(trim($row['tipo_de_respuesta']));
-            $question = [
-                'id' => Str::uuid()->toString(),
-                'text' => trim($row['pregunta']),
-                'type' => $type,
-                'options' => null,
-                'month' => $row['mes'] ?? null,
-                'week' => $row['semana'] ?? null,
-                'is_fixed' => false,
-                'critical_values' => null,
-                'weight' => $row['peso_de_pregunta'],
-            ];
-
-            if ($type === 'select') {
-                $opts = preg_split('/\.\s*/', $row['opciones_y_valores'] ?? '', -1, PREG_SPLIT_NO_EMPTY);
-                $question['options'] = [];
-                foreach ($opts as $opt) {
-                    [$value, $label] = explode(':', $opt, 2);
-                    $question['options'][] = [
-                        'value' => (int)trim($value),
-                        'label' => trim($label),
-                    ];
-                }
-                $question['critical_values'] = isset($row['valores_criticos']) && $row['valores_criticos'] !== ''
-                    ? array_map('intval', explode(',', str_replace(' ', '', $row['valores_criticos'])))
-                    : null;
-            }
-
-            $theme_key = $theme . '|' . $description;
-            if (!isset($themes[$theme_key])) {
-                $themes[$theme_key] = [
-                    'name' => $theme,
-                    'description' => $description,
-                    'questions' => [],
-                ];
-            }
-            $themes[$theme_key]['questions'][] = $question;
-        }
-
-        $themes = array_values($themes);
-
-        $risk_evaluation = [
-            'green' => [["label" => __("Bienestar alto"), "criteria" => __("promedio mayor o igual a 4.0 y sin respuestas críticas")]],
-            'yellow' => $this->yellow_risk_evaluation,
-            'red' => $this->red_risk_evaluation,
-        ];
-
-        $metadata = [
-            'questionnaire_id' => Str::replace(' ', '_', strtolower($this->title)) . '_' . time(),
-            'title' => $this->title,
-            'subtitle' => $this->subtitle,
-            'instructions' => $this->instructions,
-            'objectives' => $this->objectives,
-            'themes' => $themes,
-            'risk_evaluation' => $risk_evaluation,
-        ];
-
-        return $metadata;
     }
 
     public function downloadTemplate(): BinaryFileResponse
