@@ -91,10 +91,11 @@ class Index extends Component
     public function destroyEmployee(): void
     {
         $employee = User::find($this->selected_employee_id);
-        $system_owner = $employee->hasRole(RoleEnum::COMPANY_ADMIN->value);
-        if ($system_owner) {
+        $system_owner = $employee->hasRole(RoleEnum::SYSTEM_OWNER->value);
+        $company_admin = Auth::user()->hasRole(RoleEnum::COMPANY_ADMIN->value);
+        if ($system_owner || $company_admin) {
             Flux::modal('confirm-destroy-employee-modal')->close();
-            $this->dispatch('toast', message: __('No se puede eliminar al administrador de la empresa.'), type: 'error');
+            $this->dispatch('toast', message: __('No se puede eliminar a un administrador de la empresa.'), type: 'error');
             return;
         }
         $employee->delete();
