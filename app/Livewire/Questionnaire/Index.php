@@ -80,7 +80,16 @@ class Index extends Component
 
     public function destroy(): void
     {
-
+        $questionnaire = Questionnaire::find($this->questionnaire_id);
+        if($questionnaire->applications()->count() > 0){
+            Flux::modal('destroy-questionnaire-modal')->close();
+            $this->dispatch('toast', message: __('No se puede eliminar el cuestionario porque está asociado a aplicaciones.'), type: 'error');
+            return;
+        }
+        $questionnaire->delete();
+        Flux::modal('destroy-questionnaire-modal')->close();
+        $this->dispatch('toast', message: __('Cuestionario eliminado correctamente.'), type: 'success');
+        $this->mount();
     }
 
     public function render()
