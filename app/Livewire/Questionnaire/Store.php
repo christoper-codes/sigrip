@@ -89,8 +89,17 @@ class Store extends Component
             DB::commit();
             $this->js('new JSConfetti().addConfetti()');
             $this->dispatch('toast', message: __('Cuestionario guardado exitosamente.'), type: 'success');
-            $this->reset();
-            $this->import_errors = null;
+            $this->reset([
+                'title',
+                'subtitle',
+                'instructions',
+                'objectives',
+                'yellow_risk_evaluation',
+                'red_risk_evaluation',
+                'questionnaire_file',
+                'questionnaire_category',
+                'import_errors'
+            ]);
         } catch (ValidationException $e) {
             DB::rollBack();
             $this->reset(['questionnaire_file']);
