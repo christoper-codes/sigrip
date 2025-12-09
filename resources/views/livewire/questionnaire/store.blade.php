@@ -30,6 +30,16 @@
             <flux:textarea name="instructions" resize="none" wire:model="instructions" placeholder="{{ __('Responde con sinceridad. No hay respuestas correctas o incorrectas.') }}"/>
             <flux:error name="instructions"/>
         </flux:field>
+        <flux:field>
+            <flux:label>{{ __('Categoría') }}</flux:label>
+            <flux:select class="!h-12" name="questionnaire_category" wire:model="questionnaire_category">
+                <flux:select.option value="" >{{ __('Selecciona una categoria') }}</flux:select.option>
+                 @foreach($questionnaire_categoires as $category)
+                    <flux:select.option value="{{ $category['id'] }}">{{ $category['name'] }}</flux:select.option>
+                @endforeach
+            </flux:select>
+            <flux:error name="questionnaire_category" />
+        </flux:field>
          <flux:field>
             <flux:label>{{ __('Objetivos') }}</flux:label>
             <div class="lg:col-span-2" x-data="{ objetives: @entangle('objetives') }">

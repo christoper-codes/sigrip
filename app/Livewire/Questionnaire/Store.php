@@ -4,6 +4,7 @@ namespace App\Livewire\Questionnaire;
 
 use App\Exports\QuestionnaireTemplateExport;
 use App\Imports\QuestionnaireImport;
+use App\Models\QuestionnaireCategory;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -41,7 +42,16 @@ class Store extends Component
     #[Validate(['required', 'file', 'mimes:xlsx,csv'])]
     public $questionnaire_file;
 
+    #[Validate(['required', 'integer'])]
+    public ?int $questionnaire_category = null;
+
     public $import_errors = null;
+    public ?array $questionnaire_categoires = [];
+
+    public function mount()
+    {
+        $this->questionnaire_categoires = QuestionnaireCategory::all()->toArray();
+    }
 
     public function submit(): void
     {
