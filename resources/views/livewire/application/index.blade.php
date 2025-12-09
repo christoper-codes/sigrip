@@ -23,7 +23,6 @@
             <x-appearance.livewiretable
                 :headers="$headers"
                 search_placeholder="{{ __('Nombre o email') }}"
-                refresh_placeholder="{{ __('Refrescar datos') }}"
                 :total_results="$total_results"
                 :current_page="$current_page"
                 :total_pages="$total_pages"

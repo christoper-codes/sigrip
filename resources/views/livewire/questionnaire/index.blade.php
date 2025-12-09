@@ -2,7 +2,6 @@
      <x-appearance.livewiretable
         :headers="$headers"
         search_placeholder="{{ __('Nombre del cuestionario') }}"
-        refresh_placeholder="{{ __('Refrescar datos') }}"
         :total_results="$total_results"
         :current_page="$current_page"
         :total_pages="$total_pages"
@@ -158,7 +157,7 @@
         </div>
     </flux:modal>
 
-    <flux:modal name="destroy-questionnaire-modal" class="w-full max-w-md!">
+    <flux:modal name="destroy-questionnaire-modal" class="w-[90%] md:max-w-md!">
         <div class="space-y-4">
             <div>
                 <flux:heading size="lg">{{ __('¿Estás seguro de que deseas eliminar este cuestionario?') }}</flux:heading>
