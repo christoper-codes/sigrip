@@ -35,7 +35,7 @@ class QuestionnaireImport implements ToCollection, WithHeadingRow, WithValidatio
                 $opts = explode('.', $options);
                 foreach ($opts as $opt) {
                     if (!preg_match('/^\d+\s*:.+$/', trim($opt))) {
-                        throw new \Exception("Fila ".($index+2).": Para la columna \"opciones y valores\", cada opción debe tener el formato \"número:etiqueta\".");
+                        throw new \Exception("Fila ".($index+2).": Para la columna \"opciones y valores\", cada opción debe tener el formato \"número:etiqueta\". Separar las opciones con un punto.");
                     }
                 }
             }
