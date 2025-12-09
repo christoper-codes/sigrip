@@ -44,6 +44,7 @@
                 <flux:button icon="plus" variant="filled" x-on:click="objetives.push('')" class="px-4 py-4 mt-3">
                     <span>{{ __('Agregar objetivo') }}</span>
                 </flux:button>
+                <flux:error name="objetives" />
             </div>
         </flux:field>
         <flux:field>

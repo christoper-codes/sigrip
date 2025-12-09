@@ -45,7 +45,7 @@ class Store extends Component
 
     public function submit(): void
     {
-        //$this->validate();
+        $this->validate();
         if (!$this->questionnaire_file || !$this->questionnaire_file->isValid()) {
             $this->dispatch('toast', message: 'El archivo aún se está subiendo. Por favor, espera a que termine la carga.', type: 'warning');
             return;
