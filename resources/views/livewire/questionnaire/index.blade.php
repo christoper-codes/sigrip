@@ -123,22 +123,24 @@
             <div>
                 <flux:heading size="lg">{{ __('Evaluación de riesgo') }}</flux:heading>
                 <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
-                     @foreach($questionnaire_data['risk_evaluation'] ?? [] as $color => $risks)
-                    @foreach($risks as $risk)
-                        <div class="mb-5">
-                            <div class="flex items-center gap-2 mb-2">
-                                <div class="size-3.5 rounded
-                                    @if($color == 'red') bg-red-500
-                                    @elseif($color == 'yellow') bg-yellow-500
-                                    @elseif($color == 'green') bg-green-500
-                                    @endif
-                                "></div>
-                                <p class="font-semibold capitalize text-xs">{{ $color }}:</p>
-                            </div>
-                            <flux:text>{{ $risk['label'] ?? '' }} ({{ $risk['criteria'] ?? '' }})</flux:text>
-                        </div>
+                    @foreach($color_order as $color)
+                        @if(isset($questionnaire_data['risk_evaluation'][$color]))
+                            @foreach($questionnaire_data['risk_evaluation'][$color] as $risk)
+                                <div class="mb-5">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="size-3.5 rounded
+                                            @if($color == 'red') bg-red-500
+                                            @elseif($color == 'yellow') bg-yellow-500
+                                            @elseif($color == 'green') bg-green-500
+                                            @endif
+                                        "></div>
+                                        <p class="font-semibold capitalize text-xs">{{ $color }}:</p>
+                                    </div>
+                                    <flux:text>{{ $risk['label'] ?? '' }} ({{ $risk['criteria'] ?? '' }})</flux:text>
+                                </div>
+                            @endforeach
+                        @endif
                     @endforeach
-                @endforeach
                 </div>
             </div>
             <div class="flex gap-2">

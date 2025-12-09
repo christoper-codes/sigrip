@@ -16,6 +16,7 @@ class Index extends Component
     public ?int $total_questions = null;
     public ?string $questionnaire_name = null;
     public ?int $questionnaire_id = null;
+    public array $color_order = ['green', 'yellow', 'red'];
 
     public function mount()
     {
