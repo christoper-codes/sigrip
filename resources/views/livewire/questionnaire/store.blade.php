@@ -98,15 +98,21 @@
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Subir archivo de preguntas') }}</flux:label>
-            <flux:input type="file" name="questions_file" wire:model="questions_file" accept=".xlsx, .csv" />
-            <div wire:loading wire:target="questions_file">
+            <flux:input type="file" name="questionnaire_file" wire:model="questionnaire_file" accept=".xlsx, .csv" />
+            <div wire:loading wire:target="questionnaire_file">
                 <div class="flex items-center gap-1">
                     <flux:icon.loading class="size-3"/>
                     <flux:text class="!text-xs">{{ __('Cargando archivo') }}</flux:text>
                 </div>
             </div>
-            <flux:error name="questions_file" class="!mt-0"/>
+            <flux:error name="questionnaire_file" class="!mt-0"/>
         </flux:field>
+         @if($import_errors)
+            <div class="flex items-start gap-2">
+                <flux:icon.exclamation-triangle class="text-red-500 size-5" />
+                <flux:text class="!text-red-500">{{ $import_errors }}</flux:text>
+            </div>
+        @endif
 
         <flux:button type="submit" variant="primary">{{ __('Guardar') }}</flux:button>
     </form>

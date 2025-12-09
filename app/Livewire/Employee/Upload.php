@@ -89,7 +89,6 @@ class Upload extends Component
             $this->import_errors = __('Error al guardar los empleados: ') . $e->getMessage();
             $this->dispatch('toast', message: $this->import_errors, type: 'error');
         }
-
     }
 
     public function downloadTemplate(): BinaryFileResponse
