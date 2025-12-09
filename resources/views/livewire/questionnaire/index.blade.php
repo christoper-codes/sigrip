@@ -74,6 +74,12 @@
                                                     </li>
                                                 @endforeach
                                             </ul>
+                                        @else
+                                            <ul class="list-disc ml-6 text-xs">
+                                                <li>
+                                                    <flux:text>{{ __('Pregunta abierta') }}</flux:text>
+                                                </li>
+                                            </ul>
                                         @endif
                                     </li>
                                 @endforeach
