@@ -42,19 +42,19 @@
         </flux:field>
          <flux:field>
             <flux:label>{{ __('Objetivos') }}</flux:label>
-            <div class="lg:col-span-2" x-data="{ objetives: @entangle('objetives') }">
+            <div class="lg:col-span-2" x-data="{ objectives: @entangle('objectives') }">
                 <div class="flex flex-col gap-2">
-                    <template x-for="(objetive, index) in objetives" :key="index">
+                    <template x-for="(objetive, index) in objectives" :key="index">
                         <div class="flex items-center gap-2 !max-w-2xl">
-                            <flux:input x-model="objetives[index]" placeholder="Activar alertas automáticas si aplica" icon="light-bulb"/>
-                            <flux:button icon="x-mark" icon:variant="outline" class="py-6! px-6!" x-on:click="objetives.splice(index, 1)" x-bind:disabled="objetives.length == 1" />
+                            <flux:input x-model="objectives[index]" placeholder="Activar alertas automáticas si aplica" icon="light-bulb"/>
+                            <flux:button icon="x-mark" icon:variant="outline" class="py-6! px-6!" x-on:click="objectives.splice(index, 1)" x-bind:disabled="objectives.length == 1" />
                         </div>
                     </template>
                 </div>
-                <flux:button icon="plus" variant="filled" x-on:click="objetives.push('')" class="px-4 py-4 mt-3">
+                <flux:button icon="plus" variant="filled" x-on:click="objectives.push('')" class="px-4 py-4 mt-3">
                     <span>{{ __('Agregar objetivo') }}</span>
                 </flux:button>
-                <flux:error name="objetives" />
+                <flux:error name="objectives" />
             </div>
         </flux:field>
         <flux:field>
@@ -94,8 +94,8 @@
                         <template x-for="(risk, index) in redRiskEvaluation" :key="index">
                             <div class="flex items-start gap-2 !max-w-2xl w-full">
                                 <div class="flex flex-col gap-2 w-full">
-                                    <flux:input x-model="redRiskEvaluation[index].label" placeholder="Riesgo moderado" icon="light-bulb" />
-                                    <flux:input x-model="redRiskEvaluation[index].criteria" placeholder="Promedio entre 3.0 y 3.9 o 1 respuesta crítica" icon="exclamation-triangle" />
+                                    <flux:input x-model="redRiskEvaluation[index].label" placeholder="Riesgo alto" icon="light-bulb" />
+                                    <flux:input x-model="redRiskEvaluation[index].criteria" placeholder="Promedio entre 1.0 y 2.9 o 1 respuesta crítica" icon="exclamation-triangle" />
                                 </div>
                                 <flux:button icon="x-mark" icon:variant="outline" class="py-6! px-6!" x-on:click="redRiskEvaluation.splice(index, 1)" x-bind:disabled="redRiskEvaluation.length == 1"/>
                             </div>
