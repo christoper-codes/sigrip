@@ -15,7 +15,6 @@ use Livewire\WithFileUploads;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Validators\ValidationException;
-use Illuminate\Support\Str;
 
 class Store extends Component
 {
@@ -83,10 +82,13 @@ class Store extends Component
                 'company_id' => Auth::user()->company->id,
                 'name' => $this->title,
                 'description' => $this->subtitle,
+                'metadata' => $metadata,
+                'is_base' => false,
             ]);
 
             DB::commit();
-            $this->dispatch('toast', message: __('El archivo pasó las validaciones correctamente. Se te notificará cuando el proceso termine.'), type: 'success');
+            $this->js('new JSConfetti().addConfetti()');
+            $this->dispatch('toast', message: __('Cuestionario guardado exitosamente.'), type: 'success');
             $this->reset();
             $this->import_errors = null;
         } catch (ValidationException $e) {
