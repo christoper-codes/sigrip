@@ -20,29 +20,29 @@ class QuestionnaireImport implements ToCollection, WithHeadingRow, WithValidatio
 
         foreach ($rows as $index => $row) {
             $type = strtolower(trim($row['tipo_de_respuesta'] ?? ''));
-            $options = $row['opciones_y_valores'] ?? '';
-            $critical = $row['valores_criticos'] ?? '';
-            $weight = $row['peso_de_pregunta'] ?? '';
+            $options = strtolower(trim($row['opciones_y_valores'] ?? ''));
+            $critical = strtolower(trim($row['valores_criticos'] ?? ''));
+            $weight = strtolower(trim($row['peso_de_pregunta'] ?? ''));
 
             if (!in_array($type, ['select', 'text'])) {
-                throw new \Exception("Fila ".($index+2).": El tipo de respuesta debe ser 'select' o 'text'.");
+                throw new \Exception("Fila ".($index+2).": El tipo de respuesta debe ser \"select\" o \"text\".");
             }
 
             if ($type === 'select') {
                 if (empty($options)) {
-                    throw new \Exception("Fila ".($index+2).": Las opciones y valores son requeridos para preguntas tipo 'select'.");
+                    throw new \Exception("Fila ".($index+2).": Las opciones y valores son requeridos para preguntas tipo \"select\".");
                 }
-                $opts = explode('|', $options);
+                $opts = explode('.', $options);
                 foreach ($opts as $opt) {
                     if (!preg_match('/^\d+\s*:.+$/', trim($opt))) {
-                        throw new \Exception("Fila ".($index+2).": Cada opción debe tener el formato 'número:etiqueta'.");
+                        throw new \Exception("Fila ".($index+2).": Para la columna \"opciones y valores\", cada opción debe tener el formato \"número:etiqueta\".");
                     }
                 }
             }
 
             if ($type === 'select') {
                 if (empty($critical)) {
-                    throw new \Exception("Fila ".($index+2).": Los valores críticos son requeridos para preguntas tipo 'select'.");
+                    throw new \Exception("Fila ".($index+2).": Los valores críticos son requeridos para preguntas tipo \"select\".");
                 }
                 if (!preg_match('/^\d+(,\d+)*$/', str_replace(' ', '', $critical))) {
                     throw new \Exception("Fila ".($index+2).": Los valores críticos deben ser números separados por coma.");
