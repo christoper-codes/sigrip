@@ -56,6 +56,20 @@ class Store extends Component
         $this->questionnaire_categoires = QuestionnaireCategory::all()->toArray();
     }
 
+    public function rules(): array
+    {
+       return [
+            'objectives' => 'required|array|min:1',
+            'objectives.*' => 'required|string|min:3',
+            'yellow_risk_evaluation' => 'required|array|min:1',
+            'yellow_risk_evaluation.*.label' => 'required|string|min:3',
+            'yellow_risk_evaluation.*.criteria' => 'required|string|min:3',
+            'red_risk_evaluation' => 'required|array|min:1',
+            'red_risk_evaluation.*.label' => 'required|string|min:3',
+            'red_risk_evaluation.*.criteria' => 'required|string|min:3',
+       ];
+    }
+
     public function submit(): void
     {
         $this->validate();
