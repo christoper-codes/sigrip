@@ -10,42 +10,52 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class QuestionnaireTemplateExport implements FromArray, WithHeadings, WithStyles, WithColumnWidths
 {
+    protected bool $with_data;
+
+    public function __construct(bool $with_data = false)
+    {
+        $this->with_data = $with_data;
+    }
+
     public function array(): array
     {
+        if (! $this->with_data) {
+            return [];
+        }
         return [
             [
-                'Bienestar General',
+                'Bienestar general',
                 'Evaluación de la satisfacción personal y energía en el desempeño laboral.',
                 '¿Qué tan satisfecho/a estás con tu desempeño este mes?',
                 'select',
-                '1:Muy insatisfecho|2:Insatisfecho|3:Neutral|4:Satisfecho|5:Muy satisfecho',
-                '1|2',
+                '1:Muy insatisfecho. 2:Insatisfecho. 3:Neutral. 4:Satisfecho. 5:Muy satisfecho',
+                '1,2',
                 '1',
             ],
             [
-                'Bienestar General',
+                'Bienestar general',
                 'Evaluación de la satisfacción personal y energía en el desempeño laboral.',
                 '¿Te sentiste con energía suficiente para realizar tu trabajo?',
                 'select',
-                '1:Muy insatisfecho|2:Insatisfecho|3:Neutral|4:Satisfecho|5:Muy satisfecho',
-                '1|2',
+                '1:Muy insatisfecho. 2:Insatisfecho. 3:Neutral. 4:Satisfecho. 5:Muy satisfecho',
+                '1,2',
                 '1',
             ],
             [
-                'Manejo del Estrés',
+                'Manejo del estrés',
                 'Evaluación del control del estrés y adecuación de la carga laboral.',
                 '¿Qué tan controlable sentiste tu nivel de estrés este mes?',
-                'select',
-                '1:Nada controlable|2:Poco controlable|3:Neutral|4:Controlable|5:Muy controlable',
-                '1|2',
+                'text',
+                '',
+                '',
                 '1',
             ],
             [
-                'Manejo del Estrés',
+                'Manejo del estrés',
                 'Evaluación del control del estrés y adecuación de la carga laboral.',
                 '¿Tu carga laboral fue adecuada a tus capacidades?',
                 'radio_button',
-                '1:No, demasiado trabajo|2:No, muy poco trabajo|3:Sí',
+                '1:No, demasiado trabajo. 2:No, muy poco trabajo. 3:Sí',
                 '1',
                 '1',
             ],

@@ -34,7 +34,7 @@ class Store extends Component
 
     public function downloadTemplate(): BinaryFileResponse
     {
-        return Excel::download(new QuestionnaireTemplateExport, 'neura_questionnaire_template.xlsx');
+        return Excel::download(new QuestionnaireTemplateExport(with_data: false), 'neura_questionnaire_template.xlsx');
     }
 
     public function render()
