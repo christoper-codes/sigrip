@@ -86,6 +86,7 @@ class Index extends Component
             $this->dispatch('toast', message: __('No se puede eliminar el cuestionario porque está asociado a aplicaciones.'), type: 'error');
             return;
         }
+
         $questionnaire->delete();
         Flux::modal('destroy-questionnaire-modal')->close();
         $this->dispatch('toast', message: __('Cuestionario eliminado correctamente.'), type: 'success');

@@ -53,7 +53,7 @@
                                     <span x-show="loading"><flux:icon.loading class="!size-4"/></span>
                                 </flux:button>
                                 <td class="p-4">
-                                    <flux:button icon="trash" wire:click="confirmDestroy({{ $employee['id'] }}, '{{ $employee['name'] }}')"></flux:button>
+                                    <flux:button icon="trash" variant="danger" wire:click="confirmDestroy({{ $employee['id'] }}, '{{ $employee['name'] }}')" />
                                 </td>
                             </td>
                         </tr>
@@ -109,7 +109,7 @@
             <div class="flex gap-2">
                 <flux:spacer />
                 <flux:modal.close>
-                    <flux:button variant="ghost">{{ __('Cancelar') }}</flux:button>
+                    <flux:button variant="filled">{{ __('Cancelar') }}</flux:button>
                 </flux:modal.close>
                 <flux:button type="submit" variant="danger" wire:click="destroyEmployee">{{ __('Eliminar') }}</flux:button>
             </div>
