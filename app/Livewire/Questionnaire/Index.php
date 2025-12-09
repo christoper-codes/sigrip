@@ -14,6 +14,8 @@ class Index extends Component
 
     public ?array $questionnaire_data = null;
     public ?int $total_questions = null;
+    public ?string $questionnaire_name = null;
+    public ?int $questionnaire_id = null;
 
     public function mount()
     {
@@ -34,6 +36,7 @@ class Index extends Component
             ['label' => __('Fecha de Creación'), 'field' => 'created_at', 'sortable' => true],
             ['label' => __('Estado')],
             ['label' => __('Activar')],
+            ['label' => __('Eliminar')],
         ];
         $this->refreshTableData();
     }
@@ -65,6 +68,18 @@ class Index extends Component
 
         $this->dispatch('toast', message: __('Estado actualizado correctamente.'), type: 'success');
         $this->mount();
+    }
+
+    public function confirmDestroy(string $questionnaire_name, int $id): void
+    {
+        $this->questionnaire_name = $questionnaire_name;
+        $this->questionnaire_id = $id;
+        Flux::modal('destroy-questionnaire-modal')->show();
+    }
+
+    public function destroy(): void
+    {
+
     }
 
     public function render()

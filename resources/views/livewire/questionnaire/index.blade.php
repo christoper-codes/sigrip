@@ -39,6 +39,9 @@
                            <flux:switch wire:click="updateStatus({{ $questionnaire['id'] }})" :checked="(bool) $questionnaire['is_active']" />
                         </flux:field>
                     </td>
+                    <td class="p-4">
+                        <flux:button variant="danger" icon="trash" wire:click="confirmDestroy('{{ $questionnaire['name'] }}', {{ $questionnaire['id'] }})" />
+                    </td>
                 </tr>
             @endforeach
         </x-slot:table>
@@ -143,6 +146,24 @@
                 <flux:modal.close>
                     <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
                 </flux:modal.close>
+            </div>
+        </div>
+    </flux:modal>
+
+    <flux:modal name="destroy-questionnaire-modal" class="w-full max-w-md!">
+        <div class="space-y-4">
+            <div>
+                <flux:heading size="lg">{{ __('¿Estás seguro de que deseas eliminar este cuestionario?') }}</flux:heading>
+                <flux:text class="mt-3 font-semibold">{{ $questionnaire_name }}</flux:text>
+            </div>
+            <div class="flex gap-2">
+                 <flux:spacer />
+                <flux:modal.close>
+                    <flux:button variant="filled">{{ __('Cancelar') }}</flux:button>
+                </flux:modal.close>
+                <flux:button variant="danger" wire:click="destroy">
+                    {{ __('Eliminar') }}
+                </flux:button>
             </div>
         </div>
     </flux:modal>
