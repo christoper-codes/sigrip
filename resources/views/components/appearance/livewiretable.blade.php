@@ -1,5 +1,6 @@
 @props([
     'search_placeholder' => '',
+    'refresh_placeholder' => '',
     'headers' => [],
     'total_results' => 0,
     'current_page' => 1,
@@ -12,13 +13,16 @@
 
 <div class="space-y-5">
     {{-- Search --}}
-    <div class="w-full lg:w-1/3">
+    <div class="w-full lg:w-1/2 flex items-center gap-2">
         <flux:input
             icon="magnifying-glass"
             placeholder="{{ $search_placeholder }}"
             wire:model.live="search_query"
             utocomplete="off"
         />
+        <flux:button wire:click="resetTable" class="py-6! px-5!">
+            {{ $refresh_placeholder }}
+        </flux:button>
     </div>
 
     {{-- Display table --}}

@@ -130,4 +130,9 @@ trait Table
         $this->total_pages = $this->getTotalPages();
         $this->paginated_items = $this->getPaginatedItems();
     }
+
+    public function resetTable(): void
+    {
+        $this->mount();
+    }
 }
