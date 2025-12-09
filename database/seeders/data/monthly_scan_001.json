@@ -548,9 +548,7 @@
         "label": "Bienestar alto",
         "criteria": "promedio mayor o igual a 4.0 y sin respuestas críticas",
         "min": 4.0,
-        "max": 5.0,
-        "rh_recommendations": null,
-        "worker_message": null
+        "max": 5.0
       }
     ],
     "yellow": [
@@ -558,9 +556,7 @@
         "label": "Riesgo moderado",
         "criteria": "promedio entre 2.6 y 3.9 o una alerta moderada",
         "min": 2.6,
-        "max": 3.9,
-        "rh_recommendations": null,
-        "worker_message": null
+        "max": 3.9
       }
     ],
     "red": [
@@ -568,9 +564,7 @@
         "label": "Riesgo crítico",
         "criteria": "promedio menor o igual a 2.5 o cualquier respuesta crítica",
         "min": 0,
-        "max": 2.5,
-        "rh_recommendations": null,
-        "worker_message": null
+        "max": 2.5
       }
     ]
   }

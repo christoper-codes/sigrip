@@ -328,25 +328,19 @@
         "label": "Riesgo alto/ crítico",
         "criteria": "Promedio menor a 3.0 o 2 o más respuestas críticas.",
         "min": 1.0,
-        "max": 2.9,
-        "rh_recommendations": null,
-        "worker_message": null
+        "max": 2.9
       },
       {
         "label": "Estrés o sobrecarga crítica",
         "criteria": "Reporta estrés elevado de forma constante o indica carga laboral excesiva.",
         "min": null,
-        "max": null,
-        "rh_recommendations": null,
-        "worker_message": null
+        "max": null
       },
       {
         "label": "Relaciones afectadas",
         "criteria": "Calificación de 1 o 2 en relaciones laborales, sensación de aislamiento o falta de apoyo.",
         "min": null,
-        "max": null,
-        "rh_recommendations": null,
-        "worker_message": null
+        "max": null
       }
     ]
   }
