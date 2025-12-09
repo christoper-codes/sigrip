@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('auth_required')->default(true);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

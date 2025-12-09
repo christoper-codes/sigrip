@@ -42,4 +42,14 @@ class Department extends Model
     {
         return $this->belongsTo(User::class, 'manager_id');
     }
+
+    public function applicationsIssuing(): HasMany
+    {
+        return $this->hasMany(Application::class, 'issuing_department_id');
+    }
+
+    public function applicationsExecuting(): HasMany
+    {
+        return $this->hasMany(Application::class, 'executing_department_id');
+    }
 }

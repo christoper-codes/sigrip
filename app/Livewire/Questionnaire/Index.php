@@ -74,6 +74,7 @@ class Index extends Component
     {
         $this->questionnaire_name = $questionnaire_name;
         $this->questionnaire_id = $id;
+
         Flux::modal('destroy-questionnaire-modal')->show();
     }
 
