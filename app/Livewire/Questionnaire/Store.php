@@ -47,7 +47,7 @@ class Store extends Component
     {
         $this->validate();
         if (!$this->questionnaire_file || !$this->questionnaire_file->isValid()) {
-            $this->dispatch('toast', message: 'El archivo aún se está subiendo. Por favor, espera a que termine la carga.', type: 'warning');
+            $this->dispatch('toast', message: __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.'), type: 'warning');
             return;
         }
         DB::beginTransaction();
@@ -55,7 +55,7 @@ class Store extends Component
             (new QuestionnaireImport())->import($this->questionnaire_file->getRealPath());
 
             DB::commit();
-            $this->dispatch('toast', message: 'El archivo pasó las validaciones correctamente. Se te notificará cuando el proceso termine.', type: 'success');
+            $this->dispatch('toast', message: __('El archivo pasó las validaciones correctamente. Se te notificará cuando el proceso termine.'), type: 'success');
             $this->reset(['questionnaire_file']);
             $this->import_errors = null;
         } catch (ValidationException $e) {
@@ -66,16 +66,16 @@ class Store extends Component
                 $row = $failure->row();
                 $identificador = 'Fila ' . $row;
                 $error = $failure->errors()[0] ?? $e->getMessage();
-                $this->import_errors = 'Error al guardar el cuestionario: ' . $error . " ($identificador)";
+                $this->import_errors = __('Error al guardar el cuestionario: ') . $error . " ($identificador)";
                 $this->dispatch('toast', message: $this->import_errors, type: 'error');
             } else {
-                $this->import_errors = 'Error al guardar el cuestionario: ' . $e->getMessage();
+                $this->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
                 $this->dispatch('toast', message: $this->import_errors, type: 'error');
             }
         } catch (\Exception $e) {
             DB::rollBack();
             $this->reset(['questionnaire_file']);
-            $this->import_errors = 'Error al guardar el cuestionario: ' . $e->getMessage();
+            $this->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
             $this->dispatch('toast', message: $this->import_errors, type: 'error');
         }
     }
