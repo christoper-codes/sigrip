@@ -1,6 +1,6 @@
 <div>
     <div>
-        <flux:heading size="lg">{{ __('Archivo base de preguntas') }}</flux:heading>
+        <flux:heading size="lg">{{ __('Archivo base') }}</flux:heading>
         <flux:text class="mt-2">{{ __('Puntos a considerar antes de subir el archivo de preguntas:') }}</flux:text>
         <ul class="text-sm opacity-70 space-y-2 mt-6">
             <li class="list-disc list-inside">{{ __('Columnas obligatorias (en minusculas sin tilde): ') }}</li>

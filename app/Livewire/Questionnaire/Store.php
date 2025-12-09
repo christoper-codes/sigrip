@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Questionnaire;
 
+use App\Exports\QuestionnaireTemplateExport;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Store extends Component
 {
@@ -28,6 +31,11 @@ class Store extends Component
     public ?array $red_risk_evaluation = [
         ['label' => '', 'criteria' => '']
     ];
+
+    public function downloadTemplate(): BinaryFileResponse
+    {
+        return Excel::download(new QuestionnaireTemplateExport, 'neura_questionnaire_template.xlsx');
+    }
 
     public function render()
     {
