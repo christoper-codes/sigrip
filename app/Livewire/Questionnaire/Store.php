@@ -37,6 +37,11 @@ class Store extends Component
         return Excel::download(new QuestionnaireTemplateExport(with_data: false), 'neura_questionnaire_template.xlsx');
     }
 
+    public function downloadExample(): BinaryFileResponse
+    {
+        return Excel::download(new QuestionnaireTemplateExport(with_data: true), 'neura_questionnaire_example.xlsx');
+    }
+
     public function render()
     {
         return view('livewire.questionnaire.store');

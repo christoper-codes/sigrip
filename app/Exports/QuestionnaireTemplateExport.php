@@ -54,7 +54,7 @@ class QuestionnaireTemplateExport implements FromArray, WithHeadings, WithStyles
                 'Manejo del estrés',
                 'Evaluación del control del estrés y adecuación de la carga laboral.',
                 '¿Tu carga laboral fue adecuada a tus capacidades?',
-                'radio_button',
+                'select',
                 '1:No, demasiado trabajo. 2:No, muy poco trabajo. 3:Sí',
                 '1',
                 '1',
