@@ -12,7 +12,7 @@
 
 <div class="space-y-5">
     {{-- Search --}}
-    <div class="w-full  flex flex-col-reverse md:flex-row md:items-center gap-2">
+    <div class="w-full lg:w-[80%] flex flex-col-reverse md:flex-row md:items-center gap-2">
         <flux:input
             icon="magnifying-glass"
             placeholder="{{ $search_placeholder }}"
