@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Questionnaire;
 
+use App\Livewire\Forms\QuestionnaireForm;
 use App\Livewire\Traits\Table;
 use App\Models\Questionnaire;
 use Flux\Flux;
@@ -11,6 +12,8 @@ use Livewire\Component;
 class Index extends Component
 {
     use Table;
+
+    public QuestionnaireForm $form;
 
     public ?array $questionnaire_data = null;
     public ?int $total_questions = null;
@@ -73,7 +76,19 @@ class Index extends Component
 
     public function editQuestionnaire(int $id): void
     {
+        $this->questionnaire_id = $id;
         Flux::modal('edit-questionnaire-modal')->show();
+    }
+
+    public function confirmUpdateQuestionnaire(): void
+    {
+        $this->form->validate();
+
+    }
+
+    public function modalClosed($modalName)
+    {
+
     }
 
     public function confirmDestroy(string $questionnaire_name, int $id): void

@@ -10,7 +10,6 @@ use App\Models\Questionnaire;
 use App\Models\QuestionnaireCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
