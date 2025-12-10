@@ -17,32 +17,32 @@
     <form wire:submit.prevent="submit" class="mt-14 space-y-6 px-5 py-6 lg:px-7 lg:py-7 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-xl">
         <flux:field>
             <flux:label>{{ __('Titulo') }}</flux:label>
-            <flux:input name="title" wire:model="title" icon="cube" placeholder="{{ __('Plan de escaneo periodico') }}"/>
-            <flux:error name="title" />
+            <flux:input name="title" wire:model="form.title" icon="cube" placeholder="{{ __('Plan de escaneo periodico') }}"/>
+            <flux:error name="form.title" />
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Subtitulo') }}</flux:label>
-            <flux:input name="subtitle" wire:model="subtitle" icon="cube-transparent" placeholder="{{ __('Evaluación de desempeño') }}"/>
-            <flux:error name="subtitle" />
+            <flux:input name="subtitle" wire:model="form.subtitle" icon="cube-transparent" placeholder="{{ __('Evaluación de desempeño') }}"/>
+            <flux:error name="form.subtitle" />
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Instrucciones') }}</flux:label>
-            <flux:textarea name="instructions" resize="none" wire:model="instructions" placeholder="{{ __('Responde con sinceridad. No hay respuestas correctas o incorrectas.') }}"/>
-            <flux:error name="instructions"/>
+            <flux:textarea name="instructions" resize="none" wire:model="form.instructions" placeholder="{{ __('Responde con sinceridad. No hay respuestas correctas o incorrectas.') }}"/>
+            <flux:error name="form.instructions"/>
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Categoría') }}</flux:label>
-            <flux:select class="!h-12" name="questionnaire_category" wire:model="questionnaire_category">
+            <flux:select class="!h-12" name="questionnaire_category" wire:model="form.questionnaire_category">
                 <flux:select.option value="" >{{ __('Selecciona una categoria') }}</flux:select.option>
-                 @foreach($questionnaire_categoires as $category)
+                 @foreach($form->questionnaire_categories as $category)
                     <flux:select.option value="{{ $category['id'] }}">{{ $category['name'] }}</flux:select.option>
                 @endforeach
             </flux:select>
-            <flux:error name="questionnaire_category" />
+            <flux:error name="form.questionnaire_category" />
         </flux:field>
          <flux:field>
             <flux:label>{{ __('Objetivos') }}</flux:label>
-            <div class="lg:col-span-2" x-data="{ objectives: @entangle('objectives') }">
+            <div class="lg:col-span-2" x-data="{ objectives: @entangle('form.objectives') }">
                 <div class="flex flex-col gap-2">
                     <template x-for="(objetive, index) in objectives" :key="index">
                         <div class="flex items-center gap-2 !max-w-2xl">
@@ -54,7 +54,7 @@
                 <flux:button icon="plus" variant="filled" x-on:click="objectives.push('')" class="px-4 py-4 mt-3">
                     <span>{{ __('Agregar objetivo') }}</span>
                 </flux:button>
-                <flux:error name="objectives" />
+                <flux:error name="form.objectives" />
             </div>
         </flux:field>
         <flux:field>
@@ -64,7 +64,7 @@
                     <div class="size-4 bg-yellow-500 rounded"></div>
                     <flux:text>{{ __('Evaluación de riesgo \'Yellow\'') }}</flux:text>
                 </div>
-                <div class="lg:col-span-2 mt-2 w-full" x-data="{ yellowRiskEvaluation: @entangle('yellow_risk_evaluation') }">
+                <div class="lg:col-span-2 mt-2 w-full" x-data="{ yellowRiskEvaluation: @entangle('form.yellow_risk_evaluation') }">
                     <div class="flex flex-col gap-2 w-full">
                         <template x-for="(risk, index) in yellowRiskEvaluation" :key="index">
                             <div class="flex items-start gap-2 !max-w-2xl w-full">
@@ -76,10 +76,10 @@
                             </div>
                         </template>
                     </div>
-                    <flux:button icon="plus" variant="filled" x-on:click="yellowRiskEvaluation.push({ label: '', criteria: '' })" class="px-4 py-4 mt-3">
+                    <flux:button icon="plus" variant="filled" x-on:click="yellowRiskEvaluation.push({ label: '', criteria: '' })" ...>
                         <span>{{ __('Agregar evaluación') }}</span>
                     </flux:button>
-                    <flux:error name="yellow_risk_evaluation" />
+                    <flux:error name="form.yellow_risk_evaluation" />
                 </div>
             </div>
         </flux:field>
@@ -90,7 +90,7 @@
                     <div class="size-4 bg-red-500 rounded"></div>
                     <flux:text>{{ __('Evaluación de riesgo \'Red\'') }}</flux:text>
                 </div>
-                <div class="lg:col-span-2 mt-2 w-full" x-data="{ redRiskEvaluation: @entangle('red_risk_evaluation') }">
+                <div class="lg:col-span-2 mt-2 w-full" x-data="{ redRiskEvaluation: @entangle('form.red_risk_evaluation') }">
                     <div class="flex flex-col gap-2 w-full">
                         <template x-for="(risk, index) in redRiskEvaluation" :key="index">
                             <div class="flex items-start gap-2 !max-w-2xl w-full">
@@ -105,25 +105,25 @@
                     <flux:button icon="plus" variant="filled" x-on:click="redRiskEvaluation.push({ label: '', criteria: '' })" class="px-4 py-4 mt-3">
                         <span>{{ __('Agregar evaluación') }}</span>
                     </flux:button>
-                    <flux:error name="red_risk_evaluation" />
+                    <flux:error name="form.red_risk_evaluation" />
                 </div>
             </div>
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Subir archivo de preguntas') }}</flux:label>
-            <flux:input type="file" name="questionnaire_file" wire:model="questionnaire_file" accept=".xlsx, .csv" />
-            <div wire:loading wire:target="questionnaire_file">
+            <flux:input type="file" name="form.questionnaire_file" wire:model="form.questionnaire_file" accept=".xlsx, .csv" />
+            <div wire:loading wire:target="form.questionnaire_file">
                 <div class="flex items-center gap-1">
                     <flux:icon.loading class="size-3"/>
                     <flux:text class="!text-xs">{{ __('Cargando archivo') }}</flux:text>
                 </div>
             </div>
-            <flux:error name="questionnaire_file" class="!mt-0"/>
+            <flux:error name="form.questionnaire_file" class="!mt-0"/>
         </flux:field>
-         @if($import_errors)
+         @if($form->import_errors)
             <div class="flex items-start gap-2">
                 <flux:icon.exclamation-triangle class="text-red-500 size-5" />
-                <flux:text class="!text-red-500">{{ $import_errors }}</flux:text>
+                <flux:text class="!text-red-500">{{ $form->import_errors }}</flux:text>
             </div>
         @endif
 

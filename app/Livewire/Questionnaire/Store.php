@@ -5,6 +5,7 @@ namespace App\Livewire\Questionnaire;
 use App\Actions\Questionnaire\BuildMetadataAction;
 use App\Exports\QuestionnaireTemplateExport;
 use App\Imports\QuestionnaireImport;
+use App\Livewire\Forms\QuestionnaireForm;
 use App\Models\Questionnaire;
 use App\Models\QuestionnaireCategory;
 use Illuminate\Support\Facades\Auth;
@@ -20,63 +21,21 @@ class Store extends Component
 {
     use WithFileUploads;
 
-    #[Validate(['required', 'string', 'max:255'])]
-    public ?string $title = null;
-
-    #[Validate(['required', 'string', 'max:255'])]
-    public ?string $subtitle = null;
-
-    #[Validate(['required', 'string'])]
-    public ?string $instructions = null;
-
-    #[Validate(['required', 'array'])]
-    public ?array $objectives = [''];
-
-    #[Validate(['required', 'array'])]
-    public ?array $yellow_risk_evaluation = [
-        ['label' => '', 'criteria' => '']
-    ];
-
-    #[Validate(['required', 'array'])]
-    public ?array $red_risk_evaluation = [
-        ['label' => '', 'criteria' => '']
-    ];
-
-    #[Validate(['required', 'file', 'mimes:xlsx,csv'])]
-    public $questionnaire_file;
-
-    #[Validate(['required', 'integer'])]
-    public ?int $questionnaire_category = null;
-
-    public $import_errors = null;
-    public ?array $questionnaire_categoires = [];
+    public QuestionnaireForm $form;
 
     public function mount()
     {
-        $this->questionnaire_categoires = QuestionnaireCategory::all()->toArray();
-    }
-
-    public function rules(): array
-    {
-       return [
-            'objectives' => 'required|array|min:1',
-            'objectives.*' => 'required|string|min:3',
-            'yellow_risk_evaluation' => 'required|array|min:1',
-            'yellow_risk_evaluation.*.label' => 'required|string|min:3',
-            'yellow_risk_evaluation.*.criteria' => 'required|string|min:3',
-            'red_risk_evaluation' => 'required|array|min:1',
-            'red_risk_evaluation.*.label' => 'required|string|min:3',
-            'red_risk_evaluation.*.criteria' => 'required|string|min:3',
-       ];
+        $this->form->questionnaire_categories = QuestionnaireCategory::all()->toArray();
     }
 
     public function submit(): void
     {
-        $this->validate();
+        $this->form->validate();
         if (!$this->questionnaire_file || !$this->questionnaire_file->isValid()) {
             $this->dispatch('toast', message: __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.'), type: 'warning');
             return;
         }
+        dd('hey');
         DB::beginTransaction();
         try {
             $rows = Excel::toArray(new QuestionnaireImport(), $this->questionnaire_file->getRealPath())[0];
