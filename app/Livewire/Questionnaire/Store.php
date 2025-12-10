@@ -31,30 +31,30 @@ class Store extends Component
     public function submit(): void
     {
         $this->form->validate();
-        if (!$this->questionnaire_file || !$this->questionnaire_file->isValid()) {
+        if (! $this->form->questionnaire_file || !$this->form->questionnaire_file->isValid()) {
             $this->dispatch('toast', message: __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.'), type: 'warning');
             return;
         }
         dd('hey');
         DB::beginTransaction();
         try {
-            $rows = Excel::toArray(new QuestionnaireImport(), $this->questionnaire_file->getRealPath())[0];
+            $rows = Excel::toArray(new QuestionnaireImport(), $this->form->questionnaire_file->getRealPath())[0];
             $metadata = (new BuildMetadataAction)->execute(
                 rows: $rows,
-                yellow_risk_evaluation: $this->yellow_risk_evaluation,
-                red_risk_evaluation: $this->red_risk_evaluation,
-                title: $this->title,
-                subtitle: $this->subtitle,
-                instructions: $this->instructions,
-                objectives: $this->objectives
+                yellow_risk_evaluation: $this->form->yellow_risk_evaluation,
+                red_risk_evaluation: $this->form->red_risk_evaluation,
+                title: $this->form->title,
+                subtitle: $this->form->subtitle,
+                instructions: $this->form->instructions,
+                objectives: $this->form->objectives
             );
 
             Questionnaire::create([
-                'questionnaire_category_id' => $this->questionnaire_category,
+                'questionnaire_category_id' => $this->form->questionnaire_category,
                 'organization_id' => Auth::user()->organization->id,
                 'company_id' => Auth::user()->company->id,
-                'name' => $this->title,
-                'description' => $this->subtitle,
+                'name' => $this->form->title,
+                'description' => $this->form->subtitle,
                 'metadata' => $metadata,
                 'is_base' => false,
             ]);
@@ -63,35 +63,35 @@ class Store extends Component
             $this->js('new JSConfetti().addConfetti()');
             $this->dispatch('toast', message: __('Cuestionario guardado exitosamente.'), type: 'success');
             $this->reset([
-                'title',
-                'subtitle',
-                'instructions',
-                'objectives',
-                'yellow_risk_evaluation',
-                'red_risk_evaluation',
-                'questionnaire_file',
-                'questionnaire_category',
-                'import_errors'
+                'form.title',
+                'form.subtitle',
+                'form.instructions',
+                'form.objectives',
+                'form.yellow_risk_evaluation',
+                'form.red_risk_evaluation',
+                'form.questionnaire_file',
+                'form.questionnaire_category',
+                'form.import_errors'
             ]);
         } catch (ValidationException $e) {
             DB::rollBack();
-            $this->reset(['questionnaire_file']);
+            $this->reset(['form.questionnaire_file']);
             $failure = $e->failures()[0] ?? null;
             if ($failure) {
                 $row = $failure->row();
                 $identificador = 'Fila ' . $row;
                 $error = $failure->errors()[0] ?? $e->getMessage();
-                $this->import_errors = __('Error al guardar el cuestionario: ') . $error . " ($identificador)";
-                $this->dispatch('toast', message: $this->import_errors, type: 'error');
+                $this->form->import_errors = __('Error al guardar el cuestionario: ') . $error . " ($identificador)";
+                $this->dispatch('toast', message: $this->form->import_errors, type: 'error');
             } else {
-                $this->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
-                $this->dispatch('toast', message: $this->import_errors, type: 'error');
+                $this->form->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
+                $this->dispatch('toast', message: $this->form->import_errors, type: 'error');
             }
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->reset(['questionnaire_file']);
-            $this->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
-            $this->dispatch('toast', message: $this->import_errors, type: 'error');
+            $this->reset(['form.questionnaire_file']);
+            $this->form->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
+            $this->dispatch('toast', message: $this->form->import_errors, type: 'error');
         }
     }
 
