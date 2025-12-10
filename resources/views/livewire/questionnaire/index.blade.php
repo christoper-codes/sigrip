@@ -39,7 +39,10 @@
                         </flux:field>
                     </td>
                     <td class="p-4">
-                        <flux:button variant="danger" icon="trash" wire:click="confirmDestroy('{{ $questionnaire['name'] }}', {{ $questionnaire['id'] }})" />
+                        <div class="flex items-center gap-2">
+                            <flux:button variant="filled" icon="pencil" wire:click="editQuestionnaire({{ $questionnaire['id'] }})" />
+                            <flux:button variant="danger" icon="trash" wire:click="confirmDestroy('{{ $questionnaire['name'] }}', {{ $questionnaire['id'] }})" />
+                        </div>
                     </td>
                 </tr>
             @endforeach
@@ -170,6 +173,24 @@
                 </flux:modal.close>
                 <flux:button variant="danger" wire:click="destroy">
                     {{ __('Eliminar') }}
+                </flux:button>
+            </div>
+        </div>
+    </flux:modal>
+
+    <flux:modal name="edit-questionnaire-modal" class="w-[90%] md:max-w-md!">
+        <div class="space-y-4">
+            <div>
+                <flux:heading size="lg">{{ __('Editar cuestionario') }}</flux:heading>
+                <flux:text class="mt-2">{{ __('') }}</flux:text>
+            </div>
+            <div class="flex gap-2">
+                 <flux:spacer />
+                <flux:modal.close>
+                    <flux:button variant="filled">{{ __('Cancelar') }}</flux:button>
+                </flux:modal.close>
+                <flux:button variant="primary">
+                    {{ __('Guardar') }}
                 </flux:button>
             </div>
         </div>

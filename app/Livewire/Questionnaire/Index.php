@@ -37,7 +37,7 @@ class Index extends Component
             ['label' => __('Fecha de Creación'), 'field' => 'created_at', 'sortable' => true],
             ['label' => __('Estado')],
             ['label' => __('Activar')],
-            ['label' => __('Eliminar')],
+            ['label' => __('Acciones')],
         ];
         $this->refreshTableData();
     }
@@ -69,6 +69,11 @@ class Index extends Component
 
         $this->dispatch('toast', message: __('Estado actualizado correctamente.'), type: 'success');
         $this->mount();
+    }
+
+    public function editQuestionnaire(int $id): void
+    {
+        Flux::modal('edit-questionnaire-modal')->show();
     }
 
     public function confirmDestroy(string $questionnaire_name, int $id): void
