@@ -178,7 +178,7 @@
         </div>
     </flux:modal>
 
-    <flux:modal name="edit-questionnaire-modal" class="w-[90%] md:w-2xl!" @close="modalClosed('edit-questionnaire-modal')">
+    <flux:modal name="edit-questionnaire-modal" class="w-[90%] md:w-2xl!" @close="editModalClosed()">
         <form wire:submit.prevent="confirmUpdateQuestionnaire" class="space-y-6">
             <div>
                 <flux:heading size="lg">{{ __('Editar cuestionario') }}</flux:heading>

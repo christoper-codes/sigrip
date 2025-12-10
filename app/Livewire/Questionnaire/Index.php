@@ -86,9 +86,21 @@ class Index extends Component
 
     }
 
-    public function modalClosed($modalName)
+    public function editModalClosed()
     {
-
+        $this->reset([
+            'form.title',
+            'form.subtitle',
+            'form.instructions',
+            'form.objectives',
+            'form.yellow_risk_evaluation',
+            'form.red_risk_evaluation',
+            'form.questionnaire_file',
+            'form.questionnaire_category',
+            'form.import_errors'
+        ]);
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function confirmDestroy(string $questionnaire_name, int $id): void
