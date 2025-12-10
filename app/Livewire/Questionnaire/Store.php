@@ -35,10 +35,13 @@ class Store extends Component
             $this->dispatch('toast', message: __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.'), type: 'warning');
             return;
         }
-        dd('hey');
+
         DB::beginTransaction();
         try {
+            $import = new QuestionnaireImport();
+            $import->import($this->form->questionnaire_file->getRealPath());
             $rows = Excel::toArray(new QuestionnaireImport(), $this->form->questionnaire_file->getRealPath())[0];
+
             $metadata = (new BuildMetadataAction)->execute(
                 rows: $rows,
                 yellow_risk_evaluation: $this->form->yellow_risk_evaluation,
