@@ -42,11 +42,11 @@
                 </div>
             </div>
         </div>
-        <div class="mt-5 flex items-center gap-3">
-            <flux:button icon="arrow-down" wire:click='downloadTemplate' class="!w-full !max-w-xs !py-8 !border !border-primary !bg-primary/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
+        <div class="mt-5 flex flex-col md:flex-row items-center gap-3 w-full">
+            <flux:button icon="arrow-down" wire:click='downloadTemplate' class="!w-full !py-8 !border !border-primary !bg-primary/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
                 {{ __('Descargar plantilla') }}
             </flux:button>
-            <flux:button icon="arrow-down" wire:click='downloadExample' class="!w-full !max-w-xs !py-8 !border !border-fuchsia-500 !bg-fuchsia-500/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-fuchsia-500/5 !transition-colors !shadow-xl/50 !shadow-fuchsia-500/20">
+            <flux:button icon="arrow-down" wire:click='downloadExample' class="!w-full !py-8 !border !border-fuchsia-500 !bg-fuchsia-500/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-fuchsia-500/5 !transition-colors !shadow-xl/50 !shadow-fuchsia-500/20">
                 {{ __('Descargar ejemplo') }}
             </flux:button>
         </div>
