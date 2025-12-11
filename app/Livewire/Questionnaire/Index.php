@@ -105,10 +105,10 @@ class Index extends Component
     public function confirmUpdateQuestionnaire(): void
     {
        $this->form->validate();
-        if (! $this->form->questionnaire_file || !$this->form->questionnaire_file->isValid()) {
-            $this->dispatch('toast', message: __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.'), type: 'warning');
+       if($this->form->questionnaire_file && $this->questionnaire->applications()->count() <= 0){
+            $this->form->import_errors = __('No se puede actualizar el archivo del cuestionario porque está asociado a aplicaciones.');
             return;
-        }
+       }
 
         DB::beginTransaction();
         try {
@@ -153,16 +153,13 @@ class Index extends Component
                 $identificador = 'Fila ' . $row;
                 $error = $failure->errors()[0] ?? $e->getMessage();
                 $this->form->import_errors = __('Error al guardar el cuestionario: ') . $error . " ($identificador)";
-                $this->dispatch('toast', message: $this->form->import_errors, type: 'error');
             } else {
                 $this->form->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
-                $this->dispatch('toast', message: $this->form->import_errors, type: 'error');
             }
         } catch (\Exception $e) {
             DB::rollBack();
             $this->reset(['form.questionnaire_file']);
             $this->form->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
-            $this->dispatch('toast', message: $this->form->import_errors, type: 'error');
         }
     }
 
