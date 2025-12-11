@@ -15,6 +15,7 @@ use Livewire\WithFileUploads;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Validators\ValidationException;
+use Illuminate\Support\Str;
 
 class Store extends Component
 {
@@ -50,6 +51,11 @@ class Store extends Component
                 instructions: $this->form->instructions,
                 objectives: $this->form->objectives
             );
+
+            $file_original_name = $this->form->questionnaire_file->getClientOriginalName();
+            $file_name = Auth::user()->company->id . '_' . Str::replace(' ', '_', trim(Str::lower(Auth::user()->company->name))) . '_' . time() . '_' . $file_original_name;
+            $file_path = $this->form->questionnaire_file->storeAs('questionnaires', $file_name, 'public');
+            $metadata['file_path'] = $file_path;
 
             Questionnaire::create([
                 'questionnaire_category_id' => $this->form->questionnaire_category,
