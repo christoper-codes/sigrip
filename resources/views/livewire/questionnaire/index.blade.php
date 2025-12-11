@@ -287,8 +287,8 @@
                         <flux:text class="!text-xs">{{ __('Cargando archivo') }}</flux:text>
                     </div>
                 </div>
-                @if($form->questionnaire_file)
-                    <flux:link href="{{ asset('storage/' . $form->questionnaire_file) }}" external class="text-sm! text-primary">
+                @if($form->questionnaire_file_path)
+                    <flux:link href="{{ asset('storage/' . $form->questionnaire_file_path) }}" external class="text-sm! text-primary">
                         {{ __('Descargar archivo original') }}
                     </flux:link>
                 @endif
@@ -305,7 +305,7 @@
                 <flux:modal.close>
                     <flux:button variant="filled">{{ __('Cancelar') }}</flux:button>
                 </flux:modal.close>
-                <flux:button type="submit" variant="primary">{{ __('Guardar') }}</flux:button>
+                <flux:button type="submit" variant="primary">{{ __('Actualizar') }}</flux:button>
             </div>
         </form>
     </flux:modal>

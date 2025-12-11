@@ -29,8 +29,10 @@ class QuestionnaireForm extends Form
         ['label' => '', 'criteria' => '']
     ];
 
-    #[Validate(['required', 'file', 'mimes:xlsx,csv'])]
+    #[Validate(['nullable', 'file', 'mimes:xlsx,csv'])]
     public $questionnaire_file;
+
+    public ?string $questionnaire_file_path = null;
 
     #[Validate(['required', 'integer'])]
     public ?int $questionnaire_category = null;
