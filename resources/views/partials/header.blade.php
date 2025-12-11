@@ -54,14 +54,19 @@
                         </div>
                     </div>
                     <div class="hidden lg:flex items-center gap-3">
-                        <x-links.secondary
-                            url="{{ route('login') }}"
-                            title="{{ __('Iniciar sesion') }}"
-                        />
-                        <x-links.primary
-                            url="{{ route('register') }}"
-                            title="{{ __('Registrarse') }}"
-                        />
+                        @guest
+                         <x-links.primary url="{{ route('login') }}"
+                         title="Iniciar sesión" />
+
+                         <x-links.primary url="{{ route('register') }}"
+                         title="Registrarse" />
+                        @endguest
+
+                        @auth
+
+                         <x-links.primary url="{{ route('dashboard') }}"
+                         title="Dashboard" />
+                        @endauth
                     </div>
                 </nav>
             </x-main-container>
@@ -108,16 +113,26 @@
                 </nav>
 
                 <div class="mt-8 flex flex-col gap-3">
-                    <x-links.secondary
-                        url="{{ route('login') }}"
-                        title="{{ __('Iniciar sesion') }}"
-                        class="!w-full"
-                    />
-                    <x-links.primary
-                        url="{{ route('register') }}"
-                        title="{{ __('Registrarse') }}"
-                        class="!w-full "
-                    />
+                    @guest
+                        <x-links.secondary
+                            url="{{ route('login') }}"
+                            title="{{ __('Iniciar sesion') }}"
+                            class="!w-full"
+                        />
+                        <x-links.primary
+                            url="{{ route('register') }}"
+                            title="{{ __('Registrarse') }}"
+                            class="!w-full "
+                        />
+                    @endguest
+
+                    @auth
+                        <x-links.primary
+                            url="{{ route('dashboard') }}"
+                            title="{{ __('Dashboard') }}"
+                            class="!w-full "
+                        />
+                    @endauth
                 </div>
             </div>
         </div>
