@@ -79,6 +79,10 @@ class Index extends Component
     public function updateStatus(int $id): void
     {
         $questionnaire = Questionnaire::find($id);
+        if($questionnaire->is_base){
+            $this->dispatch('toast', message: __('No se puede cambiar el estado de un cuestionario base.'), type: 'error');
+            return;
+        }
         $questionnaire->is_active = ! $questionnaire->is_active;
         $questionnaire->save();
 

@@ -99,7 +99,7 @@
             <div>
                 <div class="flex items-center gap-x-2">
                     <div class="size-4 bg-yellow-500 rounded"></div>
-                    <flux:text>{{ __('Evaluación de riesgo \'Yellow\'') }}</flux:text>
+                    <flux:text>{{ __('Evaluación de riesgo \'Yellow\' (se tomara para analisis con IA)') }}</flux:text>
                 </div>
                 <div class="lg:col-span-2 mt-2 w-full" x-data="{ yellowRiskEvaluation: @entangle('form.yellow_risk_evaluation') }">
                     <div class="flex flex-col gap-2 w-full">
@@ -125,7 +125,7 @@
             <div>
                 <div class="flex items-center gap-x-2">
                     <div class="size-4 bg-red-500 rounded"></div>
-                    <flux:text>{{ __('Evaluación de riesgo \'Red\'') }}</flux:text>
+                    <flux:text>{{ __('Evaluación de riesgo \'Red\' (se tomara para analisis con IA)') }}</flux:text>
                 </div>
                 <div class="lg:col-span-2 mt-2 w-full" x-data="{ redRiskEvaluation: @entangle('form.red_risk_evaluation') }">
                     <div class="flex flex-col gap-2 w-full">

@@ -34,9 +34,15 @@
                         <x-appearance.badge :status="$questionnaire_item['is_active'] ? 'active' : 'inactive'" />
                     </td>
                     <td class="p-4">
-                        <flux:field variant="inline">
-                           <flux:switch wire:click="updateStatus({{ $questionnaire_item['id'] }})" :checked="(bool) $questionnaire_item['is_active']" />
-                        </flux:field>
+                        @if($questionnaire_item['is_base'])
+                            <flux:field variant="inline">
+                                <flux:switch checked disabled />
+                            </flux:field>
+                        @else
+                            <flux:field variant="inline">
+                                <flux:switch wire:click="updateStatus({{ $questionnaire_item['id'] }})" :checked="(bool) $questionnaire_item['is_active']" />
+                            </flux:field>
+                        @endif
                     </td>
                     <td class="p-4">
                         <div class="flex items-center gap-2">
