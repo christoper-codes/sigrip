@@ -184,10 +184,8 @@
                 <flux:heading size="lg">{{ __('Editar cuestionario') }}</flux:heading>
                 <flux:text class="mt-2">{{ __('Actualizar los detalles y guardar los cambios.') }}</flux:text>
             </div>
-            @if($questionnaire)
-                @if(! auth()->user()?->company_id || $questionnaire->company_id !== auth()->user()?->company_id)
-                    <flux:callout color="yellow" icon="information-circle" heading="{{ __('Los questionarios bases no se pueden editar, solo los personalizados') }}" />
-                @endif
+            @if($questionnaire && $questionnaire->is_base)
+                <flux:callout color="yellow" icon="information-circle" heading="{{ __('Los questionarios bases no se pueden editar, solo los personalizados') }}" />
             @endif
             <flux:field>
                 <flux:label>{{ __('Titulo') }}</flux:label>
@@ -310,12 +308,10 @@
                 <flux:modal.close>
                     <flux:button variant="filled">{{ __('Cancelar') }}</flux:button>
                 </flux:modal.close>
-                @if($questionnaire)
-                    @if(! auth()->user()?->company_id || $questionnaire->company_id !== auth()->user()?->company_id)
-                        <flux:button disabled variant="primary">{{ __('Actualizar') }}</flux:button>
-                    @else
-                       <flux:button type="submit" variant="primary">{{ __('Actualizar') }}</flux:button>
-                    @endif
+                @if($questionnaire && $questionnaire->is_base)
+                    <flux:button disabled variant="primary">{{ __('Actualizar') }}</flux:button>
+                @else
+                    <flux:button type="submit" variant="primary">{{ __('Actualizar') }}</flux:button>
                 @endif
             </div>
         </form>

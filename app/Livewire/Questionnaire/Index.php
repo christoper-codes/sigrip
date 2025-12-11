@@ -110,7 +110,7 @@ class Index extends Component
             return;
        }
 
-       if($this->questionnaire->company_id !== Auth::user()->company->id){
+       if($this->questionnaire->is_base){
             $this->form->import_errors = __('No se puede actualizar un cuestionario base.');
             return;
         }
@@ -208,6 +208,11 @@ class Index extends Component
     public function destroy(): void
     {
         $questionnaire = Questionnaire::find($this->questionnaire_id);
+        if($questionnaire->is_base){
+            Flux::modal('destroy-questionnaire-modal')->close();
+            $this->dispatch('toast', message: __('No se puede eliminar un cuestionario base.'), type: 'error');
+            return;
+        }
         if($questionnaire->applications()->count() > 0){
             Flux::modal('destroy-questionnaire-modal')->close();
             $this->dispatch('toast', message: __('No se puede eliminar el cuestionario porque está asociado a aplicaciones.'), type: 'error');
