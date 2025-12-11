@@ -2,22 +2,22 @@
     <form wire:submit.prevent="submit" class="space-y-6 px-5 py-6 lg:px-7 lg:py-7 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-xl">
         <flux:field>
             <flux:label>{{ __('Nombre') }}</flux:label>
-            <flux:input name="name" wire:model="name" icon="users" placeholder="{{ __('Recursos Humanos') }}"/>
+            <flux:input name="name" wire:model="form.name" icon="users" placeholder="{{ __('Recursos Humanos') }}"/>
             <flux:error name="name" />
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Email') }}</flux:label>
-            <flux:input name="email" wire:model="email" icon="envelope" placeholder="{{ __('hello@neura.com') }}"/>
+            <flux:input name="email" wire:model="form.email" icon="envelope" placeholder="{{ __('hello@neura.com') }}"/>
             <flux:error name="email" />
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Teléfono') }}</flux:label>
-            <flux:input name="phone" wire:model="phone" mask="(999) 999-9999" icon="phone" placeholder="{{ __('(555) 555-5555') }}"/>
+            <flux:input name="phone" wire:model="form.phone" mask="(999) 999-9999" icon="phone" placeholder="{{ __('(555) 555-5555') }}"/>
             <flux:error name="phone" />
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Descripción') }}</flux:label>
-            <flux:textarea name="description" resize="none" wire:model="description" icon="chat-bubble-bottom-center-text" placeholder="{{ __('Departamento de recursos humanos') }}"/>
+            <flux:textarea name="description" resize="none" wire:model="form.description" icon="chat-bubble-bottom-center-text" placeholder="{{ __('Departamento de recursos humanos') }}"/>
             <flux:error name="description"/>
         </flux:field>
         <flux:field>
@@ -30,7 +30,7 @@
             </flux:modal.trigger>
         </flux:field>
         <flux:field>
-            <flux:switch label="Es departamento de RH" wire:model="hr_department" align="left" name="hr_department"/>
+            <flux:switch label="Es departamento de RH" wire:model="form.hr_department" align="left" name="hr_department"/>
             <flux:error name="hr_department" />
         </flux:field>
         <flux:button type="submit" variant="primary">{{ __('Guardar') }}</flux:button>
@@ -46,17 +46,18 @@
                 <div>
                     <form wire:submit.prevent='searchManager'>
                         <flux:label>{{ __('Buscar y asignar gerente') }}</flux:label>
-                        <flux:input name="search_manager" icon="magnifying-glass" placeholder="{{ __('Nombre o email') }}" class="mt-1" wire:model="search_manager" autocomplete="off"/>
-                        <flux:error name="search_manager" />
+                        <flux:input name="search_manager" icon="magnifying-glass" placeholder="{{ __('Nombre o email') }}" class="mt-1" wire:model="form.search_manager" autocomplete="off"/>
+                        <flux:error name="form.search_manager" />
                         <flux:button type="submit" class="mt-3">{{ __('buscar') }}</flux:button>
                     </form>
 
-                    @if($potential_managers && $potential_managers->isNotEmpty())
+                @if(isset($form->potential_managers) && $form->potential_managers && $form->potential_managers->isNotEmpty())
                         <div
                             x-data="{
-                                selected: @entangle('manager'),
+                                selected: @entangle('form.manager'),
                                 animation: false,
                                 toggle(id) {
+                                    console.log(this.selected, id);
                                     if (this.selected === id) {
                                         this.selected = null;
                                     } else {
@@ -69,10 +70,11 @@
                             x-transition
                             >
                             <flux:checkbox.group class="mt-5">
-                                @foreach ($potential_managers as $manager)
+                                @foreach ($form->potential_managers as $manager)
                                     <flux:checkbox
                                         value="{{ $manager->id }}"
                                         label="{{ $manager->name }}"
+                                        x-bind:checked="selected === {{ $manager->id }}"
                                         description="{{ $manager->email }} - {{ $manager->userRoles->pluck('name')->join(', ') }}"
                                         @click="toggle({{ $manager->id }})"
                                     />
@@ -85,7 +87,7 @@
                             <flux:button>{{ __('Cancelar') }}</flux:button>
                         </flux:modal.close>
                         <flux:modal.close>
-                            <flux:button variant="primary" wire:click="$set('save_manager', true)">{{ __('Guardar') }}</flux:button>
+                            <flux:button variant="primary" wire:click="$set('form.save_manager', true)">{{ __('Guardar') }}</flux:button>
                         </flux:modal.close>
                     </div>
                 </div>

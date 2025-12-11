@@ -4,37 +4,15 @@ namespace App\Livewire\Department;
 
 use App\Enums\NotificationTypesEnum;
 use App\Enums\RoleEnum;
+use App\Livewire\Forms\DepartmentForm;
 use App\Models\Department;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Store extends Component
 {
-    #[Validate(['required', 'string', 'min:3', 'max:255'])]
-    public ?string $name = null;
-
-    #[Validate(['required', 'string', 'min:3', 'max:255', 'email'])]
-    public ?string $email = null;
-
-    #[Validate(['nullable', 'string', 'min:10'])]
-    public ?string $phone = null;
-
-    #[Validate(['nullable', 'string', 'max:255'])]
-    public ?string $description = null;
-
-    public ?string $search_manager = null;
-
-    #[Validate(['nullable', 'int'])]
-    public ?int $manager = null;
-
-    public bool $save_manager = false;
-
-    public Collection $potential_managers;
-
-    public bool $hr_department = false;
+    public DepartmentForm $form;
 
     public function submit(): void
     {
@@ -43,13 +21,13 @@ class Store extends Component
         $hr_department = Department::where('company_id', Auth::user()->company->id)
             ->where('metadata->hr_department', true)
             ->exists();
-        if($this->hr_department && $hr_department) {
+        if($this->form->hr_department && $hr_department) {
             $this->dispatch('toast', message: __('Ya existe un departamento de RRHH en esta compañía.'), type: 'error');
             return;
         }
 
-        if($this->save_manager && $this->manager) {
-            $potential_manager = User::find($this->manager)->userRoles()
+        if($this->form->save_manager && $this->form->manager) {
+            $potential_manager = User::find($this->form->manager)->userRoles()
                 ->where('name', RoleEnum::DEPARTMENT_MANAGER->value)
                 ->exists();
             if (! $potential_manager) {
@@ -58,18 +36,18 @@ class Store extends Component
             }
         }
 
-        $metadata = ['hr_department' => $this->hr_department];
+        $metadata = ['hr_department' => $this->form->hr_department];
         $department = Department::create([
             'organization_id' => Auth::user()->organization->id,
             'company_id' => Auth::user()->company->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'description' => $this->description,
+            'name' => $this->form->name,
+            'email' => $this->form->email,
+            'description' => $this->form->description,
             'metadata' => $metadata,
-            'manager_id' => $this->manager,
+            'manager_id' => $this->form->manager,
         ]);
 
-        if ($this->hr_department) {
+        if ($this->form->hr_department) {
             Auth::user()->update(['department_id' => $department->id]);
             $this->dispatch('steps-completed');
             $this->dispatch('nextStep');
@@ -81,11 +59,12 @@ class Store extends Component
 
     public function searchManager(): void
     {
-        $this->validate(['search_manager' => 'required|string|min:3|max:255']);
+        $this->validate(['form.search_manager' => 'required|string|min:3|max:255']);
 
-        $search = trim(strtolower($this->search_manager));
-        $this->potential_managers = User::query()
+        $search = trim(strtolower($this->form->search_manager));
+        $this->form->potential_managers = User::query()
             ->where('organization_id', Auth::user()->organization->id)
+            ->where('company_id', Auth::user()->company->id)
             ->where('name', 'like', "%{$search}%")
             ->orWhere('email', 'like', "%{$search}%")
             ->get();
