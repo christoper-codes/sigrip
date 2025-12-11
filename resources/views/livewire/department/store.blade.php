@@ -57,7 +57,6 @@
                                 selected: @entangle('form.manager'),
                                 animation: false,
                                 toggle(id) {
-                                    console.log(this.selected, id);
                                     if (this.selected === id) {
                                         this.selected = null;
                                     } else {

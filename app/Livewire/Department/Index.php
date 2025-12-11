@@ -7,6 +7,7 @@ use App\Livewire\Traits\Table;
 use App\Models\Department;
 use App\Models\User;
 use Flux\Flux;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -46,7 +47,11 @@ class Index extends Component
         $this->form->phone = $this->department->phone;
         if($this->department->manager_id){
             $manager = User::find($this->department->manager_id);
+            $this->form->potential_managers = new Collection([$manager]);
             $this->form->manager = $manager->id;
+        } else {
+            $this->form->potential_managers = new Collection();
+            $this->form->manager = null;
         }
 
          Flux::modal('edit-department-modal')->show();
@@ -54,6 +59,11 @@ class Index extends Component
 
     public function editModalClosed()
     {
+        $this->reset([
+            'form.search_manager',
+            'form.hr_department',
+            'form.manager',
+        ]);
         $this->resetErrorBag();
         $this->resetValidation();
     }
