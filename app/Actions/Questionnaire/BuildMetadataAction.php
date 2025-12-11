@@ -61,7 +61,7 @@ final class BuildMetadataAction
         $themes = array_values($themes);
 
         $risk_evaluation = [
-            'green' => [["label" => __("Bienestar alto"), "criteria" => __("promedio mayor o igual a 4.0 y sin respuestas críticas")]],
+            'green' => [["label" => __("Bienestar alto"), "criteria" => __("Sin respuestas críticas")]],
             'yellow' => $yellow_risk_evaluation,
             'red' => $red_risk_evaluation,
         ];

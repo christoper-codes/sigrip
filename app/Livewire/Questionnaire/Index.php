@@ -112,6 +112,18 @@ class Index extends Component
 
         DB::beginTransaction();
         try {
+            $metadata = $this->questionnaire->metadata;
+            $metadata['title'] = $this->form->title;
+            $metadata['subtitle'] = $this->form->subtitle;
+            $metadata['instructions'] = $this->form->instructions;
+            $metadata['objectives'] = $this->form->objectives;
+            $risk_evaluation = [
+                'green' => [["label" => __("Bienestar alto"), "criteria" => __("Sin respuestas críticas")]],
+                'yellow' => $this->form->yellow_risk_evaluation,
+                'red' => $this->form->red_risk_evaluation,
+            ];
+            $metadata['risk_evaluation'] = $risk_evaluation;
+
             if ($this->form->questionnaire_file) {
                 $import = new QuestionnaireImport();
                 $import->import($this->form->questionnaire_file->getRealPath());
@@ -131,10 +143,9 @@ class Index extends Component
                 $file_name = Auth::user()->company->id . '_' . Str::replace(' ', '_', trim(Str::lower(Auth::user()->company->name))) . '_' . time() . '_' . $file_original_name;
                 $file_path = $this->form->questionnaire_file->storeAs('questionnaires', $file_name, 'public');
                 $metadata['file_path'] = $file_path;
-
-                $this->questionnaire->metadata = $metadata;
             }
 
+            $this->questionnaire->metadata = $metadata;
             $this->questionnaire->name = $this->form->title;
             $this->questionnaire->description = $this->form->subtitle;
             $this->questionnaire->questionnaire_category_id = $this->form->questionnaire_category;
