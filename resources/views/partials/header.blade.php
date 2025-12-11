@@ -34,9 +34,9 @@
                         <x-app-logo-icon class="w-[90px] mr-5"/>
                     </div>
                     <div class="lg:hidden flex items-center gap-3">
-                        <div x-data>
-                            <flux:icon.sun x-show="$flux.appearance === 'light'" x-on:click="$flux.dark = ! $flux.dark" class="cursor-pointer" />
-                            <flux:icon.moon x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" class="cursor-pointer" />
+                        <div x-data class="size-7 border border-neutral-300 dark:border-neutral-600 rounded-full flex items-center justify-center">
+                            <flux:icon.sun x-show="$flux.appearance === 'light'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
+                            <flux:icon.sun x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
                         </div>
                         <button @click="mobileMenuOpen = true">
                             <flux:icon.bars-2 class="size-8"/>
@@ -47,9 +47,9 @@
                             <a href="#">{{ __('Como funciona') }}</a>
                             <a href="#">{{ __('Preguntas') }}</a>
                             <a href="#">{{ __('Precios') }}</a>
-                            <div x-data>
-                                <flux:icon.sun x-show="$flux.appearance === 'light'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer" />
-                                <flux:icon.moon x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer" />
+                             <div x-data class="size-7 border border-neutral-300 dark:border-neutral-600 rounded-full flex items-center justify-center">
+                                <flux:icon.sun x-show="$flux.appearance === 'light'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
+                                <flux:icon.sun x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
                             </div>
                         </div>
                     </div>
