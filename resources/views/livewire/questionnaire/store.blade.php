@@ -3,8 +3,45 @@
         <flux:heading size="lg">{{ __('Archivo base') }}</flux:heading>
         <flux:text class="mt-2">{{ __('Puntos a considerar antes de subir el archivo de preguntas:') }}</flux:text>
         <ul class="text-sm opacity-70 space-y-2 mt-6">
-            <li class="list-disc list-inside">{{ __('Columnas obligatorias (en minusculas sin tilde): ') }}</li>
+            <li class="list-disc list-inside">{{ __('No se debe modificar el nombre ni el orden de las columnas.') }}</li>
+            <li class="list-disc list-inside">{{ __('Las columnas deben estar en minúsculas y sin tildes.') }}</li>
+            <li class="list-disc list-inside">{{ __('No dejes filas vacías entre preguntas.') }}</li>
+            <li class="list-disc list-inside">{{ __('Puedes descargar la plantilla o un ejemplo para guiarte.') }}</li>
         </ul>
+        <div x-data="{ openFaq: 1 }" class="max-w-4xl mx-auto space-y-4 z-20 relative mt-5">
+            <div class="border border-neutral-500 dark:border-neutral-800 rounded-2xl overflow-hidden">
+                <button @click="openFaq = openFaq === 0 ? -1 : 0" class="w-full px-6 py-5 text-left flex items-center justify-between gap-5 hover:bg-neutral-200/20 dark:hover:bg-neutral-900/20 transition-colors duration-500 cursor-pointer">
+                    <flux:text>{{ __('Explicación detallada de cada columna del archivo a subir') }}</flux:text>
+                    <flux:icon.plus x-show="openFaq !== 0" class="size-5 text-neutral-600 dark:text-neutral-400" />
+                    <flux:icon.minus x-show="openFaq === 0" class="size-5 text-primary" />
+                </button>
+                <div x-show="openFaq === 0" class="px-6 pb-5">
+                    <ul class="text-sm opacity-70 space-y-6">
+                        <li class="list-disc list-inside">
+                            <b>{{ __('tema') }}</b>: {{ __('Nombre del tema o categoría al que pertenece la pregunta. Ejemplo: "Bienestar general".') }}
+                        </li>
+                        <li class="list-disc list-inside">
+                            <b>{{ __('descripcion') }}</b>: {{ __('Breve descripción del tema. Ejemplo: "Evaluación de la satisfacción personal."') }}
+                        </li>
+                        <li class="list-disc list-inside">
+                            <b>{{ __('pregunta') }}</b>: {{ __('Texto de la pregunta que se presentará al usuario. Ejemplo: "¿Qué tan satisfecho/a estás con tu desempeño este mes?"') }}
+                        </li>
+                        <li class="list-disc list-inside">
+                            <b>{{ __('tipo de respuesta') }}</b>: {{ __('Indica el tipo de respuesta esperada. Puede ser "select" para opciones o "text" para respuesta abierta.') }}
+                        </li>
+                        <li class="list-disc list-inside">
+                            <b>{{ __('opciones y valores') }}</b>: {{ __('Lista de opciones y sus valores, separadas por punto y coma. Ejemplo: "1:Muy insatisfecho. 2:Insatisfecho. 3:Neutral. 4:Satisfecho. 5:Muy satisfecho". Dejar vacío si es respuesta abierta.') }}
+                        </li>
+                        <li class="list-disc list-inside">
+                            <b>{{ __('valores criticos') }}</b>: {{ __('Valores que se consideran críticos, separados por coma. Ejemplo: "1,2". Dejar vacío si es respuesta abierta.') }}
+                        </li>
+                        <li class="list-disc list-inside">
+                            <b>{{ __('peso de pregunta') }}</b>: {{ __('Número que indica el peso o importancia de la pregunta en la evaluación. Ejemplo: "1".') }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         <div class="mt-5 flex items-center gap-3">
             <flux:button icon="arrow-down" wire:click='downloadTemplate' class="!w-full !max-w-xs !py-8 !border !border-primary !bg-primary/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
                 {{ __('Descargar plantilla') }}
