@@ -69,5 +69,4 @@ class Store extends Component
             ->orWhere('email', 'like', "%{$search}%")
             ->get();
     }
-
 }
