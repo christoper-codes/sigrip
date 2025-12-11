@@ -35,4 +35,9 @@ class Store extends Component
             $this->redirect(url: route('company.index'), navigate: true);
         }
     }
+
+    public function render()
+    {
+        return view('livewire.company.store');
+    }
 }
