@@ -30,6 +30,7 @@ class Store extends Component
 
         Auth::user()->update(['company_id' => $company->id]);
 
+        $this->reset();
         $this->dispatch('nextStep');
 
         if(! $this->wizard) {
