@@ -33,9 +33,9 @@
         >
             <x-main-container>
                 <nav class="flex items-center justify-between transition-all duration-500 py-2.5" :class="scrolled ? 'px-1 lg:px-5' : ''">
-                    <div>
+                    <a href="{{ route('home') }}" wire:navigate>
                         <x-app-logo-icon class="w-[90px] mr-5"/>
-                    </div>
+                    </a>
                     <div class="lg:hidden flex items-center gap-3">
                         <div x-data class="size-7 border border-neutral-300 dark:border-neutral-600 rounded-full flex items-center justify-center">
                             <flux:icon.sun x-show="$flux.appearance === 'light'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
