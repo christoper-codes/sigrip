@@ -105,7 +105,7 @@ class Index extends Component
     public function confirmUpdateQuestionnaire(): void
     {
        $this->form->validate();
-       if($this->form->questionnaire_file && $this->questionnaire->applications()->count() <= 0){
+       if($this->form->questionnaire_file && $this->questionnaire->applications()->count() > 0){
             $this->form->import_errors = __('No se puede actualizar el archivo del cuestionario porque está asociado a aplicaciones.');
             return;
        }
