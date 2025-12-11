@@ -31,8 +31,14 @@ class Store extends Component
     public function submit(): void
     {
         $this->form->validate();
-        if (! $this->form->questionnaire_file || !$this->form->questionnaire_file->isValid()) {
+        if (! $this->form->questionnaire_file) {
+            $this->dispatch('toast', message: __('El archivo es obligatorio.'), type: 'error');
+            $this->form->import_errors = __('El archivo es obligatorio.');
+            return;
+        }
+        if (!$this->form->questionnaire_file->isValid()) {
             $this->dispatch('toast', message: __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.'), type: 'warning');
+            $this->form->import_errors = __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.');
             return;
         }
 
