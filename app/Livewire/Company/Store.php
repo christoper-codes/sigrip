@@ -29,14 +29,13 @@ class Store extends Component
         ]);
 
         Auth::user()->update(['company_id' => $company->id]);
-
-        $this->reset();
         $this->dispatch('nextStep');
 
         if(! $this->wizard) {
             $this->redirect(url: route('company.index'), navigate: true);
         }
 
+        $this->reset();
         $this->dispatch('toast', message: __('Compañia creada con éxito'), type: NotificationTypesEnum::SUCCESS->value);
     }
 
