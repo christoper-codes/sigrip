@@ -76,7 +76,7 @@
                             </div>
                         </template>
                     </div>
-                    <flux:button icon="plus" variant="filled" x-on:click="yellowRiskEvaluation.push({ label: '', criteria: '' })" ...>
+                    <flux:button icon="plus" variant="filled" x-on:click="yellowRiskEvaluation.push({ label: '', criteria: '' })" class="px-4 py-4 mt-3">
                         <span>{{ __('Agregar evaluación') }}</span>
                     </flux:button>
                     <flux:error name="form.yellow_risk_evaluation" />
