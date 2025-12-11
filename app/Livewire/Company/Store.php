@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Company;
 
+use App\Enums\NotificationTypesEnum;
 use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
@@ -34,5 +35,12 @@ class Store extends Component
         if(! $this->wizard) {
             $this->redirect(url: route('company.index'), navigate: true);
         }
+
+        $this->dispatch('toast', message: __('Compañia creada con éxito'), type: NotificationTypesEnum::SUCCESS->value);
+    }
+
+    public function render()
+    {
+        return view('livewire.company.store');
     }
 }
