@@ -1,5 +1,5 @@
 <div class="w-full flex flex-col gap-14">
-    <div class="w-full flex flex-col mt-6">
+    <div class="w-full max-w-2xl flex flex-col mt-6">
         <flux:heading size="lg">{{ __('Archivo base') }}</flux:heading>
         <flux:text class="mt-2">{{ __('Puntos a considerar antes de subir el archivo de empleados:') }}</flux:text>
         <ul class="text-sm opacity-70 space-y-2 mt-6">
@@ -8,12 +8,12 @@
             <li class="list-disc list-inside">{{ __('Password con minimo 8 caracteres') }}</li>
         </ul>
         <div class="mt-5">
-            <flux:button icon="arrow-down" wire:click='downloadTemplate' class="!w-full !max-w-xs !py-8 !border !border-primary !bg-primary/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
+            <flux:button icon="arrow-down" wire:click='downloadTemplate' class="!w-full !py-8 !border !border-primary !bg-primary/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
                 {{ __('Descargar plantilla') }}
             </flux:button>
         </div>
 
-        <form wire:submit.prevent='submit' class="w-full max-w-xl space-y-6 mt-10 p-0 lg:p-10 rounded-2xl lg:border border-neutral-300 dark:border-neutral-900">
+        <form wire:submit.prevent='submit' class="w-full space-y-6 mt-10 px-5 py-6 lg:px-7 lg:py-7 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-xl">
             <flux:field>
                 <flux:label>{{ __('Selecciona un departamento') }}</flux:label>
                 <flux:select class="!h-12" name="department" wire:model.live="department">
