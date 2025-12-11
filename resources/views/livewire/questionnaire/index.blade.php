@@ -10,38 +10,38 @@
         :sort_direction="$sort_direction"
         >
         <x-slot:table>
-            @foreach ($paginated_items as $questionnaire)
+            @foreach ($paginated_items as $questionnaire_item)
                 <tr>
-                    <td class="p-4">{{ $questionnaire['name'] }}</td>
-                    <td class="p-4">{{ $questionnaire['category']['name'] }}</td>
-                    <td class="p-4">{{ $questionnaire['category']['description'] }}</td>
+                    <td class="p-4">{{ $questionnaire_item['name'] }}</td>
+                    <td class="p-4">{{ $questionnaire_item['category']['name'] }}</td>
+                    <td class="p-4">{{ $questionnaire_item['category']['description'] }}</td>
                     <td class="p-4">
                         <flux:button
                             variant="filled"
-                            wire:click="showDetails({{ $questionnaire['id'] }})">
+                            wire:click="showDetails({{ $questionnaire_item['id'] }})">
                             {{ __('Ver detalles') }}
                         </flux:button>
                     </td>
                     <td class="p-4">
                         <flux:button
                             variant="filled"
-                            wire:click="showRiskDetails({{ $questionnaire['id'] }})">
+                            wire:click="showRiskDetails({{ $questionnaire_item['id'] }})">
                             {{ __('Ver detalles') }}
                         </flux:button>
                     </td>
-                    <td class="p-4">{{ $questionnaire['created_at'] }}</td>
+                    <td class="p-4">{{ $questionnaire_item['created_at'] }}</td>
                     <td class="p-4">
-                        <x-appearance.badge :status="$questionnaire['is_active'] ? 'active' : 'inactive'" />
+                        <x-appearance.badge :status="$questionnaire_item['is_active'] ? 'active' : 'inactive'" />
                     </td>
                     <td class="p-4">
                         <flux:field variant="inline">
-                           <flux:switch wire:click="updateStatus({{ $questionnaire['id'] }})" :checked="(bool) $questionnaire['is_active']" />
+                           <flux:switch wire:click="updateStatus({{ $questionnaire_item['id'] }})" :checked="(bool) $questionnaire_item['is_active']" />
                         </flux:field>
                     </td>
                     <td class="p-4">
                         <div class="flex items-center gap-2">
-                            <flux:button variant="filled" icon="pencil" wire:click="editQuestionnaire({{ $questionnaire['id'] }})" />
-                            <flux:button variant="danger" icon="trash" wire:click="confirmDestroy('{{ $questionnaire['name'] }}', {{ $questionnaire['id'] }})" />
+                            <flux:button variant="filled" icon="pencil" wire:click="editQuestionnaire({{ $questionnaire_item['id'] }})" />
+                            <flux:button variant="danger" icon="trash" wire:click="confirmDestroy('{{ $questionnaire_item['name'] }}', {{ $questionnaire_item['id'] }})" />
                         </div>
                     </td>
                 </tr>
@@ -182,8 +182,13 @@
         <form wire:submit.prevent="confirmUpdateQuestionnaire" class="space-y-6">
             <div>
                 <flux:heading size="lg">{{ __('Editar cuestionario') }}</flux:heading>
-                <flux:text class="mt-2">{{ __('Actualizar los detalles del cuestionario') }}</flux:text>
+                <flux:text class="mt-2">{{ __('Actualizar los detalles y guardar los cambios.') }}</flux:text>
             </div>
+            @if($questionnaire)
+                @if(! auth()->user()?->company_id || $questionnaire->company_id !== auth()->user()?->company_id)
+                    <flux:callout color="yellow" icon="information-circle" heading="{{ __('Los questionarios bases no se pueden editar, solo los personalizados') }}" />
+                @endif
+            @endif
             <flux:field>
                 <flux:label>{{ __('Titulo') }}</flux:label>
                 <flux:input name="title" wire:model="form.title" icon="cube" placeholder="{{ __('Plan de escaneo periodico') }}"/>
@@ -305,7 +310,13 @@
                 <flux:modal.close>
                     <flux:button variant="filled">{{ __('Cancelar') }}</flux:button>
                 </flux:modal.close>
-                <flux:button type="submit" variant="primary">{{ __('Actualizar') }}</flux:button>
+                @if($questionnaire)
+                    @if(! auth()->user()?->company_id || $questionnaire->company_id !== auth()->user()?->company_id)
+                        <flux:button disabled variant="primary">{{ __('Actualizar') }}</flux:button>
+                    @else
+                       <flux:button type="submit" variant="primary">{{ __('Actualizar') }}</flux:button>
+                    @endif
+                @endif
             </div>
         </form>
     </flux:modal>

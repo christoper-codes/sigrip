@@ -110,6 +110,11 @@ class Index extends Component
             return;
        }
 
+       if($this->questionnaire->company_id !== Auth::user()->company->id){
+            $this->form->import_errors = __('No se puede actualizar un cuestionario base.');
+            return;
+        }
+
         DB::beginTransaction();
         try {
             $metadata = $this->questionnaire->metadata;
