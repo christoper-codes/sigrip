@@ -84,6 +84,7 @@ class Index extends Component
             'form.hr_department',
             'form.manager',
         ]);
+        $this->mount();
     }
 
     public function searchManager(): void
