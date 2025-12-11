@@ -14,19 +14,19 @@ class QuestionnaireCategorySeeder extends Seeder
     {
         QuestionnaireCategory::create([
             'name' => 'Factores de riesgo psicosocial',
-            'description' => 'Evaluación para medir factores de riesgo psicosocial en el trabajo. Identificación, análisis y prevención',
+            'description' => 'Medir factores de riesgo psicosocial en el trabajo. Identificación, análisis y prevención',
             'is_active' => true,
         ]);
 
         QuestionnaireCategory::create([
             'name' => 'Bienestar y monitoreo emocional',
-            'description' => 'Evaluación para monitorear el bienestar emocional y psicológico de los empleados',
+            'description' => 'Monitorear el bienestar emocional y psicológico de los empleados',
             'is_active' => true,
         ]);
 
         QuestionnaireCategory::create([
             'name' => 'Evaluación ética y honestidad',
-            'description' => 'Evaluación para medir integridad, transparencia y comportamiento ético en el entorno laboral',
+            'description' => 'Medir integridad, transparencia y comportamiento ético en el entorno laboral',
             'is_active' => true,
         ]);
     }
