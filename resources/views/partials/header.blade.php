@@ -48,24 +48,18 @@
                             <a href="#">{{ __('Preguntas') }}</a>
                             <a href="#">{{ __('Precios') }}</a>
                             <div x-data>
-                                 <flux:icon.sun x-show="$flux.appearance === 'light'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer" />
+                                <flux:icon.sun x-show="$flux.appearance === 'light'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer" />
                                 <flux:icon.moon x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer" />
                             </div>
                         </div>
                     </div>
                     <div class="hidden lg:flex items-center gap-3">
                         @guest
-                         <x-links.primary url="{{ route('login') }}"
-                         title="Iniciar sesión" />
-
-                         <x-links.primary url="{{ route('register') }}"
-                         title="Registrarse" />
+                            <x-links.secondary url="{{ route('login') }}" title="{{ __('Iniciar sesion') }}"/>
+                            <x-links.primary url="{{ route('register') }}" title="{{ __('Registrarse') }}" />
                         @endguest
-
                         @auth
-
-                         <x-links.primary url="{{ route('dashboard') }}"
-                         title="Dashboard" />
+                         <x-links.primary url="{{ route('dashboard') }}" title="{{ __('Panel de control') }}" />
                         @endauth
                     </div>
                 </nav>
@@ -129,7 +123,7 @@
                     @auth
                         <x-links.primary
                             url="{{ route('dashboard') }}"
-                            title="{{ __('Dashboard') }}"
+                            title="{{ __('Panel de control') }}"
                             class="!w-full "
                         />
                     @endauth
