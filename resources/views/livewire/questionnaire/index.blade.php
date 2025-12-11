@@ -287,6 +287,11 @@
                         <flux:text class="!text-xs">{{ __('Cargando archivo') }}</flux:text>
                     </div>
                 </div>
+                @if($form->questionnaire_file)
+                    <flux:link href="{{ asset('storage/' . $form->questionnaire_file) }}" external class="text-sm! text-primary">
+                        {{ __('Descargar archivo original') }}
+                    </flux:link>
+                @endif
                 <flux:error name="form.questionnaire_file" class="!mt-0"/>
             </flux:field>
             @if($form->import_errors)

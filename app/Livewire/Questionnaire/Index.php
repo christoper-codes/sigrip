@@ -88,8 +88,7 @@ class Index extends Component
         $this->form->objectives = $questionnaire->metadata['objectives'] ?? null;
         $this->form->yellow_risk_evaluation = $questionnaire->metadata['risk_evaluation']['yellow'] ?? null;
         $this->form->red_risk_evaluation = $questionnaire->metadata['risk_evaluation']['red'] ?? null;
-
-
+        $this->form->questionnaire_file = $questionnaire->metadata['file_path'] ?? null;
         Flux::modal('edit-questionnaire-modal')->show();
     }
 
