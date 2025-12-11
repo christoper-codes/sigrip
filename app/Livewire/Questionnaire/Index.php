@@ -5,6 +5,7 @@ namespace App\Livewire\Questionnaire;
 use App\Livewire\Forms\QuestionnaireForm;
 use App\Livewire\Traits\Table;
 use App\Models\Questionnaire;
+use App\Models\QuestionnaireCategory;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -43,6 +44,8 @@ class Index extends Component
             ['label' => __('Acciones')],
         ];
         $this->refreshTableData();
+
+        $this->form->questionnaire_categories = QuestionnaireCategory::all()->toArray();
     }
 
     public function showDetails(int $id): void
@@ -76,7 +79,17 @@ class Index extends Component
 
     public function editQuestionnaire(int $id): void
     {
-        $this->questionnaire_id = $id;
+        $questionnaire = Questionnaire::find($id);
+        $this->questionnaire_id = $questionnaire->id;
+        $this->form->title = $questionnaire->name;
+        $this->form->subtitle = $questionnaire->description;
+        $this->form->instructions = $questionnaire->metadata['instructions'] ?? null;
+        $this->form->questionnaire_category = $questionnaire->questionnaire_category_id;
+        $this->form->objectives = $questionnaire->metadata['objectives'] ?? null;
+        $this->form->yellow_risk_evaluation = $questionnaire->metadata['risk_evaluation']['yellow'] ?? null;
+        $this->form->red_risk_evaluation = $questionnaire->metadata['risk_evaluation']['red'] ?? null;
+
+
         Flux::modal('edit-questionnaire-modal')->show();
     }
 
