@@ -71,7 +71,11 @@
     @endif
 
     <flux:modal name="update-roles-modal" class="w-[90%] md:w-lg">
-        <div class="pt-5 px-2">
+        <div class="space-y-6">
+            <div>
+                <flux:heading size="lg">{{ __('Actualizar roles') }}</flux:heading>
+                <flux:text class="mt-3">{{ __('Habilita o deshabilita los roles para este empleado.') }}</flux:text>
+            </div>
             @if($selected_employee_id && $roles)
                 <flux:checkbox.group wire:model="employee_roles">
                     @foreach ($roles as $role)
@@ -82,19 +86,18 @@
                         />
                     @endforeach
                 </flux:checkbox.group>
-
-                <div class="flex justify-end gap-2 mt-6">
-                    <flux:modal.close>
-                        <flux:button variant="ghost">
-                            {{ __('Cancelar') }}
-                        </flux:button>
-                    </flux:modal.close>
-
-                    <flux:button variant="primary" wire:click="updateEmployeeRoles">
-                        {{ __('Actualizar') }}
-                    </flux:button>
-                </div>
             @endif
+            <div class="flex justify-end gap-2 mt-6">
+                <flux:modal.close>
+                    <flux:button variant="filled">
+                        {{ __('Cancelar') }}
+                    </flux:button>
+                </flux:modal.close>
+
+                <flux:button variant="primary" wire:click="updateEmployeeRoles">
+                    {{ __('Actualizar') }}
+                </flux:button>
+            </div>
         </div>
     </flux:modal>
 
