@@ -13,7 +13,11 @@
             @foreach ($paginated_items as $department)
                 <tr>
                     <td class="p-4">{{ $department['name'] }}</td>
-                    <td class="p-4">{{ $department['manager']['name'] ?? 'Sin administrador' }}</td>
+                    <td class="p-4">
+                        <span class="{{ empty($department['manager']['name']) ? 'text-red-500' : '' }}">
+                            {{ $department['manager']['name'] ?? 'Sin administrador' }}
+                        </span>
+                    </td>
                     <td class="p-4">{{ $department['email'] ?? 'Sin email' }}</td>
                     <td class="p-4">{{ $department['description'] ?? 'Sin descripción' }}</td>
                     <td class="p-4">{{ $department['created_at'] }}</td>
