@@ -16,7 +16,7 @@
         window.addEventListener('resize', () => checkScroll())
     "
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out"
-    :class="scrolled ? 'pt-4' : 'pt-0'"
+    :class="scrolled ? 'pt-4' : 'pt-2'"
     >
     <div
         class="mx-auto transition-all duration-500 ease-in-out"
