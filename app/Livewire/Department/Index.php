@@ -114,6 +114,7 @@ class Index extends Component
             $this->form->potential_managers = new Collection();
             $this->form->manager = null;
         }
+        $this->form->hr_department = $this->department->metadata['hr_department'] ?? false;
 
          Flux::modal('edit-department-modal')->show();
     }

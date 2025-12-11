@@ -43,6 +43,7 @@ class Store extends Component
             'name' => $this->form->name,
             'email' => $this->form->email,
             'description' => $this->form->description,
+            'phone' => $this->form->phone,
             'metadata' => $metadata,
             'manager_id' => $this->form->manager,
         ]);
