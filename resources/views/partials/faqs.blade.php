@@ -1,6 +1,9 @@
 <section id="faqs">
     <x-main-container>
-        <div class="mt-52 text-center flex flex-col gap-7 items-center justify-center mb-16 relative">
+        <div data-aos="fade-zoom-in"
+            data-aos-once="true"
+            data-aos-duration="2000"
+            class="mt-52 text-center flex flex-col gap-7 items-center justify-center mb-16 relative">
             <div class="absolute right-0 lg:right-[450px] top-0 h-[380px] w-[200px] lg:h-[380px] lg:w-[200px] z-0 rounded-full blur-[120px] lg:blur-[150px] bg-yellow-50/20"></div>
 
             <h1 class="text-4xl md:text-5xl">
@@ -11,8 +14,12 @@
             </p>
         </div>
         <div x-data="{
-            openFaq: 0
-        }" class="max-w-4xl mx-auto space-y-4 z-20 relative">
+                openFaq: 0
+            }"
+            data-aos="fade-zoom-in"
+            data-aos-once="true"
+            data-aos-duration="2000"
+            class="max-w-4xl mx-auto space-y-4 z-20 relative">
             <div class="border border-neutral-500 dark:border-neutral-800 rounded-2xl overflow-hidden">
                 <button @click="openFaq = openFaq === 0 ? -1 : 0" class="w-full px-6 py-5 text-left flex items-center justify-between gap-5 hover:bg-neutral-200/20 dark:hover:bg-neutral-900/20 transition-colors duration-500 cursor-pointer">
                     <h3 class="text-lg font-medium">{{ __('¿Qué es la NOM-035 y por qué es obligatoria?') }}</h3>

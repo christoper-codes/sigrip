@@ -1,6 +1,9 @@
 <section id="howworks">
     <x-main-container>
-        <div class="mt-52">
+        <div data-aos="fade-zoom-in"
+            data-aos-once="true"
+            data-aos-duration="2000"
+            class="mt-52">
             <div class="text-center flex flex-col gap-7 items-center justify-center mb-16">
                 <h1 class="text-4xl md:text-5xl">
                     {{ __('¿Cómo') }} <span class="[filter:drop-shadow(0px_0px_15px_rgb(255_193_7_/_100%))]"> {{ __('Funciona') }}?</span>

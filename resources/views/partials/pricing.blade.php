@@ -13,7 +13,11 @@
                 get billingLabel() {
                     return this.billing === 'Mensual' ? 'mes' : 'año';
                 }
-            }">
+            }"
+            data-aos="fade-zoom-in"
+            data-aos-once="true"
+            data-aos-duration="2000"
+            >
             <div class="mt-52 text-center flex flex-col gap-7 items-center justify-center mb-16">
                 <div class="flex flex-col gap-3">
                     <div class="mx-auto py-2 text-light px-4 rounded-full text-sm border border-neutral-800 inline-block bg-gradient-to-b from-dark to-neutral-800 self-start text-center">

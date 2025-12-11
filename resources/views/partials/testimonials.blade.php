@@ -1,14 +1,20 @@
 <section id="testimonials">
     <x-main-container>
-        <div class="mt-52 text-center flex flex-col gap-7 items-center justify-center mb-16">
-                <h1 class="text-4xl md:text-5xl">
-                    {{ __('¿Por que nuestros usuarios ') }} <span class="[filter:drop-shadow(0px_0px_15px_rgb(255_193_7_/_100%))]"> {{ __('eligen') }} {{ __('Neura?') }}</span>
-                </h1>
-                <p class="opacity-70 max-w-3xl">
-                    {{ __('Descubre como Neura transforma la gestión del bienestar laboral y previene riesgos psicosociales.') }}
-                </p>
+        <div data-aos="fade-zoom-in"
+            data-aos-once="true"
+            data-aos-duration="2000"
+            class="mt-52 text-center flex flex-col gap-7 items-center justify-center mb-16">
+            <h1 class="text-4xl md:text-5xl">
+                {{ __('¿Por que nuestros usuarios ') }} <span class="[filter:drop-shadow(0px_0px_15px_rgb(255_193_7_/_100%))]"> {{ __('eligen') }} {{ __('Neura?') }}</span>
+            </h1>
+            <p class="opacity-70 max-w-3xl">
+                {{ __('Descubre como Neura transforma la gestión del bienestar laboral y previene riesgos psicosociales.') }}
+            </p>
         </div>
-        <div class="mt-10 z-30 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 text-base">
+        <div data-aos="fade-zoom-in"
+            data-aos-once="true"
+            data-aos-duration="2000"
+            class="mt-10 z-30 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 text-base">
             <div class="bg-gradient-to-b from-light dark:from-dark to-neutral-200 dark:to-neutral-950/50 rounded-2xl p-7 flex flex-col gap-3 border-b border-x border-neutral-300 dark:border-neutral-900">
                 <p>{{ __('"Neura transformó nuestra gestión del bienestar laboral. La IA detecta riesgos psicosociales antes de que se conviertan en problemas reales. Una solución invaluable."') }}</p>
                 <div>
