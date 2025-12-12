@@ -37,6 +37,11 @@ class Store extends Component
             ->toArray();
     }
 
+    public function submit(): void
+    {
+        $this->validate();
+    }
+
     public function render()
     {
         return view('livewire.application.store');

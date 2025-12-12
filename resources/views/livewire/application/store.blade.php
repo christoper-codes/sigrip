@@ -5,35 +5,37 @@
             <flux:select class="!h-12" name="issuing_department" wire:model="form.issuing_department">
                 <flux:select.option value="{{ $form->department['id'] }}">{{ $form->department['name'] }}</flux:select.option>
             </flux:select>
-            <flux:error name="issuing_department" class="!mt-0"/>
+            <flux:error name="form.issuing_department" class="!mt-0"/>
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Departamento receptor') }}</flux:label>
             <flux:select class="!h-12" name="executing_department" wire:model="form.executing_department">
+                <flux:select.option value="" >{{ __('Seleccione un departamento') }}</flux:select.option>
                 @foreach ($form->departments as $department)
                     <flux:select.option value="{{ $department['id'] }}">{{ $department['name'] }}</flux:select.option>
                 @endforeach
             </flux:select>
-            <flux:error name="executing_department" class="!mt-0"/>
+            <flux:error name="form.executing_department" class="!mt-0"/>
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Cuestionario') }}</flux:label>
             <flux:select class="!h-12" name="questionnaire" wire:model="form.questionnaire">
+                <flux:select.option value="" >{{ __('Seleccione un cuestionario') }}</flux:select.option>
                 @foreach ($form->questionnaires as $questionnaire)
                     <flux:select.option value="{{ $questionnaire['id'] }}">{{ $questionnaire['name'] }}</flux:select.option>
                 @endforeach
             </flux:select>
-            <flux:error name="questionnaire" class="!mt-0"/>
+            <flux:error name="form.questionnaire" class="!mt-0"/>
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Fecha de inicio') }}</flux:label>
             <flux:input type="date" name="start_date" wire:model="form.start_date" icon="calendar" placeholder="{{ __('Fecha de inicio') }}"/>
-            <flux:error name="start_date" />
+            <flux:error name="form.start_date" />
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Fecha de expiración') }}</flux:label>
             <flux:input type="date" name="expiration_date" wire:model="form.expiration_date" icon="calendar" placeholder="{{ __('Fecha de expiración') }}"/>
-            <flux:error name="expiration_date" />
+            <flux:error name="form.expiration_date" />
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Requiere autenticación') }}</flux:label>
