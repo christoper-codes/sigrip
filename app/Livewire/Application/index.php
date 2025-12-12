@@ -17,6 +17,7 @@ class Index extends Component
     #[Validate(['required', 'int'])]
     public ?int $department = null;
 
+    public bool $search_applications = false;
     public array $departments = [];
 
     public function mount()
@@ -47,6 +48,7 @@ class Index extends Component
     public function searchApplications(): void
     {
         $this->validate();
+        $this->search_applications = true;
     }
 
     public function render()

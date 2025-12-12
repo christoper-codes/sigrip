@@ -60,7 +60,7 @@
                 </x-slot:table>
             </x-appearance.livewiretable>
         </div>
-    @elseif($department && ! $table_items && $searnch_employees)
+    @elseif($department && ! $table_items && $search_employees)
         <div class="mt-10 max-w-md w-full">
             <flux:callout color="yellow" icon="information-circle" heading="{{ __('No hay empleados en este departamento') }}" />
         </div>

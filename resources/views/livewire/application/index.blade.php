@@ -12,7 +12,7 @@
         </flux:field>
         <flux:button type="submit" variant="primary" class="mt-3">{{ __('Buscar aplicaciones') }}</flux:button>
    </form>
-   @if($table_items)
+   @if($department && $table_items)
         <div x-data="{ animation: false }"
             x-init="$nextTick(() => animation = true)"
             x-show="animation"
@@ -35,8 +35,12 @@
                 </x-slot:table>
             </x-appearance.livewiretable>
         </div>
+    @elseif($department && ! $table_items && $search_applications)
+        <div class="mt-10 max-w-md w-full">
+            <flux:callout color="yellow" icon="information-circle" heading="{{ __('No hay aplicaciones para este departamento') }}" />
+        </div>
     @else
-        <div class="mt-10 max-w-2xl w-full">
+        <div class="mt-10 max-w-md w-full">
             <flux:callout color="fuchsia" icon="information-circle" heading="{{ __('No se ha seleccionado un departamento') }}" />
         </div>
     @endif

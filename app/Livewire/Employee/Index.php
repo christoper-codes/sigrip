@@ -19,7 +19,7 @@ class Index extends Component
 
     public array $departments = [];
     public ?string $employee_name = null;
-    public bool $searnch_employees = false;
+    public bool $search_employees = false;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -57,7 +57,7 @@ class Index extends Component
         $this->current_page = 1;
         $this->search_query = '';
         $this->refreshTableData();
-        $this->searnch_employees = true;
+        $this->search_employees = true;
     }
 
     public function openRoleModal(int $employee_id): void
