@@ -7,59 +7,62 @@
         <x-alert />
         <livewire:notifications.toast />
 
-        <flux:sidebar sticky stashable class="!w-[280px] border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+        <flux:sidebar sticky collapsible stashable class="border-e overflow-hidden border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
+                <flux:sidebar.header>
+                    <flux:sidebar.brand
+                    href="{{ route('home') }}"
+                    logo="/images/ai-dark-logo.svg"
+                    logo:dark="/images/ai-dark-logo.svg"
+                    name="NEURA"
+                    wire:navigate
+                />
+                <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
+            </flux:sidebar.header>
 
-            <a href="{{ route('home') }}" class="mt-4 me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
-                <x-app-logo />
-            </a>
-
-            <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Administración')" class="grid">
-                    <flux:navlist.item class="!py-5" icon="bolt" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    <flux:navlist.item class="!py-5" icon="building-office" :href="route('company.index')" :current="request()->routeIs('company.index')" wire:navigate>{{ __('Compañia') }}</flux:navlist.item>
-                    <flux:navlist.item class="!py-5" icon="cube" :href="route('department.index')" :current="request()->routeIs('department.index')" wire:navigate>{{ __('Departamentos') }}</flux:navlist.item>
-                    <flux:navlist.item class="!py-5" icon="users" :href="route('employee.index')" :current="request()->routeIs('employee.index')" wire:navigate>{{ __('Empleados') }}</flux:navlist.item>
-                </flux:navlist.group>
-            </flux:navlist>
-            <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Core')" class="grid">
-                    <flux:sidebar.group expandable :heading="__('Principales')" class="grid">
-                        <flux:sidebar.item class="!py-5 cursor-pointer!" icon="squares-plus" :href="route('application.index')" :current="request()->routeIs('application.index')" wire:navigate>{{ __('Aplicaciones') }}</flux:sidebar.item>
-                        <flux:sidebar.item class="!py-5 cursor-pointer!" icon="clipboard-document-list" :href="route('questionnaire.index')" :current="request()->routeIs('questionnaire.index')" wire:navigate>{{ __('Questionarios') }}</flux:sidebar.item>
-                    </flux:sidebar.group>
-                </flux:navlist.group>
-            </flux:navlist>
-            <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Seguimiento')" class="grid">
-                     <flux:sidebar.group expandable :expanded="request()->routeIs('notification.index')" :heading="__('Primordial')" class="grid">
-                        <flux:sidebar.item class="!py-5 cursor-pointer!" icon="bell" :href="route('notification.index')" :current="request()->routeIs('notification.index')" wire:navigate>
-                            <span>{{ __('Notificaciones') }}</span>
-                            @if(auth()->user()->metadata['notifications'] > 0)
-                                <div class="inline rounded-sm border border-primary bg-primary/10 text-center text-xs px-2 py-0.5 ml-1">
-                                    {{ auth()->user()->metadata['notifications'] }}
-                                </div>
-                            @endif
-                        </flux:sidebar.item>
-                    </flux:sidebar.group>
-                </flux:navlist.group>
-            </flux:navlist>
+            <flux:sidebar.nav variant="outline">
+                <flux:navlist.group :heading="__('Administración')" class="grid sidebar-heading"></flux:navlist.group>
+                <flux:sidebar.item class="!py-5" icon="bolt" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                <flux:sidebar.item class="!py-5" icon="building-office" :href="route('company.index')" :current="request()->routeIs('company.index')" wire:navigate>{{ __('Compañia') }}</flux:navlist.item>
+                <flux:sidebar.item class="!py-5" icon="cube" :href="route('department.index')" :current="request()->routeIs('department.index')" wire:navigate>{{ __('Departamentos') }}</flux:navlist.item>
+                <flux:sidebar.item class="!py-5" icon="users" :href="route('employee.index')" :current="request()->routeIs('employee.index')" wire:navigate>{{ __('Empleados') }}</flux:navlist.item>
+            </flux:sidebar.nav>
+            <flux:sidebar.nav variant="outline">
+                <flux:navlist.group :heading="__('Core')" class="grid sidebar-heading"></flux:navlist.group>
+                <flux:sidebar.group expandable icon="star" :heading="__('Principales')" class="grid">
+                    <flux:sidebar.item class="!py-5 cursor-pointer!" icon="squares-plus" :href="route('application.index')" :current="request()->routeIs('application.index')" wire:navigate>{{ __('Aplicaciones') }}</flux:sidebar.item>
+                    <flux:sidebar.item class="!py-5 cursor-pointer!" icon="clipboard-document-list" :href="route('questionnaire.index')" :current="request()->routeIs('questionnaire.index')" wire:navigate>{{ __('Questionarios') }}</flux:sidebar.item>
+                </flux:sidebar.group>
+            </flux:sidebar.nav>
+            <flux:sidebar.nav variant="outline">
+                <flux:navlist.group :heading="__('Seguimiento')" class="grid sidebar-heading"></flux:navlist.group>
+                <flux:sidebar.group expandable icon="star" :expanded="request()->routeIs('notification.index')" :heading="__('Primordial')" class="grid">
+                    <flux:sidebar.item class="!py-5 cursor-pointer!" icon="bell" :href="route('notification.index')" :current="request()->routeIs('notification.index')" wire:navigate>
+                        <span>{{ __('Notificaciones') }}</span>
+                        @if(auth()->user()->metadata['notifications'] > 0)
+                            <div class="inline rounded-sm border border-primary bg-primary/10 text-center text-xs px-2 py-0.5 ml-1">
+                                {{ auth()->user()->metadata['notifications'] }}
+                            </div>
+                        @endif
+                    </flux:sidebar.item>
+                </flux:sidebar.group>
+            </flux:sidebar.nav>
 
             <flux:spacer />
 
-            <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
+            <flux:sidebar.nav variant="outline">
+                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
                 {{ __('Repository') }}
-                </flux:navlist.item>
+                </flux:sidebar.item>
 
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
+                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
                 {{ __('Documentation') }}
-                </flux:navlist.item>
-            </flux:navlist>
+                </flux:sidebar.item>
+           </flux:sidebar.nav>
 
             <!-- Desktop User Menu -->
             <flux:dropdown class="hidden lg:block" position="bottom" align="start">
-                <flux:profile
+                <flux:sidebar.profile
                     :name="auth()->user()->name"
                     :initials="auth()->user()->initials()"
                     icon:trailing="chevrons-up-down"
