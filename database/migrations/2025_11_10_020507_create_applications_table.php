@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('executing_department_id')->constrained('departments');
             $table->foreignId('questionnaire_id')->constrained('questionnaires');
             $table->boolean('auth_required')->default(true);
+            $table->date('start_date')->nullable();
+            $table->date('expiration_date')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();

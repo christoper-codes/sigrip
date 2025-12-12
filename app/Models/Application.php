@@ -15,8 +15,19 @@ class Application extends Model
         'executing_department_id',
         'questionnaire_id',
         'auth_required',
+        'start_date',
+        'expiration_date',
         'is_active',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'datetime:d/m/Y H:i',
+            'start_date' => 'date',
+            'expiration_date' => 'date',
+        ];
+    }
 
     public function issuingDepartment(): BelongsTo
     {
