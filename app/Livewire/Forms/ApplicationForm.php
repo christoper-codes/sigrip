@@ -7,6 +7,10 @@ use Livewire\Form;
 
 class ApplicationForm extends Form
 {
+    public array $department = [];
+    public array $departments = [];
+    public array $questionnaires = [];
+
     #[Validate(['required', 'int'])]
     public ?int $issuing_department = null;
 
@@ -16,6 +20,12 @@ class ApplicationForm extends Form
     #[Validate(['required', 'int'])]
     public ?int $questionnaire = null;
 
+    #[Validate(['nullable', 'date'])]
+    public ?string $start_date = null;
+
+    #[Validate(['nullable', 'date'])]
+    public ?string $expiration_date = null;
+
     #[Validate(['required', 'bool'])]
-    public ?bool $auth_required = true;
+    public bool $auth_required = true;
 }

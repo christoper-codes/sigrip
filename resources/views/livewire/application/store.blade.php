@@ -1,38 +1,46 @@
 <div>
     <form wire:submit.prevent="submit" class="space-y-6 px-5 py-6 lg:px-7 lg:py-7 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-xl">
         <flux:field>
-            <flux:label>{{ __('Nombre') }}</flux:label>
-            <flux:input name="name" wire:model="name" icon="users" placeholder="{{ __('Recursos Humanos') }}"/>
-            <flux:error name="name" />
+            <flux:label>{{ __('Departamento emisor') }}</flux:label>
+            <flux:select class="!h-12" name="issuing_department" wire:model="form.issuing_department">
+                <flux:select.option value="{{ $form->department['id'] }}">{{ $form->department['name'] }}</flux:select.option>
+            </flux:select>
+            <flux:error name="issuing_department" class="!mt-0"/>
         </flux:field>
         <flux:field>
-            <flux:label>{{ __('Email') }}</flux:label>
-            <flux:input name="email" wire:model="email" icon="envelope" placeholder="{{ __('hello@neura.com') }}"/>
-            <flux:error name="email" />
+            <flux:label>{{ __('Departamento receptor') }}</flux:label>
+            <flux:select class="!h-12" name="executing_department" wire:model="form.executing_department">
+                @foreach ($form->departments as $department)
+                    <flux:select.option value="{{ $department['id'] }}">{{ $department['name'] }}</flux:select.option>
+                @endforeach
+            </flux:select>
+            <flux:error name="executing_department" class="!mt-0"/>
         </flux:field>
         <flux:field>
-            <flux:label>{{ __('Teléfono') }}</flux:label>
-            <flux:input name="phone" wire:model="phone" mask="(999) 999-9999" icon="phone" placeholder="{{ __('(555) 555-5555') }}"/>
-            <flux:error name="phone" />
+            <flux:label>{{ __('Cuestionario') }}</flux:label>
+            <flux:select class="!h-12" name="questionnaire" wire:model="form.questionnaire">
+                @foreach ($form->questionnaires as $questionnaire)
+                    <flux:select.option value="{{ $questionnaire['id'] }}">{{ $questionnaire['name'] }}</flux:select.option>
+                @endforeach
+            </flux:select>
+            <flux:error name="questionnaire" class="!mt-0"/>
         </flux:field>
         <flux:field>
-            <flux:label>{{ __('Descripción') }}</flux:label>
-            <flux:textarea name="description" resize="none" wire:model="description" icon="chat-bubble-bottom-center-text" placeholder="{{ __('Departamento de recursos humanos') }}"/>
-            <flux:error name="description"/>
+            <flux:label>{{ __('Fecha de inicio') }}</flux:label>
+            <flux:input type="date" name="start_date" wire:model="form.start_date" icon="calendar" placeholder="{{ __('Fecha de inicio') }}"/>
+            <flux:error name="start_date" />
         </flux:field>
         <flux:field>
-            <div class="flex items-start gap-2 mt-2">
-                <flux:icon.chat-bubble-oval-left />
-                <flux:text>{{ __('Esta sección es opcional') }}</flux:text>
-            </div>
-            <flux:modal.trigger name="manage-manager">
-                <flux:button class="py-6">{{ __('Gerente del departamento') }}</flux:button>
-            </flux:modal.trigger>
+            <flux:label>{{ __('Fecha de expiración') }}</flux:label>
+            <flux:input type="date" name="expiration_date" wire:model="form.expiration_date" icon="calendar" placeholder="{{ __('Fecha de expiración') }}"/>
+            <flux:error name="expiration_date" />
         </flux:field>
         <flux:field>
-            <flux:switch label="Es departamento de RH" wire:model="hr_department" align="left" name="hr_department"/>
-            <flux:error name="hr_department" />
+            <flux:label>{{ __('Requiere autenticación') }}</flux:label>
+            <flux:switch wire:model="form.auth_required" align="left" name="auth_required"/>
+            <flux:error name="form.auth_required" />
         </flux:field>
+
         <flux:button type="submit" variant="primary">{{ __('Guardar') }}</flux:button>
     </form>
 </div>
