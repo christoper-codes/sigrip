@@ -35,12 +35,20 @@
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Fecha de inicio') }}</flux:label>
-            <flux:input type="date" name="start_date" wire:model="form.start_date" icon="calendar" placeholder="{{ __('Fecha de inicio') }}"/>
+            <div x-data>
+                <div @click="$refs.dateInput.showPicker()" class="relative cursor-pointer">
+                    <flux:input type="date" name="start_date" wire:model="form.start_date" icon="calendar" placeholder="{{ __('Fecha de inicio') }}" x-ref="dateInput" />
+                </div>
+            </div>
             <flux:error name="form.start_date" />
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Fecha de expiración') }}</flux:label>
-            <flux:input type="date" name="expiration_date" wire:model="form.expiration_date" icon="calendar" placeholder="{{ __('Fecha de expiración') }}"/>
+            <div x-data>
+                <div @click="$refs.dateInput.showPicker()" class="relative cursor-pointer">
+                    <flux:input type="date" name="expiration_date" wire:model="form.expiration_date" icon="calendar" placeholder="{{ __('Fecha de expiración') }}" x-ref="dateInput" />
+                </div>
+            </div>
             <flux:error name="form.expiration_date" />
         </flux:field>
         <flux:field>
