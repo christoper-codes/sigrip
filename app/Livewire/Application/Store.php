@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Application;
 
+use App\Actions\Application\GenerateQrAction;
 use App\Livewire\Forms\ApplicationForm;
 use App\Models\Application;
 use App\Models\Department;
@@ -44,10 +45,18 @@ class Store extends Component
 
     public function submit(): void
     {
-       /*  $this->js('new JSConfetti().addConfetti()');
-        Flux::modal('qr-application-modal')->show();
-        return; */
         //$this->validate();
+        $questionnaire_name = collect($this->form->questionnaires)
+                ->where('id', $this->form->questionnaire)
+                ->first()['name'];
+            $slug = Str::slug($questionnaire_name . '-' . uniqid());
+
+        $this->form->url_qr = route('application.show', ['slug' => $slug]);
+        (new GenerateQrAction)->execute(url: $this->form->url_qr, slug: $slug);
+
+        $this->js('new JSConfetti().addConfetti()');
+        Flux::modal('qr-application-modal')->show();
+        return;
 
         $exists_application = Application::where('issuing_department_id', $this->form->issuing_department)
             ->where('executing_department_id', $this->form->executing_department)
