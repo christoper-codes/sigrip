@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 final class GenerateQrAction
 {
-    public function execute(string $url, string $slug)
+    public function execute(string $url, string $slug): void
     {
         $renderer = new ImageRenderer(
             new RendererStyle(400),

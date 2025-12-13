@@ -45,17 +45,7 @@ class Store extends Component
 
     public function submit(): void
     {
-        //$this->validate();
-        $questionnaire_name = collect($this->form->questionnaires)
-                ->where('id', $this->form->questionnaire)
-                ->first()['name'];
-        $this->form->slug = Str::slug($questionnaire_name . '-' . uniqid());
-        $this->form->url_qr = route('application.show', ['slug' => $this->form->slug]);
-        (new GenerateQrAction)->execute(url: $this->form->url_qr, slug: $this->form->slug);
-
-        $this->js('new JSConfetti().addConfetti()');
-        Flux::modal('qr-application-modal')->show();
-        return;
+        $this->validate();
 
         $exists_application = Application::where('issuing_department_id', $this->form->issuing_department)
             ->where('executing_department_id', $this->form->executing_department)
@@ -70,9 +60,10 @@ class Store extends Component
         DB::beginTransaction();
         try{
             $questionnaire_name = collect($this->form->questionnaires)
-                ->where('id', $this->form->questionnaire)
-                ->first()['name'];
-            $slug = Str::slug($questionnaire_name . '-' . uniqid());
+                    ->where('id', $this->form->questionnaire)
+                    ->first()['name'];
+            $this->form->slug = Str::slug($questionnaire_name . '-' . uniqid());
+            $this->form->url_qr = route('application.show', ['slug' => $this->form->slug]);
 
             $application = Application::create([
                 'issuing_department_id' => $this->form->issuing_department,
@@ -92,6 +83,8 @@ class Store extends Component
                     $application->users()->attach($user->id, ['is_active' => true]);
                 }
             }
+
+            (new GenerateQrAction)->execute(url: $this->form->url_qr, slug: $this->form->slug);
 
             DB::commit();
             $this->js('new JSConfetti().addConfetti()');
