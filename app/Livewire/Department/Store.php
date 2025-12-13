@@ -14,6 +14,11 @@ class Store extends Component
 {
     public DepartmentForm $form;
 
+    public function mount(bool $hr_department): void
+    {
+        $this->form->hr_department = $hr_department;
+    }
+
     public function submit(): void
     {
         $this->validate();
