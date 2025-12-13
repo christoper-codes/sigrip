@@ -30,7 +30,7 @@ class Index extends Component
         $this->search_fields = ['name'];
         $this->headers = [
             ['label' => __('Nombre'), 'field' => 'name', 'sortable' => true],
-            ['label' => __('Administrador')],
+            ['label' => __('Gerente')],
             ['label' => __('Email')],
             ['label' => __('Descripción')],
             ['label' => __('Fecha de Creación'), 'field' => 'created_at', 'sortable' => true],

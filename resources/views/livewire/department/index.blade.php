@@ -15,7 +15,7 @@
                     <td class="p-4">{{ $department['name'] }}</td>
                     <td class="p-4">
                         <span class="{{ empty($department['manager']['name']) ? 'text-red-500' : '' }}">
-                            {{ $department['manager']['name'] ?? 'Sin administrador' }}
+                            {{ $department['manager']['name'] ?? 'Sin gerente' }}
                         </span>
                     </td>
                     <td class="p-4">{{ $department['email'] ?? 'Sin email' }}</td>
