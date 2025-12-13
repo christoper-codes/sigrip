@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -20,6 +22,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('applications', 'pages.app.application.index')->name('application.index');
     Route::view('questionnaires', 'pages.app.questionnaire.index')->name('questionnaire.index');
 });
+
+Route::get('/applications/{slug}', function ($slug) {
+    $application = Application::where('slug', $slug)->firstOrFail();
+    if($application->auth_required && ! Auth::check()){
+        return redirect()->route('login');
+    }
+
+    return view('pages.app.application.show', compact('application'));
+})->name('application.show');
 
 /*
 * User Settings Routes
