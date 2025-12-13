@@ -3,6 +3,7 @@
 namespace App\Livewire\Application;
 
 use App\Livewire\Forms\ApplicationForm;
+use App\Models\Application;
 use App\Models\Department;
 use App\Models\Questionnaire;
 use Illuminate\Support\Facades\Auth;
@@ -40,6 +41,14 @@ class Store extends Component
     public function submit(): void
     {
         $this->validate();
+        Application::create([
+            'issuing_department_id' => $this->form->issuing_department,
+            'executing_department_id' => $this->form->executing_department,
+            'questionnaire_id' => $this->form->questionnaire,
+            'auth_required' => $this->form->auth_required,
+            'start_date' => $this->form->start_date,
+            'expiration_date' => $this->form->expiration_date,
+        ]);
     }
 
     public function render()
