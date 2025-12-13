@@ -45,4 +45,19 @@
 
         <flux:button type="submit" variant="primary">{{ __('Guardar') }}</flux:button>
     </form>
+
+    <flux:modal name="qr-application-modal" class="w-[90%] md:w-full!">
+        <div class="space-y-4">
+            <div>
+                <flux:heading size="lg">{{ __('Aplicación creada correctamente') }}</flux:heading>
+                <flux:text class="mt-3">{{ __('Puedes descargar el código QR de la aplicación o copiar el link y compartirlo con los empleados.') }}</flux:text>
+            </div>
+            <div class="flex gap-2">
+                 <flux:spacer />
+                <flux:modal.close>
+                    <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
+                </flux:modal.close>
+            </div>
+        </div>
+    </flux:modal>
 </div>
