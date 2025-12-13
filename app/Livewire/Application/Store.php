@@ -49,13 +49,6 @@ class Store extends Component
         return; */
         //$this->validate();
 
-        $questionnaire_name = collect($this->form->questionnaires)
-            ->where('id', $this->form->questionnaire)
-            ->first()['name'];
-        $slug = Str::slug($questionnaire_name . '-' . ($this->form->start_date ?? now()->toDateString()));
-
-        return;
-
         $exists_application = Application::where('issuing_department_id', $this->form->issuing_department)
             ->where('executing_department_id', $this->form->executing_department)
             ->where('questionnaire_id', $this->form->questionnaire)
@@ -68,6 +61,10 @@ class Store extends Component
 
         DB::beginTransaction();
         try{
+            $questionnaire_name = collect($this->form->questionnaires)
+                ->where('id', $this->form->questionnaire)
+                ->first()['name'];
+            $slug = Str::slug($questionnaire_name . '-' . uniqid());
 
             $application = Application::create([
                 'issuing_department_id' => $this->form->issuing_department,
