@@ -82,6 +82,22 @@
         backdrop-filter: blur(4px);
     }
 }
+[data-flux-sidebar-item][data-current] {
+    background-color: #1f1f1f !important;
+    border: none !important;
+}
+@layer theme {
+    .dark {
+        [data-flux-sidebar-item][data-current] {
+            background-color: #303030 !important;
+            border: none !important;
+        }
+    }
+}
+
+[data-flux-sidebar-brand] .text-sm {
+    color: #ffffff !important;
+}
 
 input:focus[data-flux-control],
 textarea:focus[data-flux-control],
