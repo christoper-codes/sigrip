@@ -10,6 +10,7 @@ use App\Models\User;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Store extends Component
@@ -46,7 +47,14 @@ class Store extends Component
        /*  $this->js('new JSConfetti().addConfetti()');
         Flux::modal('qr-application-modal')->show();
         return; */
-        $this->validate();
+        //$this->validate();
+
+        $questionnaire_name = collect($this->form->questionnaires)
+            ->where('id', $this->form->questionnaire)
+            ->first()['name'];
+        $slug = Str::slug($questionnaire_name . '-' . ($this->form->start_date ?? now()->toDateString()));
+
+        return;
 
         $exists_application = Application::where('issuing_department_id', $this->form->issuing_department)
             ->where('executing_department_id', $this->form->executing_department)
@@ -60,10 +68,12 @@ class Store extends Component
 
         DB::beginTransaction();
         try{
+
             $application = Application::create([
                 'issuing_department_id' => $this->form->issuing_department,
                 'executing_department_id' => $this->form->executing_department,
                 'questionnaire_id' => $this->form->questionnaire,
+                'slug' => $slug,
                 'auth_required' => $this->form->auth_required,
                 'start_date' => $this->form->start_date,
                 'expiration_date' => $this->form->expiration_date,
