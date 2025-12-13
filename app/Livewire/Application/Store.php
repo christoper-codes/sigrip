@@ -6,8 +6,10 @@ use App\Livewire\Forms\ApplicationForm;
 use App\Models\Application;
 use App\Models\Department;
 use App\Models\Questionnaire;
+use App\Models\User;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Store extends Component
@@ -56,17 +58,33 @@ class Store extends Component
             return;
         }
 
-        Application::create([
-            'issuing_department_id' => $this->form->issuing_department,
-            'executing_department_id' => $this->form->executing_department,
-            'questionnaire_id' => $this->form->questionnaire,
-            'auth_required' => $this->form->auth_required,
-            'start_date' => $this->form->start_date,
-            'expiration_date' => $this->form->expiration_date,
-        ]);
+        DB::beginTransaction();
+        try{
+            $application = Application::create([
+                'issuing_department_id' => $this->form->issuing_department,
+                'executing_department_id' => $this->form->executing_department,
+                'questionnaire_id' => $this->form->questionnaire,
+                'auth_required' => $this->form->auth_required,
+                'start_date' => $this->form->start_date,
+                'expiration_date' => $this->form->expiration_date,
+            ]);
 
-        $this->js('new JSConfetti().addConfetti()');
-        Flux::modal('qr-application-modal')->show();
+            if($this->form->auth_required){
+                $users = User::where('department_id', $this->form->executing_department)
+                    ->where('company_id', Auth::user()->company?->id)
+                    ->get();
+                foreach ($users as $user) {
+                    $application->users()->attach($user->id, ['is_active' => true]);
+                }
+            }
+
+            DB::commit();
+            $this->js('new JSConfetti().addConfetti()');
+            Flux::modal('qr-application-modal')->show();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->dispatch('toast', message: __('Error al crear la aplicación: ') . $e->getMessage(), type: 'error');
+        }
     }
 
     public function render()

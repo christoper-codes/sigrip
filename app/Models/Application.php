@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Application extends Model
@@ -14,6 +15,7 @@ class Application extends Model
         'issuing_department_id',
         'executing_department_id',
         'questionnaire_id',
+        'slug',
         'auth_required',
         'start_date',
         'expiration_date',
@@ -42,5 +44,12 @@ class Application extends Model
     public function questionnaire(): BelongsTo
     {
         return $this->belongsTo(Questionnaire::class);
+    }
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'application_user')
+            ->withPivot('is_active')
+            ->withTimestamps();
     }
 }

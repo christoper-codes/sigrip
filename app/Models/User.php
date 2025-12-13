@@ -107,4 +107,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class);
     }
+
+    public function applications(): BelongsToMany
+    {
+        return $this->belongsToMany(Application::class, 'application_user')
+            ->withPivot('is_active')
+            ->withTimestamps();
+    }
 }
