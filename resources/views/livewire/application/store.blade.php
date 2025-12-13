@@ -1,4 +1,10 @@
 <div>
+    @if(count($form->departments) === 1)
+        <div class="w-full mb-5">
+            <flux:callout color="yellow" icon="information-circle" heading="{{ __('Se recomienda agregar más departamentos para una mejor gestión') }}" />
+        </div>
+    @endif
+
     <form wire:submit.prevent="submit" class="space-y-6 px-5 py-6 lg:px-7 lg:py-7 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-xl">
         <flux:field>
             <flux:label>{{ __('Departamento emisor') }}</flux:label>
