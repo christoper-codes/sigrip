@@ -52,6 +52,17 @@
                 <flux:heading size="lg">{{ __('Aplicación creada correctamente') }}</flux:heading>
                 <flux:text class="mt-3">{{ __('Puedes descargar el código QR de la aplicación o copiar el link y compartirlo con los empleados.') }}</flux:text>
             </div>
+            <div class="flex flex-col items-center gap-4">
+                @if($form->url_qr && $form->slug)
+                    <img src="{{ Storage::url('qrs/' . $form->slug . '.svg') }}" alt="QR" class="border w-48 h-48 mx-auto" />
+                    <a href="{{ Storage::url('qrs/' . $form->slug . '.svg') }}" download class="mt-2">
+                        <flux:button icon="arrow-down-on-square" variant="outline">{{ __('Descargar') }}</flux:button>
+                    </a>
+                    <div class="mt-2 text-xs break-all text-center">
+                        <span>{{ $form->url_qr }}</span>
+                    </div>
+                @endif
+            </div>
             <div class="flex gap-2">
                  <flux:spacer />
                 <flux:modal.close>

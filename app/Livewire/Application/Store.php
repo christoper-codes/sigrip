@@ -49,10 +49,9 @@ class Store extends Component
         $questionnaire_name = collect($this->form->questionnaires)
                 ->where('id', $this->form->questionnaire)
                 ->first()['name'];
-            $slug = Str::slug($questionnaire_name . '-' . uniqid());
-
-        $this->form->url_qr = route('application.show', ['slug' => $slug]);
-        (new GenerateQrAction)->execute(url: $this->form->url_qr, slug: $slug);
+        $this->form->slug = Str::slug($questionnaire_name . '-' . uniqid());
+        $this->form->url_qr = route('application.show', ['slug' => $this->form->slug]);
+        (new GenerateQrAction)->execute(url: $this->form->url_qr, slug: $this->form->slug);
 
         $this->js('new JSConfetti().addConfetti()');
         Flux::modal('qr-application-modal')->show();
@@ -79,7 +78,7 @@ class Store extends Component
                 'issuing_department_id' => $this->form->issuing_department,
                 'executing_department_id' => $this->form->executing_department,
                 'questionnaire_id' => $this->form->questionnaire,
-                'slug' => $slug,
+                'slug' => $this->form->slug,
                 'auth_required' => $this->form->auth_required,
                 'start_date' => $this->form->start_date,
                 'expiration_date' => $this->form->expiration_date,

@@ -11,6 +11,7 @@ class ApplicationForm extends Form
     public array $departments = [];
     public array $questionnaires = [];
     public ?string $url_qr = null;
+    public ?string $slug = null;
 
     #[Validate(['required', 'int'])]
     public ?int $issuing_department = null;
