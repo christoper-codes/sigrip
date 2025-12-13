@@ -47,7 +47,7 @@
     </form>
 
     <flux:modal name="qr-application-modal" class="w-[90%] md:w-full!">
-        <div class="space-y-4">
+        <div class="space-y-6">
             <div>
                 <flux:heading size="lg">{{ __('Aplicación creada correctamente') }}</flux:heading>
                 <flux:text class="mt-3">{{ __('Puedes descargar el código QR de la aplicación o copiar el link y compartirlo con los empleados.') }}</flux:text>
@@ -58,13 +58,17 @@
                     <a href="{{ Storage::url('qrs/' . $form->slug . '.svg') }}" download class="mt-2">
                         <flux:button icon="arrow-down-on-square" variant="outline">{{ __('Descargar') }}</flux:button>
                     </a>
-                    <div class="mt-2 text-xs break-all text-center">
-                        <span>{{ $form->url_qr }}</span>
+                    <div class="mt-2 break-all text-center">
+                        <div x-data="{ copied: false }" class="flex items-center gap-2">
+                            <span class="truncate w-52 md:w-80 block">{{ $form->url_qr }}</span>
+                            <flux:icon.clipboard-document variant="solid" x-show="!copied" @click="navigator.clipboard.writeText('{{ $form->url_qr }}'); copied = true; setTimeout(() => copied = false, 1500)" />
+                            <flux:icon.check variant="solid" x-show="copied" disabled />
+                        </div>
                     </div>
                 @endif
             </div>
             <div class="flex gap-2">
-                 <flux:spacer />
+                <flux:spacer />
                 <flux:modal.close>
                     <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
                 </flux:modal.close>
