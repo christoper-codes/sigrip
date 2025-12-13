@@ -29,7 +29,7 @@ class CreateEmployeesJob implements ShouldQueue
         public int $user_id,
     )
     {
-       $this->onQueue('employees');
+       $this->onQueue('applications');
     }
 
     /**

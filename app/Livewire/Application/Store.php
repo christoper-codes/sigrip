@@ -3,6 +3,7 @@
 namespace App\Livewire\Application;
 
 use App\Actions\Application\GenerateQrAction;
+use App\Jobs\CreateUserApplicationJob;
 use App\Livewire\Forms\ApplicationForm;
 use App\Models\Application;
 use App\Models\Department;
@@ -76,12 +77,11 @@ class Store extends Component
             ]);
 
             if($this->form->auth_required){
-                $users = User::where('department_id', $this->form->executing_department)
-                    ->where('company_id', Auth::user()->company?->id)
-                    ->get();
-                foreach ($users as $user) {
-                    $application->users()->attach($user->id, ['is_active' => true]);
-                }
+                CreateUserApplicationJob::dispatch(
+                    department_id: $this->form->executing_department,
+                    company_id: Auth::user()->company?->id,
+                    application: $application,
+                );
             }
 
             (new GenerateQrAction)->execute(url: $this->form->url_qr, slug: $this->form->slug);
