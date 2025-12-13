@@ -90,7 +90,6 @@ class Store extends Component
             $this->js('new JSConfetti().addConfetti()');
             Flux::modal('qr-application-modal')->show();
             $this->reset([
-                'form.issuing_department',
                 'form.executing_department',
                 'form.questionnaire',
                 'form.auth_required',

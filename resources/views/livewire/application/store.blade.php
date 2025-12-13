@@ -74,7 +74,7 @@
                     </a>
                     <div class="mt-2 break-all text-center">
                         <div x-data="{ copied: false }" class="flex items-center gap-2">
-                            <span class="truncate w-52 md:w-80 block">{{ $form->url_qr }}</span>
+                            <flux:heading size="lg" class="truncate! w-52! md:w-80! block">{{ $form->url_qr }}</flux:heading>
                             <flux:icon.clipboard-document variant="solid" x-show="!copied" @click="navigator.clipboard.writeText('{{ $form->url_qr }}'); copied = true; setTimeout(() => copied = false, 1500)" />
                             <flux:icon.check variant="solid" x-show="copied" disabled />
                         </div>
