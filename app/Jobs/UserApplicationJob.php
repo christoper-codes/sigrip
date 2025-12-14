@@ -24,7 +24,7 @@ class UserApplicationJob implements ShouldQueue
         public bool $store = true,
     )
     {
-       $this->onQueue('employees');
+       $this->onQueue('applications');
     }
     /**
      * Execute the job.
