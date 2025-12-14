@@ -48,7 +48,7 @@ class Index extends Component
 
         $this->search_fields = ['questionnaire.name'];
         $this->headers = [
-            ['label' => __('Nombre del cuestionario'), 'field' => 'name', 'sortable' => true],
+            ['label' => __('Nombre del cuestionario'), 'field' => 'questionnaire.name', 'sortable' => true],
             ['label' => __('Fecha de creación'), 'field' => 'created_at', 'sortable' => true],
             ['label' => __('Compartir aplicación')],
             ['label' => __('Ver resultados')],
