@@ -2,7 +2,10 @@
   "questionnaire_id": "test_de_honestidad",
   "title": "Test de honestidad laboral",
   "subtitle": "Breve escala Likert para evaluar tendencia a la honestidad y riesgos éticos",
-  "instructions": "Contesta con sinceridad. El test es anónimo y toma 5-10 minutos. Usa la escala del 1 al 5.",
+  "instructions": [
+    "Contesta con sinceridad.",
+    "No hay respuestas correctas o incorrectas"
+  ],
   "objectives": [
     "Evaluar integridad personal",
     "Detectar riesgos de incumplimiento ético",

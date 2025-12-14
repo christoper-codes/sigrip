@@ -2,7 +2,10 @@
   "questionnaire_id": "escaneo_emocional_semanal",
   "title": "Escaneo emocional semanal",
   "subtitle": "Evaluación emocional semanal",
-  "instructions": "Responde con sinceridad. No hay respuestas correctas o incorrectas.",
+  "instructions": [
+    "Contesta con sinceridad.",
+    "No hay respuestas correctas o incorrectas"
+  ],
   "objectives": [
     "Medir el estado emocional y patrones de conducta de los empleados",
     "Identificar cambios significativos en bienestar emocional",
