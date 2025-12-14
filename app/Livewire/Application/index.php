@@ -2,10 +2,13 @@
 
 namespace App\Livewire\Application;
 
+use App\Livewire\Forms\ApplicationForm;
 use App\Livewire\Traits\Roles;
 use App\Livewire\Traits\Table;
 use App\Models\Application;
 use App\Models\Department;
+use App\Models\Questionnaire;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -14,6 +17,10 @@ class Index extends Component
 {
     use Table;
     use Roles;
+
+    public ApplicationForm $form;
+    public ?Application $application = null;
+    public ?int $application_id = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -44,11 +51,29 @@ class Index extends Component
             ['label' => __('Activar')],
             ['label' => __('Acciones')],
         ];
+
+         $this->form->department = Department::where('company_id', Auth::user()->company?->id)
+            ->where('metadata->hr_department', true)
+            ->first()
+            ->toArray();
+
+        $this->form->issuing_department = $this->form->department['id'];
+
+        $this->form->departments = Department::where('company_id', Auth::user()->company?->id)
+            ->get()
+            ->toArray();
+
+        $this->form->questionnaires = Questionnaire::where(function ($query) {
+                $query->where('is_base', true)
+                ->orWhere('company_id', Auth::user()->company?->id);
+            })
+            ->get()
+            ->toArray();
     }
 
     public function searchApplications(): void
     {
-        $this->validate();
+        $this->validateOnly('department');
         $this->table_items = Application::where('executing_department_id', $this->department)
             ->with('questionnaire', 'issuingDepartment', 'executingDepartment', 'users')
             ->get()
@@ -69,6 +94,43 @@ class Index extends Component
 
         $this->searchApplications();
         $this->dispatch('toast', message: __('Estado actualizado correctamente.'), type: 'success');
+    }
+
+    public function editApplication(int $id): void
+    {
+        $this->application = Application::find($id);
+        $this->application_id = $this->application->id;
+        $this->form->issuing_department = $this->application->issuing_department_id;
+        $this->form->executing_department = $this->application->executing_department_id;
+        $this->form->questionnaire = $this->application->questionnaire_id;
+        $this->form->start_date = $this->application->start_date ? date('Y-m-d', strtotime($this->application->start_date)) : null;
+        $this->form->expiration_date = $this->application->expiration_date ? date('Y-m-d', strtotime($this->application->expiration_date)) : null;
+        $this->form->auth_required = $this->application->auth_required;
+
+        Flux::modal('edit-application-modal')->show();
+    }
+
+    public function confirmUpdateApplication(): void
+    {
+        $this->form->validate();
+
+        $application = Application::find($this->application_id);
+
+        $exists_application = Application::where('issuing_department_id', $this->form->issuing_department)
+            ->where('executing_department_id', $this->form->executing_department)
+            ->where('questionnaire_id', $this->form->questionnaire)
+            ->whereNull('start_date')
+            ->exists();
+        if ($exists_application) {
+            $this->dispatch('toast', message: __('Ya existe una aplicación activa con los mismos parámetros.'), type: 'error');
+            return;
+        }
+    }
+
+    public function editModalClosed()
+    {
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function render()

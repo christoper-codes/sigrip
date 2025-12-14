@@ -71,7 +71,7 @@
                             </td>
                             <td class="p-4">
                                 <div class="flex items-center gap-2">
-                                    <flux:button variant="filled" icon="pencil" wire:click="editQuestionnaire({{ $application['id'] }})" />
+                                    <flux:button variant="filled" icon="pencil" wire:click="editApplication({{ $application['id'] }})" />
                                     <flux:button variant="danger" icon="trash" wire:click="confirmDestroy('{{ $application['questionnaire']['name'] }}', {{ $application['id'] }})" />
                                 </div>
                             </td>
@@ -89,5 +89,71 @@
             <flux:callout color="fuchsia" icon="information-circle" heading="{{ __('No se ha seleccionado un departamento') }}" />
         </div>
     @endif
+
+    <flux:modal name="edit-application-modal" class="w-[90%] md:w-2xl!" @close="editModalClosed()">
+        <form wire:submit.prevent="confirmUpdateApplication" class="space-y-6">
+            <div>
+                <flux:heading size="lg">{{ __('Editar aplicación') }}</flux:heading>
+                <flux:text class="mt-2">{{ __('Actualizar los detalles y guardar los cambios.') }}</flux:text>
+            </div>
+            <flux:field>
+                <flux:label>{{ __('Departamento emisor') }}</flux:label>
+                <flux:select class="!h-12" name="issuing_department" wire:model="form.issuing_department">
+                    <flux:select.option value="{{ $form->department['id'] }}">{{ $form->department['name'] }}</flux:select.option>
+                </flux:select>
+                <flux:error name="form.issuing_department" class="!mt-0"/>
+            </flux:field>
+            <flux:field>
+                <flux:label>{{ __('Departamento receptor') }}</flux:label>
+                <flux:select class="!h-12" name="executing_department" wire:model="form.executing_department">
+                    <flux:select.option value="" >{{ __('Seleccione un departamento') }}</flux:select.option>
+                    @foreach ($form->departments as $department)
+                        <flux:select.option value="{{ $department['id'] }}">{{ $department['name'] }}</flux:select.option>
+                    @endforeach
+                </flux:select>
+                <flux:error name="form.executing_department" class="!mt-0"/>
+            </flux:field>
+            <flux:field>
+                <flux:label>{{ __('Cuestionario') }}</flux:label>
+                <flux:select class="!h-12" name="questionnaire" wire:model="form.questionnaire">
+                    <flux:select.option value="" >{{ __('Seleccione un cuestionario') }}</flux:select.option>
+                    @foreach ($form->questionnaires as $questionnaire)
+                        <flux:select.option value="{{ $questionnaire['id'] }}">{{ $questionnaire['name'] }}</flux:select.option>
+                    @endforeach
+                </flux:select>
+                <flux:error name="form.questionnaire" class="!mt-0"/>
+            </flux:field>
+            <flux:field>
+                <flux:label>{{ __('Fecha de inicio') }}</flux:label>
+                <div x-data>
+                    <div @click="$refs.dateInput.showPicker()" class="relative cursor-pointer">
+                        <flux:input type="date" name="start_date" wire:model="form.start_date" icon="calendar" placeholder="{{ __('Fecha de inicio') }}" x-ref="dateInput" />
+                    </div>
+                </div>
+                <flux:error name="form.start_date" />
+            </flux:field>
+            <flux:field>
+                <flux:label>{{ __('Fecha de expiración') }}</flux:label>
+                <div x-data>
+                    <div @click="$refs.dateInput.showPicker()" class="relative cursor-pointer">
+                        <flux:input type="date" name="expiration_date" wire:model="form.expiration_date" icon="calendar" placeholder="{{ __('Fecha de expiración') }}" x-ref="dateInput" />
+                    </div>
+                </div>
+                <flux:error name="form.expiration_date" />
+            </flux:field>
+            <flux:field>
+                <flux:label>{{ __('Requiere autenticación') }}</flux:label>
+                <flux:switch wire:model="form.auth_required" align="left" name="auth_required"/>
+                <flux:error name="form.auth_required" />
+            </flux:field>
+            <div class="flex gap-2">
+                <flux:spacer />
+                <flux:modal.close>
+                    <flux:button variant="filled">{{ __('Cancelar') }}</flux:button>
+                </flux:modal.close>
+                <flux:button type="submit" variant="primary">{{ __('Actualizar') }}</flux:button>
+            </div>
+        </form>
+    </flux:modal>
 </div>
 
