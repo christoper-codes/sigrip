@@ -49,4 +49,9 @@ class Questionnaire extends Model
     {
         return $this->hasMany(Application::class, 'questionnaire_id');
     }
+
+    public function questionnaireResponses(): HasMany
+    {
+        return $this->hasMany(QuestionnaireResponse::class, 'questionnaire_id');
+    }
 }

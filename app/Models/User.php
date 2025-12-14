@@ -114,4 +114,9 @@ class User extends Authenticatable
             ->withPivot('is_active')
             ->withTimestamps();
     }
+
+    public function questionnaireResponses(): HasMany
+    {
+        return $this->hasMany(QuestionnaireResponse::class);
+    }
 }

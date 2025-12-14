@@ -52,4 +52,9 @@ class Department extends Model
     {
         return $this->hasMany(Application::class, 'executing_department_id');
     }
+
+    public function questionnaireResponses(): HasMany
+    {
+        return $this->hasMany(QuestionnaireResponse::class);
+    }
 }
