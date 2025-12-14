@@ -10,6 +10,7 @@ use App\Models\Department;
 use App\Models\Questionnaire;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -115,6 +116,16 @@ class Index extends Component
         $this->form->validate();
 
         $application = Application::find($this->application_id);
+        if ($application->questionnaireResponses()->exists() &&
+            (
+                $application->executing_department_id !== $this->form->executing_department ||
+                $application->questionnaire_id !== $this->form->questionnaire ||
+                $application->auth_required !== $this->form->auth_required
+            )
+        ) {
+            $this->dispatch('toast', message: __('No se puede modificar estas propiedades de una aplicación que ya tiene respuestas.'), type: 'error');
+            return;
+        }
 
         $exists_application = Application::where('issuing_department_id', $this->form->issuing_department)
             ->where('executing_department_id', $this->form->executing_department)
@@ -124,6 +135,39 @@ class Index extends Component
         if ($exists_application) {
             $this->dispatch('toast', message: __('Ya existe una aplicación activa con los mismos parámetros.'), type: 'error');
             return;
+        }
+
+        DB::beginTransaction();
+        try{
+            $original_auth_required = $application->auth_required;
+
+            $application->issuing_department_id = $this->form->issuing_department;
+            $application->executing_department_id = $this->form->executing_department;
+            $application->questionnaire_id = $this->form->questionnaire;
+            $application->auth_required = $this->form->auth_required;
+            $application->start_date = $this->form->start_date;
+            $application->expiration_date = $this->form->expiration_date;
+            $application->save();
+
+            if($original_auth_required !== $this->form->auth_required){
+
+            }
+
+            DB::commit();
+            $this->reset([
+                'form.issuing_department',
+                'form.executing_department',
+                'form.questionnaire',
+                'form.auth_required',
+                'form.start_date',
+                'form.expiration_date',
+            ]);
+            $this->searchApplications();
+            Flux::modal('edit-application-modal')->close();
+            $this->dispatch('toast', message: __('Aplicación actualizada correctamente.'), type: 'success');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->dispatch('toast', message: __('Error al actualizar la aplicación: ') . $e->getMessage(), type: 'error');
         }
     }
 

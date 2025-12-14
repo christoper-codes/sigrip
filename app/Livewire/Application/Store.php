@@ -3,7 +3,7 @@
 namespace App\Livewire\Application;
 
 use App\Actions\Application\GenerateQrAction;
-use App\Jobs\CreateUserApplicationJob;
+use App\Jobs\UserApplicationJob;
 use App\Livewire\Forms\ApplicationForm;
 use App\Models\Application;
 use App\Models\Department;
@@ -77,10 +77,11 @@ class Store extends Component
             ]);
 
             if($this->form->auth_required){
-                CreateUserApplicationJob::dispatch(
+                UserApplicationJob::dispatch(
                     department_id: $this->form->executing_department,
                     company_id: Auth::user()->company?->id,
                     application: $application,
+                    store: true,
                 );
             }
 
