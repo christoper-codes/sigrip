@@ -5,6 +5,7 @@ namespace App\Livewire\Application;
 use App\Actions\Application\GenerateQrAction;
 use App\Jobs\UserApplicationJob;
 use App\Livewire\Forms\ApplicationForm;
+use App\Livewire\Traits\LimitItems;
 use App\Livewire\Traits\Roles;
 use App\Livewire\Traits\Table;
 use App\Models\Application;
@@ -22,6 +23,7 @@ class Index extends Component
 {
     use Table;
     use Roles;
+    use LimitItems;
 
     public ApplicationForm $form;
     public ?Application $application = null;
@@ -36,6 +38,7 @@ class Index extends Component
 
     public function mount()
     {
+        $this->items_per_page = 5;
         $this->departments = Department::where('company_id', Auth::user()->company?->id)
             ->get()
             ->toArray();
@@ -85,6 +88,8 @@ class Index extends Component
         $this->validateOnly('department');
         $this->table_items = Application::where('executing_department_id', $this->department)
             ->with('questionnaire', 'issuingDepartment', 'executingDepartment', 'users')
+            ->orderByDesc('created_at')
+            ->limit($this->items_per_page)
             ->get()
             ->toArray();
 
