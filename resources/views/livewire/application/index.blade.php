@@ -56,7 +56,7 @@
                                 <flux:button href="{{ route('dashboard') }}">{{ __('Ver resultados') }}</flux:button>
                             </td>
                             <td class="p-4">
-                                <flux:button href="{{ route('dashboard') }}">{{ __('Ver análisis') }}</flux:button>
+                                <flux:button href="{{ route('dashboard') }}" class="border! border-primary! bg-primary/10!">{{ __('Ver análisis') }}</flux:button>
                             </td>
                             <td class="p-4">{{ $application['total_allocated'] }}</td>
                             <td class="p-4">{{ $application['total_answered'] }}</td>

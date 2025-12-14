@@ -16,17 +16,14 @@
                     <td class="p-4">{{ $questionnaire_item['category']['name'] }}</td>
                     <td class="p-4">{{ $questionnaire_item['category']['description'] }}</td>
                     <td class="p-4">
-                        <flux:button
-                            variant="filled"
-                            wire:click="showDetails({{ $questionnaire_item['id'] }})">
+                        <flux:button variant="filled" wire:click="showDetails({{ $questionnaire_item['id'] }})">
                             {{ __('Ver detalles') }}
                         </flux:button>
                     </td>
                     <td class="p-4">
-                        <flux:button
-                            variant="filled"
+                        <flux:button class="border! border-primary! bg-primary/10!"
                             wire:click="showRiskDetails({{ $questionnaire_item['id'] }})">
-                            {{ __('Ver detalles') }}
+                            {{ __('Ver evaluación') }}
                         </flux:button>
                     </td>
                     <td class="p-4">{{ $questionnaire_item['created_at'] }}</td>
