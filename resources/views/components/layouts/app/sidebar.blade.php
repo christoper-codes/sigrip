@@ -12,8 +12,8 @@
                 <flux:sidebar.header>
                     <flux:sidebar.brand
                     href="{{ route('home') }}"
-                    logo="/images/ai-dark-logo.svg"
-                    logo:dark="/images/ai-dark-logo.svg"
+                    logo="/images/ai-logo.svg"
+                    logo:dark="/images/ai-logo.svg"
                     name="NEURA"
                     wire:navigate
                 />

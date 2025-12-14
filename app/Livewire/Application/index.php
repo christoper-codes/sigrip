@@ -34,7 +34,7 @@ class Index extends Component
         $this->headers = [
             ['label' => __('Nombre del cuestionario'), 'field' => 'name', 'sortable' => true],
             ['label' => __('Fecha de creación'), 'field' => 'created_at', 'sortable' => true],
-            ['label' => __('Compartir')],
+            ['label' => __('Compartir aplicación')],
             ['label' => __('Ver resultados')],
             ['label' => __('Análisis con IA')],
             ['label' => __('Cuestionarios creados')],
