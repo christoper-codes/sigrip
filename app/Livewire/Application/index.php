@@ -26,6 +26,7 @@ class Index extends Component
     public ApplicationForm $form;
     public ?Application $application = null;
     public ?int $application_id = null;
+    public ?string $application_name = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -197,6 +198,37 @@ class Index extends Component
             Flux::modal('edit-application-modal')->close();
             $this->dispatch('toast', message: __('Error al actualizar la aplicación: ') . $e->getMessage(), type: 'error');
         }
+    }
+
+     public function confirmDestroy(string $application_name, int $id): void
+    {
+        $this->application_name = $application_name;
+        $this->application_id = $id;
+
+        Flux::modal('destroy-application-modal')->show();
+    }
+
+    public function destroy(): void
+    {
+        $application = Application::find($this->application_id);
+        if( $application->questionnaireResponses()->exists() ) {
+            Flux::modal('destroy-application-modal')->close();
+            $this->dispatch('toast', message: __('No se puede eliminar una aplicación que ya tiene respuestas.'), type: 'error');
+            return;
+        }
+        $application_slug = $application->slug;
+        $application->delete();
+        UserApplicationJob::dispatch(
+            department_id: $application->executing_department_id,
+            company_id: Auth::user()->company?->id,
+            application: $application,
+            store: false,
+        );
+        Storage::disk('public')->delete('qrs/' . $application_slug . '.svg');
+
+        $this->searchApplications();
+        Flux::modal('destroy-application-modal')->close();
+        $this->dispatch('toast', message: __('Aplicación eliminada correctamente.'), type: 'success');
     }
 
     public function editModalClosed()

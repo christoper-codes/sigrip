@@ -72,7 +72,7 @@
                             <td class="p-4">
                                 <div class="flex items-center gap-2">
                                     <flux:button variant="filled" icon="pencil" wire:click="editApplication({{ $application['id'] }})" />
-                                    <flux:button variant="danger" icon="trash" wire:click="confirmDestroy('{{ $application['questionnaire']['name'] }}', {{ $application['id'] }})" />
+                                    <flux:button variant="danger" icon="trash" wire:click="confirmDestroy('{{ $application['questionnaire']['name'] . ' - ' . $application['created_at'] }}', {{ $application['id'] }})" />
                                 </div>
                             </td>
                         </tr>
@@ -154,6 +154,24 @@
                 <flux:button type="submit" variant="primary">{{ __('Actualizar') }}</flux:button>
             </div>
         </form>
+    </flux:modal>
+
+    <flux:modal name="destroy-application-modal" class="w-[90%] md:max-w-md!">
+        <div class="space-y-4">
+            <div>
+                <flux:heading size="lg">{{ __('¿Estás seguro de que deseas eliminar esta aplicación?') }}</flux:heading>
+                <flux:text class="mt-3 font-semibold">{{ $application_name }}</flux:text>
+            </div>
+            <div class="flex gap-2">
+                 <flux:spacer />
+                <flux:modal.close>
+                    <flux:button variant="filled">{{ __('Cancelar') }}</flux:button>
+                </flux:modal.close>
+                <flux:button variant="danger" wire:click="destroy">
+                    {{ __('Eliminar') }}
+                </flux:button>
+            </div>
+        </div>
     </flux:modal>
 </div>
 
