@@ -37,8 +37,6 @@ class Index extends Component
             ['label' => __('Compartir aplicación')],
             ['label' => __('Ver resultados')],
             ['label' => __('Análisis con IA')],
-            ['label' => __('Cuestionarios creados')],
-            ['label' => __('Cuestionarios completados')],
             ['label' => __('Departamento emisor')],
             ['label' => __('Fecha de inicio'), 'field' => 'created_at', 'sortable' => true],
             ['label' => __('Fecha de caducidad'), 'field' => 'expiration_date', 'sortable' => true],
@@ -51,19 +49,26 @@ class Index extends Component
     public function searchApplications(): void
     {
         $this->validate();
-        $applications = Application::where('executing_department_id', $this->department)
-        ->with('questionnaire', 'issuingDepartment', 'executingDepartment', 'users')
-        ->get();
-        foreach ($applications as $application) {
-            $application->total_allocated = $application->users->count();
-            $application->total_answered = $application->users->where('pivot.is_active', false)->count();
-        }
-        $this->table_items = $applications->toArray();
+        $this->table_items = Application::where('executing_department_id', $this->department)
+            ->with('questionnaire', 'issuingDepartment', 'executingDepartment', 'users')
+            ->get()
+            ->toArray();
 
         $this->current_page = 1;
         $this->search_query = '';
         $this->refreshTableData();
         $this->search_applications = true;
+    }
+
+    public function updateStatus(int $id): void
+    {
+        $application = Application::find($id);
+
+        $application->is_active = ! $application->is_active;
+        $application->save();
+
+        $this->searchApplications();
+        $this->dispatch('toast', message: __('Estado actualizado correctamente.'), type: 'success');
     }
 
     public function render()

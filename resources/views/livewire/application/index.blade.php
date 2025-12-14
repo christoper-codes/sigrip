@@ -58,8 +58,6 @@
                             <td class="p-4">
                                 <flux:button href="{{ route('dashboard') }}" class="border! border-primary! bg-primary/10!">{{ __('Ver análisis') }}</flux:button>
                             </td>
-                            <td class="p-4">{{ $application['total_allocated'] }}</td>
-                            <td class="p-4">{{ $application['total_answered'] }}</td>
                             <td class="p-4">{{ $application['issuing_department']['name'] }}</td>
                             <td class="p-4">{{ $application['start_date'] ?? 'Sin fecha de inicio' }}</td>
                             <td class="p-4">{{ $application['expiration_date'] ?? 'Sin fecha de caducidad' }}</td>
