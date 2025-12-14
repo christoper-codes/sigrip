@@ -1,4 +1,4 @@
-<div>
+<div class="relative">
     <section class="mt-10">
          <flux:text>
             <span class="text-primary">{{ __('¡Buena tarde!') }}</span> {{ __('Christopher Patiño Santos') }}
@@ -42,7 +42,7 @@
                 <flux:text class="mt-2">{{ __('Evaluación del estado emocional general y factores básicos de bienestar laboral') }}</flux:text>
             </div>
             <div class="mt-7 flex flex-col gap-10">
-                <flux:field class="w-full max-w-3xl">
+                <flux:field class="w-full max-w-xl">
                     <flux:label>{{ __('¿Cómo te sentiste en general este mes?') }}</flux:label>
                     <flux:radio.group name="" class="mt-2 ml-1">
                         <flux:radio value="1" label="Muy mal" />
@@ -53,7 +53,7 @@
                     </flux:radio.group>
                     <flux:error name="" class="!mt-0"/>
                 </flux:field>
-                <flux:field class="w-full max-w-3xl">
+                <flux:field class="w-full max-w-xl">
                     <flux:label>{{ __('¿Te has sentido estresado/a en el trabajo este mes?') }}</flux:label>
                     <flux:radio.group name="" class="mt-2 ml-1">
                         <flux:radio value="1" label="Sí, constantemente" />
@@ -61,6 +61,11 @@
                         <flux:radio value="3" label="No" />
                     </flux:radio.group>
                     <flux:error name="" class="!mt-0"/>
+                </flux:field>
+                <flux:field class="w-full max-w-xl">
+                    <flux:label>{{ __('Describe tu estado emocional este mes') }}</flux:label>
+                    <flux:textarea name="" resize="none" class="mt-2 ml-1"/>
+                    <flux:error name=""/>
                 </flux:field>
             </div>
         </div>
