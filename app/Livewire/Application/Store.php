@@ -51,7 +51,7 @@ class Store extends Component
         $exists_application = Application::where('issuing_department_id', $this->form->issuing_department)
             ->where('executing_department_id', $this->form->executing_department)
             ->where('questionnaire_id', $this->form->questionnaire)
-            ->whereNull('start_date')
+            ->where('start_date', $this->form->start_date)
             ->exists();
         if ($exists_application) {
             $this->dispatch('toast', message: __('Ya existe una aplicación activa con los mismos parámetros.'), type: 'error');
