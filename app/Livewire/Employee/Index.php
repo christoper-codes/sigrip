@@ -3,6 +3,7 @@
 namespace App\Livewire\Employee;
 
 use App\Enums\RoleEnum;
+use App\Livewire\Traits\LimitItems;
 use App\Livewire\Traits\Roles;
 use App\Livewire\Traits\Table;
 use App\Models\Department;
@@ -16,6 +17,7 @@ class Index extends Component
 {
     use Table;
     use Roles;
+    use LimitItems;
 
     public array $departments = [];
     public ?string $employee_name = null;
@@ -51,6 +53,8 @@ class Index extends Component
 
         $this->table_items = User::where('department_id', $this->department)
             ->with('userRoles')
+            ->orderByDesc('created_at')
+            ->limit($this->items_per_page)
             ->get()
             ->toArray();
 
