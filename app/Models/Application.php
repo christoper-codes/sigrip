@@ -26,8 +26,8 @@ class Application extends Model
     {
         return [
             'created_at' => 'datetime:d/m/Y H:i',
-            'start_date' => 'date',
-            'expiration_date' => 'date',
+            'start_date' => 'datetime:d/m/Y H:i',
+            'expiration_date' => 'datetime:d/m/Y H:i',
         ];
     }
 

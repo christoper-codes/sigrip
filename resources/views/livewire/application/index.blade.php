@@ -22,7 +22,7 @@
             class="mt-10">
             <x-appearance.livewiretable
                 :headers="$headers"
-                search_placeholder="{{ __('Nombre o email') }}"
+                search_placeholder="{{ __('Buscar por nombre') }}"
                 :total_results="$total_results"
                 :current_page="$current_page"
                 :total_pages="$total_pages"
@@ -31,7 +31,54 @@
                 :sort_direction="$sort_direction"
                 >
                 <x-slot:table>
-
+                    @foreach ($paginated_items as $application)
+                        <tr>
+                            <td class="p-4">{{ $application['questionnaire']['name'] }}</td>
+                            <td class="p-4">{{ $application['created_at'] }}</td>
+                            <td class="p-4">
+                                <div class="flex items-center gap-2">
+                                    <a href="{{ Storage::url('qrs/' . $application['slug'] . '.svg') }}" download>
+                                        <flux:button variant="filled">{{ __('Descargar QR') }}</flux:button>
+                                    </a>
+                                    <div x-data="{ copied: false }" class="flex items-center gap-2">
+                                        <flux:button variant="filled" @click="navigator.clipboard.writeText('{{ route('application.show', ['slug' => $application['slug']]) }}'); copied = true; setTimeout(() => copied = false, 1500)">
+                                            <template x-if="!copied">
+                                                <span>{{ __('Copiar URL') }}</span>
+                                            </template>
+                                            <template x-if="copied">
+                                                <span>{{ __('Copiado!') }}</span>
+                                            </template>
+                                        </flux:button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-4">
+                                <flux:button href="{{ route('dashboard') }}">{{ __('Ver resultados') }}</flux:button>
+                            </td>
+                            <td class="p-4">
+                                <flux:button href="{{ route('dashboard') }}">{{ __('Ver análisis') }}</flux:button>
+                            </td>
+                            <td class="p-4">{{ $application['total_allocated'] }}</td>
+                            <td class="p-4">{{ $application['total_answered'] }}</td>
+                            <td class="p-4">{{ $application['issuing_department']['name'] }}</td>
+                            <td class="p-4">{{ $application['start_date'] ?? 'Sin fecha de inicio' }}</td>
+                            <td class="p-4">{{ $application['expiration_date'] ?? 'Sin fecha de caducidad' }}</td>
+                            <td class="p-4">
+                                <x-appearance.badge :status="$application['is_active'] ? 'active' : 'inactive'" />
+                            </td>
+                            <td class="p-4" >
+                                <flux:field variant="inline">
+                                    <flux:switch wire:click="updateStatus({{ $application['id'] }})" :checked="(bool) $application['is_active']" />
+                                </flux:field>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex items-center gap-2">
+                                    <flux:button variant="filled" icon="pencil" wire:click="editQuestionnaire({{ $application['id'] }})" />
+                                    <flux:button variant="danger" icon="trash" wire:click="confirmDestroy('{{ $application['questionnaire']['name'] }}', {{ $application['id'] }})" />
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                 </x-slot:table>
             </x-appearance.livewiretable>
         </div>
