@@ -1,7 +1,7 @@
 <x-layouts.application :title="__('Applicación')">
     <section id="application-show">
-        <x-main-container>
-                <div class="flex items-center justify-between">
+        <flux:main class="!max-w-[70rem] !w-full !mx-auto !px-0 !py-0">
+            <div class="flex items-center justify-between">
                     <a href="{{ route('home') }}" wire:navigate>
                         <x-app-logo-icon class="w-24"/>
                     </a>
@@ -9,8 +9,8 @@
                     <flux:icon.sun x-show="$flux.appearance === 'light'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
                     <flux:icon.sun x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
                 </div>
-                </div>
+            </div>
             <livewire:application.show :application="$application" />
-        </x-main-container>
+        </flux:main>
     </section>
 </x-layouts.application>
