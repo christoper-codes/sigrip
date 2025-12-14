@@ -11,12 +11,12 @@
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
                 <flux:sidebar.header>
                     <flux:sidebar.brand
-                    href="{{ route('home') }}"
-                    logo="/images/ai-logo.svg"
-                    logo:dark="/images/ai-logo.svg"
-                    name="NEURA"
-                    wire:navigate
-                />
+                        href="{{ route('home') }}"
+                        logo="/images/ai-logo.svg"
+                        logo:dark="/images/ai-logo.svg"
+                        name="NEURA"
+                        wire:navigate
+                    />
                 <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
             </flux:sidebar.header>
 
