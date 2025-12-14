@@ -75,6 +75,9 @@ class Index extends Component
             })
             ->get()
             ->toArray();
+        if($this->department){
+            $this->searchApplications();
+        }
     }
 
     public function searchApplications(): void
