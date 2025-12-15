@@ -16,14 +16,14 @@
                     <td class="p-4">{{ $questionnaire_item['category']['name'] }}</td>
                     <td class="p-4">{{ $questionnaire_item['category']['description'] }}</td>
                     <td class="p-4">
-                        <flux:button variant="filled" wire:click="showDetails({{ $questionnaire_item['id'] }})">
-                            {{ __('Ver detalles') }}
+                        <flux:button icon="clipboard-document-list" variant="filled" wire:click="showDetails({{ $questionnaire_item['id'] }})">
+                            {{ __('Detalles') }}
                         </flux:button>
                     </td>
                     <td class="p-4">
-                        <flux:button class="border! border-primary! bg-primary/10!"
+                        <flux:button icon="bell-alert" class="border! border-primary! bg-primary/10!"
                             wire:click="showRiskDetails({{ $questionnaire_item['id'] }})">
-                            {{ __('Ver evaluación') }}
+                            {{ __('Evaluación') }}
                         </flux:button>
                     </td>
                     <td class="p-4">{{ $questionnaire_item['created_at'] }}</td>
