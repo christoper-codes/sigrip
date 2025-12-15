@@ -5,6 +5,7 @@
             __('Nombre'),
             __('Administrador'),
             __('Descripción'),
+            __('Departamentos'),
             __('Fecha de Creación'),
             __('Estado')
         ]"
@@ -15,6 +16,16 @@
         <td class="p-4" x-text="item.name"></td>
         <td class="p-4">{{ auth()->user()->name }}</td>
         <td class="p-4" x-text="item.description || 'Sin descripción'"></td>
+        <td class="p-4">
+            <flux:button
+                icon="cube"
+                href="{{ route('department.index') }}"
+                class="border! border-primary! bg-primary/10!"
+                wire:navigate
+                >
+                {{ __('Departamentos') }}
+            </flux:button>
+        </td>
         <td class="p-4" x-text="new Date(item.created_at).toLocaleDateString('es-MX')"></td>
         <td class="p-4">
             <x-appearance.badge status="active" />

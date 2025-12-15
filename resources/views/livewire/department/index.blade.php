@@ -14,7 +14,7 @@
                 <tr>
                     <td class="p-4">{{ $department['name'] }}</td>
                     <td class="p-4">
-                        <span class="{{ empty($department['manager']['name']) ? 'text-red-500' : '' }}">
+                        <span class="{{ empty($department['manager']['name']) ? 'text-primary' : '' }}">
                             {{ $department['manager']['name'] ?? 'Sin gerente' }}
                         </span>
                     </td>
@@ -46,6 +46,10 @@
 
     <flux:modal name="edit-department-modal" class="w-[90%] md:w-2xl!" @close="editModalClosed()">
         <form wire:submit.prevent="submit" class="space-y-6">
+             <div>
+                <flux:heading size="lg">{{ __('Actualizar departamento') }}</flux:heading>
+                <flux:text class="mt-3">{{ __('Modifique los detalles del departamento según sea necesario.') }}</flux:text>
+            </div>
             <flux:field>
                 <flux:label>{{ __('Nombre') }}</flux:label>
                 <flux:input name="name" wire:model="form.name" icon="users" placeholder="{{ __('Recursos Humanos') }}"/>
