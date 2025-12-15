@@ -1,3 +1,3 @@
-<div class="h-full">
+<div>
     hey there thanks page !
 </div>
