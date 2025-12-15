@@ -36,38 +36,38 @@
         </div>
     </section>
     <section class="mt-20">
-        <div>
-            <div class="p-5 rounded-2xl border border-light-variant dark:border-dark-variant bg-light-variant dark:bg-dark-variant">
-                <flux:heading size="lg" class="text-primary">{{ __('Escaneo general') }}</flux:heading>
-                <flux:text class="mt-2">{{ __('Evaluación del estado emocional general y factores básicos de bienestar laboral') }}</flux:text>
+        @if ($current_theme)
+            <div class="p-5 my-7 rounded-2xl border border-light-variant dark:border-dark-variant bg-light-variant dark:bg-dark-variant">
+                <flux:heading size="lg" class="text-primary">{{ __($current_theme['name']) }}</flux:heading>
+                @if (!empty($current_theme['description']))
+                    <flux:text class="mt-2">{{ __($current_theme['description']) }}</flux:text>
+                @endif
             </div>
-            <div class="mt-7 flex flex-col gap-10">
-                <flux:field class="w-full max-w-xl">
-                    <flux:label>{{ __('¿Cómo te sentiste en general este mes?') }}</flux:label>
-                    <flux:radio.group name="" class="mt-2 ml-1">
-                        <flux:radio value="1" label="Muy mal" />
-                        <flux:radio value="2" label="Mal" />
-                        <flux:radio value="3" label="Neutral" />
-                        <flux:radio value="4" label="Bien" />
-                        <flux:radio value="5" label="Muy bien" />
-                    </flux:radio.group>
-                    <flux:error name="" class="!mt-0"/>
-                </flux:field>
-                <flux:field class="w-full max-w-xl">
-                    <flux:label>{{ __('¿Te has sentido estresado/a en el trabajo este mes?') }}</flux:label>
-                    <flux:radio.group name="" class="mt-2 ml-1">
-                        <flux:radio value="1" label="Sí, constantemente" />
-                        <flux:radio value="2" label="Sí, a veces " />
-                        <flux:radio value="3" label="No" />
-                    </flux:radio.group>
-                    <flux:error name="" class="!mt-0"/>
-                </flux:field>
-                <flux:field class="w-full max-w-xl">
-                    <flux:label>{{ __('Describe tu estado emocional este mes') }}</flux:label>
-                    <flux:textarea name="" resize="none" class="mt-2 ml-1"/>
-                    <flux:error name=""/>
-                </flux:field>
+            <div class="flex flex-col gap-10">
+                @foreach ($current_theme['questions'] as $question)
+                    <flux:field class="w-full max-w-xl">
+                        <flux:label>{{ __($question['text']) }}</flux:label>
+                        @if (in_array($question['type'], ['select', 'radio_button']) && !empty($question['options']))
+                            <flux:radio.group name="answers.{{ $question['id'] }}" class="mt-2 ml-1">
+                                @foreach ($question['options'] as $option)
+                                    <flux:radio value="{{ $option['value'] }}" label="{{ $option['label'] }}" />
+                                @endforeach
+                            </flux:radio.group>
+                        @elseif ($question['type'] === 'text')
+                            <flux:textarea name="answers.{{ $question['id'] }}" resize="none" class="mt-2 ml-1"/>
+                        @endif
+                        <flux:error name="answers.{{ $question['id'] }}" class="!mt-0"/>
+                    </flux:field>
+                @endforeach
             </div>
-        </div>
+            <div class="mt-10 flex items-center gap-3">
+                <flux:button variant="primary" wire:click="prevTheme" :disabled="$theme_index === 0">
+                    {{ __('Anterior') }}
+                </flux:button>
+                <flux:button variant="primary" wire:click="nextTheme" :disabled="$theme_index === $theme_count-1">
+                    {{ __('Siguiente') }}
+                </flux:button>
+            </div>
+        @endif
     </section>
 </div>
