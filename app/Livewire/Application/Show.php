@@ -89,6 +89,7 @@ class Show extends Component
 
     public function prevTheme()
     {
+        $this->error_message = null;
         if ($this->current_theme_step > 0) {
             $this->current_theme_step--;
             $this->setThemesAndCurrentTheme();
