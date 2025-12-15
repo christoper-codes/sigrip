@@ -48,13 +48,22 @@
                     <flux:field class="w-full max-w-xl">
                         <flux:label>{{ __($question['text']) }}</flux:label>
                         @if (in_array($question['type'], ['select', 'radio_button']) && !empty($question['options']))
-                            <flux:radio.group name="answers.{{ $question['id'] }}" class="mt-2 ml-1">
+                            <flux:radio.group
+                                name="answers.{{ $question['id'] }}"
+                                wire:model="answers.{{ $question['id'] }}"
+                                class="mt-2 ml-1"
+                            >
                                 @foreach ($question['options'] as $option)
                                     <flux:radio value="{{ $option['value'] }}" label="{{ $option['label'] }}" />
                                 @endforeach
                             </flux:radio.group>
                         @elseif ($question['type'] === 'text')
-                            <flux:textarea name="answers.{{ $question['id'] }}" resize="none" class="mt-2 ml-1"/>
+                            <flux:textarea
+                                name="answers.{{ $question['id'] }}"
+                                wire:model="answers.{{ $question['id'] }}"
+                                resize="none"
+                                class="mt-2 ml-1"
+                            />
                         @endif
                         <flux:error name="answers.{{ $question['id'] }}" class="!mt-0"/>
                     </flux:field>
@@ -77,6 +86,12 @@
                     {{ __('Siguiente') }}
                 </flux:button>
             </div>
+             @if($error_message)
+                <div class="flex items-start gap-2 mt-5">
+                    <flux:icon.exclamation-triangle class="text-red-500 size-5" />
+                    <flux:text class="!text-red-500">{{ $error_message }}</flux:text>
+                </div>
+            @endif
         @endif
     </section>
 </div>

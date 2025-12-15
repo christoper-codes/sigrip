@@ -16,12 +16,15 @@ class Show extends Component
     public ?array $current_theme = null;
     public int $theme_count = 0;
     public int $theme_index = 0;
+    public array $answers = [];
+    public ?string $error_message = null;
 
     public function mount(): void
     {
         $this->questionnaire = $this->application->questionnaire->toArray();
         $this->company_name = $this->application->issuingDepartment->company->name;
         $this->current_theme_step = 0;
+        $this->answers = session(('answers-' . $this->application->slug), []);
         $this->setThemesAndCurrentTheme();
     }
 
@@ -59,10 +62,29 @@ class Show extends Component
 
     public function nextTheme()
     {
+        $this->error_message = null;
+        $this->saveProgress();
+        if ($this->error_message) {
+            return;
+        }
+
         if ($this->current_theme_step < $this->theme_count - 1) {
             $this->current_theme_step++;
             $this->setThemesAndCurrentTheme();
         }
+    }
+
+    public function saveProgress(): void
+    {
+        $theme = $this->current_theme;
+        foreach ($theme['questions'] as $question) {
+            $qid = $question['id'];
+            if (!array_key_exists($qid, $this->answers) || $this->answers[$qid] === null || $this->answers[$qid] === '') {
+                $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+            }
+        }
+
+        session([('answers-' . $this->application->slug) => $this->answers]);
     }
 
     public function prevTheme()
