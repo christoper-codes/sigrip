@@ -8,10 +8,9 @@
                     <a href="{{ route('home') }}" wire:navigate>
                         <x-app-logo-icon class="w-24"/>
                     </a>
-                    <div x-data class="size-7 border border-neutral-300 dark:border-neutral-600 rounded-full flex items-center justify-center">
-                        <flux:icon.sun x-show="$flux.appearance === 'light'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
-                        <flux:icon.sun x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
-                    </div>
+                    <flux:link x-data x-on:click="$flux.dark = ! $flux.dark" variants="outline" class="!cursor-pointer size-7! border! border-neutral-300! dark:border-neutral-600! rounded-full! flex! items-center! justify-center!">
+                        <x-icon.sun variant="mini" class="size-4! text-dark! dark:text-light!"/>
+                    </flux:link>
                 </div>
                 <livewire:application.show :application="$application" />
             </div>
