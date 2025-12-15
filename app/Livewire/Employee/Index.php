@@ -41,7 +41,7 @@ class Index extends Component
             ['label' => __('Email'), 'field' => 'email', 'sortable' => true],
             ['label' => __('Roles')],
             ['label' => __('Fecha de Creación'), 'field' => 'created_at', 'sortable' => true],
-            ['label' => __('Aplicaciones')],
+            ['label' => __('Ver aplicaciones')],
             ['label' => __('Actualizar roles')],
             ['label' => __('Eliminar')],
         ];

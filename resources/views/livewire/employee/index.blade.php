@@ -49,17 +49,19 @@
                             <td class="p-4">{{ implode(', ', array_map(fn($role) => $role['name'], $employee['user_roles'] ?? [])) ?: 'Sin roles' }}</td>
                             <td class="p-4">{{ $employee['created_at'] }}</td>
                             <td class="p-4">
-                                <flux:link href="{{ route('dashboard') }}">{{ __('Ver aplicaciones') }}</flux:link>
+                                <flux:button icon="clipboard-document-list" href="#" class="border! border-primary! bg-primary/10!">{{ __('Aplicaciones') }}</flux:button>
                             </td>
                             <td class="p-4">
                                 <flux:button
+                                    icon="key"
+                                    variant="filled"
                                     class="!w-full"
                                     wire:click="openRoleModal({{ $employee['id'] }})"
                                     :loading="false"
                                     x-data="{ loading: false }"
                                     x-on:click="loading = true; $wire.openRoleModal({{ $employee['id'] }}).then(() => loading = false)"
                                 >
-                                    <span x-show="!loading">{{ __('Actualizar') }}</span>
+                                    <span x-show="!loading">{{ __('Roles') }}</span>
                                     <span x-show="loading"><flux:icon.loading class="!size-4"/></span>
                                 </flux:button>
                                 <td class="p-4">
