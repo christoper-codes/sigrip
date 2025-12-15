@@ -32,22 +32,28 @@
                 {{ __('Solo tomara unos minutos. Tu opinión impulsa nuestra mejora continua.') }}
             </flux:text>
         </div>
-        <div class="space-y-4 mt-16">
+        <div class="space-y-4 mt-14">
             <div class="flex items-center gap-1">
                 <flux:icon.clock variant="mini"/>
                 <flux:text>
                     {{ __('Expiración: ') . ($application['expiration_date'] ??  __('Sin limite.')) }}
                 </flux:text>
             </div>
-            <div class="flex flex-col lg:flex-row lg:flex-wrap lg:items-center justify-start gap-3 max-w-4xl">
-                @foreach ($questionnaire['metadata']['instructions'] as $instruction)
-                    <div class="py-2 px-4 rounded-full text-center text-sm border bg-light-variant dark:bg-dark-variant border-neutral-300 dark:border-neutral-700 w-max">
-                        <span class="inline">
-                            {{ __($instruction) }}
-                        </span>
-                    </div>
-                @endforeach
+            <div class="flex items-center gap-1">
+                <flux:icon.briefcase variant="mini"/>
+                <flux:text>
+                    {{ __('Departamento: ') . $department_name }}
+                </flux:text>
             </div>
+        </div>
+        <div class="mt-14 flex flex-col lg:flex-row lg:flex-wrap lg:items-center justify-start gap-3 max-w-4xl">
+            @foreach ($questionnaire['metadata']['instructions'] as $instruction)
+                <div class="py-2 px-4 rounded-full text-center text-sm border bg-light-variant dark:bg-dark-variant border-neutral-300 dark:border-neutral-700 w-max">
+                    <span class="inline">
+                        {{ __($instruction) }}
+                    </span>
+                </div>
+            @endforeach
         </div>
     </section>
     <section id="questionnaire-themes" class="mt-20" style="scroll-margin-top: 70px;">

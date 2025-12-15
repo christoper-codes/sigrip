@@ -10,6 +10,7 @@ class Show extends Component
 {
     public Application $application;
     public ?string $company_name = null;
+    public ?string $department_name = null;
     public ?array $questionnaire = null;
     public int $current_theme_step = 0;
     public array $themes = [];
@@ -25,6 +26,7 @@ class Show extends Component
     {
         $this->questionnaire = $this->application->questionnaire->toArray();
         $this->company_name = $this->application->issuingDepartment->company->name;
+        $this->department_name = $this->application->executingDepartment->name;
         $this->current_theme_step = 0;
         $this->answers = session(('answers-' . $this->application->slug), []);
         $this->setThemesAndCurrentTheme();
