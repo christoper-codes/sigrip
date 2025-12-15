@@ -42,7 +42,7 @@
                             <flux:icon.sun x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
                         </div>
                         <button @click="mobileMenuOpen = true">
-                            <flux:icon.bars-2 class="size-8"/>
+                            <flux:icon.bars-2 class="size-7"/>
                         </button>
                     </div>
                     <div class="transition-all duration-500 hidden lg:block">
