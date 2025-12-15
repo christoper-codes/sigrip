@@ -64,8 +64,20 @@
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Instrucciones') }}</flux:label>
-            <flux:textarea name="instructions" resize="none" wire:model="form.instructions" placeholder="{{ __('Responde con sinceridad. No hay respuestas correctas o incorrectas.') }}"/>
-            <flux:error name="form.instructions"/>
+            <div class="lg:col-span-2" x-data="{ instructions: @entangle('form.instructions') }">
+                <div class="flex flex-col gap-2">
+                    <template x-for="(instruction, index) in instructions" :key="index">
+                        <div class="flex items-center gap-2 !max-w-2xl">
+                            <flux:input x-model="instructions[index]" placeholder="{{ __('Contesta con sinceridad') }}" icon="cog-8-tooth"/>
+                            <flux:button icon="x-mark" icon:variant="outline" class="py-6! px-6!" x-on:click="instructions.splice(index, 1)" x-bind:disabled="instructions.length == 1" />
+                        </div>
+                    </template>
+                </div>
+                <flux:button icon="plus" variant="filled" x-on:click="instructions.push('')" class="px-4 py-4 mt-3">
+                    <span>{{ __('Agregar instrucción') }}</span>
+                </flux:button>
+                <flux:error name="form.instructions" />
+            </div>
         </flux:field>
         <flux:field>
             <flux:label>{{ __('Categoría') }}</flux:label>
@@ -83,7 +95,7 @@
                 <div class="flex flex-col gap-2">
                     <template x-for="(objetive, index) in objectives" :key="index">
                         <div class="flex items-center gap-2 !max-w-2xl">
-                            <flux:input x-model="objectives[index]" placeholder="Activar alertas automáticas si aplica" icon="light-bulb"/>
+                            <flux:input x-model="objectives[index]" placeholder="{{ __('Activar alertas automáticas si aplica') }}" icon="light-bulb"/>
                             <flux:button icon="x-mark" icon:variant="outline" class="py-6! px-6!" x-on:click="objectives.splice(index, 1)" x-bind:disabled="objectives.length == 1" />
                         </div>
                     </template>
@@ -106,8 +118,8 @@
                         <template x-for="(risk, index) in yellowRiskEvaluation" :key="index">
                             <div class="flex items-start gap-2 !max-w-2xl w-full">
                                 <div class="flex flex-col gap-2 w-full">
-                                    <flux:input x-model="yellowRiskEvaluation[index].label" placeholder="Riesgo moderado" icon="light-bulb" />
-                                    <flux:input x-model="yellowRiskEvaluation[index].criteria" placeholder="Promedio entre 3.0 y 3.9 o 1 respuesta crítica" icon="exclamation-triangle" />
+                                    <flux:input x-model="yellowRiskEvaluation[index].label" placeholder="{{ __('Riesgo moderado') }}" icon="light-bulb" />
+                                    <flux:input x-model="yellowRiskEvaluation[index].criteria" placeholder="{{ __('Promedio entre 3.0 y 3.9 o 1 respuesta crítica') }}" icon="exclamation-triangle" />
                                 </div>
                                 <flux:button icon="x-mark" icon:variant="outline" class="py-6! px-6!" x-on:click="yellowRiskEvaluation.splice(index, 1)" x-bind:disabled="yellowRiskEvaluation.length == 1"/>
                             </div>
@@ -132,8 +144,8 @@
                         <template x-for="(risk, index) in redRiskEvaluation" :key="index">
                             <div class="flex items-start gap-2 !max-w-2xl w-full">
                                 <div class="flex flex-col gap-2 w-full">
-                                    <flux:input x-model="redRiskEvaluation[index].label" placeholder="Riesgo alto" icon="light-bulb" />
-                                    <flux:input x-model="redRiskEvaluation[index].criteria" placeholder="Promedio entre 1.0 y 2.9 o 1 respuesta crítica" icon="exclamation-triangle" />
+                                    <flux:input x-model="redRiskEvaluation[index].label" placeholder="{{ __('Riesgo alto') }}" icon="light-bulb" />
+                                    <flux:input x-model="redRiskEvaluation[index].criteria" placeholder="{{ __('Promedio entre 1.0 y 2.9 o 1 respuesta crítica') }}" icon="exclamation-triangle" />
                                 </div>
                                 <flux:button icon="x-mark" icon:variant="outline" class="py-6! px-6!" x-on:click="redRiskEvaluation.splice(index, 1)" x-bind:disabled="redRiskEvaluation.length == 1"/>
                             </div>

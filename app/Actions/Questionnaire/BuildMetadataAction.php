@@ -11,7 +11,7 @@ final class BuildMetadataAction
         array $red_risk_evaluation,
         string $title,
         string $subtitle,
-        string $instructions,
+        array $instructions,
         array $objectives
     ): array
     {
