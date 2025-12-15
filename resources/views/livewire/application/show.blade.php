@@ -1,11 +1,26 @@
 <div class="relative">
     <section class="mt-10">
-         <flux:text>
-            <span class="text-primary">{{ __('¡Buena tarde!') }} </span>
-            @auth
-                <span> {{ auth()->user()->name }} </span>
-            @endauth
-        </flux:text>
+        <div
+            x-data="{
+                greeting: '',
+                init() {
+                    const hour = new Date().getHours();
+                    if (hour >= 5 && hour < 12) {
+                        this.greeting = '{{ __('Buenos días') }}';
+                    } else if (hour >= 12 && hour < 18) {
+                        this.greeting = '{{ __('Buena tarde') }}';
+                    } else {
+                        this.greeting = '{{ __('Buena noche') }}';
+                    }
+                }
+            }">
+            <flux:text>
+                <span class="text-primary" x-text="greeting"></span>
+                @auth
+                    <span> {{ auth()->user()->name }} </span>
+                @endauth
+            </flux:text>
+        </div>
         <div class="space-y-4">
             <div class="py-2 px-4 mt-16 rounded-full text-center text-sm border bg-light-variant dark:bg-dark-variant border-neutral-300 dark:border-neutral-700 inline-block mx-auto">
                 {{ $company_name }}
@@ -21,7 +36,7 @@
             <div class="flex items-center gap-1">
                 <flux:icon.clock variant="mini"/>
                 <flux:text>
-                    {{ __('Expiración: ') . $application['expiration_date'] }}
+                    {{ __('Expiración: ') . ($application['expiration_date'] ??  __('Sin limite.')) }}
                 </flux:text>
             </div>
             <div class="flex flex-col lg:flex-row lg:flex-wrap lg:items-center justify-start gap-3 max-w-4xl">
