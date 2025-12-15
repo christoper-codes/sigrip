@@ -7,6 +7,7 @@ use App\Models\QuestionnaireResponse;
 use Livewire\Component;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Show extends Component
 {
@@ -42,31 +43,42 @@ class Show extends Component
             return;
         }
 
-        $responses = [];
-        foreach ($this->themes as $theme) {
-            foreach ($theme['questions'] as $question) {
-                $qid = $question['id'];
-                if (isset($this->answers[$qid])) {
-                    $responses[] = [
-                        'question_id' => $qid,
-                        'value' => $this->answers[$qid],
-                        'critical_values' => $question['critical_values'] ?? null,
-                        'weight' => $question['weight'] ?? null,
-                    ];
+        DB::beginTransaction();
+        try{
+            $responses = [];
+            foreach ($this->themes as $theme) {
+                foreach ($theme['questions'] as $question) {
+                    $qid = $question['id'];
+                    if (isset($this->answers[$qid])) {
+                        $responses[] = [
+                            'question_id' => $qid,
+                            'value' => $this->answers[$qid],
+                            'critical_values' => $question['critical_values'] ?? null,
+                            'weight' => $question['weight'] ?? null,
+                        ];
+                    }
                 }
             }
-        }
 
-        $questionnaire_response = QuestionnaireResponse::create([
-            'application_id' => $this->application->id,
-            'questionnaire_id' => $this->questionnaire['id'],
-            'user_id' => Auth::check() ? Auth::id() : null,
-            'department_id' => $this->application->executing_department_id,
-            'response_data' => $responses,
-            'ai_response' => null,
-            'average_score' => null,
-            'risk_level' => null,
-        ]);
+            $questionnaire_response = QuestionnaireResponse::create([
+                'application_id' => $this->application->id,
+                'questionnaire_id' => $this->questionnaire['id'],
+                'user_id' => Auth::check() ? Auth::id() : null,
+                'department_id' => $this->application->executing_department_id,
+                'response_data' => $responses,
+                'ai_response' => null,
+                'average_score' => null,
+                'risk_level' => null,
+            ]);
+
+            DB::commit();
+            session()->forget('answers-' . $this->application->slug);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->dispatch('toast', message: __('Ocurrió un error al enviar la aplicación. Por favor, intenta nuevamente.'), type: 'error');
+            return;
+        }
     }
 
     public function getAvailableThemes(): array
