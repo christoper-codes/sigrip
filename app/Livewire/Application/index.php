@@ -245,6 +245,15 @@ class Index extends Component
         $this->resetValidation();
     }
 
+    public function shareApplication(int $id): void
+    {
+        $application = Application::find($id);
+        $this->form->slug = $application->slug;
+        $this->form->url_qr = route('application.show', ['slug' => $this->form->slug]);
+
+        Flux::modal('index-qr-application-modal')->show();
+    }
+
     public function render()
     {
         return view('livewire.application.index');

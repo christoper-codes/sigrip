@@ -48,27 +48,13 @@
                             <td class="p-4">{{ $application['questionnaire']['name'] }}</td>
                             <td class="p-4">{{ $application['created_at'] }}</td>
                             <td class="p-4">
-                                <div class="flex items-center gap-2">
-                                    <a href="{{ Storage::url('qrs/' . $application['slug'] . '.svg') }}" download>
-                                        <flux:button variant="filled">{{ __('Descargar QR') }}</flux:button>
-                                    </a>
-                                    <div x-data="{ copied: false }" class="flex items-center gap-2">
-                                        <flux:button variant="filled" @click="navigator.clipboard.writeText('{{ route('application.show', ['slug' => $application['slug']]) }}'); copied = true; setTimeout(() => copied = false, 1500)">
-                                            <template x-if="!copied">
-                                                <span>{{ __('Copiar URL') }}</span>
-                                            </template>
-                                            <template x-if="copied">
-                                                <span>{{ __('Copiado!') }}</span>
-                                            </template>
-                                        </flux:button>
-                                    </div>
-                                </div>
+                                <flux:button icon="share" wire:click="shareApplication({{ $application['id'] }})" variant="filled">{{ __('Compartir') }}</flux:button>
                             </td>
                             <td class="p-4">
-                                <flux:button href="{{ route('dashboard') }}">{{ __('Ver resultados') }}</flux:button>
+                                <flux:button icon="document-chart-bar" href="{{ route('dashboard') }}" variant="filled">{{ __('Ver resultados') }}</flux:button>
                             </td>
                             <td class="p-4">
-                                <flux:button href="{{ route('dashboard') }}" class="border! border-primary! bg-primary/10!">{{ __('Ver análisis') }}</flux:button>
+                                <flux:button icon="bell-alert" href="{{ route('dashboard') }}" class="border! border-primary! bg-primary/10!">{{ __('Ver análisis') }}</flux:button>
                             </td>
                             <td class="p-4">{{ $application['issuing_department']['name'] }}</td>
                             <td class="p-4">{{ $application['start_date'] ?? 'Sin fecha de inicio' }}</td>
@@ -182,6 +168,36 @@
                 <flux:button variant="danger" wire:click="destroy">
                     {{ __('Eliminar') }}
                 </flux:button>
+            </div>
+        </div>
+    </flux:modal>
+
+    <flux:modal name="index-qr-application-modal" class="w-[90%] md:w-full!">
+        <div class="space-y-6">
+            <div>
+                <flux:heading size="lg">{{ __('Compartir aplicación') }}</flux:heading>
+                <flux:text class="mt-3">{{ __('Puedes descargar el código QR de la aplicación o copiar el link y compartirlo con los empleados.') }}</flux:text>
+            </div>
+            <div class="flex flex-col items-center gap-4">
+                @if($form->url_qr && $form->slug)
+                    <img src="{{ Storage::url('qrs/' . $form->slug . '.svg') }}" alt="QR" class="border w-48 h-48 mx-auto" />
+                    <a href="{{ Storage::url('qrs/' . $form->slug . '.svg') }}" download class="mt-2">
+                        <flux:button icon="arrow-down-on-square" variant="outline">{{ __('Descargar') }}</flux:button>
+                    </a>
+                    <div class="mt-2 break-all text-center">
+                        <div x-data="{ copied: false }" class="flex items-center gap-2">
+                            <flux:heading size="lg" class="truncate! w-52! md:w-80! block">{{ $form->url_qr }}</flux:heading>
+                            <flux:icon.clipboard-document variant="solid" x-show="!copied" @click="navigator.clipboard.writeText('{{ $form->url_qr }}'); copied = true; setTimeout(() => copied = false, 1500)" />
+                            <flux:icon.check variant="solid" x-show="copied" disabled />
+                        </div>
+                    </div>
+                @endif
+            </div>
+            <div class="flex gap-2">
+                <flux:spacer />
+                <flux:modal.close>
+                    <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
+                </flux:modal.close>
             </div>
         </div>
     </flux:modal>
