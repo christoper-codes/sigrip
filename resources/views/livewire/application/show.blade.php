@@ -102,11 +102,15 @@
                 </flux:button>
                 @if ($theme_index === $theme_count - 1)
                     <flux:button
-                        icon:trailing="arrow-right"
                         class="border! border-primary! bg-primary/10!"
                         wire:click="submit"
                     >
-                        {{ __('Completar') }}
+                        <span wire:loading.remove wire:target="submit" class="flex items-center gap-1.5">
+                            {{ __('Finalizar aplicación') }}
+                        </span>
+                        <span wire:loading wire:target="submit">
+                            <x-flux::icon.loading class="size-4! mx-[53.8px]!" />
+                        </span>
                     </flux:button>
                 @else
                     <flux:button

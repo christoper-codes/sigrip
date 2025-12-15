@@ -35,7 +35,7 @@ class Show extends Component
         $this->setThemesAndCurrentTheme();
     }
 
-    public function submit(): void
+    public function submit()
     {
         $this->error_message = null;
         $this->saveProgress();
@@ -73,11 +73,10 @@ class Show extends Component
 
             DB::commit();
             session()->forget('answers-' . $this->application->slug);
-
+            return redirect(route('application.thanks'));
         } catch (\Exception $e) {
             DB::rollBack();
             $this->dispatch('toast', message: __('Ocurrió un error al enviar la aplicación. Por favor, intenta nuevamente.'), type: 'error');
-            return;
         }
     }
 
