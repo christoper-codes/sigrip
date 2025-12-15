@@ -32,6 +32,15 @@ class Show extends Component
         $this->setThemesAndCurrentTheme();
     }
 
+    public function submit(): void
+    {
+        $this->error_message = null;
+        $this->saveProgress();
+        if ($this->error_message) {
+            return;
+        }
+    }
+
     public function getAvailableThemes(): array
     {
         $themes = $this->questionnaire['metadata']['themes'] ?? [];

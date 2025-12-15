@@ -34,15 +34,15 @@
         </div>
         <div class="space-y-4 mt-14">
             <div class="flex items-center gap-1">
-                <flux:icon.clock variant="mini"/>
-                <flux:text>
-                    {{ __('Expiración: ') . ($application['expiration_date'] ??  __('Sin limite.')) }}
-                </flux:text>
-            </div>
-            <div class="flex items-center gap-1">
                 <flux:icon.briefcase variant="mini"/>
                 <flux:text>
                     {{ __('Departamento: ') . $department_name }}
+                </flux:text>
+            </div>
+            <div class="flex items-center gap-1">
+                <flux:icon.clock variant="mini"/>
+                <flux:text>
+                    {{ __('Expiración: ') . ($application['expiration_date'] ??  __('Sin limite.')) }}
                 </flux:text>
             </div>
         </div>
@@ -100,14 +100,24 @@
                     >
                     {{ __('Anterior') }}
                 </flux:button>
-                <flux:button
-                    icon:trailing="arrow-right"
-                    variant="primary"
-                    wire:click="nextTheme"
-                    :disabled="$theme_index === $theme_count-1"
+                @if ($theme_index === $theme_count - 1)
+                    <flux:button
+                        icon:trailing="arrow-right"
+                        class="border! border-primary! bg-primary/10!"
+                        wire:click="submit"
                     >
-                    {{ __('Siguiente') }}
-                </flux:button>
+                        {{ __('Completar') }}
+                    </flux:button>
+                @else
+                    <flux:button
+                        icon:trailing="arrow-right"
+                        variant="primary"
+                        wire:click="nextTheme"
+                        :disabled="$theme_index === $theme_count-1"
+                    >
+                        {{ __('Siguiente') }}
+                    </flux:button>
+                @endif
             </div>
              @if($error_message)
                 <div class="flex items-start gap-2 mt-5">
