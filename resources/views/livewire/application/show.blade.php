@@ -10,11 +10,11 @@
             <div class="py-2 px-4 mt-16 rounded-full text-center text-sm border bg-light-variant dark:bg-dark-variant border-neutral-300 dark:border-neutral-700 inline-block mx-auto">
                 {{ $company_name }}
             </div>
-           <h1 class="text-4xl max-w-4xl uppercase">
+            <h1 class="text-4xl max-w-4xl uppercase">
                 {{ $questionnaire['name'] }}</span>
             </h1>
             <flux:text class="mt-2">
-                {{ __('Tu opinión impulsa nuestra mejora continua.') }}
+                {{ __('Solo tomara unos minutos. Tu opinión impulsa nuestra mejora continua.') }}
             </flux:text>
         </div>
         <div class="space-y-4 mt-16">
@@ -35,7 +35,7 @@
             </div>
         </div>
     </section>
-    <section class="mt-20">
+    <section id="questionnaire-themes" class="mt-20" style="scroll-margin-top: 70px;">
         @if ($current_theme)
             <div class="p-5 my-7 rounded-2xl border border-light-variant dark:border-dark-variant bg-light-variant dark:bg-dark-variant">
                 <flux:heading size="lg" class="text-primary">{{ __($current_theme['name']) }}</flux:heading>
@@ -61,10 +61,19 @@
                 @endforeach
             </div>
             <div class="mt-10 flex items-center gap-3">
-                <flux:button variant="primary" wire:click="prevTheme" :disabled="$theme_index === 0">
+                <flux:button
+                    variant="primary"
+                    wire:click="prevTheme"
+                    :disabled="$theme_index === 0"
+                    x-on:click="$nextTick(() => { setTimeout(() => { document.getElementById('questionnaire-themes').scrollIntoView({ behavior: 'auto', block: 'start' }); }, 300); })"
+                    >
                     {{ __('Anterior') }}
                 </flux:button>
-                <flux:button variant="primary" wire:click="nextTheme" :disabled="$theme_index === $theme_count-1">
+                <flux:button
+                    variant="primary"
+                    wire:click="nextTheme"
+                    :disabled="$theme_index === $theme_count-1"
+                    >
                     {{ __('Siguiente') }}
                 </flux:button>
             </div>
