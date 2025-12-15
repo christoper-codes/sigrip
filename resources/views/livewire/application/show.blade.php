@@ -86,6 +86,7 @@
             </div>
             <div class="mt-10 flex items-center gap-3">
                 <flux:button
+                    icon="arrow-left"
                     variant="primary"
                     wire:click="prevTheme"
                     :disabled="$theme_index === 0"
@@ -94,6 +95,7 @@
                     {{ __('Anterior') }}
                 </flux:button>
                 <flux:button
+                    icon:trailing="arrow-right"
                     variant="primary"
                     wire:click="nextTheme"
                     :disabled="$theme_index === $theme_count-1"
