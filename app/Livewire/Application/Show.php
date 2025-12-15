@@ -18,6 +18,8 @@ class Show extends Component
     public int $theme_index = 0;
     public array $answers = [];
     public ?string $error_message = null;
+    public ?int $total_questions = null;
+    public ?int $current_questions = null;
 
     public function mount(): void
     {
@@ -58,6 +60,18 @@ class Show extends Component
         $this->theme_count = count($this->themes);
         $this->theme_index = $this->current_theme_step;
         $this->current_theme = $this->themes[$this->current_theme_step] ?? null;
+
+        $total = 0;
+        foreach ($this->themes as $theme) {
+            $total += isset($theme['questions']) ? count($theme['questions']) : 0;
+        }
+        $this->total_questions = $total;
+
+        $current = 0;
+        for ($i = 0; $i <= $this->current_theme_step; $i++) {
+            $current += isset($this->themes[$i]['questions']) ? count($this->themes[$i]['questions']) : 0;
+        }
+        $this->current_questions = $current;
     }
 
     public function nextTheme()

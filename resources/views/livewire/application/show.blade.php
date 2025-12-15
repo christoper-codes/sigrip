@@ -84,7 +84,7 @@
                     </flux:field>
                 @endforeach
             </div>
-            <div class="mt-10 flex items-center gap-3">
+            <div class="mt-16 flex items-center gap-3">
                 <flux:button
                     icon="arrow-left"
                     variant="primary"
@@ -109,6 +109,9 @@
                     <flux:text class="!text-red-500">{{ $error_message }}</flux:text>
                 </div>
             @endif
+            <div class="flex mt-5">
+                <flux:text>{{ __('Preguntas ') }} {{ $current_questions }} {{ __(' de ') }} {{ $total_questions }}</flux:text>
+            </div>
         @endif
     </section>
 </div>
