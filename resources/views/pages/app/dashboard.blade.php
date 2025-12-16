@@ -55,7 +55,7 @@
                 <div class="px-2 mt-10">
                     <div x-cloak x-show="selectedTab === 'performance'" id="tabpanelPerformance" role="tabpanel" aria-label="performance">
                         <div class="w-full">
-                            <div class="grid 2xl:min-h-[700px] gap-4 lg:grid-cols-3 lg:grid-rows-2">
+                            <div class="grid xl:max-h-[600px] 2xl:max-h-full 2xl:min-h-[700px] gap-4 lg:grid-cols-3 lg:grid-rows-2">
                                 <div class="relative lg:row-span-2">
                                     <div class="absolute inset-px rounded-lg bg-light-variant dark:bg-dark-variant border border-neutral-200 dark:border-neutral-800 lg:rounded-l-4xl"></div>
                                     <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
