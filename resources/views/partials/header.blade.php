@@ -74,7 +74,7 @@
         x-show="mobileMenuOpen"
         x-transition.opacity.duration.300ms
         class="fixed inset-0 bg-black/50 backdrop-blur-lg z-[60] lg:hidden"
-        :class="mobileMenuOpen ? '' : ''"
+        :class="mobileMenuOpen ? 'min-h-screen' : ''"
         @click="mobileMenuOpen = false"
     >
         <div
