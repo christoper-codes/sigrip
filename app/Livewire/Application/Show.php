@@ -63,7 +63,7 @@ class Show extends Component
             $questionnaire_response = QuestionnaireResponse::create([
                 'application_id' => $this->application->id,
                 'questionnaire_id' => $this->questionnaire['id'],
-                'user_id' => Auth::check() ? Auth::id() : null,
+                'user_id' => $this->application->auth_required ? Auth::id() : null,
                 'department_id' => $this->application->executing_department_id,
                 'response_data' => $responses,
                 'ai_response' => null,
