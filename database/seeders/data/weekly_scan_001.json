@@ -304,12 +304,6 @@
         "criteria": "Promedio general entre 4.0 y 5.0 sin respuestas críticas (1 o 2).",
         "min": 4.0,
         "max": 5.0
-      },
-      {
-        "label": "Sin señales de alerta",
-        "criteria": "No se detectan caídas significativas respecto a la semana anterior ni respuestas que indiquen estrés o aislamiento.",
-        "min": null,
-        "max": null
       }
     ],
     "yellow": [

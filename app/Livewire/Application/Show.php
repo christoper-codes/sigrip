@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Application;
 
+use App\Actions\Application\GeneratePromptAction;
 use App\Models\Application;
 use App\Models\QuestionnaireResponse;
 use Livewire\Component;
@@ -44,10 +45,10 @@ class Show extends Component
             return;
         }
 
-        if($this->is_visitor){
+        /* if($this->is_visitor){
             $this->dispatch('toast', message: __('Esta aplicación no puede ser enviada por un visitante.'), type: 'warning');
             return;
-        }
+        } */
 
         DB::beginTransaction();
         try{
@@ -66,6 +67,12 @@ class Show extends Component
                 }
             }
 
+            $promt = (new GeneratePromptAction)->execute(
+                responses: $responses,
+                questionnaire: $this->questionnaire['metadata'],
+                auth_required: $this->application->auth_required,
+            );
+            dd($promt);
             $questionnaire_response = QuestionnaireResponse::create([
                 'application_id' => $this->application->id,
                 'questionnaire_id' => $this->questionnaire['id'],
