@@ -56,6 +56,11 @@
             @endforeach
         </div>
     </section>
+    @if($is_visitor)
+        <section class="mt-14 max-w-lg">
+            <flux:callout color="yellow" icon="information-circle" heading="{{ __('Estás accediendo a esta aplicación como visitante') }}" />
+        </section>
+    @endif
     <section id="questionnaire-themes" class="mt-20" style="scroll-margin-top: 70px;">
         @if ($current_theme)
             <div class="p-5 my-7 rounded-2xl border border-light-variant dark:border-dark-variant bg-light-variant dark:bg-dark-variant">

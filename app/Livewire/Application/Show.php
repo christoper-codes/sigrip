@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 class Show extends Component
 {
     public Application $application;
+    public bool $is_visitor;
     public ?string $company_name = null;
     public ?string $department_name = null;
     public ?array $questionnaire = null;
@@ -40,6 +41,11 @@ class Show extends Component
         $this->error_message = null;
         $this->saveProgress();
         if ($this->error_message) {
+            return;
+        }
+
+        if($this->is_visitor){
+            $this->dispatch('toast', message: __('Esta aplicación no puede ser enviada por un visitante.'), type: 'warning');
             return;
         }
 

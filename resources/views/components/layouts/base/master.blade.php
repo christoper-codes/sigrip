@@ -4,6 +4,9 @@
         @include('partials.head')
     </head>
     <body class="bg-light text-dark dark:bg-dark dark:text-light text-base md:text-lg">
+        <x-alert />
+        <livewire:notifications.toast />
+
         {{ $slot }}
         @include('partials.foot')
     </body>

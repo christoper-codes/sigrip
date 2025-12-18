@@ -12,7 +12,7 @@
                         <x-icon.sun variant="mini" class="size-4! text-dark! dark:text-light!"/>
                     </flux:link>
                 </div>
-                <livewire:application.show :application="$application" />
+                <livewire:application.show :application="$application" :is_visitor="$is_visitor" />
             </div>
             <div class="mt-40">
                 <x-appearance.rightsreserved />
