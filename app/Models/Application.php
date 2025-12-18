@@ -59,4 +59,9 @@ class Application extends Model
     {
         return $this->hasMany(QuestionnaireResponse::class);
     }
+
+    public function alerts(): HasMany
+    {
+        return $this->hasMany(Alert::class);
+    }
 }

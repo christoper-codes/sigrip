@@ -119,4 +119,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(QuestionnaireResponse::class);
     }
+
+    public function alerts(): HasMany
+    {
+        return $this->hasMany(Alert::class);
+    }
 }

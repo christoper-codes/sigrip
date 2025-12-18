@@ -36,4 +36,29 @@ class Alert extends Model
     {
         return $this->belongsTo(AlertType::class);
     }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function application(): BelongsTo
+    {
+        return $this->belongsTo(Application::class);
+    }
+
+    public function questionnaireResponse(): BelongsTo
+    {
+        return $this->belongsTo(QuestionnaireResponse::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

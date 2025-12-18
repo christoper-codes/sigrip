@@ -37,4 +37,14 @@ class Company extends Model
     {
         return $this->hasMany(Department::class);
     }
+
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
+    }
+
+    public function alerts(): HasMany
+    {
+        return $this->hasMany(Alert::class);
+    }
 }
