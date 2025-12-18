@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Application;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Middleware\ApplicationMiddleware;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('pages.welcome');
@@ -25,14 +25,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('applications/thanks', 'pages.app.application.thanks')->name('application.thanks');
 });
 
-Route::get('/applications/{slug}', function ($slug) {
-    $application = Application::where('slug', $slug)->firstOrFail();
-    if($application->auth_required && ! Auth::check()){
-        return redirect()->route('login');
-    }
+Route::middleware(ApplicationMiddleware::class)->group(function () {
+    Route::get('applications/{slug}', function (Request $request) {
+        $application = $request->attributes->get('application');
 
-    return view('pages.app.application.show', compact('application'));
-})->name('application.show');
+        return view('pages.app.application.show', compact('application'));
+    })->name('application.show');
+});
 
 /*
 * User Settings Routes
