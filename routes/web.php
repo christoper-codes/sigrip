@@ -22,8 +22,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('questionnaires', 'pages.app.questionnaire.index')->name('questionnaire.index');
 
     Route::view('applications', 'pages.app.application.index')->name('application.index');
-    Route::view('applications/thanks', 'pages.app.application.thanks')->name('application.thanks');
 });
+
+Route::view('applications/inactive', 'pages.app.application.inactive')->name('application.inactive');
+Route::view('applications/thanks', 'pages.app.application.thanks')->name('application.thanks');
 
 Route::middleware(ApplicationMiddleware::class)->group(function () {
     Route::get('applications/{slug}', function (Request $request) {

@@ -21,7 +21,7 @@ class ApplicationMiddleware
         $application = Application::where('slug', $slug)->firstOrFail();
 
         if(! $application->is_active){
-            abort(403, __('Aplicación no activa.'));
+            return redirect()->route('application.inactive');
         }
 
         if($application->auth_required && ! Auth::check()){
