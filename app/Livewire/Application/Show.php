@@ -2,7 +2,10 @@
 
 namespace App\Livewire\Application;
 
+use App\Actions\Application\GenerateAiAlertAction;
 use App\Actions\Application\GeneratePromptAction;
+use App\Models\Alert;
+use App\Models\AlertType;
 use App\Models\Application;
 use App\Models\QuestionnaireResponse;
 use Livewire\Component;
@@ -67,12 +70,6 @@ class Show extends Component
                 }
             }
 
-            $promt = (new GeneratePromptAction)->execute(
-                responses: $responses,
-                questionnaire: $this->questionnaire['metadata'],
-                auth_required: $this->application->auth_required,
-            );
-
             $questionnaire_response = QuestionnaireResponse::create([
                 'application_id' => $this->application->id,
                 'questionnaire_id' => $this->questionnaire['id'],
@@ -83,6 +80,32 @@ class Show extends Component
                 'average_score' => null,
                 'risk_level' => null,
             ]);
+
+            $promt = (new GeneratePromptAction)->execute(
+                responses: $responses,
+                questionnaire: $this->questionnaire['metadata'],
+                auth_required: $this->application->auth_required,
+            );
+
+            $ai_response = (new GenerateAiAlertAction)->execute(prompt: $promt);
+            dd($ai_response);
+            /* Create alert if risk level is high */
+            if($ai_response['alert']){
+                $alert_type = AlertType::where('name', $ai_response['alert_type'])->first();
+                $Alert::create([
+                    'alert_type_id' => $alert_type->id,
+                    'company_id' => $this->application->issuingDepartment->company->id,
+                    'department_id' => $this->application->executing_department_id,
+                    'application_id' => $this->application->id,
+                    'user_id' => $this->application->auth_required ? Auth::id() : null,
+                    'name' => $ai_response['alert_name'],
+                    'subject' => $ai_response['subject_alert'],
+                    'ai_response' => $ai_response,
+                    'risk_level' => $ai_response['risk_level'],
+                    'risk_score' => $ai_response['risk_score'],
+                ]);
+            }
+
 
             DB::commit();
             session()->forget('answers-' . $this->application->slug);
