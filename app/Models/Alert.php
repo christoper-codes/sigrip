@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Alert extends Model
 {
@@ -11,6 +12,7 @@ class Alert extends Model
         'company_id',
         'department_id',
         'application_id',
+        'questionnaire_response_id',
         'user_id',
         'name',
         'subject',
@@ -21,4 +23,17 @@ class Alert extends Model
         'read_by_department',
         'is_active',
     ];
+
+    public function casts(): array
+    {
+        return [
+            'ai_response' => 'array',
+            'is_active' => 'boolean',
+        ];
+    }
+
+    public function alertType(): BelongsTo
+    {
+        return $this->belongsTo(AlertType::class);
+    }
 }

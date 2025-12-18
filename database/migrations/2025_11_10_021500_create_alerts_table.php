@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('company_id')->constrained('companies');
             $table->foreignId('department_id')->constrained('departments');
             $table->foreignId('application_id')->nullable()->constrained('applications');
+            $table->foreignId('questionnaire_response_id')->nullable()->constrained('questionnaire_responses');
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->string('name');
             $table->text('subject')->nullable();

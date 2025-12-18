@@ -91,7 +91,7 @@ class Show extends Component
             dd($ai_response);
             /* Create alert if risk level is high */
             if($ai_response['alert']){
-                $alert_type = AlertType::where('name', $ai_response['alert_type'])->first();
+                $alert_type = AlertType::where('color', $ai_response['alert_type'])->first();
                 $Alert::create([
                     'alert_type_id' => $alert_type->id,
                     'company_id' => $this->application->issuingDepartment->company->id,
@@ -105,7 +105,6 @@ class Show extends Component
                     'risk_score' => $ai_response['risk_score'],
                 ]);
             }
-
 
             DB::commit();
             session()->forget('answers-' . $this->application->slug);
