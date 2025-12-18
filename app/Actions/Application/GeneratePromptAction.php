@@ -4,7 +4,7 @@ namespace App\Actions\Application;
 
 final class GeneratePromptAction
 {
-    public function execute(array $responses, array $questionnaire, bool $auth_required = false)
+    public function execute(array $responses, array $questionnaire, bool $auth_required = false): string
     {
         $title = $questionnaire['title'] ?? 'Cuestionario';
         $risk_evaluation = $questionnaire['risk_evaluation'] ?? [];
@@ -98,7 +98,6 @@ final class GeneratePromptAction
             ? json_encode(array_column($critical_responses, 'question_id'))
             : '[]';
 
-    $questionnaire_id = $questionnaire['questionnaire_id'] ?? '';
     $reco_user_line = $auth_required
         ? '    "recommendation_for_user": "[recomendación específica y personalizada basada en las respuestas. Y apollo emocional (amplia la respuesta).]",\n'
         : '';
@@ -158,6 +157,6 @@ IMPORTANTE: Cada color contiene un ARRAY de condiciones. Evalúa TODAS las condi
 RESPONDE SOLO CON EL SIGUIENTE JSON (sin markdown, sin comentarios adicionales):
 " . $json_block;
 
-    return trim($prompt);
+        return trim($prompt);
     }
 }

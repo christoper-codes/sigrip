@@ -72,7 +72,7 @@ class Show extends Component
                 questionnaire: $this->questionnaire['metadata'],
                 auth_required: $this->application->auth_required,
             );
-            dd($promt);
+
             $questionnaire_response = QuestionnaireResponse::create([
                 'application_id' => $this->application->id,
                 'questionnaire_id' => $this->questionnaire['id'],
