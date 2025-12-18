@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             QuestionnaireCategorySeeder::class,
             QuestionnaireSeeder::class,
             UserSeeder::class,
+            AlertTypeSeeder::class,
         ]);
     }
 }

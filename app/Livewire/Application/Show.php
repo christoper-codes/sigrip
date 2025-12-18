@@ -89,10 +89,10 @@ class Show extends Component
 
             $ai_response = (new GenerateAiAlertAction)->execute(prompt: $promt);
             dd($ai_response);
-            /* Create alert if risk level is high */
+
             if($ai_response['alert']){
                 $alert_type = AlertType::where('color', $ai_response['alert_type'])->first();
-                $Alert::create([
+                Alert::create([
                     'alert_type_id' => $alert_type->id,
                     'company_id' => $this->application->issuingDepartment->company->id,
                     'department_id' => $this->application->executing_department_id,
