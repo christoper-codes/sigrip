@@ -25,7 +25,7 @@ class ApplicationMiddleware
         }
 
         if($application->auth_required && ! Auth::check()){
-            return redirect()->route('login');
+            return redirect()->guest(route('login'));
         }
 
         if($application->auth_required && Auth::check()){
