@@ -37,7 +37,7 @@ class ApplicationMiddleware
             }
 
             if(! $user_application->pivot->is_active){
-                abort(403, __('Applicación completada.'));
+                return redirect()->route('application.answered');
             }
         }
 

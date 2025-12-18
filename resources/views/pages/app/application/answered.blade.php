@@ -12,7 +12,7 @@
                     <flux:icon.sun x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
                 </div>
             </div>
-            <livewire:application.inactive />
+            <livewire:application.answered />
             <x-appearance.rightsreserved />
         </flux:main>
     </section>

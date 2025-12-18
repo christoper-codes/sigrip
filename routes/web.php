@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::view('applications/inactive', 'pages.app.application.inactive')->name('application.inactive');
+Route::view('applications/answered', 'pages.app.application.answered')->name('application.answered');
 Route::view('applications/thanks', 'pages.app.application.thanks')->name('application.thanks');
 
 Route::middleware(ApplicationMiddleware::class)->group(function () {
