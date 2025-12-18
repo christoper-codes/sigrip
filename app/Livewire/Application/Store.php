@@ -67,6 +67,7 @@ class Store extends Component
             $this->form->url_qr = route('application.show', ['slug' => $this->form->slug]);
 
             $application = Application::create([
+                'company_id' => Auth::user()->company?->id,
                 'issuing_department_id' => $this->form->issuing_department,
                 'executing_department_id' => $this->form->executing_department,
                 'questionnaire_id' => $this->form->questionnaire,

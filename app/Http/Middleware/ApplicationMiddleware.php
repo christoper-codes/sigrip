@@ -20,6 +20,7 @@ class ApplicationMiddleware
     {
         $slug = $request->route('slug');
         $application = Application::where('slug', $slug)->firstOrFail();
+        $is_visitor = false;
 
         if(! $application->is_active){
             return redirect()->route('application.inactive');
@@ -39,11 +40,13 @@ class ApplicationMiddleware
 
             if (! $user_application) {
                 if (
-                    ! Gate::check('viewSystemOwner', $user) &&
-                    ! Gate::check('viewCompanyAdmin', $user) &&
-                    ! Gate::check('viewDepartmentManager', $user)
+                    Gate::check('viewSystemOwner', $user) ||
+                    Gate::check('viewCompanyAdmin', $user) ||
+                    Gate::check('viewDepartmentManager', $user)
                 ) {
-                    abort(403, __('Aplicación no autorizada.'));
+                    $is_visitor = true;
+                } else {
+                     abort(403, __('Aplicación no autorizada.'));
                 }
             }
 
@@ -53,6 +56,7 @@ class ApplicationMiddleware
         }
 
         $request->attributes->set('application', $application);
+        $request->attributes->set('is_visitor', $is_visitor);
 
         return $next($request);
     }

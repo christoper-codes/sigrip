@@ -31,8 +31,9 @@ Route::view('applications/thanks', 'pages.app.application.thanks')->name('applic
 Route::middleware(ApplicationMiddleware::class)->group(function () {
     Route::get('applications/{slug}', function (Request $request) {
         $application = $request->attributes->get('application');
+        $is_visitor = $request->attributes->get('is_visitor');
 
-        return view('pages.app.application.show', compact('application'));
+        return view('pages.app.application.show', compact('application', 'is_visitor'));
     })->name('application.show');
 });
 
