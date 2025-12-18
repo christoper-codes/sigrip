@@ -13,6 +13,7 @@ class Application extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'company_id',
         'issuing_department_id',
         'executing_department_id',
         'questionnaire_id',

@@ -6,6 +6,7 @@ use App\Models\Application;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApplicationMiddleware
@@ -32,11 +33,21 @@ class ApplicationMiddleware
             $user = Auth::user();
             $user_application = $user->applications()->where('application_id', $application->id)->first();
 
-            if(! $user_application){
-                abort(403, __('Applicación no autorizada.'));
+            if ($user->company_id !== $application->company_id) {
+                abort(403, __('Aplicación no autorizada.'));
             }
 
-            if(! $user_application->pivot->is_active){
+            if (! $user_application) {
+                if (
+                    ! Gate::check('viewSystemOwner', $user) &&
+                    ! Gate::check('viewCompanyAdmin', $user) &&
+                    ! Gate::check('viewDepartmentManager', $user)
+                ) {
+                    abort(403, __('Aplicación no autorizada.'));
+                }
+            }
+
+           if ($user_application && ! $user_application->pivot->is_active) {
                 return redirect()->route('application.answered');
             }
         }
