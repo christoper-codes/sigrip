@@ -28,6 +28,19 @@ class ApplicationMiddleware
             return redirect()->route('login');
         }
 
+        if($application->auth_required && Auth::check()){
+            $user = Auth::user();
+            $user_application = $user->applications()->where('application_id', $application->id)->first();
+
+            if(! $user_application){
+                abort(403, __('Applicación no autorizada.'));
+            }
+
+            if(! $user_application->pivot->is_active){
+                abort(403, __('Applicación completada.'));
+            }
+        }
+
         $request->attributes->set('application', $application);
 
         return $next($request);
