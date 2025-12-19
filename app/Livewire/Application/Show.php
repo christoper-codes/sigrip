@@ -103,7 +103,10 @@ class Show extends Component
             );
 
             DB::commit();
-            session()->forget('answers-' . $this->application->slug);
+            for ($i = 0; $i < $this->theme_count; $i++) {
+                $theme_key = 'answers-' . $this->application->slug . '-theme-' . $i;
+                session()->forget($theme_key);
+            }
             return redirect(route('application.thanks'));
         } catch (\Exception $e) {
             DB::rollBack();
