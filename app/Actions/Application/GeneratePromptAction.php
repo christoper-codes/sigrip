@@ -4,7 +4,7 @@ namespace App\Actions\Application;
 
 final class GeneratePromptAction
 {
-    public function execute(array $responses, array $questionnaire, bool $auth_required = false): string
+    public function execute(array $responses, array $questionnaire, bool $auth_required = false): array
     {
         $title = $questionnaire['title'] ?? 'Cuestionario';
         $risk_evaluation = $questionnaire['risk_evaluation'] ?? [];
@@ -21,6 +21,8 @@ final class GeneratePromptAction
         $total_score = 0;
         $total_weight = 0;
         $critical_responses = [];
+        $has_text = false;
+        $has_select = false;
 
         foreach ($responses as $answer) {
             $question_id = $answer['question_id'] ?? null;
@@ -40,6 +42,7 @@ final class GeneratePromptAction
             }
 
             $selected_label = 'Opción no encontrada';
+            $q_type = $question['type'] ?? null;
             if (isset($question['options']) && is_array($question['options'])) {
                 foreach ($question['options'] as $option) {
                     if (($option['value'] ?? null) == $value) {
@@ -47,8 +50,13 @@ final class GeneratePromptAction
                         break;
                     }
                 }
-            } elseif ($question['type'] ?? null === 'text') {
+            }
+            if ($q_type === 'text') {
                 $selected_label = $value;
+                $has_text = true;
+            }
+            if ($q_type === 'select') {
+                $has_select = true;
             }
 
             $answers_analysis[] = "- {$question_text}: {$selected_label} (Valor: {$value})";
@@ -69,6 +77,41 @@ final class GeneratePromptAction
         }
 
         $average_score = $total_weight > 0 ? $total_score / $total_weight : 0;
+
+        // Determinar si hay alerta amarilla o roja (por promedio o respuesta crítica)
+        $critical_response = false;
+        // Por respuesta crítica
+        if (count($critical_responses) > 0) {
+            $critical_response = true;
+        }
+        // Por promedio (amarillo o rojo)
+        // Buscar los rangos en risk_evaluation
+        $risk_level = null;
+        if (isset($risk_evaluation['red'])) {
+            foreach ($risk_evaluation['red'] as $item) {
+                if (isset($item['min'], $item['max']) && is_numeric($item['min']) && is_numeric($item['max'])) {
+                    if ($average_score >= $item['min'] && $average_score <= $item['max']) {
+                        $critical_response = true;
+                        $risk_level = 'red';
+                        break;
+                    }
+                }
+            }
+        }
+        if (!$critical_response && isset($risk_evaluation['yellow'])) {
+            foreach ($risk_evaluation['yellow'] as $item) {
+                if (isset($item['min'], $item['max']) && is_numeric($item['min']) && is_numeric($item['max'])) {
+                    if ($average_score >= $item['min'] && $average_score <= $item['max']) {
+                        $critical_response = true;
+                        $risk_level = 'yellow';
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Determinar tipo de análisis
+        $type = $has_text && $has_select ? 'mixed' : ($has_text ? 'text' : 'select');
 
         $format_criteria = function($color) use ($risk_evaluation) {
             $arr = $risk_evaluation[$color] ?? [];
@@ -157,6 +200,11 @@ IMPORTANTE: Cada color contiene un ARRAY de condiciones. Evalúa TODAS las condi
 RESPONDE SOLO CON EL SIGUIENTE JSON (sin markdown, sin comentarios adicionales):
 " . $json_block;
 
-        return trim($prompt);
+            $data = [
+                'prompt' => trim($prompt),
+                'critical_response' => $critical_response,
+                'type' => $type,
+            ];
+            return $data;
     }
 }

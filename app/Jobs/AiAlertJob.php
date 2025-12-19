@@ -48,7 +48,11 @@ class AiAlertJob implements ShouldQueue
             auth_required: $this->application->auth_required,
         );
 
-        $ai_response = (new GenerateAiAlertAction)->execute(prompt: $promt);
+        if (!((bool) $promt['critical_response'] || in_array($promt['type'], ['text', 'mixed']))) {
+            return;
+        }
+
+        $ai_response = (new GenerateAiAlertAction)->execute(prompt: $promt['prompt']);
 
         if($ai_response['alert']){
             $alert_type = AlertType::where('color', Str::lower($ai_response['alert_type']))->first();

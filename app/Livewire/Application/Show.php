@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Application;
 
+use App\Actions\Application\GeneratePromptAction;
 use App\Jobs\AiAlertJob;
 use App\Models\Application;
 use App\Models\QuestionnaireResponse;
@@ -33,7 +34,6 @@ class Show extends Component
         $this->company_name = $this->application->issuingDepartment->company->name;
         $this->department_name = $this->application->executingDepartment->name;
         $this->current_theme_step = 0;
-        $this->answers = session(('answers-' . $this->application->slug), []);
         $this->setThemesAndCurrentTheme();
     }
 
@@ -49,6 +49,14 @@ class Show extends Component
             $this->dispatch('toast', message: __('Esta aplicación no puede ser enviada por un visitante.'), type: 'warning');
             return;
         }
+
+        $allAnswers = [];
+        for ($i = 0; $i < $this->theme_count; $i++) {
+            $theme_key = 'answers-' . $this->application->slug . '-theme-' . $i;
+            $theme_answers = session($theme_key, []);
+            $allAnswers = array_merge($allAnswers, $theme_answers);
+        }
+        $this->answers = $allAnswers;
 
         DB::beginTransaction();
         try{
@@ -77,6 +85,12 @@ class Show extends Component
                 'average_score' => null,
                 'risk_level' => null,
             ]);
+
+            $promt = (new GeneratePromptAction)->execute(
+                responses: $responses,
+                questionnaire: $this->questionnaire['metadata'],
+                auth_required: $this->application->auth_required,
+            );
 
             AiAlertJob::dispatch(
                 responses: $responses,
@@ -139,6 +153,9 @@ class Show extends Component
             $current += isset($this->themes[$i]['questions']) ? count($this->themes[$i]['questions']) : 0;
         }
         $this->current_questions = $current;
+
+        $theme_key = 'answers-' . $this->application->slug . '-theme-' . $this->current_theme_step;
+        $this->answers = session($theme_key, []);
     }
 
     public function nextTheme()
@@ -155,18 +172,26 @@ class Show extends Component
         }
     }
 
-    public function saveProgress(): void
-    {
-        $theme = $this->current_theme;
-        foreach ($theme['questions'] as $question) {
-            $qid = $question['id'];
-            if (!array_key_exists($qid, $this->answers) || $this->answers[$qid] === null || $this->answers[$qid] === '') {
-                $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
-            }
+public function saveProgress(): void
+{
+    $theme_key = 'answers-' . $this->application->slug . '-theme-' . $this->current_theme_step;
+    $theme = $this->current_theme;
+    foreach ($theme['questions'] as $question) {
+        $qid = $question['id'];
+        if (!array_key_exists($qid, $this->answers) || $this->answers[$qid] === null || $this->answers[$qid] === '') {
+            $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
         }
-
-        session([('answers-' . $this->application->slug) => $this->answers]);
     }
+
+    $theme_answers = [];
+    foreach ($theme['questions'] as $question) {
+        $qid = $question['id'];
+        if (isset($this->answers[$qid])) {
+            $theme_answers[$qid] = $this->answers[$qid];
+        }
+    }
+    session([$theme_key => $theme_answers]);
+}
 
     public function prevTheme()
     {
