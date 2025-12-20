@@ -72,9 +72,9 @@ final class GeneratePromptAction
         }
 
         if(
-            $questionnaire['metadata']['questionnaire_id'] == 'escaneo_emocional_semanal' ||
-            $questionnaire['metadata']['questionnaire_id'] == 'plan_escaneo_emocional_mensual' ||
-            $questionnaire['metadata']['questionnaire_id'] == 'test_de_honestidad'
+            $questionnaire['questionnaire_id'] == 'escaneo_emocional_semanal' ||
+            $questionnaire['questionnaire_id'] == 'plan_escaneo_emocional_mensual' ||
+            $questionnaire['questionnaire_id'] == 'test_de_honestidad'
         ){
             $average_score = ApplicationAverageService::calculateGenericAverage(responses: $responses, questions_map: $questions_map);
         }
