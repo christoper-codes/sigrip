@@ -2,11 +2,13 @@
 
 namespace App\Actions\Application;
 
+use App\Services\ApplicationAverageService;
+
 final class GeneratePromptAction
 {
     public function execute(array $responses, array $questionnaire, bool $auth_required = false): array
     {
-        $title = $questionnaire['title'] ?? 'Cuestionario';
+        $title = $questionnaire['title'];
         $risk_evaluation = $questionnaire['risk_evaluation'] ?? [];
         $themes = $questionnaire['themes'] ?? [];
 
@@ -19,7 +21,7 @@ final class GeneratePromptAction
 
         $answers_analysis = [];
         $total_score = 0;
-        $total_weight = 0;
+        $count_numeric = 0;
         $critical_responses = [];
         $has_text = false;
         $has_select = false;
@@ -27,13 +29,6 @@ final class GeneratePromptAction
         foreach ($responses as $answer) {
             $question_id = $answer['question_id'] ?? null;
             $value = $answer['value'] ?? null;
-            if (is_numeric($value)) {
-                $value = (int)$value;
-            }
-            $weight = array_key_exists('weight', $answer) ? $answer['weight'] : null;
-            if (is_numeric($weight)) {
-                $weight = (float)$weight;
-            }
             $question = $questions_map[$question_id] ?? [];
             $question_text = $question['text'] ?? 'Pregunta no encontrada';
             $critical_values = $question['critical_values'] ?? [];
@@ -61,12 +56,12 @@ final class GeneratePromptAction
 
             $answers_analysis[] = "- {$question_text}: {$selected_label} (Valor: {$value})";
 
-            if (is_numeric($value) && is_numeric($weight)) {
-                $total_score += $value * $weight;
-                $total_weight += $weight;
+            if ($q_type !== 'text' && is_numeric($value)) {
+                $total_score += (int)$value;
+                $count_numeric++;
             }
 
-            if (is_array($critical_values) && in_array($value, $critical_values, true)) {
+            if (is_array($critical_values) && in_array((int)$value, $critical_values, true)) {
                 $critical_responses[] = [
                     'question' => $question_text,
                     'question_id' => $question_id,
@@ -76,16 +71,19 @@ final class GeneratePromptAction
             }
         }
 
-        $average_score = $total_weight > 0 ? $total_score / $total_weight : 0;
+        if(
+            $questionnaire['metadata']['questionnaire_id'] == 'escaneo_emocional_semanal' ||
+            $questionnaire['metadata']['questionnaire_id'] == 'plan_escaneo_emocional_mensual' ||
+            $questionnaire['metadata']['questionnaire_id'] == 'test_de_honestidad'
+        ){
+            $average_score = ApplicationAverageService::calculateGenericAverage(responses: $responses, questions_map: $questions_map);
+        }
 
-        // Determinar si hay alerta amarilla o roja (por promedio o respuesta crítica)
         $critical_response = false;
-        // Por respuesta crítica
         if (count($critical_responses) > 0) {
             $critical_response = true;
         }
-        // Por promedio (amarillo o rojo)
-        // Buscar los rangos en risk_evaluation
+
         $risk_level = null;
         if (isset($risk_evaluation['red'])) {
             foreach ($risk_evaluation['red'] as $item) {
@@ -110,7 +108,6 @@ final class GeneratePromptAction
             }
         }
 
-        // Determinar tipo de análisis
         $type = $has_text && $has_select ? 'mixed' : ($has_text ? 'text' : 'select');
 
         $format_criteria = function($color) use ($risk_evaluation) {
