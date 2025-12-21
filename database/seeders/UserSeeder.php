@@ -17,7 +17,11 @@ class UserSeeder extends Seeder
             'name' => 'Christoper Patiño Santos',
             'email' => 'chris@krodox.com',
             'password' => bcrypt('12345678'),
-            'metadata' => ['notifications' => 0],
+            'metadata' => [
+                'notifications' => 0,
+                'alerts' => 0,
+                'tickets' => 0,
+            ],
             'is_active' => true,
         ]);
 

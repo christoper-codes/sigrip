@@ -35,6 +35,8 @@ class CreateNewUser implements CreatesNewUsers
 
         $metadata = [
             'notifications' => 0,
+            'alerts' => 0,
+            'tickets' => 0,
         ];
         $organization_by_default = Organization::where('name', 'neura')->first();
         $role_by_default = Role::where('name', RoleEnum::COMPANY_ADMIN->value)->first();

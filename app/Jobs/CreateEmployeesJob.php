@@ -47,7 +47,11 @@ class CreateEmployeesJob implements ShouldQueue
                     'department_id' => $this->department_id,
                     'company_id' => $this->company_id,
                     'organization_id' => $this->organization_id,
-                    'metadata' => ['notifications' => 0],
+                    'metadata' => [
+                        'notifications' => 0,
+                        'alerts' => 0,
+                        'tickets' => 0,
+                    ],
                 ]);
                 $user->userRoles()->attach($this->user_roles ?? []);
             }

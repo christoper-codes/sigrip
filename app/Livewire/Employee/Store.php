@@ -54,7 +54,11 @@ class Store extends Component
             'department_id' => $this->department,
             'company_id' => Auth::user()->company?->id,
             'organization_id' => Auth::user()->organization?->id,
-            'metadata' => ['notifications' => 0],
+            'metadata' => [
+                'notifications' => 0,
+                'alerts' => 0,
+                'tickets' => 0,
+            ],
         ]);
         $user->userRoles()->attach($this->user_roles);
 
