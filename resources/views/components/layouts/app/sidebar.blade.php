@@ -36,7 +36,10 @@
             </flux:sidebar.nav>
             <flux:sidebar.nav variant="outline">
                 <flux:navlist.group :heading="__('Seguimiento')" class="grid sidebar-heading"></flux:navlist.group>
-                <flux:sidebar.group expandable icon="bell-alert" :expanded="request()->routeIs('notification.index')" :heading="__('Primordial')" class="grid">
+                <flux:sidebar.group
+                    expandable icon="bell-alert"
+                    :expanded="request()->routeIs('notification.index') || request()->routeIs('alert.index')"
+                    :heading="__('Primordial')" class="grid">
                     <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="bell" :href="route('notification.index')" :current="request()->routeIs('notification.index')" wire:navigate>
                         <span>{{ __('Notificaciones') }}</span>
                         @if(auth()->user()->metadata['notifications'] > 0)
