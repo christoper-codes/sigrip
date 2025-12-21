@@ -1,6 +1,20 @@
 <div>
     <div class="w-full max-w-2xl flex flex-col gap-10">
         @if($notifications)
+            <form wire:submit.prevent='loadNotifications'>
+                <div class="flex items-center gap-2">
+                    <flux:field class="max-w-32 w-full">
+                        <flux:label>{{ __('Total de registros') }}</flux:label>
+                        <flux:select name="items_per_page" wire:model.live="items_per_page">
+                            @foreach ($search_options as $option)
+                                <flux:select.option value="{{ $option['value'] }}">{{ $option['label'] }}</flux:select.option>)
+                            @endforeach
+                        </flux:select>
+                        <flux:error name="items_per_page" class="!mt-0"/>
+                    </flux:field>
+                    <flux:button type="submit" variant="primary" class="mt-6">{{ __('Buscar') }}</flux:button>
+                </div>
+            </form>
             @if($unread_notifications)
                 <div>
                     <flux:heading>

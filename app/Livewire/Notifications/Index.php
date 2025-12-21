@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Notifications;
 
+use App\Livewire\Traits\LimitItems;
 use App\Models\Notification;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,8 @@ use Livewire\Component;
 
 class Index extends Component
 {
+    use LimitItems;
+
     public array $notifications = [];
     public array $unread_notifications = [];
     public array $read_notifications = [];
@@ -19,8 +22,15 @@ class Index extends Component
 
     public function mount(): void
     {
+        $this->items_per_page = 1;
+        $this->loadNotifications();
+    }
+
+    public function loadNotifications(): void
+    {
         $this->notifications = Notification::where('user_id', Auth::user()->id)
-            ->orderBy('created_at', 'desc')
+            ->orderByDesc('created_at')
+            ->limit($this->items_per_page)
             ->get()
             ->toArray();
 
