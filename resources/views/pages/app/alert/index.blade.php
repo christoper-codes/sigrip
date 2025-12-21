@@ -18,7 +18,7 @@
             </div>
             <div class="px-2 mt-10">
                 <div x-cloak x-show="selectedTab === 'recent'" id="tabpanelRecent" role="tabpanel" aria-label="recent">
-                    <livewire:notifications.index />
+                    <livewire:alert.index />
                 </div>
             </div>
         </div>
