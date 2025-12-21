@@ -13,7 +13,7 @@ class Toast extends Component
 
     public function mount(): void
     {
-        $this->user_id = Auth::user()->id;
+        $this->user_id = Auth::check() ? Auth::user()->id : 0;
     }
 
     #[On('toast')]
