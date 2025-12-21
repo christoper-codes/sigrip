@@ -86,11 +86,11 @@ class Show extends Component
                 'risk_level' => null,
             ]);
 
-            $promt = (new GeneratePromptAction)->execute(
-                responses: $responses,
-                questionnaire: $this->questionnaire['metadata'],
-                auth_required: $this->application->auth_required,
-            );
+            if($this->application->auth_required){
+                $user_application = Auth::user()->applications()->where('application_id', $this->application->id)->first();
+                $user_application->pivot->is_active = false;
+                $user_application->pivot->save();
+            }
 
             AiAlertJob::dispatch(
                 responses: $responses,
