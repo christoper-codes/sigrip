@@ -3,7 +3,9 @@
 namespace App\Livewire\Company;
 
 use App\Enums\NotificationTypesEnum;
+use App\Enums\RoleEnum;
 use App\Models\Company;
+use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -29,6 +31,9 @@ class Store extends Component
         ]);
 
         Auth::user()->update(['company_id' => $company->id]);
+        $user_roles = Role::where('name', RoleEnum::COMPANY_ADMIN->value)->first();
+        Auth::user()->userRoles()->attach($user_roles->id);
+
         $this->dispatch('nextStep');
 
         if(! $this->wizard) {
