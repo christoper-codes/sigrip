@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Actions\User\CreateNotificationAction;
 use App\Events\NotificationEvent;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -56,16 +57,20 @@ class CreateEmployeesJob implements ShouldQueue
                 $user->userRoles()->attach($this->user_roles ?? []);
             }
             DB::commit();
+
+            $notification = [
+                'type' => 'success',
+                'title' => __('Empleados creados'),
+                'message' => __('Los nuevos empleados fueron creados correctamente para el departamento: :department', ['department' => $this->department_name ?? 'N/A']),
+                'url' => route('employee.index'),
+                'user_id' => $this->user_id,
+            ];
             event(new NotificationEvent(
-                notification: [
-                    'type' => 'success',
-                    'title' => __('Empleados creados'),
-                    'message' => __('Los nuevos empleados fueron creados correctamente para el departamento: :department', ['department' => $this->department_name ?? 'N/A']),
-                    'url' => route('employee.index'),
-                    'user_id' => $this->user_id,
-                ],
+                notification: $notification,
                 user_id: $this->user_id,
             ));
+
+            (new CreateNotificationAction)->execute(notification: $notification, user_id: $this->user_id);
         } catch (\Throwable $e) {
             DB::rollBack();
             throw $e;

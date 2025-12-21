@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Actions\Application\GenerateAiAlertAction;
 use App\Actions\Application\GeneratePromptAction;
+use App\Actions\User\CreateNotificationAction;
 use App\Enums\RoleEnum;
 use App\Events\NotificationEvent;
 use App\Models\Alert;
@@ -77,16 +78,19 @@ class AiAlertJob implements ShouldQueue
 
             if($this->application->issuingDepartment->manager_id){
                 $manager = User::find($this->application->issuingDepartment->manager_id);
+                $notification = [
+                    'type' => 'success',
+                    'title' => __('Alerta AI generada'),
+                    'message' => __('Se ha generado una alerta AI para la aplicación: :application. Se recomienda revisarla a la brevedad.', ['application' => $this->application->questionnaire->name]),
+                    'url' => route('employee.index'),
+                    'user_id' => $this->application->issuingDepartment->manager_id,
+                ];
                 event(new NotificationEvent(
-                    notification: [
-                        'type' => 'success',
-                        'title' => __('Alerta AI generada'),
-                        'message' => __('Se ha generado una alerta AI para la aplicación: :application. Se recomienda revisarla a la brevedad.', ['application' => $this->application->questionnaire->name]),
-                        'url' => route('employee.index'),
-                        'user_id' => $this->application->issuingDepartment->manager_id,
-                    ],
+                    notification: $notification,
                     user_id: $manager->id,
                 ));
+
+                (new CreateNotificationAction)->execute(notification: $notification, user_id: $manager->id);
 
                 $metadata = $manager->metadata;
                 $metadata['alerts'] = ($metadata['alerts'] ?? 0) + 1;
@@ -99,16 +103,19 @@ class AiAlertJob implements ShouldQueue
                     $query->where('name', RoleEnum::COMPANY_ADMIN->value);
                 })->first();
             if($company_admin && $company_admin->id !== $this->application->issuingDepartment->manager_id){
+                $notification = [
+                    'type' => 'success',
+                    'title' => __('Alerta AI generada'),
+                    'message' => __('Se ha generado una alerta AI para la aplicación: :application. Se recomienda revisarla a la brevedad.', ['application' => $this->application->questionnaire->name]),
+                    'url' => route('employee.index'),
+                    'user_id' => $company_admin->id,
+                ];
                 event(new NotificationEvent(
-                    notification: [
-                        'type' => 'success',
-                        'title' => __('Alerta AI generada'),
-                        'message' => __('Se ha generado una alerta AI para la aplicación: :application. Se recomienda revisarla a la brevedad.', ['application' => $this->application->questionnaire->name]),
-                        'url' => route('employee.index'),
-                        'user_id' => $company_admin->id,
-                    ],
+                    notification: $notification,
                     user_id: $company_admin->id,
                 ));
+
+                (new CreateNotificationAction)->execute(notification: $notification, user_id: $company_admin->id);
 
                 $metadata = $company_admin->metadata;
                 $metadata['alerts'] = ($metadata['alerts'] ?? 0) + 1;
