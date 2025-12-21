@@ -75,6 +75,7 @@ class AiAlertJob implements ShouldQueue
             $this->questionnaire_response->save();
 
             if($this->application->issuingDepartment->manager_id){
+                $manager = User::find($this->application->issuingDepartment->manager_id);
                 event(new NotificationEvent(
                     notification: [
                         'type' => 'success',
@@ -83,8 +84,13 @@ class AiAlertJob implements ShouldQueue
                         'url' => route('employee.index'),
                         'user_id' => $this->application->issuingDepartment->manager_id,
                     ],
-                    user_id: $this->application->issuingDepartment->manager_id,
+                    user_id: $manager->id,
                 ));
+
+                $metadata = $manager->metadata;
+                $metadata['alerts'] = ($metadata['alerts'] ?? 0) + 1;
+                $manager->metadata = $metadata;
+                $manager->save();
             }
 
             $company_admin = User::where('company_id', $this->application->issuingDepartment->company_id)
@@ -102,6 +108,11 @@ class AiAlertJob implements ShouldQueue
                     ],
                     user_id: $company_admin->id,
                 ));
+
+                $metadata = $company_admin->metadata;
+                $metadata['alerts'] = ($metadata['alerts'] ?? 0) + 1;
+                $company_admin->metadata = $metadata;
+                $company_admin->save();
             }
 
             // Email notification
