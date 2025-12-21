@@ -45,6 +45,14 @@
                             </div>
                         @endif
                     </flux:sidebar.item>
+                    <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="bell-alert" :href="route('alert.index')" :current="request()->routeIs('alert.index')" wire:navigate>
+                        <span>{{ __('Alertas') }}</span>
+                        @if(auth()->user()->metadata['alerts'] > 0)
+                            <div class="inline rounded-sm border border-primary bg-primary/10 text-center text-xs px-2 py-0.5 ml-1">
+                                {{ auth()->user()->metadata['alerts'] }}
+                            </div>
+                        @endif
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
