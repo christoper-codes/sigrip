@@ -13,7 +13,6 @@ use App\Models\QuestionnaireResponse;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class AiAlertJob implements ShouldQueue
@@ -54,7 +53,7 @@ class AiAlertJob implements ShouldQueue
         }
 
         $ai_response = (new GenerateAiAlertAction)->execute(prompt: $promt['prompt']);
-        Log::info('AI Response:', $ai_response);
+
         if($ai_response['alert']){
             $alert_type = AlertType::where('color', Str::lower($ai_response['type_alert']))->first();
             Alert::create([
@@ -62,6 +61,7 @@ class AiAlertJob implements ShouldQueue
                 'company_id' => $this->application->issuingDepartment->company->id,
                 'department_id' => $this->application->executing_department_id,
                 'application_id' => $this->application->id,
+                'questionnaire_response_id' => $this->questionnaire_response->id,
                 'user_id' => $this->application->auth_required ? $this->user_id : null,
                 'name' => $ai_response['alert_name'],
                 'subject' => $ai_response['subject_alert'],
@@ -118,7 +118,5 @@ class AiAlertJob implements ShouldQueue
 
             // Email notification
         }
-
-        Log::info('AI Alert Job completed for Application ID: ' . $this->application->id);
     }
 }
