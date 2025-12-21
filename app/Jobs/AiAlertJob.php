@@ -13,6 +13,7 @@ use App\Models\QuestionnaireResponse;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class AiAlertJob implements ShouldQueue
@@ -53,9 +54,9 @@ class AiAlertJob implements ShouldQueue
         }
 
         $ai_response = (new GenerateAiAlertAction)->execute(prompt: $promt['prompt']);
-
+        Log::info('AI Response:', $ai_response);
         if($ai_response['alert']){
-            $alert_type = AlertType::where('color', Str::lower($ai_response['alert_type']))->first();
+            $alert_type = AlertType::where('color', Str::lower($ai_response['type_alert']))->first();
             Alert::create([
                 'alert_type_id' => $alert_type->id,
                 'company_id' => $this->application->issuingDepartment->company->id,
@@ -66,11 +67,11 @@ class AiAlertJob implements ShouldQueue
                 'subject' => $ai_response['subject_alert'],
                 'ai_response' => $ai_response,
                 'risk_level' => $ai_response['risk_level'],
-                'risk_score' => $ai_response['risk_score'],
+                'risk_score' => $ai_response['average_score'],
             ]);
 
             $this->questionnaire_response->ai_response = $ai_response;
-            $this->questionnaire_response->average_score = $ai_response['risk_score'];
+            $this->questionnaire_response->average_score = $ai_response['average_score'];
             $this->questionnaire_response->risk_level = $ai_response['risk_level'];
             $this->questionnaire_response->save();
 
@@ -93,10 +94,10 @@ class AiAlertJob implements ShouldQueue
                 $manager->save();
             }
 
-            $company_admin = User::where('company_id', $this->application->issuingDepartment->company_id)
-                    ->whereHas('userRoles', function ($query) {
-                        $query->where('role', RoleEnum::COMPANY_ADMIN->value);
-                    })->first();
+            $company_admin = User::where('company_id', $this->application->company_id)
+                ->whereHas('userRoles', function ($query) {
+                    $query->where('name', RoleEnum::COMPANY_ADMIN->value);
+                })->first();
             if($company_admin && $company_admin->id !== $this->application->issuingDepartment->manager_id){
                 event(new NotificationEvent(
                     notification: [
@@ -117,5 +118,7 @@ class AiAlertJob implements ShouldQueue
 
             // Email notification
         }
+
+        Log::info('AI Alert Job completed for Application ID: ' . $this->application->id);
     }
 }

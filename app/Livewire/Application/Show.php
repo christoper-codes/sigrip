@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Application;
 
-use App\Actions\Application\GeneratePromptAction;
 use App\Jobs\AiAlertJob;
 use App\Models\Application;
 use App\Models\QuestionnaireResponse;
