@@ -90,10 +90,15 @@ class AiAlertJob implements ShouldQueue
                     user_id: $manager->id,
                 ));
 
-                (new CreateNotificationAction)->execute(notification: $notification, user_id: $manager->id);
+                (new CreateNotificationAction)->execute(
+                    notification: $notification,
+                    user_id: $manager->id,
+                    update_user: false
+                );
 
                 $metadata = $manager->metadata;
                 $metadata['alerts'] = ($metadata['alerts'] ?? 0) + 1;
+                $metadata['notifications'] = ($metadata['notifications'] ?? 0) + 1;
                 $manager->metadata = $metadata;
                 $manager->save();
             }
@@ -115,10 +120,15 @@ class AiAlertJob implements ShouldQueue
                     user_id: $company_admin->id,
                 ));
 
-                (new CreateNotificationAction)->execute(notification: $notification, user_id: $company_admin->id);
+                (new CreateNotificationAction)->execute(
+                    notification: $notification,
+                    user_id: $company_admin->id,
+                    update_user: false
+                );
 
                 $metadata = $company_admin->metadata;
                 $metadata['alerts'] = ($metadata['alerts'] ?? 0) + 1;
+                $metadata['notifications'] = ($metadata['notifications'] ?? 0) + 1;
                 $company_admin->metadata = $metadata;
                 $company_admin->save();
             }
