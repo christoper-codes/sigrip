@@ -22,7 +22,7 @@ class Index extends Component
 
     public function mount(): void
     {
-        $this->items_per_page = 1;
+        $this->items_per_page = 5;
         $this->loadNotifications();
     }
 
