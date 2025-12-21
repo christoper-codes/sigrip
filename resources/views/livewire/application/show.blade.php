@@ -61,7 +61,18 @@
             <flux:callout color="yellow" icon="information-circle" heading="{{ __('Estás accediendo a esta aplicación como visitante') }}" />
         </section>
     @endif
-    <section id="questionnaire-themes" class="mt-20" style="scroll-margin-top: 70px;">
+    <section
+        id="questionnaire-themes"
+        class="mt-20"
+        style="scroll-margin-top: 70px;"
+        x-data
+        x-effect="
+            @this.theme_change;
+            setTimeout(() => {
+                document.getElementById('questionnaire-themes').scrollIntoView({ behavior: 'auto', block: 'start' });
+            }, 100);
+        "
+        >
         @if ($current_theme)
             <div class="p-5 my-7 rounded-2xl border border-light-variant dark:border-dark-variant bg-light-variant dark:bg-dark-variant">
                 <flux:heading size="lg" class="text-primary">{{ __($current_theme['name']) }}</flux:heading>
@@ -101,7 +112,6 @@
                     variant="primary"
                     wire:click="prevTheme"
                     :disabled="$theme_index === 0"
-                    x-on:click="$nextTick(() => { setTimeout(() => { document.getElementById('questionnaire-themes').scrollIntoView({ behavior: 'auto', block: 'start' }); }, 300); })"
                     >
                     {{ __('Anterior') }}
                 </flux:button>

@@ -26,6 +26,7 @@ class Show extends Component
     public ?string $error_message = null;
     public ?int $total_questions = null;
     public ?int $current_questions = null;
+    public int $theme_change = 0;
 
     public function mount(): void
     {
@@ -171,6 +172,7 @@ class Show extends Component
         if ($this->current_theme_step < $this->theme_count - 1) {
             $this->current_theme_step++;
             $this->setThemesAndCurrentTheme();
+            $this->theme_change++;
         }
     }
 
