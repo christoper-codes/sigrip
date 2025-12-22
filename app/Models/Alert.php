@@ -28,7 +28,7 @@ class Alert extends Model
     {
         return [
             'ai_response' => 'array',
-            'is_active' => 'boolean',
+            'created_at' => 'datetime:d/m/Y H:i',
         ];
     }
 

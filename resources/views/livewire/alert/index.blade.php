@@ -20,20 +20,24 @@
                     <flux:heading>
                         {{ __('Notificaciones nuevas') }}
                     </flux:heading>
+                    <div class="hidden border-red-300 dark:border-red-700 border-yellow-300 dark:border-yellow-700"></div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-7 mt-5">
                         @foreach ($unread_alerts as $alert)
-                            <div class="border border-{{ $alert['risk_level'] }}-500 bg-{{ $alert['risk_level'] }}-500/10 rounded-2xl p-5 flex flex-col gap-3">
+                            <div class="border border-{{ $alert['risk_level'] }}-300 dark:border-{{ $alert['risk_level'] }}-700 rounded-2xl p-5 flex flex-col gap-3">
                                 <div>
                                     <flux:heading>{{ $alert['name'] }}</flux:heading>
                                     <flux:text class="mt-2">{{ $alert['subject'] }}</flux:text>
                                     <flux:text class="mt-2">{{ $alert['created_at'] }}</flux:text>
-                                    <div class="flex items-center gap-2 mt-5">
-                                        <span class="size-4 block rounded bg-{{ $alert['risk_level'] }}-500"></span>
-                                        <flux:text>{{ __('Nivel de riesgo: ') }} {{ ucfirst($alert['risk_level']) }}</flux:text>
-                                    </div>
                                 </div>
-                                <section class="mt-7 bg-variant dark:bg-dark-variant rounded-xl p-5">
-
+                                <section class="mt-7 bg-light-variant dark:bg-dark-variant rounded-xl p-5">
+                                    <div class="flex items-center gap-2">
+                                       <flux:text>{{ __('Nivel de riesgo: ') }}</flux:text>
+                                        <div class="flex items-center gap-2">
+                                            <span class="size-4 block rounded bg-{{ $alert['risk_level'] }}-500"></span>
+                                            <flux:text>{{ ucfirst($alert['risk_level']) }}</flux:text>
+                                        </div>
+                                    </div>
+                                    <flux:text class="mt-2">{{ __('Puntaje promedio: ') }} {{ $alert['risk_score'] ?? '' }}</flux:text>
                                 </section>
                             </div>
                         @endforeach
