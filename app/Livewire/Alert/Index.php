@@ -24,7 +24,7 @@ class Index extends Component
     public function loadAlerts(): void
     {
         $this->alerts = Alert::where('company_id', Auth::user()->company_id)
-            ->with('user')
+            ->with('user', 'application')
             ->orderByDesc('created_at')
             ->limit($this->items_per_page)
             ->get()

@@ -18,39 +18,46 @@
             @if($unread_alerts)
                 <div>
                     <flux:heading>
-                        {{ __('Notificaciones nuevas') }}
+                        {{ __('Alertas nuevas') }}
                     </flux:heading>
-                    <div class="hidden text-red-500 text-yellow-500 border-red-500 border-yellow-500"></div>
+                    <div class="hidden text-red-500 text-yellow-500 border-l-red-500 border-l-yellow-500 dark:border-l-red-500 dark:border-l-yellow-500"></div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
                         @foreach ($unread_alerts as $alert)
-                            <div class="border border-l-[5px] dark:border-dark-variant rounded-2xl p-7 flex flex-col gap-10">
+                            <div class="border dark:border-dark-variant border-l-[5px] border-l-{{ $alert['risk_level'] }}-500 dark:border-l-{{ $alert['risk_level'] }}-500 rounded-2xl p-7 flex flex-col gap-10">
                                 <div class="flex items-start gap-2">
                                     <flux:icon.exclamation-triangle class="text-{{ $alert['risk_level'] }}-500" />
                                      <div>
-                                        <flux:heading>{{ $alert['name'] }}</flux:heading>
-                                        <flux:text class="mt-2">{{ $alert['subject'] }}</flux:text>
+                                        <flux:heading>{{ ucfirst(strtolower($alert['name'])) }}</flux:heading>
+                                        <flux:text class="mt-2">{{ ucfirst(strtolower($alert['subject'])) }}</flux:text>
                                     </div>
                                 </div>
 
                                 <section class="flex flex-col gap-3">
-                                    <div class="inline!">
-                                        <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border border-{{ $alert['risk_level'] }}-500">
-                                            <flux:text class="text-xs!">{{ __('Nivel de riesgo: ') }}</flux:text>
-                                            <flux:text class="font-bold text-xs!">{{ $alert['risk_level'] == 'red' ? 'Alto' : 'Medio' }}</flux:text>
+                                    <div class="flex items-center gap-2">
+                                        <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
+                                            <flux:icon.exclamation-circle variant="mini"/>
+                                            <flux:text class="text-xs!">
+                                                <span>{{ __('Riesgo ') }}</span>
+                                                <span class="font-bold text-{{ $alert['risk_level'] }}-500">{{ $alert['risk_level'] == 'red' ? 'Alto' : 'Medio' }}</span>
+                                            </flux:text>
+                                        </div>
+                                        <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
+                                            <flux:icon.clipboard-document-list variant="mini"/>
+                                            <flux:text class="text-xs!">{{ ucfirst(str_replace('-', ' ', explode('-', $alert['application']['slug'], -1) ? implode('-', explode('-', $alert['application']['slug'], -1)) : $alert['application']['slug'])) }}</flux:text>
                                         </div>
                                     </div>
-                                    <div class="flex items-center justify-between gap-2 mt-2">
-                                        <div class="flex items-center gap-2">
+                                    <div class="flex items-center gap-2">
+                                        <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
                                             <flux:icon.calendar variant="mini"/>
-                                            <flux:text class="text-xs!">{{ $alert['created_at'] }}</flux:text>
+                                            <flux:text class="text-xs!"> {{ $alert['created_at'] }}</flux:text>
                                         </div>
-                                        <div class="flex items-center gap-2">
+                                        <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
                                             <flux:icon.user variant="mini"/>
                                             <flux:text class="text-xs!">{{ $alert['user'] ? $alert['user']['name'] : 'Empleado anonimo' }}</flux:text>
                                         </div>
-                                        <div class="flex items-center gap-2">
+                                        <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
                                             <flux:icon.calendar variant="mini"/>
-                                            <flux:text class="text-xs!">{{ __('Promedio: ') }} {{ $alert['risk_score'] ?? '' }}</flux:text>
+                                            <flux:text class="text-xs!">{{ __('Promedio ') }} {{ $alert['risk_score'] ?? '' }}</flux:text>
                                         </div>
                                     </div>
                                 </section>
@@ -79,4 +86,27 @@
             <flux:callout color="fuchsia" icon="information-circle" heading="{{ __('No hay alertas') }}" />
         @endif
     </div>
+
+{{--     <flux:modal name="read-response-alert" class="w-[90%] md:w-full max-w-md">
+        <div class="space-y-6">
+            <div class="space-y-2">
+                <div>
+                    <flux:heading size="lg">{{ __('Respuestas criticas') }}</flux:heading>
+                    <flux:text>{{ $created_at_notification }}</flux:text>
+                </div>
+                <flux:text class="mt-4">
+                    {{ $message_notification }}
+                </flux:text>
+                @if($url_notification)
+                    <flux:link href="{{ $url_notification }}" class="underline! text-primary! text-base!">{{ __('Visitar') }}</flux:link>
+                @endif
+            </div>
+            <div class="flex gap-2">
+                <flux:spacer />
+                <flux:modal.close>
+                    <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
+                </flux:modal.close>
+            </div>
+        </div>
+    </flux:modal> --}}
 </div>
