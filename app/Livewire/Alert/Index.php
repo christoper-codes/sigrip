@@ -4,6 +4,7 @@ namespace App\Livewire\Alert;
 
 use App\Livewire\Traits\LimitItems;
 use App\Models\Alert;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -14,6 +15,7 @@ class Index extends Component
     public array $alerts = [];
     public array $unread_alerts = [];
     public array $read_alerts = [];
+    public ?array $questionnaire_response = [];
 
     public function mount(): void
     {
@@ -32,6 +34,13 @@ class Index extends Component
 
         $this->unread_alerts = array_filter($this->alerts, fn($n) => !is_null($n['read_by_department']));
         $this->read_alerts = array_filter($this->alerts, fn($n) => is_null($n['read_by_department']));
+    }
+
+    public function readResponse($alert): void
+    {
+        $this->questionnaire_response = $alert;
+
+        Flux::modal('read-response-alert')->show();
     }
 
     public function render()

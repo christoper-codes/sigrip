@@ -62,7 +62,7 @@
                                     </div>
                                 </section>
                                 <div class="flex items-center gap-3">
-                                    <flux:button variant="primary">
+                                    <flux:button variant="primary" wire:click="readResponse({{ $alert }})">
                                         {{ __('Respuestas') }}
                                     </flux:button>
                                     <flux:button variant="filled" class="border! border-primary! bg-primary/10!">
@@ -87,19 +87,17 @@
         @endif
     </div>
 
-{{--     <flux:modal name="read-response-alert" class="w-[90%] md:w-full max-w-md">
+    <flux:modal name="read-response-alert" class="w-[90%] md:w-full">
         <div class="space-y-6">
             <div class="space-y-2">
                 <div>
                     <flux:heading size="lg">{{ __('Respuestas criticas') }}</flux:heading>
-                    <flux:text>{{ $created_at_notification }}</flux:text>
+                    {{-- <flux:text>{{ __('Aplicación: ') }} {{ ucfirst(str_replace('-', ' ', explode('-', $questionnaire_response['application']['slug'], -1) ? implode('-', explode('-', $questionnaire_response['application']['slug'], -1)) : $questionnaire_response['application']['slug'])) }}</flux:text> --}}
+                    <flux:text>{{ __('ID:sSD12df') }}</flux:text>
                 </div>
                 <flux:text class="mt-4">
-                    {{ $message_notification }}
+                    {{ __('Meesage') }}
                 </flux:text>
-                @if($url_notification)
-                    <flux:link href="{{ $url_notification }}" class="underline! text-primary! text-base!">{{ __('Visitar') }}</flux:link>
-                @endif
             </div>
             <div class="flex gap-2">
                 <flux:spacer />
@@ -108,5 +106,5 @@
                 </flux:modal.close>
             </div>
         </div>
-    </flux:modal> --}}
+    </flux:modal>
 </div>
