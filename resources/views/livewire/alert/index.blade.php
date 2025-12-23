@@ -21,14 +21,16 @@
                         {{ __('Alertas nuevas') }}
                     </flux:heading>
                     <div class="hidden text-red-500 text-yellow-500 border-l-red-500 border-l-yellow-500 dark:border-l-red-500 dark:border-l-yellow-500"></div>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
+                    <div class="grid grid-cols-1 lg:grid-cols-1 gap-7 mt-5">
                         @foreach ($unread_alerts as $alert)
-                            <div class="border dark:border-dark-variant border-l-[5px] border-l-{{ $alert['risk_level'] }}-500 dark:border-l-{{ $alert['risk_level'] }}-500 rounded-2xl p-7 flex flex-col gap-10">
-                                <div class="flex items-start gap-2">
-                                    <flux:icon.exclamation-triangle class="text-{{ $alert['risk_level'] }}-500" />
+                            <div class="border dark:border-dark-variant border-l-[5px] border-l-{{ $alert['risk_level'] }}-500 dark:border-l-{{ $alert['risk_level'] }}-500 rounded-2xl p-7 flex flex-col gap-10 shadow-xl">
+                                <div class="flex items-start justify-between gap-2">
                                      <div>
                                         <flux:heading>{{ ucfirst(strtolower($alert['name'])) }}</flux:heading>
                                         <flux:text class="mt-2">{{ ucfirst(strtolower($alert['subject'])) }}</flux:text>
+                                    </div>
+                                    <div class="flex items-center justify-center border border-{{ $alert['risk_level'] }}-500 bg-{{ $alert['risk_level'] }}-500/10 p-2.5 rounded-full">
+                                        <flux:icon.exclamation-triangle class="text-{{ $alert['risk_level'] }}-500" />
                                     </div>
                                 </div>
 
@@ -42,29 +44,35 @@
                                             </flux:text>
                                         </div>
                                         <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
-                                            <flux:icon.clipboard-document-list variant="mini"/>
-                                            <flux:text class="text-xs!">{{ ucfirst(str_replace('-', ' ', explode('-', $alert['application']['slug'], -1) ? implode('-', explode('-', $alert['application']['slug'], -1)) : $alert['application']['slug'])) }}</flux:text>
+                                            <flux:icon.calendar variant="mini"/>
+                                            <flux:text class="text-xs!"> {{ $alert['created_at'] }}</flux:text>
+                                        </div>
+                                        <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
+                                            <flux:icon.arrow-trending-up variant="mini"/>
+                                            <flux:text class="text-xs!">{{ __('Promedio ') }} {{ $alert['risk_score'] ?? '' }}</flux:text>
                                         </div>
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
-                                            <flux:icon.calendar variant="mini"/>
-                                            <flux:text class="text-xs!"> {{ $alert['created_at'] }}</flux:text>
+                                            <flux:icon.key variant="mini"/>
+                                            <flux:text class="text-xs!">{{ __('Cuestionario ID: sSD12df') }}</flux:text>
+                                        </div>
+                                        <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
+                                            <flux:icon.clipboard-document-list variant="mini"/>
+                                            <flux:text class="text-xs!">{{ ucfirst(str_replace('-', ' ', explode('-', $alert['application']['slug'], -1) ? implode('-', explode('-', $alert['application']['slug'], -1)) : $alert['application']['slug'])) }}</flux:text>
                                         </div>
                                         <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
                                             <flux:icon.user variant="mini"/>
                                             <flux:text class="text-xs!">{{ $alert['user'] ? $alert['user']['name'] : 'Empleado anonimo' }}</flux:text>
                                         </div>
-                                        <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
-                                            <flux:icon.calendar variant="mini"/>
-                                            <flux:text class="text-xs!">{{ __('Promedio ') }} {{ $alert['risk_score'] ?? '' }}</flux:text>
-                                        </div>
                                     </div>
                                 </section>
                                 <div class="flex items-center gap-3">
-                                    <flux:button variant="primary" wire:click="readResponse({{ $alert }})">
-                                        {{ __('Respuestas') }}
-                                    </flux:button>
+                                    @if ($alert['ai_response']['questions_alert'])
+                                        <flux:button variant="primary" wire:click="readResponse({{ $alert['id'] }})">
+                                            {{ __('Respuestas') }}
+                                        </flux:button>
+                                    @endif
                                     <flux:button variant="filled" class="border! border-primary! bg-primary/10!">
                                         {{ $alert['user'] ? __('Analisis Ai (dpto)') :  __('Analisis Ai')}}
                                     </flux:button>
@@ -88,23 +96,30 @@
     </div>
 
     <flux:modal name="read-response-alert" class="w-[90%] md:w-full">
-        <div class="space-y-6">
-            <div class="space-y-2">
-                <div>
-                    <flux:heading size="lg">{{ __('Respuestas criticas') }}</flux:heading>
-                    {{-- <flux:text>{{ __('Aplicación: ') }} {{ ucfirst(str_replace('-', ' ', explode('-', $questionnaire_response['application']['slug'], -1) ? implode('-', explode('-', $questionnaire_response['application']['slug'], -1)) : $questionnaire_response['application']['slug'])) }}</flux:text> --}}
-                    <flux:text>{{ __('ID:sSD12df') }}</flux:text>
+        @if($questionnaire_response)
+            <div class="space-y-6">
+                <div class="space-y-2">
+                    <div class="space-y-2">
+                        <flux:heading size="lg">{{ __('Respuestas criticas') }}</flux:heading>
+                        <flux:text>{{ __('Aplicación: ') }} {{ ucfirst(str_replace('-', ' ', explode('-', $questionnaire_response['application']['slug'], -1) ? implode('-', explode('-', $questionnaire_response['application']['slug'], -1)) : $questionnaire_response['application']['slug']))}}</flux:text>
+                        <flux:text>{{ __('Cuestionario ID: sSD12df') }}</flux:text>
+                    </div>
+                    <div class="mt-5 bg-light-variant dark:bg-dark-variant p-5 rounded-xl border border-neutral-300 dark:border-neutral-700">
+                        <div class="space-y-4">
+                            @foreach ($questionnaire_response['ai_response']['questions_alert'] as $answer)
+                                <flux:heading>{{ $answer['question'] }}</flux:heading>
+                                <flux:text class="mt-2">{{ ucfirst(strtolower($answer['label'])) }}</flux:text>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
-                <flux:text class="mt-4">
-                    {{ __('Meesage') }}
-                </flux:text>
+                <div class="flex gap-2">
+                    <flux:spacer />
+                    <flux:modal.close>
+                        <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
+                    </flux:modal.close>
+                </div>
             </div>
-            <div class="flex gap-2">
-                <flux:spacer />
-                <flux:modal.close>
-                    <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
-                </flux:modal.close>
-            </div>
-        </div>
+        @endif
     </flux:modal>
 </div>

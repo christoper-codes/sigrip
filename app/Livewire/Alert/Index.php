@@ -36,8 +36,9 @@ class Index extends Component
         $this->read_alerts = array_filter($this->alerts, fn($n) => is_null($n['read_by_department']));
     }
 
-    public function readResponse($alert): void
+    public function readResponse(int $alert_id): void
     {
+        $alert = collect($this->alerts)->firstWhere('id', $alert_id);
         $this->questionnaire_response = $alert;
 
         Flux::modal('read-response-alert')->show();
