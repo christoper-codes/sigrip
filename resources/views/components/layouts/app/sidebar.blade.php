@@ -51,7 +51,7 @@
                     <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="exclamation-triangle" :href="route('alert.index')" :current="request()->routeIs('alert.index')" wire:navigate>
                         <span>{{ __('Alertas') }}</span>
                         @if(auth()->user()->metadata['alerts'] > 0)
-                            <div class="inline rounded-sm border border-fuchsia-500 bg-fuchsia-500/10 text-center text-xs px-2 py-0.5 ml-1">
+                            <div class="inline rounded-sm border border-red-500 bg-red-500/10 text-center text-xs px-2 py-0.5 ml-1">
                                 {{ auth()->user()->metadata['alerts'] }}
                             </div>
                         @endif

@@ -31,9 +31,6 @@ class Index extends Component
             ->limit($this->items_per_page)
             ->get()
             ->toArray();
-
-        $this->unread_alerts = array_filter($this->alerts, fn($n) => !(bool)$n['read_by_department']);
-        $this->read_alerts = array_filter($this->alerts, fn($n) => (bool)$n['read_by_department']);
     }
 
     public function readResponse(int $alert_id, string $type): void
