@@ -20,7 +20,7 @@
                     <flux:heading>
                         {{ __('Alertas nuevas') }}
                     </flux:heading>
-                    <div class="hidden text-red-500 text-yellow-500 border-l-red-500 border-l-yellow-500 dark:border-l-red-500 dark:border-l-yellow-500"></div>
+                    <div class="hidden text-red-500 text-yellow-500 border-l-red-500 border-l-yellow-500 dark:border-l-red-500 dark:border-l-yellow-500 bg-red-500/10 bg-yellow-500/10"></div>
                     <div class="grid grid-cols-1 lg:grid-cols-1 gap-7 mt-5">
                         @foreach ($unread_alerts as $alert)
                             <div class="border dark:border-dark-variant border-l-[5px] border-l-{{ $alert['risk_level'] }}-500 dark:border-l-{{ $alert['risk_level'] }}-500 rounded-2xl p-7 flex flex-col gap-10 shadow-xl">
@@ -142,6 +142,34 @@
                                 <flux:heading>{{ __('Análisis AI para el departamento') }}</flux:heading>
                             </div>
                             <flux:text class="mt-2 leading-relaxed">{{ $questionnaire_response['ai_response']['recommendation_for_department'] }}</flux:text>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <flux:spacer />
+                    <flux:modal.close>
+                        <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
+                    </flux:modal.close>
+                </div>
+            </div>
+        @endif
+    </flux:modal>
+    <flux:modal name="read-employee-alert" class="w-[90%] md:w-full">
+        @if($questionnaire_response && ! empty($questionnaire_response['ai_response']['recommendation_for_user']))
+            <div class="space-y-6">
+                <div class="space-y-2">
+                    <div class="space-y-2">
+                        <flux:heading size="lg">{{ __('Recomendaciones para el empleado') }}</flux:heading>
+                        <flux:text>{{ __('Aplicación: ') }} {{ ucfirst(str_replace('-', ' ', explode('-', $questionnaire_response['application']['slug'], -1) ? implode('-', explode('-', $questionnaire_response['application']['slug'], -1)) : $questionnaire_response['application']['slug']))}}</flux:text>
+                        <flux:text>{{ __('Cuestionario ID: sSD12df') }}</flux:text>
+                    </div>
+                    <div class="mt-5 bg-light-variant dark:bg-dark-variant p-5 rounded-xl border border-neutral-300 dark:border-neutral-700">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-2">
+                                <flux:icon.sparkles variant="mini" class="text-primary!"/>
+                                <flux:heading>{{ __('Análisis AI para el empleado') }}</flux:heading>
+                            </div>
+                            <flux:text class="mt-2 leading-relaxed">{{ $questionnaire_response['ai_response']['recommendation_for_user'] }}</flux:text>
                         </div>
                     </div>
                 </div>
