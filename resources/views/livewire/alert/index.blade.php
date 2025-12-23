@@ -45,7 +45,7 @@
                                         </div>
                                         <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
                                             <flux:icon.calendar variant="mini"/>
-                                            <flux:text class="text-xs!"> {{ $alert['created_at'] }}</flux:text>
+                                            <flux:text class="text-xs!"> {{ dateFormat($alert['created_at']) }}</flux:text>
                                         </div>
                                         <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
                                             <flux:icon.arrow-trending-up variant="mini"/>
