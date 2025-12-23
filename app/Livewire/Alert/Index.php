@@ -32,16 +32,36 @@ class Index extends Component
             ->get()
             ->toArray();
 
-        $this->unread_alerts = array_filter($this->alerts, fn($n) => !is_null($n['read_by_department']));
-        $this->read_alerts = array_filter($this->alerts, fn($n) => is_null($n['read_by_department']));
+        $this->unread_alerts = array_filter($this->alerts, fn($n) => !(bool)$n['read_by_department']);
+        $this->read_alerts = array_filter($this->alerts, fn($n) => (bool)$n['read_by_department']);
     }
 
     public function readResponse(int $alert_id, string $type): void
     {
         $alert = collect($this->alerts)->firstWhere('id', $alert_id);
         $this->questionnaire_response = $alert;
+        $this->markAsRead($alert_id);
 
         Flux::modal('read-' . $type . '-alert')->show();
+    }
+
+    public function markAsRead(int $alert_id): void
+    {
+        $alert = $this->alerts[array_search($alert_id, array_column($this->alerts, 'id'))];
+
+        if(! (bool)$alert['read_by_department']) {
+            $alert['read_by_department'] = true;
+            $this->alerts[array_search($alert_id, array_column($this->alerts, 'id'))] = $alert;
+            $this->unread_alerts = array_filter($this->unread_alerts, fn($n) => $n['id'] !== $alert_id);
+            $this->read_alerts[] = $alert;
+            Alert::where('id', $alert_id)->update(['read_by_department' => true]);
+
+            $user = Auth::user();
+            $metadata = $user->metadata;
+            $alerts = ($metadata['alerts'] ?? 1) - 1;
+            $metadata['alerts'] = $alerts < 0 ? 0 : $alerts;
+            $user->update(['metadata' => $metadata]);
+        }
     }
 
     public function render()
