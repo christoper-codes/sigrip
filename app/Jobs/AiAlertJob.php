@@ -63,6 +63,7 @@ class AiAlertJob implements ShouldQueue
                 'department_id' => $this->application->executing_department_id,
                 'application_id' => $this->application->id,
                 'questionnaire_response_id' => $this->questionnaire_response->id,
+                'questionnaire_response_uuid' => $this->questionnaire_response->uuid,
                 'user_id' => $this->application->auth_required ? $this->user_id : null,
                 'name' => $ai_response['alert_name'],
                 'subject' => $ai_response['subject_alert'],

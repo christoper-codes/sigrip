@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class QuestionnaireResponse extends Model
 {
     protected $fillable = [
+        'uuid',
         'application_id',
         'questionnaire_id',
         'user_id',

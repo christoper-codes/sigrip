@@ -13,6 +13,7 @@ class Alert extends Model
         'department_id',
         'application_id',
         'questionnaire_response_id',
+        'questionnaire_response_uuid',
         'user_id',
         'name',
         'subject',
