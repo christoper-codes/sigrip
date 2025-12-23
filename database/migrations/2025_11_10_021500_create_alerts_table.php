@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('department_id')->constrained('departments');
             $table->foreignId('application_id')->nullable()->constrained('applications');
             $table->foreignId('questionnaire_response_id')->nullable()->constrained('questionnaire_responses');
+            $table->string('questionnaire_response_uuid')->nullable();
+            $table->foreign('questionnaire_response_uuid')->references('uuid')->on('questionnaire_responses');
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->string('name');
             $table->text('subject')->nullable();

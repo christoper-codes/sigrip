@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('questionnaire_responses', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
             $table->foreignId('application_id')->constrained('applications');
             $table->foreignId('questionnaire_id')->constrained('questionnaires');
             $table->foreignId('user_id')->nullable()->constrained('users');
