@@ -45,7 +45,7 @@
                                         </div>
                                         <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
                                             <flux:icon.calendar variant="mini"/>
-                                            <flux:text class="text-xs!"> {{ dateFormat($alert['created_at']) }}</flux:text>
+                                            <flux:text class="text-xs!">{{ dateFormat($alert['created_at']) }}</flux:text>
                                         </div>
                                         <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
                                             <flux:icon.arrow-trending-up variant="mini"/>
@@ -62,6 +62,10 @@
                                             <flux:text class="text-xs!">{{ ucfirst(str_replace('-', ' ', explode('-', $alert['application']['slug'], -1) ? implode('-', explode('-', $alert['application']['slug'], -1)) : $alert['application']['slug'])) }}</flux:text>
                                         </div>
                                         <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
+                                            <flux:icon.building-office variant="mini"/>
+                                            <flux:text class="text-xs!">{{ __('Departamento: ') }} {{ $alert['department']['name'] }}</flux:text>
+                                        </div>
+                                        <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800">
                                             <flux:icon.user variant="mini"/>
                                             <flux:text class="text-xs!">{{ $alert['user'] ? $alert['user']['name'] : 'Empleado anonimo' }}</flux:text>
                                         </div>
@@ -69,15 +73,15 @@
                                 </section>
                                 <div class="flex items-center gap-3">
                                     @if ($alert['ai_response']['questions_alert'])
-                                        <flux:button variant="primary" wire:click="readResponse({{ $alert['id'] }})">
+                                        <flux:button variant="primary" wire:click="readResponse({{ $alert['id'] }}, 'responses')">
                                             {{ __('Respuestas') }}
                                         </flux:button>
                                     @endif
-                                    <flux:button variant="filled" class="border! border-primary! bg-primary/10!">
+                                    <flux:button variant="filled" icon="sparkles" wire:click="readResponse({{ $alert['id'] }}, 'department')" class="border! border-primary! bg-primary/10!">
                                         {{ $alert['user'] ? __('Analisis Ai (dpto)') :  __('Analisis Ai')}}
                                     </flux:button>
                                     @if($alert['user'])
-                                        <flux:button variant="filled" class="border! border-primary! bg-primary/10!">
+                                        <flux:button variant="filled" icon="sparkles" wire:click="readResponse({{ $alert['id'] }}, 'employee')" class="border! border-primary! bg-primary/10!">
                                             {{ __('Analisis Ai (empleado)') }}
                                         </flux:button>
                                     @endif
@@ -95,7 +99,7 @@
         @endif
     </div>
 
-    <flux:modal name="read-response-alert" class="w-[90%] md:w-full">
+    <flux:modal name="read-responses-alert" class="w-[90%] md:w-full">
         @if($questionnaire_response)
             <div class="space-y-6">
                 <div class="space-y-2">
@@ -110,6 +114,34 @@
                                 <flux:heading>{{ $answer['question'] }}</flux:heading>
                                 <flux:text class="mt-2">{{ ucfirst(strtolower($answer['label'])) }}</flux:text>
                             @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <flux:spacer />
+                    <flux:modal.close>
+                        <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
+                    </flux:modal.close>
+                </div>
+            </div>
+        @endif
+    </flux:modal>
+    <flux:modal name="read-department-alert" class="w-[90%] md:w-full">
+        @if($questionnaire_response)
+            <div class="space-y-6">
+                <div class="space-y-2">
+                    <div class="space-y-2">
+                        <flux:heading size="lg">{{ __('Recomendaciones para el departamento') }}</flux:heading>
+                        <flux:text>{{ __('Aplicación: ') }} {{ ucfirst(str_replace('-', ' ', explode('-', $questionnaire_response['application']['slug'], -1) ? implode('-', explode('-', $questionnaire_response['application']['slug'], -1)) : $questionnaire_response['application']['slug']))}}</flux:text>
+                        <flux:text>{{ __('Cuestionario ID: sSD12df') }}</flux:text>
+                    </div>
+                    <div class="mt-5 bg-light-variant dark:bg-dark-variant p-5 rounded-xl border border-neutral-300 dark:border-neutral-700">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-2">
+                                <flux:icon.sparkles variant="mini" class="text-primary!"/>
+                                <flux:heading>{{ __('Análisis AI para el departamento') }}</flux:heading>
+                            </div>
+                            <flux:text class="mt-2 leading-relaxed">{{ $questionnaire_response['ai_response']['recommendation_for_department'] }}</flux:text>
                         </div>
                     </div>
                 </div>
