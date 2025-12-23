@@ -55,7 +55,7 @@
                                     <div class="flex flex-col md:flex-row md:items-center gap-2">
                                         <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800 max-w-max">
                                             <flux:icon.key variant="mini"/>
-                                            <flux:text class="text-xs!">{{ __('Cuestionario ID: sSD12df') }}</flux:text>
+                                            <flux:text class="text-xs!">{{ __('Cuestionario ID: ') }} {{ $alert['questionnaire_response_uuid'] }}</flux:text>
                                         </div>
                                         <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800 max-w-max">
                                             <flux:icon.clipboard-document-list variant="mini"/>
@@ -106,7 +106,7 @@
                     <div class="space-y-2">
                         <flux:heading size="lg">{{ __('Respuestas criticas') }}</flux:heading>
                         <flux:text>{{ __('Aplicación: ') }} {{ ucfirst(str_replace('-', ' ', explode('-', $questionnaire_response['application']['slug'], -1) ? implode('-', explode('-', $questionnaire_response['application']['slug'], -1)) : $questionnaire_response['application']['slug']))}}</flux:text>
-                        <flux:text>{{ __('Cuestionario ID: sSD12df') }}</flux:text>
+                        <flux:text>{{ __('Cuestionario ID: ') }} {{ $questionnaire_response['questionnaire_response_uuid'] }}</flux:text>
                     </div>
                     <div class="mt-5 bg-light-variant dark:bg-dark-variant p-5 rounded-xl border border-neutral-300 dark:border-neutral-700">
                         <div class="space-y-4">
@@ -133,7 +133,7 @@
                     <div class="space-y-2">
                         <flux:heading size="lg">{{ __('Recomendaciones para el departamento') }}</flux:heading>
                         <flux:text>{{ __('Aplicación: ') }} {{ ucfirst(str_replace('-', ' ', explode('-', $questionnaire_response['application']['slug'], -1) ? implode('-', explode('-', $questionnaire_response['application']['slug'], -1)) : $questionnaire_response['application']['slug']))}}</flux:text>
-                        <flux:text>{{ __('Cuestionario ID: sSD12df') }}</flux:text>
+                        <flux:text>{{ __('Cuestionario ID: ') }} {{ $questionnaire_response['questionnaire_response_uuid'] }}</flux:text>
                     </div>
                     <div class="mt-5 bg-light-variant dark:bg-dark-variant p-5 rounded-xl border border-neutral-300 dark:border-neutral-700">
                         <div class="space-y-4">
@@ -161,7 +161,7 @@
                     <div class="space-y-2">
                         <flux:heading size="lg">{{ __('Recomendaciones para el empleado') }}</flux:heading>
                         <flux:text>{{ __('Aplicación: ') }} {{ ucfirst(str_replace('-', ' ', explode('-', $questionnaire_response['application']['slug'], -1) ? implode('-', explode('-', $questionnaire_response['application']['slug'], -1)) : $questionnaire_response['application']['slug']))}}</flux:text>
-                        <flux:text>{{ __('Cuestionario ID: sSD12df') }}</flux:text>
+                        <flux:text>{{ __('Cuestionario ID: ') }} {{ $questionnaire_response['questionnaire_response_uuid'] }}</flux:text>
                     </div>
                     <div class="mt-5 bg-light-variant dark:bg-dark-variant p-5 rounded-xl border border-neutral-300 dark:border-neutral-700">
                         <div class="space-y-4">
