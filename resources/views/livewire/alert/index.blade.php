@@ -22,7 +22,7 @@
                         <div class="bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 border-l-[6px] border-l-{{ $alert['risk_level'] }}-500 dark:border-l-{{ $alert['risk_level'] }}-500 rounded-2xl p-7 flex flex-col gap-10 shadow-lg">
                             <div class="flex flex-col-reverse lg:flex-row m items-start justify-between gap-2">
                                 <div>
-                                    <flux:heading>{{ ucfirst(strtolower($alert['name'])) }}</flux:heading>
+                                    <flux:heading size="xl">{{ ucfirst(strtolower($alert['name'])) }}</flux:heading>
                                     <flux:text class="mt-2">{{ ucfirst(strtolower($alert['subject'])) }}</flux:text>
                                 </div>
                                 <div class="flex flex-row-reverse lg:flex-row items-center gap-2">
