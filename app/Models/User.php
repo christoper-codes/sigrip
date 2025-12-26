@@ -124,4 +124,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Alert::class);
     }
+
+    public function supportTicketsCreated(): HasMany
+    {
+        return $this->hasMany(SupportTicket::class, 'created_by_user_id');
+    }
+
+    public function supportTicketsAssigned(): HasMany
+    {
+        return $this->hasMany(SupportTicket::class, 'assigned_to_user_id');
+    }
 }

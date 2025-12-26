@@ -62,4 +62,9 @@ class Department extends Model
     {
         return $this->hasMany(Alert::class);
     }
+
+    public function supportTickets(): HasMany
+    {
+        return $this->hasMany(SupportTicket::class);
+    }
 }

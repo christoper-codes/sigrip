@@ -52,4 +52,9 @@ class Company extends Model
     {
         return $this->hasMany(IncidentType::class);
     }
+
+    public function supportTickets(): HasMany
+    {
+        return $this->hasMany(SupportTicket::class);
+    }
 }
