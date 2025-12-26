@@ -65,12 +65,15 @@
         id="questionnaire-themes"
         class="mt-20"
         style="scroll-margin-top: 70px;"
-        x-data
+        x-data="{ first: true }"
         x-effect="
             @this.theme_change;
-            setTimeout(() => {
-                document.getElementById('questionnaire-themes').scrollIntoView({ behavior: 'auto', block: 'start' });
-            }, 100);
+            if (!first) {
+                setTimeout(() => {
+                    document.getElementById('questionnaire-themes').scrollIntoView({ behavior: 'auto', block: 'start' });
+                }, 100);
+            }
+            first = false;
         "
         >
         @if ($current_theme)
