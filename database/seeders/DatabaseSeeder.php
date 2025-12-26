@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             QuestionnaireSeeder::class,
             UserSeeder::class,
             AlertTypeSeeder::class,
+            IncidentTypeSeeder::class,
         ]);
     }
 }
