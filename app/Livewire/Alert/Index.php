@@ -25,6 +25,7 @@ class Index extends Component
     {
         $this->alerts = Alert::where('company_id', Auth::user()->company_id)
             ->with('user', 'application', 'department')
+            ->orderByRaw('read_by_department ASC')
             ->orderByDesc('created_at')
             ->limit($this->items_per_page)
             ->get()
