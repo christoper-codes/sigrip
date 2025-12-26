@@ -47,4 +47,9 @@ class Company extends Model
     {
         return $this->hasMany(Alert::class);
     }
+
+    public function incidentTypes(): HasMany
+    {
+        return $this->hasMany(IncidentType::class);
+    }
 }
