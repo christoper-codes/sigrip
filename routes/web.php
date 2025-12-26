@@ -20,6 +20,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('employees', 'pages.app.employee.index')->name('employee.index');
     Route::view('notifications', 'pages.app.notification.index')->name('notification.index');
     Route::view('alerts', 'pages.app.alert.index')->name('alert.index');
+    Route::view('tickets', 'pages.app.ticket.index')->name('ticket.index');
     Route::view('questionnaires', 'pages.app.questionnaire.index')->name('questionnaire.index');
 
     Route::view('applications', 'pages.app.application.index')->name('application.index');

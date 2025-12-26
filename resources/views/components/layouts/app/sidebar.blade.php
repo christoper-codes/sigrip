@@ -38,7 +38,11 @@
                 <flux:navlist.group :heading="__('Seguimiento')" class="grid sidebar-heading"></flux:navlist.group>
                 <flux:sidebar.group
                     expandable icon="bell-alert"
-                    :expanded="request()->routeIs('notification.index') || request()->routeIs('alert.index')"
+                    :expanded="
+                        request()->routeIs('notification.index') ||
+                        request()->routeIs('alert.index') ||
+                        request()->routeIs('ticket.index')
+                    "
                     :heading="__('Primordial')" class="grid">
                     <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="bell" :href="route('notification.index')" :current="request()->routeIs('notification.index')" wire:navigate>
                         <span>{{ __('Notificaciones') }}</span>
@@ -53,6 +57,14 @@
                         @if(auth()->user()->metadata['alerts'] > 0)
                             <div class="inline rounded-sm border border-blue-500 bg-blue-500/10 text-center text-xs px-2 py-0.5 ml-1">
                                 {{ auth()->user()->metadata['alerts'] }}
+                            </div>
+                        @endif
+                    </flux:sidebar.item>
+                    <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="document-text" :href="route('ticket.index')" :current="request()->routeIs('ticket.index')" wire:navigate>
+                        <span>{{ __('Tickets') }}</span>
+                        @if(auth()->user()->metadata['tickets'] > 0)
+                            <div class="inline rounded-sm border border-green-500 bg-green-500/10 text-center text-xs px-2 py-0.5 ml-1">
+                                {{ auth()->user()->metadata['tickets'] }}
                             </div>
                         @endif
                     </flux:sidebar.item>
