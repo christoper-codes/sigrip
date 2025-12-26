@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             AlertTypeSeeder::class,
             IncidentTypeSeeder::class,
+            SupportTicketStatusSeeder::class,
         ]);
     }
 }
