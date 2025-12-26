@@ -14,25 +14,25 @@ class SupportTicketStatusSeeder extends Seeder
     public function run(): void
     {
         SupportTicketStatus::create([
-            'name' => 'Abierto',
+            'name' => 'abierto',
             'description' => 'El ticket ha sido creado y está pendiente de ser atendido.',
             'color' => 'blue',
             'is_active' => true,
         ]);
         SupportTicketStatus::create([
-            'name' => 'En proceso',
+            'name' => 'en proceso',
             'description' => 'El ticket está siendo atendido y se están tomando acciones.',
             'color' => 'orange',
             'is_active' => true,
         ]);
         SupportTicketStatus::create([
-            'name' => 'Resuelto',
+            'name' => 'resuelto',
             'description' => 'El incidente ha sido atendido y se considera resuelto.',
             'color' => 'green',
             'is_active' => true,
         ]);
         SupportTicketStatus::create([
-            'name' => 'Cerrado',
+            'name' => 'cerrado',
             'description' => 'El ticket ha sido cerrado definitivamente.',
             'color' => 'red',
             'is_active' => true,
