@@ -13,8 +13,6 @@ class Index extends Component
     use LimitItems;
 
     public array $alerts = [];
-    public array $unread_alerts = [];
-    public array $read_alerts = [];
     public ?array $questionnaire_response = [];
 
     public function mount(): void
@@ -47,10 +45,6 @@ class Index extends Component
         $alert = $this->alerts[array_search($alert_id, array_column($this->alerts, 'id'))];
 
         if(! (bool)$alert['read_by_department']) {
-            $alert['read_by_department'] = true;
-            $this->alerts[array_search($alert_id, array_column($this->alerts, 'id'))] = $alert;
-            $this->unread_alerts = array_filter($this->unread_alerts, fn($n) => $n['id'] !== $alert_id);
-            $this->read_alerts[] = $alert;
             Alert::where('id', $alert_id)->update(['read_by_department' => true]);
 
             $user = Auth::user();

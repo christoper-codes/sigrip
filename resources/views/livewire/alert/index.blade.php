@@ -19,16 +19,16 @@
                 <div class="hidden text-red-500 text-yellow-500 border-l-red-500 border-l-yellow-500 dark:border-l-red-500 dark:border-l-yellow-500 bg-red-500/10 bg-yellow-500/10"></div>
                 <div class="grid grid-cols-1 lg:grid-cols-1 gap-7 mt-5">
                     @foreach ($alerts as $alert)
-                        <div class="border dark:border-dark-variant border-l-[5px] border-l-{{ $alert['risk_level'] }}-500 dark:border-l-{{ $alert['risk_level'] }}-500 rounded-2xl p-7 flex flex-col gap-10 shadow-xl">
+                        <div class="bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 border-l-[6px] border-l-{{ $alert['risk_level'] }}-500 dark:border-l-{{ $alert['risk_level'] }}-500 rounded-2xl p-7 flex flex-col gap-10 shadow-xl">
                             <div class="flex flex-col-reverse lg:flex-row m items-start justify-between gap-2">
                                 <div>
                                     <flux:heading>{{ ucfirst(strtolower($alert['name'])) }}</flux:heading>
                                     <flux:text class="mt-2">{{ ucfirst(strtolower($alert['subject'])) }}</flux:text>
                                 </div>
-                                <div class="flex items-center gap-4">
+                                <div class="flex flex-row-reverse lg:flex-row items-center gap-2">
                                     @if (! (bool)$alert['read_by_department'])
                                         <div class="flex items-center justify-center border border-blue-500 bg-blue-500/10 py-2.5 px-4 rounded-full">
-                                            <flux:text>{{ __('Nueva') }}</flux:text>
+                                            <flux:text class="text-blue-500">{{ __('Nueva') }}</flux:text>
                                         </div>
                                     @else
                                          <div class="flex items-center justify-center border border-neutral-300 dark:border-neutral-600 bg-light-variant dark:bg-dark-variant py-2.5 px-4 rounded-full">
@@ -43,36 +43,36 @@
 
                             <section class="flex flex-col gap-3">
                                 <div class="flex flex-col md:flex-row md:items-center gap-2">
-                                    <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800 max-w-max">
+                                    <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border border-neutral-300 dark:border-neutral-700 max-w-max">
                                         <flux:icon.exclamation-circle variant="mini"/>
                                         <flux:text class="text-xs!">
                                             <span>{{ __('Riesgo ') }}</span>
                                             <span class="font-bold text-{{ $alert['risk_level'] }}-500">{{ $alert['risk_level'] == 'red' ? 'Alto' : 'Medio' }}</span>
                                         </flux:text>
                                     </div>
-                                    <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800 max-w-max">
+                                    <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border border-neutral-300 dark:border-neutral-700 max-w-max">
                                         <flux:icon.calendar variant="mini"/>
                                         <flux:text class="text-xs!">{{ dateFormat($alert['created_at']) }}</flux:text>
                                     </div>
-                                    <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800 max-w-max">
+                                    <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border border-neutral-300 dark:border-neutral-700 max-w-max">
                                         <flux:icon.arrow-trending-up variant="mini"/>
                                         <flux:text class="text-xs!">{{ __('Promedio ') }} {{ $alert['risk_score'] ?? '' }}</flux:text>
                                     </div>
                                 </div>
                                 <div class="flex flex-col md:flex-row md:items-center gap-2">
-                                    <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800 max-w-max">
+                                    <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border border-neutral-300 dark:border-neutral-700 max-w-max">
                                         <flux:icon.key variant="mini"/>
                                         <flux:text class="text-xs!">{{ __('Cuestionario ID: ') }} {{ $alert['questionnaire_response_uuid'] }}</flux:text>
                                     </div>
-                                    <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800 max-w-max">
+                                    <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border border-neutral-300 dark:border-neutral-700 max-w-max">
                                         <flux:icon.clipboard-document-list variant="mini"/>
                                         <flux:text class="text-xs!">{{ ucfirst(str_replace('-', ' ', explode('-', $alert['application']['slug'], -1) ? implode('-', explode('-', $alert['application']['slug'], -1)) : $alert['application']['slug'])) }}</flux:text>
                                     </div>
-                                    <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800 max-w-max">
+                                    <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border border-neutral-300 dark:border-neutral-700 max-w-max">
                                         <flux:icon.building-office variant="mini"/>
                                         <flux:text class="text-xs!">{{ __('Departamento: ') }} {{ $alert['department']['name'] }}</flux:text>
                                     </div>
-                                    <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border dark:border-neutral-800 max-w-max">
+                                    <div class="inline-flex items-center gap-2 py-2 px-4 rounded-full border border-neutral-300 dark:border-neutral-700 max-w-max">
                                         <flux:icon.user variant="mini"/>
                                         <flux:text class="text-xs!">{{ $alert['user'] ? $alert['user']['name'] : 'Empleado anonimo' }}</flux:text>
                                     </div>
