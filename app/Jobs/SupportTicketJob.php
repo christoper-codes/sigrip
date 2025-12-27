@@ -31,6 +31,7 @@ class SupportTicketJob implements ShouldQueue
         public string $description,
         public bool $is_priority,
         public bool $is_anonymous,
+        public ?array $evidence_files = [],
     )
     {
         $this->onQueue('tickets');
@@ -49,7 +50,9 @@ class SupportTicketJob implements ShouldQueue
             'created_by_user_id' => $this->is_anonymous ? null : $this->created_by_user,
             'title' => $this->title,
             'description' => $this->description,
-            'metadata' => [],
+            'metadata' => [
+                'evidences' => $this->evidence_files,
+            ],
             'is_priority' => $this->is_priority,
         ]);
 

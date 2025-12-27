@@ -38,6 +38,19 @@
             <flux:switch label="Es anónimo" wire:model="is_anonymous" align="left" name="is_anonymous"/>
             <flux:error name="is_anonymous" />
         </flux:field>
+        <flux:field>
+            <flux:label>{{ __('Subir evidencias (archivos, imágenes, documentos)') }}</flux:label>
+            <flux:input type="file" name="evidence_files" wire:model="evidence_files" multiple accept=".xlsx, .csv, .pdf, .jpg, .png" />
+
+            <div wire:loading wire:target="evidence_files">
+                <div class="flex items-center gap-1">
+                    <flux:icon.loading class="size-3"/>
+                    <flux:text class="!text-xs">{{ __('Cargando archivo') }}</flux:text>
+                </div>
+            </div>
+            <flux:error name="evidence_files" class="!mt-0"/>
+        </flux:field>
+
         <flux:button type="submit" variant="primary">{{ __('Crear ticket') }}</flux:button>
     </form>
 </div>
