@@ -17,6 +17,7 @@ class Index extends Component
 
     public ?array $tickets = [];
     public ?array $departments = [];
+    public ?string $notify_message = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -25,6 +26,10 @@ class Index extends Component
     {
         $this->items_per_page = 10;
         $this->departments = Department::where('company_id', Auth::user()->company?->id)->get()->toArray();
+        if(Auth::user()->company?->getActiveTickets() > 0) {
+            $department_names = Auth::user()->company->getActiveTicketNames();
+            $this->notify_message = __('Se tienen tickets activos para los departamentos: :departments', ['departments' => implode(', ', $department_names)]);
+        }
     }
 
      public function searchTickets(): void

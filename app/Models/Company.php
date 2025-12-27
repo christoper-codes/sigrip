@@ -62,4 +62,21 @@ class Company extends Model
     {
         return $this->supportTickets()->where('support_ticket_status_id', 1)->count();
     }
+
+    public function getActiveTicketNames(): array
+    {
+        $departments = $this->departments()->with(['supportTickets' => function ($query) {
+            $query->where('support_ticket_status_id', 1);
+        }])->get();
+
+        $active_department_names = [];
+
+        foreach ($departments as $department) {
+            if ($department->supportTickets->isNotEmpty()) {
+                $active_department_names[] = $department->name;
+            }
+        }
+
+        return $active_department_names;
+    }
 }
