@@ -11,7 +11,7 @@
             <flux:error name="department" class="!mt-0"/>
         </flux:field>
         <flux:field>
-            <flux:label>{{ __('Selecciona un tipo de incidente') }}</flux:label>
+            <flux:label>{{ __('Tipo de incidente') }}</flux:label>
             <flux:select class="!h-12" name="incident_type" wire:model.live="incident_type">
                 <flux:select.option value="" >{{ __('Selecciona un tipo de incidente') }}</flux:select.option>
                 @foreach ($incident_types as $incident_type)

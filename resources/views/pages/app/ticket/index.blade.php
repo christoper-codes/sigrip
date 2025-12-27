@@ -3,7 +3,7 @@
         <x-appearance.header>
             <div class="text-3xl leading-normal space-y-2">
                 <p class="uppercase">{{ __('Tickets') }}</p>
-                <p class="text-sm opacity-70">{{ __('Creacion y seguimiento de tickets para casos específicos.') }}</p>
+                <p class="text-sm opacity-70">{{ __('Creación y seguimiento de tickets para incidencias.') }}</p>
             </div>
         </x-appearance.header>
 
@@ -29,7 +29,7 @@
                 <div x-cloak x-show="selectedTab === 'create'" id="tabpanelCreateUpdate" role="tabpanel" aria-label="create">
                     <div class="max-w-2xl">
                         <flux:heading size="xl">{{ __('Crear un nuevo ticket') }}</flux:heading>
-                        <flux:text class="mt-2">{{ __('Completa el formulario para crear y asociarlo a tu compañia.') }}</flux:text>
+                        <flux:text class="mt-2">{{ __('Completa el formulario para crear un nuevo ticket y dar seguimiento a la incidencia.') }}</flux:text>
                         <div class="mt-10">
                             <livewire:ticket.store />
                         </div>
