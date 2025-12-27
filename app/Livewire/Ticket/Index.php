@@ -5,10 +5,10 @@ namespace App\Livewire\Ticket;
 use App\Livewire\Traits\LimitItems;
 use App\Livewire\Traits\Table;
 use App\Models\Department;
+use App\Models\SupportTicket;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
-use PHPUnit\Framework\Attributes\Ticket;
 
 class Index extends Component
 {
@@ -23,14 +23,15 @@ class Index extends Component
 
     public function mount(): void
     {
+        $this->items_per_page = 10;
         $this->departments = Department::where('company_id', Auth::user()->company?->id)->get()->toArray();
     }
 
      public function searchTickets(): void
     {
         $this->validateOnly('department');
-        $this->table_items = Ticket::where('executing_department_id', $this->department)
-            ->with('questionnaire', 'issuingDepartment', 'executingDepartment', 'users')
+        $this->table_items = SupportTicket::where('department_id', $this->department)
+            ->with('incidentType', 'supportTicketStatus', 'createdByUser')
             ->orderByDesc('created_at')
             ->limit($this->items_per_page)
             ->get()

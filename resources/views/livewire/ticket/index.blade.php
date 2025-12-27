@@ -22,6 +22,6 @@
             </flux:field>
         </div>
 
-        <flux:button type="submit" variant="primary" class="mt-3">{{ __('Buscar aplicaciones') }}</flux:button>
+        <flux:button type="submit" variant="primary" class="mt-3">{{ __('Buscar tickets') }}</flux:button>
    </form>
 </div>
