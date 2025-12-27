@@ -39,6 +39,7 @@ class Store extends Component
     public function submit(): void
     {
         $this->validate();
+
         SupportTicketJob::dispatch(
             company: Auth::user()->company?->id,
             department: $this->department,

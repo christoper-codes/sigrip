@@ -1,7 +1,7 @@
 <div>
     <form wire:submit.prevent="submit" class="space-y-6 px-5 py-6 lg:px-7 lg:py-7 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-xl">
         <flux:field>
-            <flux:label>{{ __('Selecciona un departamento') }}</flux:label>
+            <flux:label>{{ __('Departamendo donde surge la incidencia') }}</flux:label>
             <flux:select class="!h-12" name="department" wire:model.live="department">
                 <flux:select.option value="" >{{ __('Selecciona un departamento') }}</flux:select.option>
                 @foreach ($departments as $department)
