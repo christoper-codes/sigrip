@@ -2,12 +2,15 @@
 
 namespace App\Livewire\Ticket;
 
+use App\Livewire\Traits\LimitItems;
 use App\Models\Department;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Index extends Component
 {
+    use LimitItems;
+
     public ?array $tickets = [];
     public ?array $departments = [];
 
