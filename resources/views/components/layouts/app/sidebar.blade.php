@@ -62,9 +62,9 @@
                     </flux:sidebar.item>
                     <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="document-text" :href="route('ticket.index')" :current="request()->routeIs('ticket.index')" wire:navigate>
                         <span>{{ __('Tickets') }}</span>
-                        @if(auth()->user()->metadata['tickets'] > 0)
-                            <div class="inline rounded-sm border border-green-500 bg-green-500/10 text-center text-xs px-2 py-0.5 ml-1">
-                                {{ auth()->user()->metadata['tickets'] }}
+                        @if(auth()->user()?->company?->getActiveTickets() > 0)
+                            <div class="inline rounded-sm border border-red-500 bg-red-500/10 text-center text-xs px-2 py-0.5 ml-1">
+                                {{ auth()->user()->company->getActiveTickets() }}
                             </div>
                         @endif
                     </flux:sidebar.item>

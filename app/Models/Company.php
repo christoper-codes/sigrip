@@ -57,4 +57,9 @@ class Company extends Model
     {
         return $this->hasMany(SupportTicket::class);
     }
+
+    public function getActiveTickets(): int
+    {
+        return $this->supportTickets()->where('support_ticket_status_id', 1)->count();
+    }
 }
