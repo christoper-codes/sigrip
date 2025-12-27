@@ -98,7 +98,9 @@
                 </div>
             </div>
         @else
-            <flux:callout color="fuchsia" icon="information-circle" heading="{{ __('No hay alertas') }}" />
+            <div class="max-w-lg w-full">
+                <flux:callout color="fuchsia" icon="information-circle" heading="{{ __('No hay alertas') }}" />
+            </div>
         @endif
     </div>
 
