@@ -26,9 +26,11 @@ class Index extends Component
     {
         $this->items_per_page = 10;
         $this->departments = Department::where('company_id', Auth::user()->company?->id)->get()->toArray();
+
         if(Auth::user()->company?->getActiveTickets() > 0) {
             $department_names = Auth::user()->company->getActiveTicketNames();
-            $this->notify_message = __('Se tienen tickets activos para los departamentos: :departments', ['departments' => implode(', ', $department_names)]);
+            $this->notify_message = __('Se tienen tickets activos para el departamento de :departments', ['departments' => implode(', ', $department_names)]);
+            $this->dispatch('toast', message: $this->notify_message, type: 'warning');
         }
     }
 

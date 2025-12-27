@@ -24,4 +24,14 @@
 
         <flux:button type="submit" variant="primary" class="mt-3">{{ __('Buscar tickets') }}</flux:button>
    </form>
+
+    @if($notify_message)
+        <div class="mt-10 max-w-xl w-full">
+            <flux:callout color="yellow" icon="information-circle" heading="{{ $notify_message }}" />
+        </div>
+    @else
+        <div class="mt-10 max-w-md w-full">
+            <flux:callout color="fuchsia" icon="information-circle" heading="{{ __('No se ha seleccionado un departamento') }}" />
+        </div>
+    @endif
 </div>
