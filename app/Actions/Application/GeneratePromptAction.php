@@ -161,7 +161,6 @@ final class GeneratePromptAction
 "subject_alert": "[crea un asunto para la alerta basada en el nivel de riesgo identificado si es que aplica, de lo contrario \'No Aplica\']",
 "ticket_data": {
     "incident_type_id": "[id del tipo de incidente seleccionado]",
-    "incident_type_name": "[nombre del tipo de incidente seleccionado]",
     "ticket_title": "[título sugerido para el ticket]",
     "ticket_description": "[descripción sugerida para el ticket]"
 }
