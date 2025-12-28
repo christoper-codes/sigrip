@@ -136,8 +136,24 @@
                             <flux:icon.plus x-show="openTicketResponse !== 0" class="size-5 text-neutral-600 dark:text-neutral-400" />
                             <flux:icon.minus x-show="openTicketResponse === 0" class="size-5 text-primary" />
                         </button>
-                        <div x-show="openTicketResponse === 0" class="px-6 pb-5">
-                            hey
+                        <div x-show="openTicketResponse === 0" class="px-6 pb-5 space-y-4" x-transition>
+                            <flux:field>
+                                <flux:label>{{ __('Respuesta del ticket') }}</flux:label>
+                                <flux:textarea name="ticket_text_response" resize="none" wire:model="ticket_text_response" icon="chat-bubble-bottom-center-text" placeholder="{{ __('Escribe la respuesta para el ticket') }}"/>
+                                <flux:error name="ticket_text_response"/>
+                            </flux:field>
+                            <flux:field>
+                                <flux:label>{{ __('Subir evidencias (archivos, imágenes, documentos)') }}</flux:label>
+                                <flux:input type="file" name="ticket_files_response" wire:model="ticket_files_response" multiple accept=".xlsx, .csv, .pdf, .jpg, .png" />
+
+                                <div wire:loading wire:target="ticket_files_response">
+                                    <div class="flex items-center gap-1">
+                                        <flux:icon.loading class="size-3"/>
+                                        <flux:text class="!text-xs">{{ __('Cargando archivo') }}</flux:text>
+                                    </div>
+                                </div>
+                                <flux:error name="ticket_files_response" class="!mt-0"/>
+                            </flux:field>
                         </div>
                     </div>
                 </div>

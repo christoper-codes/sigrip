@@ -11,10 +11,12 @@ use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Index extends Component
 {
     use LimitItems;
+    use WithFileUploads;
 
     public ?array $tickets = [];
     public ?array $detail_ticket = null;
@@ -27,6 +29,12 @@ class Index extends Component
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
+
+    #[Validate(['nullable', 'string', 'min:3'])]
+    public ?string $ticket_text_response = null;
+
+    #[Validate(['nullable', 'array'])]
+    public ?array $ticket_files_response = null;
 
     public function mount(): void
     {
