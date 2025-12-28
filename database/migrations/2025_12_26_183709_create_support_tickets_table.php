@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->json('metadata')->nullable();
             $table->boolean('is_priority')->default(true);
+            $table->boolean('is_active')->default(true);
             $table->date('resolved_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
