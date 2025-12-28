@@ -19,6 +19,7 @@ class Index extends Component
     public ?string $message_notification = null;
     public ?string $url_notification = null;
     public ?string $created_at_notification = null;
+    public ?string $alert_uuid = null;
 
     public function mount(): void
     {
@@ -50,6 +51,7 @@ class Index extends Component
         $this->message_notification = $notification['metadata']['message'];
         $this->url_notification = $notification['metadata']['url'] ?? null;
         $this->created_at_notification = $notification['created_at'];
+        $this->alert_uuid = $notification['metadata']['alert_uuid'] ?? null;
 
         if(is_null($notification['read_at'])) {
             $notification['read_at'] = now()->toDateTimeString();

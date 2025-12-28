@@ -61,6 +61,12 @@
                 <div>
                     <flux:heading size="lg">{{ $title_notification }}</flux:heading>
                     <flux:text>{{ $created_at_notification }}</flux:text>
+                    @if($alert_uuid)
+                        <div class="bg-light dark:bg-neutral-800 inline-flex items-center gap-2 py-2 px-4 rounded-full border border-neutral-300 dark:border-neutral-700 max-w-max">
+                            <flux:icon.key variant="mini"/>
+                            <flux:text class="text-xs!">{{ __('Cuestionario ID: ') }} {{ $alert_uuid }}</flux:text>
+                        </div>
+                    @endif
                 </div>
                 <flux:text class="mt-4">
                     {{ $message_notification }}
