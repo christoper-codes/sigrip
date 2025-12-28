@@ -23,6 +23,7 @@ class Alert extends Model
         'risk_score',
         'read_by_user',
         'read_by_department',
+        'created_by_ai',
         'is_active',
     ];
 

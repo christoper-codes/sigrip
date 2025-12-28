@@ -11,6 +11,7 @@ use App\Models\Alert;
 use App\Models\AlertType;
 use App\Models\Application;
 use App\Models\QuestionnaireResponse;
+use App\Models\SupportTicketStatus;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -57,6 +58,8 @@ class AiAlertJob implements ShouldQueue
 
         if($ai_response['alert']){
             $alert_type = AlertType::where('color', Str::lower($ai_response['type_alert']))->first();
+
+            // Alerts
             Alert::create([
                 'alert_type_id' => $alert_type->id,
                 'company_id' => $this->application->issuingDepartment->company->id,
@@ -70,6 +73,7 @@ class AiAlertJob implements ShouldQueue
                 'ai_response' => $ai_response,
                 'risk_level' => $ai_response['risk_level'],
                 'risk_score' => $ai_response['average_score'],
+                'created_by_ai' => true,
             ]);
 
             $this->questionnaire_response->ai_response = $ai_response;
@@ -77,6 +81,23 @@ class AiAlertJob implements ShouldQueue
             $this->questionnaire_response->risk_level = $ai_response['risk_level'];
             $this->questionnaire_response->save();
 
+            // Tickets
+            if($alert_type->color == 'red'){
+                SupportTicketJob::dispatch(
+                    company: $this->application->issuingDepartment->company->id,
+                    department: $this->application->executing_department_id,
+                    incident_type: $this->incident_type,
+                    support_ticket_status: SupportTicketStatus::where('name', 'abierto')->first()->id,
+                    created_by_user: $this->is_anonymous ? null : Auth::user()->id,
+                    title: $this->title,
+                    description: $this->description,
+                    is_priority: $this->is_priority,
+                    is_anonymous: $this->is_anonymous,
+                    evidence_files: $evidence_paths,
+                );
+            }
+
+            // Notifications
             if($this->application->issuingDepartment->manager_id){
                 $manager = User::find($this->application->issuingDepartment->manager_id);
                 $notification = [

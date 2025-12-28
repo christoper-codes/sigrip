@@ -83,6 +83,8 @@ class Index extends Component
         $support_ticket->support_ticket_status_id = $this->ticket_status;
         if($support_ticket->support_ticket_status_id == 4){
             $support_ticket->is_active = false;
+        } else if($support_ticket->support_ticket_status_id == 3){
+            $support_ticket->is_active = false;
             $support_ticket->resolved_at = now();
         } else {
             $support_ticket->is_active = true;

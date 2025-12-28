@@ -28,6 +28,7 @@ return new class extends Migration
             $table->decimal('risk_score', 5, 2)->nullable();
             $table->boolean('read_by_user')->default(false);
             $table->boolean('read_by_department')->default(false);
+            $table->boolean('created_by_ai')->default(false);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

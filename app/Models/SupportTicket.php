@@ -23,6 +23,7 @@ class SupportTicket extends Model
         'description',
         'metadata',
         'is_priority',
+        'created_by_ai',
         'is_active',
         'resolved_at',
     ];
