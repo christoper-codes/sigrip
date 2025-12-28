@@ -32,6 +32,7 @@
                                     @endif
                                 </div>
                                 <div class="flex flex-row-reverse lg:flex-row items-center gap-2">
+                                    <flux:text>ID: {{ $alert['uuid'] }}</flux:text>
                                     @if (! (bool)$alert['read_by_department'])
                                          <div class="flex items-center justify-center border border-neutral-300 dark:border-neutral-600 bg-light-variant dark:bg-dark-variant py-2.5 px-4 rounded-full">
                                             <flux:text>{{ __('Nueva') }}</flux:text>

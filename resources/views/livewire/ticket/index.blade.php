@@ -83,7 +83,7 @@
 
     @if($detail_ticket)
         <flux:modal name="ticket-details-modal" flyout variant="floating" class="md:w-lg space-y-8">
-            <div class="space-y-2">
+            <div class="space-y-3">
                 <flux:heading size="xl">{{ $detail_ticket['title'] }}</flux:heading>
                 <flux:text>{{ $detail_ticket['description'] }}</flux:text>
                 @if(isset($detail_ticket['metadata']['evidences']) && is_array($detail_ticket['metadata']['evidences']) && count($detail_ticket['metadata']['evidences']) > 0)
@@ -106,7 +106,7 @@
                     </div>
                 @endif
             </div>
-            <div>
+            <div class="space-y-2">
                 <div class="flex items-center gap-1">
                     <flux:icon.exclamation-triangle variant="mini" class="text-primary"/>
                     <flux:text class="text-primary">{{ $detail_ticket['incident_type']['name'] }}</flux:text>
@@ -142,7 +142,7 @@
             </flux:button>
             @if ($detail_ticket['ticket_responses'] && count($detail_ticket['ticket_responses']) > 0)
                 <div class="space-y-2">
-                    <flux:heading size="lg" class="mb-5">{{ __('Respuestas para la incidencia') }}</flux:heading>
+                    <flux:heading size="lg" class="mb-3">{{ __('Respuestas para la incidencia') }}</flux:heading>
                     @foreach ($detail_ticket['ticket_responses'] as $index => $response)
                         <div x-data="{ ticketResponse: -1 }" class="max-w-4xl mx-auto space-y-4 z-20 relative">
                             <div class="bg-light-variant dark:bg-neutral-700 border border-neutral-300 dark:border-neutral-700 rounded-2xl overflow-hidden">
@@ -172,6 +172,11 @@
                                                 </ul>
                                             </div>
                                         @endif
+
+                                        <div class="flex items-start gap-2">
+                                            <flux:icon.calendar variant="mini"/>
+                                            <flux:text>{{ dateFormat($response['created_at']) }}</flux:text>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

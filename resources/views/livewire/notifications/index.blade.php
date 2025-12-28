@@ -58,12 +58,11 @@
     <flux:modal name="read-notification" class="w-[90%] md:w-full max-w-md">
         <div class="space-y-6">
             <div class="space-y-2">
-                <div>
+                <div class="space-y-1">
                     <flux:heading size="lg">{{ $title_notification }}</flux:heading>
-                    <flux:text>{{ $created_at_notification }}</flux:text>
+                    <flux:text>{{ $created_at_notification ? dateFormat($created_at_notification) : '' }}</flux:text>
                     @if($alert_uuid)
-                        <div class="bg-light dark:bg-neutral-800 inline-flex items-center gap-2 py-2 px-4 rounded-full border border-neutral-300 dark:border-neutral-700 max-w-max">
-                            <flux:icon.key variant="mini"/>
+                        <div class="flex items-center gap-2 ">
                             <flux:text>{{ __('Alerta ID: ') }} {{ $alert_uuid }}</flux:text>
                         </div>
                     @endif
