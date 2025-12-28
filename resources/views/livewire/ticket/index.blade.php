@@ -76,6 +76,19 @@
             <div class="space-y-2">
                 <flux:heading size="xl">{{ $detail_ticket['title'] }}</flux:heading>
                 <flux:text>{{ $detail_ticket['description'] }}</flux:text>
+                @if(isset($detail_ticket['metadata']['evidences']) && is_array($detail_ticket['metadata']['evidences']) && count($detail_ticket['metadata']['evidences']) > 0)
+                    <div>
+                        <ul class="list-disc ml-6 space-y-1">
+                            @foreach($detail_ticket['metadata']['evidences'] as $evidence)
+                                <li>
+                                    <a href="{{ asset('storage/' . $evidence) }}" target="_blank" class="text-primary underline text-xs">
+                                        {{ basename($evidence) }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
             <div>
                 <div class="flex items-center gap-1">
