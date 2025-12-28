@@ -116,14 +116,14 @@
                         @endforeach
                     </flux:radio.group>
                 </flux:field>
-                <div x-data="{ openFaq: 1 }" class="max-w-4xl mx-auto space-y-4 z-20 relative mt-5">
-                    <div class="border border-neutral-500 dark:border-neutral-800 rounded-2xl overflow-hidden">
-                        <button @click="openFaq = openFaq === 0 ? -1 : 0" class="w-full px-6 py-5 text-left flex items-center justify-between gap-5 hover:bg-neutral-200/20 dark:hover:bg-neutral-900/20 transition-colors duration-500 cursor-pointer">
+                <div x-data="{ openTicketResponse: 1 }" class="max-w-4xl mx-auto space-y-4 z-20 relative mt-5">
+                    <div class="bg-light-variant dark:bg-neutral-700 border border-neutral-300 dark:border-neutral-700 rounded-2xl overflow-hidden">
+                        <button type="button" @click="openTicketResponse = openTicketResponse === 0 ? -1 : 0" class="w-full px-6 py-5 text-left flex items-center justify-between gap-5 hover:bg-neutral-200/20 dark:hover:bg-neutral-900/20 transition-colors duration-500 cursor-pointer">
                             <flux:text>{{ __('Agregar respuesta') }}</flux:text>
-                            <flux:icon.plus x-show="openFaq !== 0" class="size-5 text-neutral-600 dark:text-neutral-400" />
-                            <flux:icon.minus x-show="openFaq === 0" class="size-5 text-primary" />
+                            <flux:icon.plus x-show="openTicketResponse !== 0" class="size-5 text-neutral-600 dark:text-neutral-400" />
+                            <flux:icon.minus x-show="openTicketResponse === 0" class="size-5 text-primary" />
                         </button>
-                        <div x-show="openFaq === 0" class="px-6 pb-5">
+                        <div x-show="openTicketResponse === 0" class="px-6 pb-5">
                             hey
                         </div>
                     </div>
