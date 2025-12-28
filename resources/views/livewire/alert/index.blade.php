@@ -21,23 +21,32 @@
                     @foreach ($alerts as $alert)
                         <div class="bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 border-l-[6px] border-l-{{ $alert['risk_level'] }}-500 dark:border-l-{{ $alert['risk_level'] }}-500 rounded-2xl p-7 flex flex-col gap-10 shadow-lg">
                             <div class="flex flex-col-reverse lg:flex-row m items-start justify-between gap-2">
-                                <div>
+                                <div class="space-y-2">
                                     <flux:heading size="xl">{{ ucfirst(strtolower($alert['name'])) }}</flux:heading>
-                                    <flux:text class="mt-2">{{ ucfirst(strtolower($alert['subject'])) }}</flux:text>
+                                    <flux:text>{{ ucfirst(strtolower($alert['subject'])) }}</flux:text>
+                                    @if($alert['created_by_ai'])
+                                        <div class="flex items-center gap-2">
+                                            <flux:icon.sparkles variant="mini" class="text-primary"/>
+                                            <flux:text>{{ __('Generado por Ai') }}</flux:text>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="flex flex-row-reverse lg:flex-row items-center gap-2">
                                     @if (! (bool)$alert['read_by_department'])
-                                        <div class="flex items-center justify-center border border-blue-500 bg-blue-500/10 py-2.5 px-4 rounded-full">
-                                            <flux:text class="text-blue-500">{{ __('Nueva') }}</flux:text>
+                                         <div class="flex items-center justify-center border border-neutral-300 dark:border-neutral-600 bg-light-variant dark:bg-dark-variant py-2.5 px-4 rounded-full">
+                                            <flux:text>{{ __('Nueva') }}</flux:text>
+                                        </div>
+                                        <div class="flex items-center justify-center border border-{{ $alert['risk_level'] }}-500 bg-{{ $alert['risk_level'] }}-500/10 p-2.5 rounded-full">
+                                            <flux:icon.exclamation-triangle class="text-{{ $alert['risk_level'] }}-500" />
                                         </div>
                                     @else
                                          <div class="flex items-center justify-center border border-neutral-300 dark:border-neutral-600 bg-light-variant dark:bg-dark-variant py-2.5 px-4 rounded-full">
                                             <flux:text>{{ __('Leída') }}</flux:text>
                                         </div>
+                                        <div class="flex items-center justify-center border border-neutral-300 dark:border-neutral-600 bg-light-variant dark:bg-dark-variant p-2.5 rounded-full">
+                                            <flux:icon.exclamation-triangle />
+                                        </div>
                                     @endif
-                                    <div class="flex items-center justify-center border border-{{ $alert['risk_level'] }}-500 bg-{{ $alert['risk_level'] }}-500/10 p-2.5 rounded-full">
-                                        <flux:icon.exclamation-triangle class="text-{{ $alert['risk_level'] }}-500" />
-                                    </div>
                                 </div>
                             </div>
 
