@@ -81,6 +81,11 @@ class Index extends Component
 
         $support_ticket->is_priority = $this->is_priority;
         $support_ticket->support_ticket_status_id = $this->ticket_status;
+        if($$support_ticket->support_ticket_status_id == 4){
+            $support_ticket->is_active = false;
+        } else {
+            $support_ticket->is_active = true;
+        }
         $support_ticket->save();
 
         $this->dispatch('toast', message: __('Ticket actualizado correctamente.'), type: 'success');
@@ -101,6 +106,8 @@ class Index extends Component
         $this->validateOnly('department');
         $this->tickets = SupportTicket::where('department_id', $this->department)
             ->with('incidentType', 'supportTicketStatus', 'createdByUser')
+            ->orderByDesc('is_priority')
+            ->orderByDesc('is_active')
             ->orderByDesc('created_at')
             ->limit($this->items_per_page)
             ->get()
