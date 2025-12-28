@@ -64,8 +64,20 @@ class Index extends Component
     public function analyzeTicketAi(int $ticket_id): void
     {
         $ticket = $this->tickets[array_search($ticket_id, array_column($this->tickets, 'id'))];
-        $response = (new AnalyzeTicketAiAction)->execute(ticket: $ticket);
-        $this->analyze_ticket_ai_response = $response;
+        $analyze_ai = $ticket['metadata']['analyze_ai'] ?? null;
+
+        if (! $analyze_ai) {
+            $response = (new AnalyzeTicketAiAction)->execute(ticket: $ticket);
+            $this->analyze_ticket_ai_response = $response;
+
+            $temporal_ticket = SupportTicket::find($ticket_id);
+            $metadata = $temporal_ticket->metadata ?? [];
+            $metadata['analyze_ai'] = $response;
+            $temporal_ticket->metadata = $metadata;
+            $temporal_ticket->save();
+        } else {
+            $this->analyze_ticket_ai_response = $analyze_ai;
+        }
 
         Flux::modal('analyze-ticket-ai-modal')->show();
     }
