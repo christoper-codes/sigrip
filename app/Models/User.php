@@ -134,4 +134,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(SupportTicket::class, 'assigned_to_user_id');
     }
+
+    public function ticketResponses(): HasMany
+    {
+        return $this->hasMany(TicketResponse::class);
+    }
 }
