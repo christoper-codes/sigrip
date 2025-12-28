@@ -49,6 +49,15 @@ class Index extends Component
         }
     }
 
+    public function submit(): void
+    {
+        $this->validateOnly('ticket_text_response');
+        $this->validateOnly('ticket_files_response');
+
+        $temporal_ticket = SupportTicket::find($this->detail_ticket['id']);
+        $metadata = $temporal_ticket->metadata ?? [];
+    }
+
      public function searchTickets(): void
     {
         $this->validateOnly('department');

@@ -157,13 +157,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="flex gap-2 mt-7">
+                    <flux:spacer />
+                    <flux:modal.close>
+                        <flux:button type="button" variant="filled">{{ __('Cancelar') }}</flux:button>
+                    </flux:modal.close>
+                    <flux:button type="submit" variant="primary">{{ __('Guardar actualización') }}</flux:button>
+                </div>
             </form>
-            <div class="flex gap-2">
-                <flux:spacer />
-                <flux:modal.close>
-                    <flux:button variant="filled">{{ __('Cancelar') }}</flux:button>
-                </flux:modal.close>
-            </div>
+
             <flux:modal name="analyze-ticket-ai-modal" class="w-[90%] md:w-xl">
                 <div class="space-y-5">
                     <div>
