@@ -42,10 +42,13 @@
                             $tickets_by_status = collect($tickets)->where('support_ticket_status_id', $status['id']);
                         @endphp
                         @foreach ($tickets_by_status as $ticket)
-                            <div class="bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 border-l-4 border-l-neutral-300 dark:border-l-neutral-700 p-3 rounded-xl cursor-pointer hover:scale-105 transition-all duration-500">
+                            <div wire:click="showTicketDetails({{ $ticket['id'] }})" class="bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 border-l-4 border-l-neutral-300 dark:border-l-neutral-700 p-3 rounded-xl cursor-pointer hover:scale-105 transition-all duration-500">
                                 <flux:heading>{{ $ticket['title'] }}</flux:heading>
                                 <flux:text class="mt-2">{{ $ticket['created_at'] }}</flux:text>
-                                <flux:text class="mt-2 text-primary">{{ $ticket['incident_type']['name'] }}</flux:text>
+                                <div class="flex items-center gap-1 mt-1">
+                                    <flux:icon.exclamation-triangle variant="mini" class="text-primary"/>
+                                    <flux:text class="text-primary">{{ $ticket['incident_type']['name'] }}</flux:text>
+                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -60,5 +63,43 @@
         <div class="max-w-md w-full">
             <flux:callout color="fuchsia" icon="information-circle" heading="{{ __('No se ha seleccionado un departamento') }}" />
         </div>
+    @endif
+
+    @if($detail_ticket)
+        <flux:modal name="ticket-details-modal" flyout variant="floating" class="md:w-lg space-y-7">
+            <div class="space-y-2">
+                <flux:heading size="xl">{{ $detail_ticket['title'] }}</flux:heading>
+                <flux:text>{{ $detail_ticket['description'] }}</flux:text>
+            </div>
+            <div>
+                <div class="flex items-center gap-1">
+                    <flux:icon.exclamation-triangle variant="mini" class="text-primary"/>
+                    <flux:text class="text-primary">{{ $detail_ticket['incident_type']['name'] }}</flux:text>
+                </div>
+                <flux:text>{{ $detail_ticket['incident_type']['description'] }}</flux:text>
+            </div>
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <flux:icon.finger-print variant="mini"/>
+                    <flux:text>{{ __('Tipo de ticket ') }} {{ $detail_ticket['created_by_user'] ? __('autenticado') : __('anónimo') }}</flux:text>
+                </div>
+                @if($detail_ticket['created_by_user'])
+                    <div class="flex items-center gap-2">
+                        <flux:icon.user variant="mini"/>
+                        <flux:text>{{ __('Creado por ') }} {{ $detail_ticket['created_by_user']['name'] }}</flux:text>
+                    </div>
+                @endif
+                <div class="flex items-center gap-2">
+                    <flux:icon.calendar variant="mini"/>
+                    <flux:text>{{ dateFormat($detail_ticket['created_at']) }}</flux:text>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <flux:spacer />
+                <flux:modal.close>
+                    <flux:button variant="filled">{{ __('Cancelar') }}</flux:button>
+                </flux:modal.close>
+            </div>
+        </flux:modal>
     @endif
 </div>

@@ -6,6 +6,7 @@ use App\Livewire\Traits\LimitItems;
 use App\Models\Department;
 use App\Models\SupportTicket;
 use App\Models\SupportTicketStatus;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -15,6 +16,7 @@ class Index extends Component
     use LimitItems;
 
     public ?array $tickets = [];
+    public ?array $detail_ticket = null;
     public ?array $ticket_statuses = [];
     public ?array $departments = [];
     public ?string $notify_message = null;
@@ -44,6 +46,13 @@ class Index extends Component
             ->limit($this->items_per_page)
             ->get()
             ->toArray();
+    }
+
+    public function showTicketDetails(int $ticket_id): void
+    {
+        $this->detail_ticket = $this->tickets[array_search($ticket_id, array_column($this->tickets, 'id'))];
+
+        Flux::modal('ticket-details-modal')->show();
     }
 
     public function render()
