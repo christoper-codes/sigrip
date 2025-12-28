@@ -47,10 +47,20 @@
                                     <div class="w-full">
                                         <flux:heading>{{ $ticket['title'] }}</flux:heading>
                                     </div>
-                                    @if($ticket['is_priority'])
+                                    @if($ticket['is_priority'] && $ticket['support_ticket_status_id'] !== 3 && $ticket['support_ticket_status_id'] !== 4)
                                         <span class="relative flex size-3">
                                             <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
                                             <span class="relative inline-flex size-3 rounded-full bg-primary"></span>
+                                        </span>
+                                    @endif
+                                    @if($ticket['support_ticket_status_id'] == 3)
+                                        <span class="relative flex size-3">
+                                            <span class="relative inline-flex size-3 rounded-full bg-green-500"></span>
+                                        </span>
+                                    @endif
+                                    @if($ticket['support_ticket_status_id'] == 4)
+                                        <span class="relative flex size-3">
+                                            <span class="relative inline-flex size-3 rounded-full bg-neutral-300 dark:bg-neutral-600"></span>
                                         </span>
                                     @endif
                                 </div>
