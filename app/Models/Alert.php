@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Alert extends Model
 {
     protected $fillable = [
+        'uuid',
         'alert_type_id',
         'company_id',
         'department_id',
@@ -68,5 +69,15 @@ class Alert extends Model
     public function supportTickets(): HasMany
     {
         return $this->hasMany(SupportTicket::class);
+    }
+
+    public function supportTicketsByUuid(): HasMany
+    {
+        return $this->hasMany(SupportTicket::class, 'alert_uuid', 'uuid');
+    }
+
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(Notification::class, 'alert_uuid', 'uuid');
     }
 }

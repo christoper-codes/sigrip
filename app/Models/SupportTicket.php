@@ -17,6 +17,7 @@ class SupportTicket extends Model
         'incident_type_id',
         'support_ticket_status_id',
         'alert_id',
+        'alert_uuid',
         'created_by_user_id',
         'assigned_to_user_id',
         'title',
@@ -61,6 +62,11 @@ class SupportTicket extends Model
     public function alert(): BelongsTo
     {
         return $this->belongsTo(Alert::class);
+    }
+
+    public function alertByUuid(): BelongsTo
+    {
+        return $this->belongsTo(Alert::class, 'alert_uuid', 'uuid');
     }
 
     public function createdByUser(): BelongsTo

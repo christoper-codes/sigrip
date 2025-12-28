@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
+            $table->string('alert_uuid')->nullable();
+            $table->foreign('alert_uuid')->references('uuid')->on('alerts');
             $table->json('metadata');
             $table->dateTime('read_at')->nullable();
             $table->timestamps();

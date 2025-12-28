@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('alerts', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
             $table->foreignId('alert_type_id')->constrained('alert_types');
             $table->foreignId('company_id')->constrained('companies');
             $table->foreignId('department_id')->constrained('departments');

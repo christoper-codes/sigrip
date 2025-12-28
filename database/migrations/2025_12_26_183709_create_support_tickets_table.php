@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('incident_type_id')->constrained('incident_types');
             $table->foreignId('support_ticket_status_id')->constrained('support_ticket_statuses');
             $table->foreignId('alert_id')->nullable()->constrained('alerts');
+            $table->string('alert_uuid')->nullable();
+            $table->foreign('alert_uuid')->references('uuid')->on('alerts');
             $table->foreignId('created_by_user_id')->nullable()->constrained('users');
             $table->foreignId('assigned_to_user_id')->nullable()->constrained('users');
             $table->string('title');
