@@ -61,6 +61,7 @@ class AiAlertJob implements ShouldQueue
 
             // Alerts
             $alert = Alert::create([
+                'uuid' => str_pad(mt_rand(0, 999999), 8, '0', STR_PAD_LEFT),
                 'alert_type_id' => $alert_type->id,
                 'company_id' => $this->application->issuingDepartment->company->id,
                 'department_id' => $this->application->executing_department_id,
@@ -95,6 +96,7 @@ class AiAlertJob implements ShouldQueue
                     is_anonymous: true,
                     created_by_ai: true,
                     alert_id: $alert->id,
+                    alert_uuid: $alert->uuid,
                 );
             }
 
@@ -107,6 +109,7 @@ class AiAlertJob implements ShouldQueue
                     'message' => __('Se ha generado una alerta AI para la aplicación: :application. Se recomienda revisarla a la brevedad.', ['application' => $this->application->questionnaire->name]),
                     'url' => route('employee.index'),
                     'user_id' => $this->application->issuingDepartment->manager_id,
+                    'alert_uuid' => $alert->uuid,
                 ];
                 event(new NotificationEvent(
                     notification: $notification,
@@ -137,6 +140,7 @@ class AiAlertJob implements ShouldQueue
                     'message' => __('Se ha generado una alerta AI para la aplicación: :application. Se recomienda revisarla a la brevedad.', ['application' => $this->application->questionnaire->name]),
                     'url' => route('employee.index'),
                     'user_id' => $company_admin->id,
+                    'alert_uuid' => $alert->uuid,
                 ];
                 event(new NotificationEvent(
                     notification: $notification,
