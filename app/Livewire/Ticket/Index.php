@@ -7,11 +7,13 @@ use App\Livewire\Traits\LimitItems;
 use App\Models\Department;
 use App\Models\SupportTicket;
 use App\Models\SupportTicketStatus;
+use App\Models\TicketResponse;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 
 class Index extends Component
 {
@@ -54,8 +56,44 @@ class Index extends Component
         $this->validateOnly('ticket_text_response');
         $this->validateOnly('ticket_files_response');
 
-        $temporal_ticket = SupportTicket::find($this->detail_ticket['id']);
-        $metadata = $temporal_ticket->metadata ?? [];
+        $support_ticket = SupportTicket::find($this->detail_ticket['id']);
+
+        if($this->ticket_files_response || $this->ticket_text_response) {
+            $evidence_paths = [];
+            if ($this->ticket_files_response) {
+                foreach ($this->ticket_files_response as $file) {
+                    $original = $file->getClientOriginalName();
+                    $file_name = Auth::user()->company_id . '_' . Str::replace(' ', '_', trim(Str::lower(Auth::user()->company->name))) . '_' . time() . '_' . $original;
+                    $file_path = $file->storeAs('responses', $file_name, 'public');
+                    $evidence_paths[] = $file_path;
+                }
+            }
+
+            TicketResponse::create([
+                'support_ticket_id' => $support_ticket->id,
+                'user_id' => Auth::user()->id,
+                'metadata' => [
+                    'text_response' => $this->ticket_text_response,
+                    'files_response' => $evidence_paths,
+                ]
+            ]);
+        }
+
+        $support_ticket->is_priority = $this->is_priority;
+        $support_ticket->support_ticket_status_id = $this->ticket_status;
+        $support_ticket->save();
+
+        $this->dispatch('toast', message: __('Ticket actualizado correctamente.'), type: 'success');
+        $this->reset([
+            'detail_ticket',
+            'is_priority',
+            'ticket_status',
+            'ticket_text_response',
+            'ticket_files_response',
+        ]);
+
+        $this->searchTickets();
+        Flux::modal('ticket-details-modal')->close();
     }
 
      public function searchTickets(): void
