@@ -15,6 +15,7 @@ use App\Models\SupportTicketStatus;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class AiAlertJob implements ShouldQueue
@@ -55,7 +56,7 @@ class AiAlertJob implements ShouldQueue
         }
 
         $ai_response = (new GenerateAiAlertAction)->execute(prompt: $promt['prompt']);
-
+        Log::info('AI Alert Response:', $ai_response);
         if($ai_response['alert']){
             $alert_type = AlertType::where('color', Str::lower($ai_response['type_alert']))->first();
 
