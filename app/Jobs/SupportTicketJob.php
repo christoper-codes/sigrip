@@ -33,6 +33,7 @@ class SupportTicketJob implements ShouldQueue
         public bool $is_anonymous,
         public ?array $evidence_files = [],
         public bool $created_by_ai = false,
+        public ?int $alert_id = null,
     )
     {
         $this->onQueue('tickets');
@@ -48,6 +49,7 @@ class SupportTicketJob implements ShouldQueue
             'department_id' => $this->department,
             'incident_type_id' => $this->incident_type,
             'support_ticket_status_id' => $this->support_ticket_status,
+            'alert_id' => $this->alert_id,
             'created_by_user_id' => $this->is_anonymous ? null : $this->created_by_user,
             'title' => $this->title,
             'description' => $this->description,
