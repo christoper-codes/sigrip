@@ -43,12 +43,18 @@
                         @endphp
                         @foreach ($tickets_by_status as $ticket)
                             <div wire:click="showTicketDetails({{ $ticket['id'] }})" class="bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 border-l-4 border-l-neutral-300 dark:border-l-neutral-700 p-3 rounded-xl cursor-pointer hover:scale-105 transition-all duration-500">
-                                <flux:heading>{{ $ticket['title'] }}</flux:heading>
-                                <flux:text class="mt-2">{{ $ticket['created_at'] }}</flux:text>
-                                <div class="flex items-center gap-1 mt-1">
-                                    <flux:icon.exclamation-triangle variant="mini" class="text-primary"/>
-                                    <flux:text class="text-primary">{{ $ticket['incident_type']['name'] }}</flux:text>
+                                <div class="flex items-start gap-3 w-full">
+                                    <div class="w-full">
+                                        <flux:heading>{{ $ticket['title'] }}</flux:heading>
+                                    </div>
+                                    @if($ticket['is_priority'])
+                                        <span class="relative flex size-3">
+                                            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+                                            <span class="relative inline-flex size-3 rounded-full bg-primary"></span>
+                                        </span>
+                                    @endif
                                 </div>
+                                <flux:text class="mt-2">{{ $ticket['created_at'] }}</flux:text>
                             </div>
                         @endforeach
                     </div>
@@ -66,7 +72,7 @@
     @endif
 
     @if($detail_ticket)
-        <flux:modal name="ticket-details-modal" flyout variant="floating" class="md:w-lg space-y-7">
+        <flux:modal name="ticket-details-modal" flyout variant="floating" class="md:w-lg space-y-8">
             <div class="space-y-2">
                 <flux:heading size="xl">{{ $detail_ticket['title'] }}</flux:heading>
                 <flux:text>{{ $detail_ticket['description'] }}</flux:text>
@@ -94,6 +100,19 @@
                     <flux:text>{{ dateFormat($detail_ticket['created_at']) }}</flux:text>
                 </div>
             </div>
+            <form wire:submit.prevent="submit" class="space-y-4">
+                <flux:field>
+                    <flux:switch label="Es prioritario" wire:model="is_priority" align="left" name="is_priority"/>
+                    <flux:error name="is_priority" />
+                </flux:field>
+                <flux:field>
+                    <flux:radio.group wire:model="ticket_status" variant="segmented" size="sm">
+                        @foreach($ticket_statuses as $ticket_status)
+                            <flux:radio value="{{ $ticket_status['id'] }}" label="{{ $ticket_status['name'] }}" />
+                        @endforeach
+                    </flux:radio.group>
+                </flux:field>
+            </form>
             <div class="flex gap-2">
                 <flux:spacer />
                 <flux:modal.close>

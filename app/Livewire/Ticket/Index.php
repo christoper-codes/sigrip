@@ -20,6 +20,8 @@ class Index extends Component
     public ?array $ticket_statuses = [];
     public ?array $departments = [];
     public ?string $notify_message = null;
+    public bool $is_priority = false;
+    public ?int $ticket_status = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -51,6 +53,8 @@ class Index extends Component
     public function showTicketDetails(int $ticket_id): void
     {
         $this->detail_ticket = $this->tickets[array_search($ticket_id, array_column($this->tickets, 'id'))];
+        $this->is_priority = (bool)$this->detail_ticket['is_priority'];
+        $this->ticket_status = $this->detail_ticket['support_ticket_status_id'];
 
         Flux::modal('ticket-details-modal')->show();
     }
