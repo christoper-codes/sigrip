@@ -109,7 +109,7 @@ class Index extends Component
 
     public function showTicketDetails(int $ticket_id): void
     {
-        $this->detail_ticket = $this->tickets[array_search($ticket_id, array_column($this->tickets, 'id'))];
+        $this->detail_ticket = SupportTicket::with('incidentType', 'supportTicketStatus', 'createdByUser', 'ticketResponses')->find($ticket_id)->toArray();
         $this->is_priority = (bool)$this->detail_ticket['is_priority'];
         $this->ticket_status = $this->detail_ticket['support_ticket_status_id'];
 

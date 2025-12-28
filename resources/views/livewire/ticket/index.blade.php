@@ -113,10 +113,51 @@
                     <flux:text>{{ dateFormat($detail_ticket['created_at']) }}</flux:text>
                 </div>
             </div>
+
             <flux:button icon="sparkles" class="border! border-primary! bg-primary/10! flex! items-center! gap-1! h-full! w-full! py-2!"
                 wire:click="analyzeTicketAi({{ $detail_ticket['id'] }})">
                 {{ __('Analisis Ai') }}
             </flux:button>
+            @if ($detail_ticket['ticket_responses'] && count($detail_ticket['ticket_responses']) > 0)
+                <div class="space-y-2">
+                    <flux:heading size="lg" class="mb-5">{{ __('Respuestas para la incidencia') }}</flux:heading>
+                    @foreach ($detail_ticket['ticket_responses'] as $index => $response)
+                        <div x-data="{ ticketResponse: -1 }" class="max-w-4xl mx-auto space-y-4 z-20 relative">
+                            <div class="bg-light-variant dark:bg-neutral-700 border border-neutral-300 dark:border-neutral-700 rounded-2xl overflow-hidden">
+                                <button type="button" @click="ticketResponse = ticketResponse === {{ $index }} ? -1 : {{ $index }}" class="w-full px-6 py-5 text-left flex items-center justify-between gap-5 hover:bg-neutral-200/20 dark:hover:bg-neutral-900/20 transition-colors duration-500 cursor-pointer">
+                                    <flux:text>{{ __('Respuesta') . ' ' . ($index + 1) }}</flux:text>
+                                    <flux:icon.plus x-show="ticketResponse !== {{ $index }}" class="size-5 text-neutral-600 dark:text-neutral-400" />
+                                    <flux:icon.minus x-show="ticketResponse === {{ $index }}" class="size-5 text-primary" />
+                                </button>
+                                <div x-show="ticketResponse === {{ $index }}" class="px-6 pb-5 space-y-4" x-transition>
+                                    <div class="space-y-4">
+                                        @if (isset($response['metadata']['text_response']) && $response['metadata']['text_response'])
+                                            <div class="flex items-start gap-2">
+                                                <flux:icon.chat-bubble-oval-left-ellipsis variant="mini"/>
+                                                <flux:text>{{ $response['metadata']['text_response'] }}</flux:text>
+                                            </div>
+                                        @endif
+                                        @if(isset($response['metadata']['files_response']) && is_array($response['metadata']['files_response']) && count($response['metadata']['files_response']) > 0)
+                                            <div>
+                                                <ul class="list-disc ml-6 space-y-1">
+                                                    @foreach($response['metadata']['files_response'] as $evidence)
+                                                        <li>
+                                                            <a href="{{ asset('storage/' . $evidence) }}" target="_blank" class="text-primary underline text-xs">
+                                                                {{ basename($evidence) }}
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+
             <form wire:submit.prevent="submit" class="space-y-4">
                 <flux:field>
                     <flux:switch label="Es prioritario" wire:model="is_priority" align="left" name="is_priority"/>
