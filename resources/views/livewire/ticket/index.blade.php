@@ -99,6 +99,12 @@
                         </ul>
                     </div>
                 @endif
+                @if($detail_ticket['created_by_ai'])
+                    <div class="flex items-center gap-2">
+                        <flux:icon.sparkles variant="mini" class="text-primary"/>
+                        <flux:text>{{ __('Generado por Ai') }}</flux:text>
+                    </div>
+                @endif
             </div>
             <div>
                 <div class="flex items-center gap-1">
@@ -118,7 +124,7 @@
                         <flux:text>{{ __('Creado por ') }} {{ $detail_ticket['created_by_user']['name'] }}</flux:text>
                     </div>
                 @endif
-                @if($detail_ticket['alert_uuid'])
+                @if(isset($detail_ticket['alert_uuid']))
                     <div class="flex items-center gap-2">
                         <flux:icon.key variant="mini"/>
                         <flux:text class="text-xs!">{{ __('Alerta ID: ') }} {{ $detail_ticket['alert_uuid'] }}</flux:text>
