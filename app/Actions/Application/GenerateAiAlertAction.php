@@ -3,7 +3,6 @@
 namespace App\Actions\Application;
 
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 final class GenerateAiAlertAction
 {
@@ -23,8 +22,6 @@ final class GenerateAiAlertAction
                     ],
                 ]
             ])->json('choices.0.message.content');
-
-        Log::info('AI Response: ' . $response);
 
         return json_decode($response, true);
     }

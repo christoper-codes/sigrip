@@ -100,6 +100,10 @@
                     <flux:text>{{ dateFormat($detail_ticket['created_at']) }}</flux:text>
                 </div>
             </div>
+            <flux:button icon="sparkles" class="border! border-primary! bg-primary/10!"
+                wire:click="analyzeTicketAi({{ $detail_ticket['id'] }})">
+                {{ __('Analisis Ai') }}
+            </flux:button>
             <form wire:submit.prevent="submit" class="space-y-4">
                 <flux:field>
                     <flux:switch label="Es prioritario" wire:model="is_priority" align="left" name="is_priority"/>

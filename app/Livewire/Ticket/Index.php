@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Ticket;
 
+use App\Actions\Application\AnalyzeTicketAiAction;
 use App\Livewire\Traits\LimitItems;
 use App\Models\Department;
 use App\Models\SupportTicket;
 use App\Models\SupportTicketStatus;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -22,6 +24,7 @@ class Index extends Component
     public ?string $notify_message = null;
     public bool $is_priority = false;
     public ?int $ticket_status = null;
+    public ?string $analyze_ticket_ai_response = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -57,6 +60,16 @@ class Index extends Component
         $this->ticket_status = $this->detail_ticket['support_ticket_status_id'];
 
         Flux::modal('ticket-details-modal')->show();
+    }
+
+    public function analyzeTicketAi(int $ticket_id): void
+    {
+        $ticket = $this->tickets[array_search($ticket_id, array_column($this->tickets, 'id'))];
+        $response = (new AnalyzeTicketAiAction)->execute(ticket: $ticket);
+        Log::info('AI Analysis for Ticket ID ' . $ticket_id . ': ' . $response);
+        $this->analyze_ticket_ai_response = $response[0];
+
+        Flux::modal('analyze-ticket-ai-modal')->show();
     }
 
     public function render()
