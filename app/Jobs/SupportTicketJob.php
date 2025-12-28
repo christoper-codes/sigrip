@@ -32,6 +32,7 @@ class SupportTicketJob implements ShouldQueue
         public bool $is_priority,
         public bool $is_anonymous,
         public ?array $evidence_files = [],
+        public bool $created_by_ai = false,
     )
     {
         $this->onQueue('tickets');
@@ -54,6 +55,7 @@ class SupportTicketJob implements ShouldQueue
                 'evidences' => $this->evidence_files,
             ],
             'is_priority' => $this->is_priority,
+            'created_by_ai' => $this->created_by_ai,
         ]);
 
         $hr_department = Department::where('metadata->hr_department', true)

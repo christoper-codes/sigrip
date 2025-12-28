@@ -2,12 +2,15 @@
 
 namespace App\Actions\Application;
 
+use App\Models\IncidentType;
 use App\Services\ApplicationAverageService;
 
 final class GeneratePromptAction
 {
     public function execute(array $responses, array $questionnaire, bool $auth_required = false): array
     {
+        $incident_types = IncidentType::all(['id', 'name'])->toArray();
+
         $title = $questionnaire['title'];
         $risk_evaluation = $questionnaire['risk_evaluation'] ?? [];
         $themes = $questionnaire['themes'] ?? [];
@@ -142,6 +145,9 @@ final class GeneratePromptAction
         ? '    "recommendation_for_user": "[recomendación específica y personalizada basada en las respuestas. Y apollo emocional (amplia la respuesta).]",\n'
         : '';
 
+    $incident_types_json = json_encode($incident_types, JSON_UNESCAPED_UNICODE);
+
+
     $json_block =
 '{
 "average_score": [número decimal del puntaje promedio],
@@ -152,11 +158,17 @@ final class GeneratePromptAction
 . $reco_user_line .
 '    "recommendation_for_department": "[recomendación para el departamento o empresa basada en las respuestas del usuario y el nivel de riesgo identificado (agrega ese nivel de riesgo para que el departamento actue).]",
 "alert_name": "[crea un nombre corto para la alerta basada en el nivel de riesgo identificado, ejemplo: \'Riesgo Crítico por Respuestas Críticas\' o \'Riesgo Moderado por Puntaje Promedio\' si aplica, de lo contrario \'No Aplica\']",
-"subject_alert": "[crea un asunto para la alerta basada en el nivel de riesgo identificado si es que aplica, de lo contrario \'No Aplica\']"
+"subject_alert": "[crea un asunto para la alerta basada en el nivel de riesgo identificado si es que aplica, de lo contrario \'No Aplica\']",
+"ticket_data": {
+    "incident_type_id": "[id del tipo de incidente seleccionado]",
+    "incident_type_name": "[nombre del tipo de incidente seleccionado]",
+    "ticket_title": "[título sugerido para el ticket]",
+    "ticket_description": "[descripción sugerida para el ticket]"
+}
 }';
 
-$instruccion_5 = $auth_required
-    ? "5. Genera recomendaciones específicas y accionables para el usuario.\n"
+$instruccion_7 = $auth_required
+    ? "7. Genera recomendaciones específicas y accionables para el usuario.\n"
     : "";
 $prompt =
 "Eres un analista experto en bienestar emocional y riesgo psicosocial. Analiza las siguientes respuestas de cuestionario y proporciona una evaluación precisa.
@@ -187,12 +199,17 @@ IMPORTANTE: Cada color contiene un ARRAY de condiciones. Evalúa TODAS las condi
 === IDs DE PREGUNTAS CON ALERTA ===
 {$questions_alert_ids}
 
+=== TIPOS DE INCIDENTE DISPONIBLES ===
+{$incident_types_json}
+
 === INSTRUCCIONES ESPECÍFICAS ===
 1. Evalúa el nivel de riesgo basándote ESTRICTAMENTE en los arrays de condiciones de cada color (green, yellow, red).
 2. Considera tanto el puntaje promedio como las respuestas críticas individuales y cualquier condición especial descrita.
 3. Si se cumplen varias condiciones (por ejemplo, una amarilla y una de control), reporta todas las alertas relevantes.
-4. Responde ÚNICAMENTE en formato JSON, sin comentarios adicionales.
-{$instruccion_5}
+4. Si la alerta es roja (risk_level == 'red'), selecciona el tipo de incidente más adecuado del listado y genera los datos del ticket.
+5. Si la alerta no es roja, deja ticket_data vacío o null.
+6. Responde ÚNICAMENTE en formato JSON, sin comentarios adicionales.
+{$instruccion_7}
 
 RESPONDE SOLO CON EL SIGUIENTE JSON (sin markdown, sin comentarios adicionales):
 " . $json_block;

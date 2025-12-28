@@ -88,12 +88,12 @@ class AiAlertJob implements ShouldQueue
                     department: $this->application->executing_department_id,
                     incident_type: $this->incident_type,
                     support_ticket_status: SupportTicketStatus::where('name', 'abierto')->first()->id,
-                    created_by_user: $this->is_anonymous ? null : Auth::user()->id,
+                    created_by_user: null,
                     title: $this->title,
                     description: $this->description,
-                    is_priority: $this->is_priority,
-                    is_anonymous: $this->is_anonymous,
-                    evidence_files: $evidence_paths,
+                    is_priority: true,
+                    is_anonymous: true,
+                    created_by_ai: true,
                 );
             }
 
