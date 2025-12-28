@@ -64,7 +64,7 @@
                     @if($alert_uuid)
                         <div class="bg-light dark:bg-neutral-800 inline-flex items-center gap-2 py-2 px-4 rounded-full border border-neutral-300 dark:border-neutral-700 max-w-max">
                             <flux:icon.key variant="mini"/>
-                            <flux:text class="text-xs!">{{ __('Cuestionario ID: ') }} {{ $alert_uuid }}</flux:text>
+                            <flux:text class="text-xs!">{{ __('Alerta ID: ') }} {{ $alert_uuid }}</flux:text>
                         </div>
                     @endif
                 </div>

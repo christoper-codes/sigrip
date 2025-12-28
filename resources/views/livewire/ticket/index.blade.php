@@ -118,6 +118,12 @@
                         <flux:text>{{ __('Creado por ') }} {{ $detail_ticket['created_by_user']['name'] }}</flux:text>
                     </div>
                 @endif
+                @if($detail_ticket['alert_uuid'])
+                    <div class="flex items-center gap-2">
+                        <flux:icon.key variant="mini"/>
+                        <flux:text class="text-xs!">{{ __('Alerta ID: ') }} {{ $detail_ticket['alert_uuid'] }}</flux:text>
+                    </div>
+                @endif
                 <div class="flex items-center gap-2">
                     <flux:icon.calendar variant="mini"/>
                     <flux:text>{{ dateFormat($detail_ticket['created_at']) }}</flux:text>
