@@ -28,7 +28,13 @@
    </form>
 
     @if($tickets)
-        <div class="flex gap-4 overflow-x-auto h-[70vh] overflow-y-hidden">
+        <div x-data="{ animation: false }"
+            x-init="$nextTick(() => animation = true)"
+            x-show="animation"
+            x-transition:enter="transition ease-out duration-500"
+            x-transition:enter-start="opacity-0 transform translate-x-8"
+            x-transition:enter-end="opacity-100 transform translate-x-0"
+            class="flex gap-4 overflow-x-auto h-[70vh] overflow-y-hidden">
             @foreach ($ticket_statuses as $status)
                 <div class="min-w-[320px] flex flex-col gap-5 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-lg p-5 overflow-y-auto mb-4">
                     <div>
@@ -73,13 +79,17 @@
                 </div>
             @endforeach
         </div>
-    @elseif($notify_message)
+    @endif
+
+    @if($notify_message && ! $tickets)
         <div class="max-w-xl w-full">
             <flux:callout color="yellow" icon="information-circle" heading="{{ $notify_message }}" />
         </div>
-    @else
-        <div class="max-w-md w-full">
-            <flux:callout color="fuchsia" icon="information-circle" heading="{{ __('No se ha seleccionado un departamento') }}" />
+    @endif
+
+    @if(! $notify_message && ! $tickets)
+        <div class="max-w-md! w-full!">
+            <flux:callout class="w-auto! h-auto!" color="fuchsia" icon="information-circle" heading="{{ __('No se ha seleccionado un departamento') }}" />
         </div>
     @endif
 
@@ -208,7 +218,7 @@
                         </button>
                         <div x-show="openTicketResponse === 0" class="px-6 pb-5 space-y-4" x-transition>
                             <flux:field>
-                                <flux:label>{{ __('Respuesta del ticket') }}</flux:label>
+                                <flux:label>{{ __('Respuesta') }}</flux:label>
                                 <flux:textarea name="ticket_text_response" resize="none" wire:model="ticket_text_response" icon="chat-bubble-bottom-center-text" placeholder="{{ __('Escribe la respuesta para el ticket') }}"/>
                                 <flux:error name="ticket_text_response"/>
                             </flux:field>
@@ -230,7 +240,7 @@
                 <div class="flex gap-2 mt-7">
                     <flux:spacer />
                     <flux:modal.close>
-                        <flux:button type="button" variant="filled">{{ __('Cancelar') }}</flux:button>
+                        <flux:button type="button" variant="filled">{{ __('Cerrar') }}</flux:button>
                     </flux:modal.close>
                     <flux:button type="submit" variant="primary">{{ __('Guardar actualización') }}</flux:button>
                 </div>

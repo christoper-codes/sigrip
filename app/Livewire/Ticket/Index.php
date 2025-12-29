@@ -115,6 +115,10 @@ class Index extends Component
             ->limit($this->items_per_page)
             ->get()
             ->toArray();
+
+        if(! $this->tickets) {
+            $this->notify_message = __('No se encontraron tickets para el departamento seleccionado.');
+        }
     }
 
     public function showTicketDetails(int $ticket_id): void
