@@ -17,11 +17,14 @@
                     </div>
                 </form>
                 <form wire:submit.prevent='searchAlert' class="mt-3">
-                    <flux:field class="max-w-60 w-full">
+                    <flux:field class="{{ $alert_uuid ? 'lg:max-w-md w-full' : 'lg:max-w-[330.5px] w-full' }}">
                         <flux:label>{{ __('ID de la alerta') }}</flux:label>
                         <div class="flex items-center gap-2">
                             <flux:input name="alert_uuid" wire:model="alert_uuid" placeholder="00972204"/>
                             <flux:button type="submit" variant="primary" class="py-6!">{{ __('Buscar') }}</flux:button>
+                            @if($alert_uuid)
+                                <flux:button type="button" variant="filled" class="py-6!" wire:click="resetSearch">{{ __('Restablecer') }}</flux:button>
+                            @endif
                         </div>
                         <flux:error name="alert_uuid" class="!mt-0"/>
                     </flux:field>

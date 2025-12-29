@@ -71,6 +71,7 @@ class Index extends Component
             return;
         }
 
+        $this->dispatch('toast', message: __('Alerta encontrada.'), type: 'success');
         $this->alerts = [$alert->toArray()];
     }
 
