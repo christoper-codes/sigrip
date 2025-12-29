@@ -147,6 +147,11 @@ class Index extends Component
         Flux::modal('analyze-ticket-ai-modal')->show();
     }
 
+    public function ticketDetailModalClosed(): void
+    {
+        $this->js('document.querySelector("#ticket-btn").click()');
+    }
+
     public function render()
     {
         return view('livewire.ticket.index');

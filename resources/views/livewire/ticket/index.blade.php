@@ -1,4 +1,6 @@
 <div>
+    <flux:button id="ticket-btn" class="hidden!" variant="primary">{{ __('test') }}</flux:button>
+
     <form wire:submit.prevent='searchTickets' class="mb-10">
         <div class="flex items-center gap-3">
             <flux:field class="max-w-md w-full">
@@ -82,7 +84,7 @@
     @endif
 
     @if($detail_ticket)
-        <flux:modal name="ticket-details-modal" flyout variant="floating" class="md:w-lg space-y-8">
+        <flux:modal name="ticket-details-modal" flyout variant="floating" class="md:w-lg space-y-8" @close="ticketDetailModalClosed()">
             <div class="space-y-3">
                 <flux:heading size="xl">{{ $detail_ticket['title'] }}</flux:heading>
                 <flux:text>{{ $detail_ticket['description'] }}</flux:text>
