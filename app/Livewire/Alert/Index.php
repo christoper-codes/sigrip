@@ -6,6 +6,7 @@ use App\Livewire\Traits\LimitItems;
 use App\Models\Alert;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Index extends Component
@@ -14,6 +15,9 @@ class Index extends Component
 
     public array $alerts = [];
     public ?array $questionnaire_response = [];
+
+    #[Validate(['required', 'string', 'min:8'])]
+    public ?string $alert_uuid = null;
 
     public function mount(): void
     {
@@ -54,6 +58,26 @@ class Index extends Component
             $metadata['alerts'] = $alerts < 0 ? 0 : $alerts;
             $user->update(['metadata' => $metadata]);
         }
+    }
+
+    public function searchAlert(): void
+    {
+        $this->validateOnly('alert_uuid');
+        $alert = Alert::where('uuid', $this->alert_uuid)
+            ->with('user', 'application', 'department')
+            ->first();
+        if(! $alert) {
+            $this->dispatch('toast', message: __('No se encontró ninguna alerta con el ID proporcionado.'), type: 'error');
+            return;
+        }
+
+        $this->alerts = [$alert->toArray()];
+    }
+
+    public function resetSearch(): void
+    {
+        $this->reset('alert_uuid');
+        $this->loadAlerts();
     }
 
     public function render()

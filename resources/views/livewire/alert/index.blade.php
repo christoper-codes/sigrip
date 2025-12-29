@@ -1,20 +1,32 @@
 <div>
     <div class="w-full flex flex-col gap-10">
         @if($alerts)
-            <form wire:submit.prevent='loadAlerts'>
-                <div class="flex items-center gap-2">
-                    <flux:field class="max-w-32 w-full">
-                        <flux:label>{{ __('Total de registros') }}</flux:label>
-                        <flux:select name="items_per_page" wire:model.live="items_per_page">
-                            @foreach ($search_options as $option)
-                                <flux:select.option value="{{ $option['value'] }}">{{ $option['label'] }}</flux:select.option>)
-                            @endforeach
-                        </flux:select>
-                        <flux:error name="items_per_page" class="!mt-0"/>
+            <div>
+                <form wire:submit.prevent='loadAlerts'>
+                    <div class="flex items-center gap-2">
+                        <flux:field class="max-w-32 w-full">
+                            <flux:label>{{ __('Total de registros') }}</flux:label>
+                            <flux:select name="items_per_page" wire:model.live="items_per_page">
+                                @foreach ($search_options as $option)
+                                    <flux:select.option value="{{ $option['value'] }}">{{ $option['label'] }}</flux:select.option>)
+                                @endforeach
+                            </flux:select>
+                            <flux:error name="items_per_page" class="!mt-0"/>
+                        </flux:field>
+                        <flux:button type="submit" variant="primary" class="mt-6">{{ __('Buscar') }}</flux:button>
+                    </div>
+                </form>
+                <form wire:submit.prevent='searchAlert' class="mt-3">
+                    <flux:field class="max-w-60 w-full">
+                        <flux:label>{{ __('ID de la alerta') }}</flux:label>
+                        <div class="flex items-center gap-2">
+                            <flux:input name="alert_uuid" wire:model="alert_uuid" placeholder="00972204"/>
+                            <flux:button type="submit" variant="primary" class="py-6!">{{ __('Buscar') }}</flux:button>
+                        </div>
+                        <flux:error name="alert_uuid" class="!mt-0"/>
                     </flux:field>
-                    <flux:button type="submit" variant="primary" class="mt-6">{{ __('Buscar') }}</flux:button>
-                </div>
-            </form>
+                </form>
+            </div>
             <div>
                 <div class="hidden text-red-500 text-yellow-500 border-l-red-500 border-l-yellow-500 dark:border-l-red-500 dark:border-l-yellow-500 bg-red-500/10 bg-yellow-500/10"></div>
                 <div class="grid grid-cols-1 lg:grid-cols-1 gap-10 mt-5">
