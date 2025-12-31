@@ -193,6 +193,6 @@
 
         {{ $slot }}
 
-        @fluxScripts
+        @include('partials.foot')
     </body>
 </html>
