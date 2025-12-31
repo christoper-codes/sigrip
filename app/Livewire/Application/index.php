@@ -52,7 +52,7 @@ class Index extends Component
             ['label' => __('Fecha de creación'), 'field' => 'created_at', 'sortable' => true],
             ['label' => __('Compartir aplicación')],
             ['label' => __('Resultados y análisis Ai')],
-            ['label' => __('Respuestas recibidas'), 'field' => 'questionnaire_responses_count', 'sortable' => true],
+            ['label' => __('Respuestas'), 'field' => 'questionnaire_responses_count', 'sortable' => true],
             ['label' => __('Departamento emisor')],
             ['label' => __('Fecha de inicio'), 'field' => 'created_at', 'sortable' => true],
             ['label' => __('Fecha de caducidad'), 'field' => 'expiration_date', 'sortable' => true],

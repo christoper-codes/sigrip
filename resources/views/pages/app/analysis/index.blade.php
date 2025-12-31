@@ -26,7 +26,7 @@
                     <flux:heading size="xl">{{ __('Ultimas estadísticas') }}</flux:heading>
                     <flux:text class="mt-2">{{ __('Resultados semanales y mensuales') }}</flux:text>
                     <div class="mt-5">
-
+                        <livewire:analysis.index />
                     </div>
                 </div>
                 <div x-cloak x-show="selectedTab === 'create'" id="tabpanelCreateUpdate" role="tabpanel" aria-label="create">
