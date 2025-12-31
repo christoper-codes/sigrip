@@ -53,6 +53,9 @@
                             <td class="p-4">
                                 <flux:button icon="chart-bar" href="{{ route('analysis.index') }}" class="border! border-primary! bg-primary/10!">{{ __('Resultados') }}</flux:button>
                             </td>
+                            <td class="p-4">
+                                {{ $application['questionnaire_responses_count'] ?? 0 }}
+                            </td>
                             <td class="p-4">{{ $application['issuing_department']['name'] }}</td>
                             <td class="p-4">{{ $application['start_date'] ?? 'Sin fecha de inicio' }}</td>
                             <td class="p-4">{{ $application['expiration_date'] ?? 'Sin fecha de caducidad' }}</td>
