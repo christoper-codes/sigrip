@@ -1,3 +1,3 @@
 @fluxScripts
-@livewireScripts
+{{-- @livewireScripts --}}
 @livewireChartsScripts
