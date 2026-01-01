@@ -20,3 +20,15 @@
 .dark .apexcharts-donut .apexcharts-series path {
     stroke: #000000 !important;
 }
+
+/* Lines and ticks */
+.apexcharts-inner line,
+.apexcharts-xaxis-tick,
+.apexcharts-xcrosshairs {
+    stroke: #b6b6b6 !important;
+}
+.dark .apexcharts-inner line,
+.dark .apexcharts-xaxis-tick,
+.dark .apexcharts-xcrosshairs {
+    stroke: #444 !important;
+}
