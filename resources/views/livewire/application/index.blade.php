@@ -51,10 +51,10 @@
                                 <flux:button icon="share" wire:click="shareApplication({{ $application['id'] }})" variant="filled">{{ __('Compartir') }}</flux:button>
                             </td>
                             <td class="p-4">
-                                <flux:button icon="document-chart-bar" href="{{ route('dashboard') }}" variant="filled">{{ __('Resultados') }}</flux:button>
+                                <flux:button icon="chart-bar" href="{{ route('analysis.index') }}" class="border! border-primary! bg-primary/10!">{{ __('Resultados') }}</flux:button>
                             </td>
                             <td class="p-4">
-                                <flux:button icon="bell-alert" href="{{ route('dashboard') }}" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
+                                {{ $application['questionnaire_responses_count'] ?? 0 }}
                             </td>
                             <td class="p-4">{{ $application['issuing_department']['name'] }}</td>
                             <td class="p-4">{{ $application['start_date'] ?? 'Sin fecha de inicio' }}</td>

@@ -17,7 +17,7 @@
             icon="magnifying-glass"
             placeholder="{{ $search_placeholder }}"
             wire:model.live="search_query"
-            utocomplete="off"
+            autocomplete="off"
         />
         <div class="inline md:w-full">
             <flux:button icon="arrow-path" wire:click="resetTable" class="p-6!" />

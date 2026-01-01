@@ -1,1 +1,3 @@
 @fluxScripts
+@livewireScripts
+@livewireChartsScripts

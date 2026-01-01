@@ -51,8 +51,8 @@ class Index extends Component
             ['label' => __('Nombre del cuestionario'), 'field' => 'questionnaire.name', 'sortable' => true],
             ['label' => __('Fecha de creación'), 'field' => 'created_at', 'sortable' => true],
             ['label' => __('Compartir aplicación')],
-            ['label' => __('Ver resultados')],
-            ['label' => __('Análisis con IA')],
+            ['label' => __('Resultados y análisis Ai')],
+            ['label' => __('Respuestas'), 'field' => 'questionnaire_responses_count', 'sortable' => true],
             ['label' => __('Departamento emisor')],
             ['label' => __('Fecha de inicio'), 'field' => 'created_at', 'sortable' => true],
             ['label' => __('Fecha de caducidad'), 'field' => 'expiration_date', 'sortable' => true],
@@ -88,6 +88,7 @@ class Index extends Component
         $this->validateOnly('department');
         $this->table_items = Application::where('executing_department_id', $this->department)
             ->with('questionnaire', 'issuingDepartment', 'executingDepartment', 'users')
+            ->withCount('questionnaireResponses')
             ->orderByDesc('created_at')
             ->limit($this->items_per_page)
             ->get()
