@@ -1,10 +1,14 @@
 /* Legend color */
-.apexcharts-legend-text {
+.apexcharts-legend-text, .apexcharts-text, .apexcharts-yaxis-label {
     color: #222 !important;
-    transition: color 0.2s;
+    fill: #222 !important;
+    transition: color 0.2s, fill 0.2s;
 }
-.dark .apexcharts-legend-text {
+.dark .apexcharts-legend-text,
+.dark .apexcharts-text,
+.dark .apexcharts-yaxis-label {
     color: #fff !important;
+    fill: #fff !important;
 }
 
 /* Border color */
