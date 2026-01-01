@@ -1,6 +1,6 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-14">
     <!-- 2. Distribución de estados de aplicaciones (pastel) -->
-    <div class="flex flex-col gap-5 text-center h-72">
+    <div class="flex flex-col gap-5 text-center h-72 custom-pie-chart">
         <flux:heading>{{ __('Distribución de estados de aplicaciones') }}</flux:heading>
         <livewire:livewire-pie-chart
             key="{{ $pieChartModelStates->reactiveKey() }}"
@@ -9,7 +9,7 @@
     </div>
 
     <!-- 4. Alertas generadas por nivel de riesgo (pastel) -->
-    <div class="flex flex-col gap-5 text-center h-72">
+    <div class="flex flex-col gap-5 text-center h-72 custom-pie-chart">
         <flux:heading>{{ __('Alertas por nivel de riesgo') }}</flux:heading>
         <livewire:livewire-pie-chart
             key="{{ $pieChartModelAlerts->reactiveKey() }}"
