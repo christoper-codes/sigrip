@@ -30,7 +30,7 @@ class Index extends Component
             $columnChartModel->addColumn(
                 $app->questionnaire->name,
                 $app->questionnaire_responses_count,
-                '#6366f1'
+                '#3b82f6'
             );
         }
 
@@ -41,7 +41,7 @@ class Index extends Component
             ->whereBetween('created_at', [$startOfMonth, $endOfMonth])->count();
         $pieChartModelStates = (new PieChartModel())
             ->setAnimated(true)
-            ->addSlice('Activas', $active, '#22c55e')
+            ->addSlice('Activas', $active, '#3b82f6')
             ->addSlice('Inactivas', $inactive, '#ef4444');
 
         // Top 5 most responded questionnaires (horizontal bar chart)
@@ -53,7 +53,7 @@ class Index extends Component
             $columnChartModelTop->addColumn(
                 $app->questionnaire->name,
                 $app->questionnaire_responses_count,
-                '#818cf8'
+                '#3b82f6'
             );
         }
 
