@@ -1,7 +1,18 @@
+/* Legend color */
 .apexcharts-legend-text {
     color: #222 !important;
     transition: color 0.2s;
 }
 .dark .apexcharts-legend-text {
     color: #fff !important;
+}
+
+/* Border color */
+.apexcharts-pie .apexcharts-series path,
+.apexcharts-donut .apexcharts-series path {
+    stroke: #ffffff !important;
+}
+.dark .apexcharts-pie .apexcharts-series path,
+.dark .apexcharts-donut .apexcharts-series path {
+    stroke: #000000 !important;
 }
