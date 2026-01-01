@@ -40,12 +40,14 @@ class Index extends Component
         $inactive = Application::where('is_active', false)
             ->whereBetween('created_at', [$startOfMonth, $endOfMonth])->count();
         $pieChartModelStates = (new PieChartModel())
+            ->setAnimated(true)
             ->addSlice('Activas', $active, '#22c55e')
             ->addSlice('Inactivas', $inactive, '#ef4444');
 
         // Top 5 most responded questionnaires (horizontal bar chart)
         $topApps = $applications->sortByDesc('questionnaire_responses_count')->take(5);
         $columnChartModelTop = (new ColumnChartModel())
+            ->setAnimated(true)
             ->setHorizontal();
         foreach ($topApps as $app) {
             $columnChartModelTop->addColumn(
@@ -61,12 +63,13 @@ class Index extends Component
         $yellow = $alerts->where('risk_level', 'yellow')->count();
         $green = $alerts->where('risk_level', 'green')->count();
         $pieChartModelAlerts = (new PieChartModel())
+            ->setAnimated(true)
             ->addSlice('Rojo', $red, '#ef4444')
             ->addSlice('Amarillo', $yellow, '#facc15')
             ->addSlice('Verde', $green, '#22c55e');
 
         // Critical alerts (red) evolution over time (line chart)
-        $lineChartModel = (new LineChartModel());
+        $lineChartModel = (new LineChartModel())->setAnimated(true);
         $daysInMonth = $now->daysInMonth;
         for ($day = 1; $day <= $daysInMonth; $day++) {
             $date = $startOfMonth->copy()->addDays($day - 1);
