@@ -28,7 +28,7 @@ class Index extends Component
             ->setAnimated(true);
         foreach ($applications as $app) {
             $columnChartModel->addColumn(
-                $app->questionnaire->name ?? 'Sin nombre',
+                $app->questionnaire->name,
                 $app->questionnaire_responses_count,
                 '#6366f1'
             );
@@ -51,7 +51,7 @@ class Index extends Component
             ->setHorizontal();
         foreach ($topApps as $app) {
             $columnChartModelTop->addColumn(
-                $app->questionnaire->name ?? 'Sin nombre',
+                $app->questionnaire->name,
                 $app->questionnaire_responses_count,
                 '#818cf8'
             );
