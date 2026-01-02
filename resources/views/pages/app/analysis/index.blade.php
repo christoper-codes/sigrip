@@ -23,9 +23,7 @@
             </div>
             <div class="px-2 mt-10">
                 <div x-cloak x-show="selectedTab === 'info'" id="tabpanelInfo" role="tabpanel" aria-label="info">
-                    <flux:heading size="xl">{{ __('Ultimas estadísticas') }}</flux:heading>
-                    <flux:text class="mt-2">{{ __('Resultados semanales y mensuales') }}</flux:text>
-                    <div class="mt-5">
+                    <div>
                         <livewire:analysis.index />
                     </div>
                 </div>

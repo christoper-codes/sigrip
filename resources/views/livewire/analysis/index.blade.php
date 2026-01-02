@@ -1,12 +1,12 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-14">
-    <div class="flex flex-col gap-5 text-center h-72 custom-pie-chart">
+    <div class="flex flex-col gap-5 text-center h-72 custom-pie-chart border pt-7 rounded-3xl border-neutral-300 dark:border-neutral-700">
         <flux:heading>{{ __('Distribución de estados de aplicaciones') }}</flux:heading>
         <livewire:livewire-pie-chart
             key="{{ $pieChartModelStates->reactiveKey() }}"
             :pie-chart-model="$pieChartModelStates"
         />
     </div>
-    <div class="flex flex-col gap-5 text-center h-72 custom-pie-chart">
+    <div class="flex flex-col gap-5 text-center h-72 custom-pie-chart border pt-7 rounded-3xl border-neutral-300 dark:border-neutral-700">
         <flux:heading>{{ __('Alertas por nivel de riesgo') }}</flux:heading>
         <livewire:livewire-pie-chart
             key="{{ $pieChartModelAlerts->reactiveKey() }}"
