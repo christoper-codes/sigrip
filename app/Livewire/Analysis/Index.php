@@ -9,14 +9,24 @@ use Asantibanez\LivewireCharts\Models\PieChartModel;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Index extends Component
 {
     public array $departments = [];
-    public int $department = -1;
     public array $months = [];
+
+    #[Validate(['required', 'int'])]
+    public int $department = -1;
+
+    #[Validate(['required', 'int'])]
     public ?int $month = null;
+
+    public function searchAnalysis(): void
+    {
+        $this->validate();
+    }
 
     public function mount()
     {
@@ -58,7 +68,7 @@ class Index extends Component
                 $q->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
             }]);
         if ($this->department && $this->department != -1) {
-            $applicationsQuery->where('department_id', $this->department);
+            $applicationsQuery->where('executing_department_id', $this->department);
         }
         $applications = $applicationsQuery->get();
         $columnChartModel = (new ColumnChartModel())
@@ -79,8 +89,8 @@ class Index extends Component
             ->where('is_active', false)
             ->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
         if ($this->department && $this->department != -1) {
-            $activeQuery->where('department_id', $this->department);
-            $inactiveQuery->where('department_id', $this->department);
+            $activeQuery->where('executing_department_id', $this->department);
+            $inactiveQuery->where('executing_department_id', $this->department);
         }
         $active = $activeQuery->count();
         $inactive = $inactiveQuery->count();

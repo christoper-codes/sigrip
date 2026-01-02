@@ -3,7 +3,7 @@
         <div class="flex items-center gap-3">
             <flux:field class="max-w-md w-full">
                 <flux:label>{{ __('Filtrar por departamento') }}</flux:label>
-                <flux:select class="!h-12" name="department" wire:model.live="department">
+                <flux:select class="!h-12" name="department" wire:model="department">
                     @foreach ($departments as $department)
                         <flux:select.option value="{{ $department['id'] }}">{{ $department['name'] }}</flux:select.option>
                     @endforeach
@@ -12,7 +12,7 @@
             </flux:field>
             <flux:field class="max-w-md w-full">
                 <flux:label>{{ __('Filtrar por mes') }}</flux:label>
-                <flux:select class="!h-12" name="month" wire:model.live="month">
+                <flux:select class="!h-12" name="month" wire:model="month">
                     @foreach ($months as $month)
                         <flux:select.option value="{{ $month['value'] }}">{{ $month['label'] }}</flux:select.option>
                     @endforeach
