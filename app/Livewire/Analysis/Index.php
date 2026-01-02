@@ -3,14 +3,45 @@ namespace App\Livewire\Analysis;
 
 use App\Models\Application;
 use App\Models\Alert;
+use App\Models\Department;
 use Asantibanez\LivewireCharts\Models\ColumnChartModel;
 use Asantibanez\LivewireCharts\Models\PieChartModel;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Index extends Component
 {
+    public array $departments = [];
+    public int $department = -1;
+    public array $months = [];
+    public ?int $month = null;
+
+    public function mount()
+    {
+        $this->months = [
+            ['value' => 1, 'label' => __('Enero')],
+            ['value' => 2, 'label' => __('Febrero')],
+            ['value' => 3, 'label' => __('Marzo')],
+            ['value' => 4, 'label' => __('Abril')],
+            ['value' => 5, 'label' => __('Mayo')],
+            ['value' => 6, 'label' => __('Junio')],
+            ['value' => 7, 'label' => __('Julio')],
+            ['value' => 8, 'label' => __('Agosto')],
+            ['value' => 9, 'label' => __('Septiembre')],
+            ['value' => 10, 'label' => __('Octubre')],
+            ['value' => 11, 'label' => __('Noviembre')],
+            ['value' => 12, 'label' => __('Diciembre')],
+        ];
+        $this->month = Carbon::now()->month;
+
+        $departments = Department::where('company_id', Auth::user()->company?->id)
+            ->get()
+            ->toArray();
+
+        $this->departments = array_merge([['id' => -1, 'name' => __('Todos los departamentos')]], $departments);
+    }
 
     public function render()
     {
