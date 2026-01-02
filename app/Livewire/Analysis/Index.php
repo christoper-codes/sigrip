@@ -45,16 +45,22 @@ class Index extends Component
 
     public function render()
     {
-        $now = Carbon::now();
-        $startOfMonth = $now->copy()->startOfMonth();
-        $endOfMonth = $now->copy()->endOfMonth();
+        // Determine date range for the selected month
+        $year = Carbon::now()->year;
+        $month = $this->month ?? Carbon::now()->month;
+        $startOfMonth = Carbon::create($year, $month, 1)->startOfMonth();
+        $endOfMonth = Carbon::create($year, $month, 1)->endOfMonth();
 
         // Total responses per application (bar chart)
-        $applications = Application::with('questionnaire')
+        $applicationsQuery = Application::where('company_id', Auth::user()->company?->id)
+            ->with('questionnaire')
             ->withCount(['questionnaireResponses' => function($q) use ($startOfMonth, $endOfMonth) {
                 $q->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
-            }])
-            ->get();
+            }]);
+        if ($this->department && $this->department != -1) {
+            $applicationsQuery->where('department_id', $this->department);
+        }
+        $applications = $applicationsQuery->get();
         $columnChartModel = (new ColumnChartModel())
             ->setAnimated(true);
         foreach ($applications as $app) {
@@ -66,10 +72,18 @@ class Index extends Component
         }
 
         // Application state distribution (pie chart)
-        $active = Application::where('is_active', true)
-            ->whereBetween('created_at', [$startOfMonth, $endOfMonth])->count();
-        $inactive = Application::where('is_active', false)
-            ->whereBetween('created_at', [$startOfMonth, $endOfMonth])->count();
+        $activeQuery = Application::where('company_id', Auth::user()->company?->id)
+            ->where('is_active', true)
+            ->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
+        $inactiveQuery = Application::where('company_id', Auth::user()->company?->id)
+            ->where('is_active', false)
+            ->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
+        if ($this->department && $this->department != -1) {
+            $activeQuery->where('department_id', $this->department);
+            $inactiveQuery->where('department_id', $this->department);
+        }
+        $active = $activeQuery->count();
+        $inactive = $inactiveQuery->count();
         $pieChartModelStates = (new PieChartModel())
             ->setAnimated(true)
             ->addSlice('Activas', $active, '#3b82f6')
@@ -89,7 +103,12 @@ class Index extends Component
         }
 
         // Alert distribution by risk level (pie chart)
-        $alerts = Alert::whereBetween('created_at', [$startOfMonth, $endOfMonth])->get();
+        $alertsQuery = Alert::where('company_id', Auth::user()->company?->id)
+            ->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
+        if ($this->department && $this->department != -1) {
+            $alertsQuery->where('department_id', $this->department);
+        }
+        $alerts = $alertsQuery->get();
         $red = $alerts->where('risk_level', 'red')->count();
         $yellow = $alerts->where('risk_level', 'yellow')->count();
         $green = $alerts->where('risk_level', 'green')->count();
@@ -101,13 +120,17 @@ class Index extends Component
 
         // Critical alerts (red) evolution over time (line chart)
         $lineChartModel = (new LineChartModel())->setAnimated(true);
-        $daysInMonth = $now->daysInMonth;
+        $daysInMonth = $startOfMonth->daysInMonth;
         for ($day = 1; $day <= $daysInMonth; $day++) {
             $date = $startOfMonth->copy()->addDays($day - 1);
-            $count = Alert::where('risk_level', 'red')
-                ->whereDate('created_at', $date->toDateString())
-                ->count();
-            $lineChartModel->addPoint($date->format('d M'), $count);
+            $countQuery = Alert::where('company_id', Auth::user()->company?->id)
+                ->where('risk_level', 'red')
+                ->whereDate('created_at', $date->toDateString());
+            if ($this->department && $this->department != -1) {
+                $countQuery->where('department_id', $this->department);
+            }
+            $count = $countQuery->count();
+            $lineChartModel->addPoint($date->format('d'), $count);
         }
 
         return view('livewire.analysis.index')->with([
