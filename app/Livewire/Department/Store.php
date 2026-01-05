@@ -27,7 +27,7 @@ class Store extends Component
             ->where('metadata->hr_department', true)
             ->exists();
         if($this->form->hr_department && $hr_department) {
-            $this->dispatch('toast', message: __('Ya existe un departamento de RRHH en esta compañía.'), type: 'error');
+            $this->dispatch('toast', message: __('Ya existe un departamento de RRHH en esta compañía.'), type: NotificationTypesEnum::ERROR->value);
             return;
         }
 
@@ -36,7 +36,7 @@ class Store extends Component
                 ->where('name', RoleEnum::DEPARTMENT_MANAGER->value)
                 ->exists();
             if (! $potential_manager) {
-                $this->dispatch('toast', message: __('El empleado seleccionado no tiene el rol de Gerente'), type: 'error');
+                $this->dispatch('toast', message: __('El empleado seleccionado no tiene el rol de Gerente'), type: NotificationTypesEnum::ERROR->value);
                 return;
             }
         }

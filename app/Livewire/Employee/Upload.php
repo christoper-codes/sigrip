@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Employee;
 
+use App\Enums\NotificationTypesEnum;
 use App\Enums\RoleEnum;
 use App\Exports\EmployeesTemplateExport;
 use App\Imports\EmployeesImport;
@@ -49,7 +50,7 @@ class Upload extends Component
     {
         $this->validate();
         if (!$this->employee_file || !$this->employee_file->isValid()) {
-            $this->dispatch('toast', message: __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.'), type: 'warning');
+            $this->dispatch('toast', message: __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.'), type: NotificationTypesEnum::WARNING->value);
             return;
         }
         DB::beginTransaction();
@@ -78,16 +79,16 @@ class Upload extends Component
                 $identificador = __('Para el usuario: ') . " " . ($values['nombre_completo'] ?? ($values['correo_electronico'] ?? "Fila $row"));
                 $error = $failure->errors()[0] ?? $e->getMessage();
                 $this->import_errors = __('Error al guardar los empleados: ') . $error . " ($identificador)";
-                $this->dispatch('toast', message: $this->import_errors, type: 'error');
+                $this->dispatch('toast', message: $this->import_errors, type: NotificationTypesEnum::ERROR->value);
             } else {
                 $this->import_errors = __('Error al guardar los empleados: ') . $e->getMessage();
-                $this->dispatch('toast', message: $this->import_errors, type: 'error');
+                $this->dispatch('toast', message: $this->import_errors, type: NotificationTypesEnum::ERROR->value);
             }
         } catch (Exception $e) {
             DB::rollBack();
             $this->reset(['employee_file']);
             $this->import_errors = __('Error al guardar los empleados: ') . $e->getMessage();
-            $this->dispatch('toast', message: $this->import_errors, type: 'error');
+            $this->dispatch('toast', message: $this->import_errors, type: NotificationTypesEnum::ERROR->value);
         }
     }
 

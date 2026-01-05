@@ -49,7 +49,7 @@ class Index extends Component
             ->first();
         if($hr_department && $this->department->id !== $hr_department->id && $this->form->hr_department && $hr_department) {
             Flux::modal('edit-department-modal')->close();
-            $this->dispatch('toast', message: __('Ya existe un departamento de RRHH en esta compañía.'), type: 'error');
+            $this->dispatch('toast', message: __('Ya existe un departamento de RRHH en esta compañía.'), type: NotificationTypesEnum::ERROR->value);
             return;
         }
 
@@ -59,7 +59,7 @@ class Index extends Component
                 ->exists();
             if (! $potential_manager) {
                 Flux::modal('edit-department-modal')->close();
-                $this->dispatch('toast', message: __('El empleado seleccionado no tiene el rol de Gerente'), type: 'error');
+                $this->dispatch('toast', message: __('El empleado seleccionado no tiene el rol de Gerente'), type: NotificationTypesEnum::ERROR->value);
                 return;
             }
         }

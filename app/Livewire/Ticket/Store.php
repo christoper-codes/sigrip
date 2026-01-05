@@ -47,7 +47,7 @@ class Store extends Component
     {
         $this->validate();
         if (!$this->evidence_files || collect($this->evidence_files)->contains(fn($file) => ! $file->isValid())) {
-            $this->dispatch('toast', message: __('Los archivos aún se están subiendo. Por favor, espera a que termine la carga.'), type: 'warning');
+            $this->dispatch('toast', message: __('Los archivos aún se están subiendo. Por favor, espera a que termine la carga.'), type: NotificationTypesEnum::WARNING->value);
             return;
         }
 

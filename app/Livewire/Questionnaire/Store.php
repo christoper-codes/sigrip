@@ -33,12 +33,12 @@ class Store extends Component
     {
         $this->form->validate();
         if (! $this->form->questionnaire_file) {
-            $this->dispatch('toast', message: __('El archivo es obligatorio.'), type: 'error');
+            $this->dispatch('toast', message: __('El archivo es obligatorio.'), type: NotificationTypesEnum::ERROR->value);
             $this->form->import_errors = __('El archivo es obligatorio.');
             return;
         }
         if (!$this->form->questionnaire_file->isValid()) {
-            $this->dispatch('toast', message: __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.'), type: 'warning');
+            $this->dispatch('toast', message: __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.'), type: NotificationTypesEnum::WARNING->value);
             $this->form->import_errors = __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.');
             return;
         }
@@ -97,16 +97,16 @@ class Store extends Component
                 $identificador = 'Fila ' . $row;
                 $error = $failure->errors()[0] ?? $e->getMessage();
                 $this->form->import_errors = __('Error al guardar el cuestionario: ') . $error . " ($identificador)";
-                $this->dispatch('toast', message: $this->form->import_errors, type: 'error');
+                $this->dispatch('toast', message: $this->form->import_errors, type: NotificationTypesEnum::ERROR->value);
             } else {
                 $this->form->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
-                $this->dispatch('toast', message: $this->form->import_errors, type: 'error');
+                $this->dispatch('toast', message: $this->form->import_errors, type: NotificationTypesEnum::ERROR->value);
             }
         } catch (\Exception $e) {
             DB::rollBack();
             $this->reset(['form.questionnaire_file']);
             $this->form->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
-            $this->dispatch('toast', message: $this->form->import_errors, type: 'error');
+            $this->dispatch('toast', message: $this->form->import_errors, type: NotificationTypesEnum::ERROR->value);
         }
     }
 

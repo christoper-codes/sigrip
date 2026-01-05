@@ -3,6 +3,7 @@
 namespace App\Livewire\Application;
 
 use App\Actions\Application\GenerateQrAction;
+use App\Enums\NotificationTypesEnum;
 use App\Jobs\UserApplicationJob;
 use App\Livewire\Forms\ApplicationForm;
 use App\Livewire\Traits\LimitItems;
@@ -43,7 +44,7 @@ class Index extends Component
             ->get()
             ->toArray();
         if(! $this->departments){
-          $this->dispatch('toast', message: __('No hay departamentos disponibles.'), type: 'warning');
+          $this->dispatch('toast', message: __('No hay departamentos disponibles.'), type: NotificationTypesEnum::WARNING->value);
         }
 
         $this->search_fields = ['questionnaire.name'];
@@ -138,7 +139,7 @@ class Index extends Component
             )
         ) {
             Flux::modal('edit-application-modal')->close();
-            $this->dispatch('toast', message: __('No se puede modificar estas propiedades de una aplicación que ya tiene respuestas.'), type: 'error');
+            $this->dispatch('toast', message: __('No se puede modificar estas propiedades de una aplicación que ya tiene respuestas.'), type: NotificationTypesEnum::ERROR->value);
             return;
         }
 
@@ -150,7 +151,7 @@ class Index extends Component
             ->exists();
         if ($exists_application) {
             Flux::modal('edit-application-modal')->close();
-            $this->dispatch('toast', message: __('Ya existe una aplicación activa con los mismos parámetros.'), type: 'error');
+            $this->dispatch('toast', message: __('Ya existe una aplicación activa con los mismos parámetros.'), type: NotificationTypesEnum::ERROR->value);
             return;
         }
 
@@ -205,7 +206,7 @@ class Index extends Component
         } catch (\Exception $e) {
             DB::rollBack();
             Flux::modal('edit-application-modal')->close();
-            $this->dispatch('toast', message: __('Error al actualizar la aplicación: ') . $e->getMessage(), type: 'error');
+            $this->dispatch('toast', message: __('Error al actualizar la aplicación: ') . $e->getMessage(), type: NotificationTypesEnum::ERROR->value);
         }
     }
 
@@ -222,7 +223,7 @@ class Index extends Component
         $application = Application::find($this->application_id);
         if( $application->questionnaireResponses()->exists() ) {
             Flux::modal('destroy-application-modal')->close();
-            $this->dispatch('toast', message: __('No se puede eliminar una aplicación que ya tiene respuestas.'), type: 'error');
+            $this->dispatch('toast', message: __('No se puede eliminar una aplicación que ya tiene respuestas.'), type: NotificationTypesEnum::ERROR->value);
             return;
         }
         $application_slug = $application->slug;
