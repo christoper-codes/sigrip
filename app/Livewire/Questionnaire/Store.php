@@ -3,6 +3,7 @@
 namespace App\Livewire\Questionnaire;
 
 use App\Actions\Questionnaire\BuildMetadataAction;
+use App\Enums\NotificationTypesEnum;
 use App\Exports\QuestionnaireTemplateExport;
 use App\Imports\QuestionnaireImport;
 use App\Livewire\Forms\QuestionnaireForm;
@@ -75,7 +76,7 @@ class Store extends Component
 
             DB::commit();
             $this->js('new JSConfetti().addConfetti()');
-            $this->dispatch('toast', message: __('Cuestionario guardado exitosamente.'), type: 'success');
+            $this->dispatch('toast', message: __('Cuestionario guardado exitosamente.'), type: NotificationTypesEnum::SUCCESS->value);
             $this->reset([
                 'form.title',
                 'form.subtitle',
