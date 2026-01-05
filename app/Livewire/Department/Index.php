@@ -73,6 +73,11 @@ class Index extends Component
         $this->department->manager_id = $this->form->manager;
         $this->department->save();
 
+        // ADVERTENCIA: Si no tiene gerente, mostrar toast de advertencia
+        if (empty($this->department->manager_id)) {
+            $this->dispatch('toast', message: __('Por seguridad, debe asignar un gerente a este departamento.'), type: 'warning');
+        }
+
         if ($this->form->hr_department) {
             Auth::user()->update(['department_id' => $this->department->id]);
         }
