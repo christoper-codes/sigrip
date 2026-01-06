@@ -36,6 +36,6 @@ trait Roles
         $user = User::find($this->selected_employee_id);
         $user->userRoles()->sync($this->employee_roles);
 
-        $this->dispatch('toast', message: __('Roles actualizados correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Roles actualizados correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
     }
 }

@@ -87,7 +87,7 @@ class Index extends Component
         $questionnaire->is_active = ! $questionnaire->is_active;
         $questionnaire->save();
 
-        $this->dispatch('toast', message: __('Estado actualizado correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Estado actualizado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
         $this->mount();
     }
 
@@ -162,7 +162,7 @@ class Index extends Component
             $this->questionnaire->save();
 
             DB::commit();
-            $this->dispatch('toast', message: __('Cuestionario actualizado correctamente.'), type: 'success');
+            $this->dispatch('toast', message: __('Cuestionario actualizado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
             $this->mount();
             Flux::modal('edit-questionnaire-modal')->close();
         } catch (ValidationException $e) {
@@ -226,7 +226,7 @@ class Index extends Component
 
         $questionnaire->delete();
         Flux::modal('destroy-questionnaire-modal')->close();
-        $this->dispatch('toast', message: __('Cuestionario eliminado correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Cuestionario eliminado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
         $this->mount();
     }
 

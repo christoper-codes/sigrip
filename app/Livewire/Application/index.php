@@ -109,7 +109,7 @@ class Index extends Component
         $application->save();
 
         $this->searchApplications();
-        $this->dispatch('toast', message: __('Estado actualizado correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Estado actualizado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
     }
 
     public function editApplication(int $id): void
@@ -202,7 +202,7 @@ class Index extends Component
             ]);
             $this->searchApplications();
             Flux::modal('edit-application-modal')->close();
-            $this->dispatch('toast', message: __('Aplicación actualizada correctamente.'), type: 'success');
+            $this->dispatch('toast', message: __('Aplicación actualizada correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
         } catch (\Exception $e) {
             DB::rollBack();
             Flux::modal('edit-application-modal')->close();
@@ -238,7 +238,7 @@ class Index extends Component
 
         $this->searchApplications();
         Flux::modal('destroy-application-modal')->close();
-        $this->dispatch('toast', message: __('Aplicación eliminada correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Aplicación eliminada correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
     }
 
     public function editModalClosed()

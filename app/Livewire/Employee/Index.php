@@ -109,7 +109,7 @@ class Index extends Component
 
         $this->table_items = array_filter($this->table_items, fn($item) => $item['id'] !== $this->selected_employee_id);
         $this->refreshTableData();
-        $this->dispatch('toast', message: __('Empleado eliminado correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Empleado eliminado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
 
         Flux::modal('confirm-destroy-employee-modal')->close();
     }

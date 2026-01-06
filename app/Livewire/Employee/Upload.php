@@ -66,7 +66,7 @@ class Upload extends Component
             ))->import($this->employee_file->getRealPath());
 
             DB::commit();
-            $this->dispatch('toast', message: __('El archivo paso las validaciones correctamente. Se te notificará cuando el proceso termine.'), type: 'success');
+            $this->dispatch('toast', message: __('El archivo paso las validaciones correctamente. Se te notificará cuando el proceso termine.'), type: NotificationTypesEnum::SUCCESS->value);
             $this->reset(['department', 'user_roles', 'employee_file']);
             $this->import_errors = null;
         } catch (ValidationException $e) {

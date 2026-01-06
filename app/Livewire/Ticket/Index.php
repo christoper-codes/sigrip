@@ -92,7 +92,7 @@ class Index extends Component
         }
         $support_ticket->save();
 
-        $this->dispatch('toast', message: __('Ticket actualizado correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Ticket actualizado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
         $this->reset([
             'detail_ticket',
             'is_priority',
