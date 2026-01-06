@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Company;
 
+use App\Enums\NotificationTypesEnum;
 use App\Models\Company;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -31,6 +32,6 @@ class Update extends Component
             'description' => $this->description,
         ]);
 
-        $this->dispatch('toast', message: __('Compañía actualizada correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Compañía actualizada correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
     }
 }

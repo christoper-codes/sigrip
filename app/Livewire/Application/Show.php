@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Application;
 
+use App\Enums\NotificationTypesEnum;
 use App\Jobs\AiAlertJob;
 use App\Models\Application;
 use App\Models\QuestionnaireResponse;
@@ -46,7 +47,7 @@ class Show extends Component
         }
 
         if($this->is_visitor){
-            $this->dispatch('toast', message: __('Esta aplicación no puede ser enviada por un visitante.'), type: 'warning');
+            $this->dispatch('toast', message: __('Esta aplicación no puede ser enviada por un visitante.'), type: NotificationTypesEnum::WARNING->value);
             return;
         }
 
@@ -111,7 +112,7 @@ class Show extends Component
             return redirect(route('application.thanks'));
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->dispatch('toast', message: __('Ocurrió un error al enviar la aplicación. Por favor, intenta nuevamente.'), type: 'error');
+            $this->dispatch('toast', message: __('Ocurrió un error al enviar la aplicación. Por favor, intenta nuevamente.'), type: NotificationTypesEnum::ERROR->value);
         }
     }
 

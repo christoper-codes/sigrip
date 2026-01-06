@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Employee;
 
+use App\Enums\NotificationTypesEnum;
 use App\Enums\RoleEnum;
 use App\Models\Department;
 use App\Models\Role;
@@ -62,7 +63,7 @@ class Store extends Component
         ]);
         $user->userRoles()->attach($this->user_roles);
 
-        $this->dispatch('toast', message: __('Empleado creado correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Empleado creado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
         $this->reset(['department', 'name', 'email', 'password', 'password_confirmation', 'user_roles']);
     }
 

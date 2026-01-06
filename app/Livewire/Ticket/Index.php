@@ -3,6 +3,7 @@
 namespace App\Livewire\Ticket;
 
 use App\Actions\Tickets\AnalyzeTicketAiAction;
+use App\Enums\NotificationTypesEnum;
 use App\Livewire\Traits\LimitItems;
 use App\Models\Department;
 use App\Models\SupportTicket;
@@ -47,7 +48,7 @@ class Index extends Component
         if(Auth::user()->company?->getActiveTickets() > 0) {
             $department_names = Auth::user()->company->getActiveTicketNames();
             $this->notify_message = __('Se tienen tickets activos para el departamento de :departments', ['departments' => implode(', ', $department_names)]);
-            $this->dispatch('toast', message: $this->notify_message, type: 'warning');
+            $this->dispatch('toast', message: $this->notify_message, type: NotificationTypesEnum::WARNING->value);
         }
     }
 
@@ -91,7 +92,7 @@ class Index extends Component
         }
         $support_ticket->save();
 
-        $this->dispatch('toast', message: __('Ticket actualizado correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Ticket actualizado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
         $this->reset([
             'detail_ticket',
             'is_priority',

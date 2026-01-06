@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Alert;
 
+use App\Enums\NotificationTypesEnum;
 use App\Livewire\Traits\LimitItems;
 use App\Models\Alert;
 use Flux\Flux;
@@ -67,11 +68,11 @@ class Index extends Component
             ->with('user', 'application', 'department')
             ->first();
         if(! $alert) {
-            $this->dispatch('toast', message: __('No se encontró ninguna alerta con el ID proporcionado.'), type: 'error');
+            $this->dispatch('toast', message: __('No se encontró ninguna alerta con el ID proporcionado.'), type: NotificationTypesEnum::ERROR->value);
             return;
         }
 
-        $this->dispatch('toast', message: __('Alerta encontrada.'), type: 'success');
+        $this->dispatch('toast', message: __('Alerta encontrada.'), type: NotificationTypesEnum::SUCCESS->value);
         $this->alerts = [$alert->toArray()];
     }
 

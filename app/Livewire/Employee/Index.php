@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Employee;
 
+use App\Enums\NotificationTypesEnum;
 use App\Enums\RoleEnum;
 use App\Livewire\Traits\LimitItems;
 use App\Livewire\Traits\Roles;
@@ -32,7 +33,7 @@ class Index extends Component
             ->get()
             ->toArray();
         if(! $this->departments){
-          $this->dispatch('toast', message: __('No hay departamentos disponibles.'), type: 'warning');
+          $this->dispatch('toast', message: __('No hay departamentos disponibles.'), type: NotificationTypesEnum::WARNING->value);
         }
 
         $this->search_fields = ['name', 'email'];
@@ -101,14 +102,14 @@ class Index extends Component
         $company_admin = Auth::user()->hasRole(RoleEnum::COMPANY_ADMIN->value);
         if ($system_owner || $company_admin) {
             Flux::modal('confirm-destroy-employee-modal')->close();
-            $this->dispatch('toast', message: __('No se puede eliminar a un administrador de la empresa.'), type: 'error');
+            $this->dispatch('toast', message: __('No se puede eliminar a un administrador de la empresa.'), type: NotificationTypesEnum::ERROR->value);
             return;
         }
         $employee->delete();
 
         $this->table_items = array_filter($this->table_items, fn($item) => $item['id'] !== $this->selected_employee_id);
         $this->refreshTableData();
-        $this->dispatch('toast', message: __('Empleado eliminado correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Empleado eliminado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
 
         Flux::modal('confirm-destroy-employee-modal')->close();
     }

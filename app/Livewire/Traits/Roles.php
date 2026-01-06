@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Traits;
 
+use App\Enums\NotificationTypesEnum;
 use App\Enums\RoleEnum;
 use App\Models\Role;
 use App\Models\User;
@@ -28,13 +29,13 @@ trait Roles
     public function updateRoles(): void
     {
         if(! $this->employee_roles){
-            $this->dispatch('toast', message: __('Debe seleccionar al menos un rol.'), type: 'error');
+            $this->dispatch('toast', message: __('Debe seleccionar al menos un rol.'), type: NotificationTypesEnum::ERROR->value);
             return;
         }
 
         $user = User::find($this->selected_employee_id);
         $user->userRoles()->sync($this->employee_roles);
 
-        $this->dispatch('toast', message: __('Roles actualizados correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Roles actualizados correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Livewire\Application;
 
 use App\Actions\Application\GenerateQrAction;
+use App\Enums\NotificationTypesEnum;
 use App\Jobs\UserApplicationJob;
 use App\Livewire\Forms\ApplicationForm;
 use App\Models\Application;
@@ -27,7 +28,7 @@ class Store extends Component
             ->toArray();
 
         if (! $this->form->department) {
-            $this->dispatch('toast', message: __('No hay departamentos de RRHH disponibles.'), type: 'warning');
+            $this->dispatch('toast', message: __('No hay departamentos de RRHH disponibles.'), type: NotificationTypesEnum::WARNING->value);
         }
 
         $this->form->issuing_department = $this->form->department['id'];
@@ -54,7 +55,7 @@ class Store extends Component
             ->where('start_date', $this->form->start_date)
             ->exists();
         if ($exists_application) {
-            $this->dispatch('toast', message: __('Ya existe una aplicación activa con los mismos parámetros.'), type: 'error');
+            $this->dispatch('toast', message: __('Ya existe una aplicación activa con los mismos parámetros.'), type: NotificationTypesEnum::ERROR->value);
             return;
         }
 
@@ -100,7 +101,7 @@ class Store extends Component
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->dispatch('toast', message: __('Error al crear la aplicación: ') . $e->getMessage(), type: 'error');
+            $this->dispatch('toast', message: __('Error al crear la aplicación: ') . $e->getMessage(), type: NotificationTypesEnum::ERROR->value);
         }
     }
 

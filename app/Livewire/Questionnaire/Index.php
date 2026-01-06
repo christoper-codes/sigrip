@@ -3,6 +3,7 @@
 namespace App\Livewire\Questionnaire;
 
 use App\Actions\Questionnaire\BuildMetadataAction;
+use App\Enums\NotificationTypesEnum;
 use App\Imports\QuestionnaireImport;
 use App\Livewire\Forms\QuestionnaireForm;
 use App\Livewire\Traits\Table;
@@ -80,13 +81,13 @@ class Index extends Component
     {
         $questionnaire = Questionnaire::find($id);
         if($questionnaire->is_base){
-            $this->dispatch('toast', message: __('No se puede cambiar el estado de un cuestionario base.'), type: 'error');
+            $this->dispatch('toast', message: __('No se puede cambiar el estado de un cuestionario base.'), type: NotificationTypesEnum::ERROR->value);
             return;
         }
         $questionnaire->is_active = ! $questionnaire->is_active;
         $questionnaire->save();
 
-        $this->dispatch('toast', message: __('Estado actualizado correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Estado actualizado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
         $this->mount();
     }
 
@@ -161,7 +162,7 @@ class Index extends Component
             $this->questionnaire->save();
 
             DB::commit();
-            $this->dispatch('toast', message: __('Cuestionario actualizado correctamente.'), type: 'success');
+            $this->dispatch('toast', message: __('Cuestionario actualizado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
             $this->mount();
             Flux::modal('edit-questionnaire-modal')->close();
         } catch (ValidationException $e) {
@@ -214,18 +215,18 @@ class Index extends Component
         $questionnaire = Questionnaire::find($this->questionnaire_id);
         if($questionnaire->is_base){
             Flux::modal('destroy-questionnaire-modal')->close();
-            $this->dispatch('toast', message: __('No se puede eliminar un cuestionario base.'), type: 'error');
+            $this->dispatch('toast', message: __('No se puede eliminar un cuestionario base.'), type: NotificationTypesEnum::ERROR->value);
             return;
         }
         if($questionnaire->applications()->count() > 0){
             Flux::modal('destroy-questionnaire-modal')->close();
-            $this->dispatch('toast', message: __('No se puede eliminar el cuestionario porque está asociado a aplicaciones.'), type: 'error');
+            $this->dispatch('toast', message: __('No se puede eliminar el cuestionario porque está asociado a aplicaciones.'), type: NotificationTypesEnum::ERROR->value);
             return;
         }
 
         $questionnaire->delete();
         Flux::modal('destroy-questionnaire-modal')->close();
-        $this->dispatch('toast', message: __('Cuestionario eliminado correctamente.'), type: 'success');
+        $this->dispatch('toast', message: __('Cuestionario eliminado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
         $this->mount();
     }
 
