@@ -27,6 +27,13 @@ class Index extends Component
                 ->get()
                 ->toArray();
 
+        $no_manager = collect($this->table_items)->first(function ($departament) {
+             return empty($departament['manager_id']);
+        });
+        if ($no_manager) {
+            $this->dispatch('toast', message: __('Por seguridad, debe asignar un gerente a este departamento.'), type: 'warning');
+        }
+
         $this->search_fields = ['name'];
         $this->headers = [
             ['label' => __('Nombre'), 'field' => 'name', 'sortable' => true],
