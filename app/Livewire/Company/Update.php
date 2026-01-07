@@ -14,6 +14,18 @@ class Update extends Component
     #[Validate(['required', 'string', 'min:3', 'max:255'])]
     public ?string $name = null;
 
+    #[Validate(['nullable', 'string', 'max:255'])]
+    public ?string $address_line = null;
+
+    #[Validate(['nullable', 'string', 'max:255'])]
+    public ?string $zip_code = null;
+
+    #[Validate(['nullable', 'integer'])]
+    public ?int $phone = null;
+
+    #[Validate(['nullable', 'string', 'max:255'])]
+    public ?string $email = null;
+
     #[Validate(['nullable', 'string', 'max:500'])]
     public ?string $description = null;
 
