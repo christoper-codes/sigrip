@@ -5,6 +5,26 @@
         <flux:error name="name" />
     </flux:field>
     <flux:field>
+        <flux:label>{{ __('Dirección') }}</flux:label>
+        <flux:input name="address_line" wire:model="address_line" icon="map" placeholder="{{ __('Calle 123') }}"/>
+        <flux:error name="address_line" />
+    </flux:field>
+    <flux:field>
+        <flux:label>{{ __('Código Postal') }}</flux:label>
+        <flux:input name="zip_code" wire:model="zip_code" icon="hashtag" placeholder="{{ __('1234') }}"/>
+        <flux:error name="zip_code" />
+    </flux:field>
+    <flux:field>
+        <flux:label>{{ __('Teléfono') }}</flux:label>
+        <flux:input name="phone" wire:model="phone" icon="phone" placeholder="{{ __('+52 123 000 000') }}"/>
+        <flux:error name="phone" />
+    </flux:field>
+    <flux:field>
+        <flux:label>{{ __('Email') }}</flux:label>
+        <flux:input name="email" wire:model="email" icon="envelope" placeholder="{{ __('Correo@ejemplo.com') }}"/>
+        <flux:error name="email" />
+    </flux:field>
+    <flux:field>
         <flux:label>{{ __('Descripción') }}</flux:label>
         <flux:textarea name="description" resize="none" wire:model="description" icon="chat-bubble-bottom-center-text" placeholder="{{ __('Compañía de software') }}"/>
         <flux:error name="description"/>
