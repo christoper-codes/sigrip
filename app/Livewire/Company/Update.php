@@ -46,4 +46,9 @@ class Update extends Component
 
         $this->dispatch('toast', message: __('Compañía actualizada correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
     }
+
+    public function render()
+    {
+        return view('livewire.company.update');
+    }
 }
