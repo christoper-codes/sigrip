@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit.prevent='searchAnalysis'>
+    <form wire:submit.prevent='searchApplications'>
         <div class="flex items-center gap-3">
             <flux:field class="max-w-md w-full">
                 <flux:label>{{ __('Filtrar por departamento') }}</flux:label>
