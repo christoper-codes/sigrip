@@ -4,6 +4,7 @@ namespace App\Livewire\Analysis;
 
 use App\Models\Application;
 use App\Models\Department;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -16,6 +17,9 @@ class Show extends Component
     #[Validate(['required', 'int'])]
     public ?int $department = null;
 
+    #[Validate(['nullable', 'array'])]
+    public ?array $application = null;
+
     public function mount(): void
     {
         $this->departments = Department::where('company_id', Auth::user()->company?->id)
@@ -27,9 +31,11 @@ class Show extends Component
     {
         $this->validate();
         $this->applications = Application::where('executing_department_id', $this->department)
-            ->orderByDesc('created_at')
+            ->orderByDesc('start_date')
             ->get()
             ->toArray();
+
+        Flux::modal('select-application')->show();
     }
 
     public function render()
