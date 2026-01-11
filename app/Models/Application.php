@@ -27,9 +27,9 @@ class Application extends Model
     protected function casts(): array
     {
         return [
-            'created_at' => 'datetime:d/m/Y H:i',
-            'start_date' => 'datetime:d/m/Y H:i',
-            'expiration_date' => 'datetime:d/m/Y H:i',
+            'created_at' => 'datetime:d/m/Y',
+            'start_date' => 'datetime:d/m/Y',
+            'expiration_date' => 'datetime:d/m/Y',
         ];
     }
 
