@@ -95,6 +95,11 @@ class Show extends Component
         return Excel::download(new ApplicationResponsesExport($this->application_data['questionnaire_responses']), $export_name);
     }
 
+    public function downloadResponses(): BinaryFileResponse
+    {
+
+    }
+
     public function showResponses(int $response_id): void
     {
         $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
