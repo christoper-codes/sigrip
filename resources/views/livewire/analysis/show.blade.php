@@ -15,6 +15,59 @@
         <flux:button type="submit" variant="primary" class="mt-3">{{ __('Buscar aplicaciones') }}</flux:button>
    </form>
 
+   @if($department && $table_items)
+        <div x-data="{ animation: false }"
+            x-init="$nextTick(() => animation = true)"
+            x-show="animation"
+            x-transition:enter="transition ease-out duration-500"
+            x-transition:enter-start="opacity-0 transform translate-x-8"
+            x-transition:enter-end="opacity-100 transform translate-x-0"
+            class="mt-10">
+            <x-appearance.livewiretable
+                :headers="$headers"
+                search_placeholder="{{ __('Nombre') }}"
+                :total_results="$total_results"
+                :current_page="$current_page"
+                :total_pages="$total_pages"
+                :paginated_items="$paginated_items"
+                :sort_field="$sort_field"
+                :sort_direction="$sort_direction"
+                >
+                <x-slot:table>
+                    @foreach ($paginated_items as $response)
+                        <tr>
+                            <td class="p-4">{{ '1' }}</td>
+                            <td class="p-4">{{ '10-22-30' }}</td>
+                            <td class="p-4">{{ 'red' }}</td>
+                            <td class="p-4">{{ 'Christo Santos' }}</td>
+                            <td class="p-4">
+                                <flux:button icon="clipboard-document-list" variant="primary">{{ __('Respuestas') }}</flux:button>
+                            </td>
+                            <td class="p-4">
+                                <flux:button icon="exclamation-triangle" variant="primary">{{ __('Alertas') }}</flux:button>
+                            </td>
+                            <td class="p-4">{{ '3' }}</td>
+                            <td class="p-4">
+                                <flux:button icon="building-office" href="#" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
+                            </td>
+                            <td class="p-4">
+                                <flux:button icon="user" href="#" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </x-slot:table>
+            </x-appearance.livewiretable>
+        </div>
+    @elseif($department && ! $table_items && $search_responses)
+        <div class="mt-10 max-w-md w-full">
+            <flux:callout color="yellow" icon="information-circle" heading="{{ __('No hay respuestas para esta aplicación') }}" />
+        </div>
+    @else
+        <div class="mt-10 max-w-md w-full">
+            <flux:callout color="fuchsia" icon="information-circle" heading="{{ __('No se ha seleccionado un departamento') }}" />
+        </div>
+    @endif
+
    <flux:modal name="select-application" class="w-[90%] md:w-md space-y-7">
         <div>
             <flux:heading size="lg">{{ __('Seleccione una aplicación') }}</flux:heading>

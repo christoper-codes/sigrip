@@ -5,6 +5,7 @@ namespace App\Livewire\Analysis;
 use App\Livewire\Traits\Table;
 use App\Models\Application;
 use App\Models\Department;
+use App\Models\Questionnaire;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
@@ -15,14 +16,17 @@ class Show extends Component
     use Table;
 
     public array $departments = [];
+    public ?array $application_data = [];
     public ?array $applications = [];
+    public ?array $questionnaire = [];
     public ?string $application_error = null;
+    public bool $search_responses = false;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
 
-    #[Validate(['nullable', 'array'])]
-    public ?array $application = null;
+    #[Validate(['nullable', 'int'])]
+    public ?int $application = null;
 
     public function mount(): void
     {
@@ -48,6 +52,32 @@ class Show extends Component
             $this->application_error = __('Por favor, seleccione una aplicación para ver los resultados.');
             return;
         }
+
+        $this->search_responses = true;
+
+        $this->application_data = Application::where('id', $this->application)
+            ->with('questionnaireResponses')
+            ->first()
+            ->toArray();
+
+        $this->questionnaire = Questionnaire::where('id', $this->application_data['questionnaire_id'])
+            ->first()
+            ->toArray();
+
+        $this->table_items = $this->application_data['questionnaire_responses'][0]['response_data'];
+        $this->search_fields = ['name'];
+        $this->headers = [
+            ['label' => __('id')],
+            ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
+            ['label' => __('Nivel de Riesgo'), 'field' => 'risk_level', 'sortable' => true],
+            ['label' => __('Empleado')],
+            ['label' => __('Respuestas')],
+            ['label' => __('Alertas')],
+            ['label' => __('Promedio')],
+            ['label' => __('Ai - departamento')],
+            ['label' => __('Ai - empleado')],
+        ];
+         $this->refreshTableData();
     }
 
     public function render()
