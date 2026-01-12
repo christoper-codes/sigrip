@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
@@ -20,9 +21,10 @@ class ApplicationResponsesExport implements FromArray, WithHeadings, WithStyles,
     public function array(): array
     {
         return array_map(function ($item) {
+            $created_at = Carbon::parse($item['created_at'])->format('d/m/Y H:i');
             return [
                 $item['uuid'] ?? '',
-                $item['created_at'] ?? '',
+                $created_at,
                 $item['risk_level'] ?? '',
                 $item['user']['name'] ?? 'Anónimo',
                 $item['average_score'] ?? '',
