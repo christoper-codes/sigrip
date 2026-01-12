@@ -97,7 +97,8 @@ class Show extends Component
 
     public function showResponses(int $response_id): void
     {
-        $responses = $this->application_data['questionnaire_responses'][$response_id - 1]['response_data'];
+        $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
+        $responses = $item['response_data'] ?? [];
         $themes = $this->questionnaire['metadata']['themes'];
 
         $grouped = [];
@@ -137,19 +138,22 @@ class Show extends Component
 
     public function showAlerts(int $response_id): void
     {
-        $this->alert_responses = $this->application_data['questionnaire_responses'][$response_id - 1]['ai_response']['questions_alert'] ?? [];
+        $item  = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
+        $this->alert_responses = $item['ai_response']['questions_alert'] ?? [];
         Flux::modal('show-alerts-modal')->show();
     }
 
     public function showAnalysisDepartment(int $response_id): void
     {
-        $this->department_analysis = $this->application_data['questionnaire_responses'][$response_id - 1]['ai_response']['recommendation_for_department'] ?? 'No hay análisis disponible para esta respuesta.';
+        $item  = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
+        $this->department_analysis = $item['ai_response']['recommendation_for_department'] ?? 'No hay análisis disponible para esta respuesta.';
         Flux::modal('show-department-analysis-modal')->show();
     }
 
     public function showAnalysisUser(int $response_id): void
     {
-        $this->user_analysis = $this->application_data['questionnaire_responses'][$response_id - 1]['ai_response']['recommendation_for_user'] ?? 'No hay análisis disponible para esta respuesta.';
+        $item  = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
+        $this->user_analysis = $item['ai_response']['recommendation_for_user'] ?? 'No hay análisis disponible para esta respuesta.';
         Flux::modal('show-user-analysis-modal')->show();
     }
 
