@@ -13,6 +13,7 @@ class Show extends Component
 {
     public array $departments = [];
     public ?array $applications = [];
+    public ?string $application_error = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -36,6 +37,14 @@ class Show extends Component
             ->toArray();
 
         Flux::modal('select-application')->show();
+    }
+
+    public function resultApplication(): void
+    {
+        if(! $this->application){
+            $this->application_error = __('Por favor, seleccione una aplicación para ver los resultados.');
+            return;
+        }
     }
 
     public function render()

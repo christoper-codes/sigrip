@@ -15,33 +15,36 @@
         <flux:button type="submit" variant="primary" class="mt-3">{{ __('Buscar aplicaciones') }}</flux:button>
    </form>
 
-   <flux:modal name="select-application" class="w-[90%] md:w-xl space-y-5">
+   <flux:modal name="select-application" class="w-[90%] md:w-md space-y-7">
         <div>
             <flux:heading size="lg">{{ __('Seleccione una aplicación') }}</flux:heading>
             <flux:text class="mt-2">{{ __('Ver resultados detallados') }}</flux:text>
         </div>
         <div>
             @if($applications)
-                <flux:radio.group label="Role">
+                <flux:radio.group wire:model="application">
                     @foreach ($applications as $application)
                         <flux:radio
                             name="application"
                             value="{{ $application['id'] }}"
                             label="{{ ucfirst(str_replace('-', ' ', explode('-', $application['slug'], -1) ? implode('-', explode('-', $application['slug'], -1)) : $application['slug'])) }}"
-                            description="{{ $application['start_date'] . ' - ' . $application['expiration_date'] }}"
-                            wire:model="application"
+                            description="{{'Inicio: ' . $application['start_date'] . ' - Término: ' . $application['expiration_date'] }}"
                         />
                     @endforeach
                 </flux:radio.group>
+                @if($application_error)
+                    <div class="flex items-start gap-2 mt-2">
+                        <flux:icon.exclamation-triangle class="text-red-500 size-5" />
+                        <flux:text class="!text-red-500">{{ $application_error }}</flux:text>
+                    </div>
+                @endif
             @endif
         </div>
         <div class="flex justify-end items-center gap-2">
             <flux:modal.close>
                 <flux:button>{{ __('Cancelar') }}</flux:button>
             </flux:modal.close>
-            <flux:modal.close>
-                <flux:button variant="primary">{{ __('Buscar resultados') }}</flux:button>
-            </flux:modal.close>
+            <flux:button variant="primary" wire:click="resultApplication">{{ __('Buscar resultados') }}</flux:button>
         </div>
     </flux:modal>
 </div>
