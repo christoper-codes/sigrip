@@ -25,7 +25,7 @@ class ApplicationForm extends Form
     #[Validate(['required', 'date'])]
     public ?string $start_date = null;
 
-    #[Validate(['nullable', 'date'])]
+    #[Validate(['required', 'date'])]
     public ?string $expiration_date = null;
 
     #[Validate(['required', 'bool'])]

@@ -9,7 +9,6 @@ use App\Livewire\Forms\ApplicationForm;
 use App\Models\Application;
 use App\Models\Department;
 use App\Models\Questionnaire;
-use App\Models\User;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
