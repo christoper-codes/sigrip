@@ -42,7 +42,7 @@
             <div class="flex items-center gap-1">
                 <flux:icon.clock variant="mini"/>
                 <flux:text>
-                    {{ __('Expiración: ') . ($application['expiration_date'] ??  __('Sin limite.')) }}
+                    {{ __('Expiración: ') . (dateFormat($application['expiration_date']) ??  __('Sin limite.')) }}
                 </flux:text>
             </div>
         </div>
