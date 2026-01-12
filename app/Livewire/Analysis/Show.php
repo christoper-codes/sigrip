@@ -3,6 +3,7 @@
 namespace App\Livewire\Analysis;
 
 use App\Exports\ApplicationResponsesExport;
+use App\Exports\ApplicationShowResponsesExport;
 use App\Livewire\Traits\Table;
 use App\Models\Application;
 use App\Models\Department;
@@ -97,7 +98,8 @@ class Show extends Component
 
     public function downloadResponses(): BinaryFileResponse
     {
-
+        $export_name =  $this->application_data['slug'] . '_detailed_responses.xlsx';
+        return Excel::download(new ApplicationShowResponsesExport($this->all_responses), $export_name);
     }
 
     public function showResponses(int $response_id): void

@@ -19,14 +19,19 @@ class ApplicationShowResponsesExport implements FromArray, WithHeadings, WithSty
 
     public function array(): array
     {
-        return array_map(function ($item) {
-            return [
-                $item['uuid'] ?? '',
-                $item['risk_level'] ?? '',
-                $item['user']['name'] ?? 'Anónimo',
-                $item['average_score'] ?? '',
-            ];
-        }, $this->responses);
+       $rows = [];
+        $counter = 1;
+        foreach ($this->responses as $item) {
+            foreach ($item['questions'] as $question) {
+                $rows[] = [
+                    $counter++,
+                    $item['theme_name'] ?? '',
+                    $question['question'] ?? '',
+                    $question['answer'] ?? '',
+                ];
+            }
+        }
+        return $rows;
     }
 
     public function headings(): array
@@ -52,7 +57,7 @@ class ApplicationShowResponsesExport implements FromArray, WithHeadings, WithSty
         return [
             'A' => 10,
             'B' => 22,
-            'C' => 18,
+            'C' => 50,
             'D' => 28,
         ];
     }

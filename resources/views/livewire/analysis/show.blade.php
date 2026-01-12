@@ -113,9 +113,12 @@
     </flux:modal>
 
     <flux:modal name="show-responses-modal" class="w-[90%] md:w-full space-y-7">
-        <div>
+        <div class="space-y-3">
             <flux:heading size="xl">{{ __('Preguntas y respuestas') }}</flux:heading>
-            <flux:text class="mt-2">{{ __('Listadas por temas') }}</flux:text>
+            <flux:text>{{ __('Listadas por temas') }}</flux:text>
+            <flux:button wire:click="downloadResponses" icon="arrow-down" class="border! border-primary! bg-primary/10!">
+                {{ __('Descargar respuestas') }}
+            </flux:button>
         </div>
         <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
             @if($all_responses)
