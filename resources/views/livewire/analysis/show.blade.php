@@ -46,7 +46,7 @@
                                 <flux:button wire:click="showResponses({{ $response['id'] }})" icon="clipboard-document-list" variant="primary">{{ __('Respuestas') }}</flux:button>
                             </td>
                             <td class="p-4">
-                                <flux:button icon="exclamation-triangle" variant="primary">{{ __('Alertas') }}</flux:button>
+                                <flux:button wire:click="showAlerts({{ $response['id'] }})" icon="exclamation-triangle" variant="primary">{{ __('Alertas') }}</flux:button>
                             </td>
                             <td class="p-4">{{ $response['average_score'] }}</td>
                             <td class="p-4">
@@ -105,7 +105,7 @@
 
     <flux:modal name="show-responses-modal" class="w-[90%] md:w-full space-y-7">
         <div>
-            <flux:heading size="lg">{{ __('Preguntas y respuestas') }}</flux:heading>
+            <flux:heading size="xl">{{ __('Preguntas y respuestas') }}</flux:heading>
             <flux:text class="mt-2">{{ __('Listadas por temas') }}</flux:text>
         </div>
         <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
@@ -132,6 +132,40 @@
                         </ul>
                     </div>
                 @endforeach
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-2">
+            <flux:modal.close>
+                <flux:button>{{ __('Cerrar') }}</flux:button>
+            </flux:modal.close>
+        </div>
+    </flux:modal>
+
+    <flux:modal name="show-alerts-modal" class="w-[90%] md:w-full space-y-7">
+        <div>
+            <flux:heading size="xl">{{ __('Respuestas críticas') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Se recomiendan tomar acciones basadas en estas respuestas críticas') }}</flux:text>
+        </div>
+        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+            @if($alert_responses)
+                <ul class="list-decimal ml-6">
+                   @foreach($alert_responses as $alert)
+                        <li class="mb-3">
+                            <p class="text-sm font-semibold">{{ $alert['question'] }}</p>
+                            <ul class="list-disc ml-4 mt-1 text-sm opacity-75">
+                                <li>
+                                    @if($alert['label'])
+                                        <span>{{ $alert['label'] }}</span>
+                                    @else
+                                        <span>{{ __('Sin respuesta') }}</span>
+                                    @endif
+                                </li>
+                            </ul>
+                        </li>
+                    @endforeach
+                </ul>
+            @else
+                <flux:text>{{ __('No se encontraron respuestas críticas para esta respuesta.') }}</flux:text>
             @endif
         </div>
         <div class="flex justify-end items-center gap-2">

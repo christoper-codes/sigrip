@@ -22,6 +22,7 @@ class Show extends Component
     public ?string $application_error = null;
     public bool $search_responses = false;
     public ?array $all_responses = null;
+    public ?array $alert_responses = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -121,6 +122,12 @@ class Show extends Component
 
         $this->all_responses = $grouped;
         Flux::modal('show-responses-modal')->show();
+    }
+
+    public function showAlerts(int $response_id): void
+    {
+        $this->alert_responses = $this->application_data['questionnaire_responses'][$response_id - 1]['ai_response']['questions_alert'] ?? [];
+        Flux::modal('show-alerts-modal')->show();
     }
 
     public function render()
