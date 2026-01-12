@@ -37,7 +37,7 @@
                     @foreach ($paginated_items as $response)
                         <tr>
                             <td class="p-4">{{ $response['uuid'] }}</td>
-                            <td class="p-4">{{ $response['created_at'] }}</td>
+                            <td class="p-4">{{ dateFormat($response['created_at']) }}</td>
                             <td class="p-4">{{ $response['risk_level'] }}</td>
                             <td class="p-4">{{ $response['user_id'] ?? 'Anónimo' }}</td>
                             <td class="p-4">
