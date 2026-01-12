@@ -25,7 +25,7 @@
             class="mt-10">
             <x-appearance.livewiretable
                 :headers="$headers"
-                search_placeholder="{{ __('Nombre') }}"
+                search_placeholder="{{ __('Nombre de empleado') }}"
                 :total_results="$total_results"
                 :current_page="$current_page"
                 :total_pages="$total_pages"
@@ -41,7 +41,7 @@
                             <td class="p-4">
                                 {{ $response['risk_level'] == 'red' ? __('Rojo') : ($response['risk_level'] == 'yellow' ? __('Amarillo') : __('Verde')) }}
                             </td>
-                            <td class="p-4">{{ $response['user_id'] ?? 'Anónimo' }}</td>
+                            <td class="p-4">{{ $response['user']['name'] ?? 'Anónimo' }}</td>
                             <td class="p-4">
                                 <flux:button icon="clipboard-document-list" variant="primary">{{ __('Respuestas') }}</flux:button>
                             </td>

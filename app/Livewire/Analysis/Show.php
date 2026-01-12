@@ -56,7 +56,7 @@ class Show extends Component
         $this->search_responses = true;
 
         $this->application_data = Application::where('id', $this->application)
-            ->with('questionnaireResponses')
+            ->with('questionnaireResponses.user')
             ->first()
             ->toArray();
 
@@ -65,7 +65,7 @@ class Show extends Component
             ->toArray();
 
         $this->table_items = $this->application_data['questionnaire_responses'];
-        $this->search_fields = ['name'];
+        $this->search_fields = ['user.name'];
         $this->headers = [
             ['label' => __('ID')],
             ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
