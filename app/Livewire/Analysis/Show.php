@@ -23,6 +23,7 @@ class Show extends Component
     public bool $search_responses = false;
     public ?array $all_responses = null;
     public ?array $alert_responses = null;
+    public ?string $department_analysis = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -128,6 +129,12 @@ class Show extends Component
     {
         $this->alert_responses = $this->application_data['questionnaire_responses'][$response_id - 1]['ai_response']['questions_alert'] ?? [];
         Flux::modal('show-alerts-modal')->show();
+    }
+
+    public function showAnalysisDepartment(int $response_id): void
+    {
+        $this->department_analysis = $this->application_data['questionnaire_responses'][$response_id - 1]['ai_response']['recommendation_for_department'] ?? 'No hay análisis disponible para esta respuesta.';
+        Flux::modal('show-department-analysis-modal')->show();
     }
 
     public function render()

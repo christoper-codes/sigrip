@@ -50,10 +50,10 @@
                             </td>
                             <td class="p-4">{{ $response['average_score'] }}</td>
                             <td class="p-4">
-                                <flux:button icon="building-office" href="#" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
+                                <flux:button wire:click="showAnalysisDepartment({{ $response['id'] }})" icon="building-office" href="#" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
                             </td>
                             <td class="p-4">
-                                <flux:button icon="user" href="#" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
+                                <flux:button wire:click="showAnalysisUser({{ $response['id'] }})" icon="user" href="#" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
                             </td>
                         </tr>
                     @endforeach
@@ -166,6 +166,23 @@
                 </ul>
             @else
                 <flux:text>{{ __('No se encontraron respuestas críticas para esta respuesta.') }}</flux:text>
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-2">
+            <flux:modal.close>
+                <flux:button>{{ __('Cerrar') }}</flux:button>
+            </flux:modal.close>
+        </div>
+    </flux:modal>
+
+    <flux:modal name="show-department-analysis-modal" class="w-[90%] md:w-full space-y-7">
+        <div>
+            <flux:heading size="xl">{{ __('Análisis del departamento') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Recomendaciones y análisis basados en las respuestas del departamento') }}</flux:text>
+        </div>
+        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+            @if($department_analysis)
+                <flux:text>{{ $department_analysis }}</flux:text>
             @endif
         </div>
         <div class="flex justify-end items-center gap-2">
