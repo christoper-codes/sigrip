@@ -67,7 +67,7 @@ class Show extends Component
         $this->table_items = $this->application_data['questionnaire_responses'];
         $this->search_fields = ['name'];
         $this->headers = [
-            ['label' => __('id')],
+            ['label' => __('ID')],
             ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
             ['label' => __('Nivel de Riesgo'), 'field' => 'risk_level', 'sortable' => true],
             ['label' => __('Empleado')],
@@ -78,6 +78,8 @@ class Show extends Component
             ['label' => __('Ai - empleado')],
         ];
          $this->refreshTableData();
+
+         Flux::modal('select-application')->close();
     }
 
     public function render()
