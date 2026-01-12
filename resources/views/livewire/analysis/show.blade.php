@@ -23,6 +23,10 @@
             x-transition:enter-start="opacity-0 transform translate-x-8"
             x-transition:enter-end="opacity-100 transform translate-x-0"
             class="mt-10">
+            <div class="mb-10">
+                <flux:heading size="xl">{{ ucfirst(str_replace('-', ' ', explode('-', $application_data['slug'], -1) ? implode('-', explode('-', $application_data['slug'], -1)) : $application_data['slug'])) }}</flux:heading>
+                <flux:text class="mt-2">{{ 'Inicio: ' . $application_data['start_date'] . ' - Término: ' . $application_data['expiration_date'] }}</flux:text>
+            </div>
             <x-appearance.livewiretable
                 :headers="$headers"
                 search_placeholder="{{ __('Nombre de empleado') }}"
@@ -200,15 +204,15 @@
 
     <flux:modal name="show-user-analysis-modal" class="w-[90%] md:w-full space-y-7">
         <div>
-            <flux:heading size="xl">{{ __('Análisis del usuario') }}</flux:heading>
-            <flux:text class="mt-2">{{ __('Recomendaciones y análisis basados en las respuestas del usuario') }}</flux:text>
+            <flux:heading size="xl">{{ __('Análisis del empleado') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Recomendaciones y análisis basados en las respuestas del empleado') }}</flux:text>
         </div>
         <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
             @if($user_analysis)
                 <div class="space-y-4">
                     <div class="flex items-center gap-2">
                         <flux:icon.sparkles variant="mini" class="text-primary!"/>
-                        <flux:heading>{{ __('Análisis AI para el usuario') }}</flux:heading>
+                        <flux:heading>{{ __('Análisis AI para el empleado') }}</flux:heading>
                     </div>
                     <flux:text class="leading-relaxed">{{ $user_analysis }}</flux:text>
                 </div>
