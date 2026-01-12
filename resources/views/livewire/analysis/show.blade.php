@@ -24,7 +24,7 @@
             x-transition:enter-end="opacity-100 transform translate-x-0"
             class="mt-10">
             <div class="mb-10">
-                <flux:heading size="xl">{{ ucfirst(str_replace('-', ' ', explode('-', $application_data['slug'], -1) ? implode('-', explode('-', $application_data['slug'], -1)) : $application_data['slug'])) }}</flux:heading>
+                <flux:heading size="lg">{{ ucfirst(str_replace('-', ' ', explode('-', $application_data['slug'], -1) ? implode('-', explode('-', $application_data['slug'], -1)) : $application_data['slug'])) }}</flux:heading>
                 <flux:text class="mt-2">{{ 'Inicio: ' . $application_data['start_date'] . ' - Término: ' . $application_data['expiration_date'] }}</flux:text>
             </div>
             <x-appearance.livewiretable
