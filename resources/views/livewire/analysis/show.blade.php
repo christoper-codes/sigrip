@@ -43,7 +43,7 @@
                             </td>
                             <td class="p-4">{{ $response['user']['name'] ?? 'Anónimo' }}</td>
                             <td class="p-4">
-                                <flux:button icon="clipboard-document-list" variant="primary">{{ __('Respuestas') }}</flux:button>
+                                <flux:button wire:click="showResponses({{ $response['id'] }})" icon="clipboard-document-list" variant="primary">{{ __('Respuestas') }}</flux:button>
                             </td>
                             <td class="p-4">
                                 <flux:button icon="exclamation-triangle" variant="primary">{{ __('Alertas') }}</flux:button>
@@ -100,6 +100,44 @@
                 <flux:button>{{ __('Cancelar') }}</flux:button>
             </flux:modal.close>
             <flux:button variant="primary" wire:click="resultApplication">{{ __('Buscar resultados') }}</flux:button>
+        </div>
+    </flux:modal>
+
+    <flux:modal name="show-responses-modal" class="w-[90%] md:w-full space-y-7">
+        <div>
+            <flux:heading size="lg">{{ __('Preguntas y respuestas') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Listadas por temas') }}</flux:text>
+        </div>
+        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+            @if($all_responses)
+                @foreach($all_responses as $theme)
+                    <div class="mb-4">
+                        <flux:heading size="lg" class="text-primary!">{{ $theme['theme_name'] }}</flux:heading>
+                        <flux:text class="mb-3!">{{ $theme['theme_description'] }}</flux:text>
+                        <ul class="list-decimal ml-6">
+                            @foreach($theme['questions'] as $q)
+                                <li class="mb-3">
+                                    <p class="text-sm font-semibold">{{ $q['question'] }}</p>
+                                    <ul class="list-disc ml-4 mt-1 text-sm opacity-75">
+                                        <li>
+                                            @if($q['answer'])
+                                                <span>{{ $q['answer'] }}</span>
+                                            @else
+                                                <span>{{ __('Sin respuesta') }}</span>
+                                            @endif
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endforeach
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-2">
+            <flux:modal.close>
+                <flux:button>{{ __('Cerrar') }}</flux:button>
+            </flux:modal.close>
         </div>
     </flux:modal>
 </div>

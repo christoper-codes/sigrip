@@ -21,6 +21,7 @@ class Show extends Component
     public ?array $questionnaire = [];
     public ?string $application_error = null;
     public bool $search_responses = false;
+    public ?array $all_responses = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -80,6 +81,46 @@ class Show extends Component
          $this->refreshTableData();
 
          Flux::modal('select-application')->close();
+    }
+
+    public function showResponses(int $response_id): void
+    {
+        $responses = $this->application_data['questionnaire_responses'][$response_id - 1]['response_data'];
+        $themes = $this->questionnaire['metadata']['themes'];
+
+        $grouped = [];
+        foreach ($themes as $theme) {
+            $theme_questions = [];
+            foreach ($theme['questions'] as $q) {
+                $user_response = collect($responses)->firstWhere('question_id', $q['id']);
+                if (!$user_response) {
+                    continue;
+                }
+                $answer_label = null;
+                if (!empty($q['options'])) {
+                    foreach ($q['options'] as $option) {
+                        if ((string)$option['value'] === (string)$user_response['value']) {
+                            $answer_label = $option['label'];
+                            break;
+                        }
+                    }
+                }
+                $theme_questions[] = [
+                    'question' => $q['text'] ?? null,
+                    'answer' => $answer_label ?? $user_response['value'],
+                ];
+            }
+            if (count($theme_questions)) {
+                $grouped[] = [
+                    'theme_name' => $theme['name'] ?? '',
+                    'theme_description' => $theme['description'] ?? '',
+                    'questions' => $theme_questions,
+                ];
+            }
+        }
+
+        $this->all_responses = $grouped;
+        Flux::modal('show-responses-modal')->show();
     }
 
     public function render()
