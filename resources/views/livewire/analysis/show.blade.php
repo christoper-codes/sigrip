@@ -182,7 +182,13 @@
         </div>
         <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
             @if($department_analysis)
-                <flux:text>{{ $department_analysis }}</flux:text>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <flux:icon.sparkles variant="mini" class="text-primary!"/>
+                        <flux:heading>{{ __('Análisis AI para el departamento') }}</flux:heading>
+                    </div>
+                    <flux:text class="leading-relaxed">{{ $department_analysis }}</flux:text>
+                </div>
             @endif
         </div>
         <div class="flex justify-end items-center gap-2">
