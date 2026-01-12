@@ -23,7 +23,7 @@
                 <button x-on:click="selectedTab = 'details'" x-bind:aria-selected="selectedTab === 'details'" x-bind:tabindex="selectedTab === 'details' ? '0' : '-1'" x-bind:class="selectedTab === 'details' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelDetails">
                     <div class="flex items-center gap-2">
                         <flux:icon.clipboard-document-list class="size-5" />
-                        <span>{{ __('Detalles') }}</span>
+                        <span class="whitespace-nowrap">{{ __('Mis aplicaciones') }}</span>
                     </div>
                 </button>
             </div>
@@ -41,7 +41,11 @@
                     </div>
                 </div>
                 <div x-cloak x-show="selectedTab === 'details'" id="tabpanelDetails" role="tabpanel" aria-label="details">
-
+                    <flux:heading size="xl">{{ __('Mis aplicaciones') }}</flux:heading>
+                    <flux:text class="mt-2">{{ __('Aquí puedes ver y gestionar tus últimas aplicaciones.') }}</flux:text>
+                    <div class="mt-5">
+                        <livewire:application.employee />
+                    </div>
                 </div>
             </div>
         </div>
