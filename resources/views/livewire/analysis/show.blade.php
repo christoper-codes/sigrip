@@ -197,4 +197,27 @@
             </flux:modal.close>
         </div>
     </flux:modal>
+
+    <flux:modal name="show-user-analysis-modal" class="w-[90%] md:w-full space-y-7">
+        <div>
+            <flux:heading size="xl">{{ __('Análisis del usuario') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Recomendaciones y análisis basados en las respuestas del usuario') }}</flux:text>
+        </div>
+        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+            @if($user_analysis)
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <flux:icon.sparkles variant="mini" class="text-primary!"/>
+                        <flux:heading>{{ __('Análisis AI para el usuario') }}</flux:heading>
+                    </div>
+                    <flux:text class="leading-relaxed">{{ $user_analysis }}</flux:text>
+                </div>
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-2">
+            <flux:modal.close>
+                <flux:button>{{ __('Cerrar') }}</flux:button>
+            </flux:modal.close>
+        </div>
+    </flux:modal>
 </div>

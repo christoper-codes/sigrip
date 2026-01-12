@@ -24,6 +24,7 @@ class Show extends Component
     public ?array $all_responses = null;
     public ?array $alert_responses = null;
     public ?string $department_analysis = null;
+    public ?string $user_analysis = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -135,6 +136,12 @@ class Show extends Component
     {
         $this->department_analysis = $this->application_data['questionnaire_responses'][$response_id - 1]['ai_response']['recommendation_for_department'] ?? 'No hay análisis disponible para esta respuesta.';
         Flux::modal('show-department-analysis-modal')->show();
+    }
+
+    public function showAnalysisUser(int $response_id): void
+    {
+        $this->user_analysis = $this->application_data['questionnaire_responses'][$response_id - 1]['ai_response']['recommendation_for_user'] ?? 'No hay análisis disponible para esta respuesta.';
+        Flux::modal('show-user-analysis-modal')->show();
     }
 
     public function render()
