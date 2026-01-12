@@ -64,7 +64,7 @@ class Show extends Component
             ->first()
             ->toArray();
 
-        $this->table_items = $this->application_data['questionnaire_responses'][0]['response_data'];
+        $this->table_items = $this->application_data['questionnaire_responses'];
         $this->search_fields = ['name'];
         $this->headers = [
             ['label' => __('id')],

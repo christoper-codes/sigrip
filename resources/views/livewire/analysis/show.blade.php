@@ -36,17 +36,17 @@
                 <x-slot:table>
                     @foreach ($paginated_items as $response)
                         <tr>
-                            <td class="p-4">{{ '1' }}</td>
-                            <td class="p-4">{{ '10-22-30' }}</td>
-                            <td class="p-4">{{ 'red' }}</td>
-                            <td class="p-4">{{ 'Christo Santos' }}</td>
+                            <td class="p-4">{{ $response['uuid'] }}</td>
+                            <td class="p-4">{{ $response['created_at'] }}</td>
+                            <td class="p-4">{{ $response['risk_level'] }}</td>
+                            <td class="p-4">{{ $response['user_id'] ?? 'Anónimo' }}</td>
                             <td class="p-4">
                                 <flux:button icon="clipboard-document-list" variant="primary">{{ __('Respuestas') }}</flux:button>
                             </td>
                             <td class="p-4">
                                 <flux:button icon="exclamation-triangle" variant="primary">{{ __('Alertas') }}</flux:button>
                             </td>
-                            <td class="p-4">{{ '3' }}</td>
+                            <td class="p-4">{{ $response['average_score'] }}</td>
                             <td class="p-4">
                                 <flux:button icon="building-office" href="#" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
                             </td>
