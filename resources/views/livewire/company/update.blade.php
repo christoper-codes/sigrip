@@ -16,7 +16,7 @@
     </flux:field>
     <flux:field>
         <flux:label>{{ __('Teléfono') }}</flux:label>
-        <flux:input name="phone" wire:model="phone" icon="phone" placeholder="{{ __('+52 123 000 000') }}"/>
+        <flux:input type="number" name="phone" wire:model="phone" icon="phone" placeholder="{{ __('+52 123 000 000') }}"/>
         <flux:error name="phone" />
     </flux:field>
     <flux:field>

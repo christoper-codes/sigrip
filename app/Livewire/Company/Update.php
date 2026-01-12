@@ -3,6 +3,7 @@
 namespace App\Livewire\Company;
 
 use App\Enums\NotificationTypesEnum;
+use App\Models\Address;
 use App\Models\Company;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -20,8 +21,8 @@ class Update extends Component
     #[Validate(['nullable', 'string', 'max:255'])]
     public ?string $zip_code = null;
 
-    #[Validate(['nullable', 'integer'])]
-    public ?int $phone = null;
+    #[Validate(['nullable', 'regex:/^[0-9]+$/'])]
+    public ?string $phone = null;
 
     #[Validate(['nullable', 'string', 'max:255'])]
     public ?string $email = null;
@@ -43,6 +44,20 @@ class Update extends Component
             'name' => $this->name,
             'description' => $this->description,
         ]);
+
+        $address = $this->company->address ?? null;
+
+       /*   addressDate = 'address_line' => $this->address_line,
+            'zip_code' => $this->zip_code,
+            'phone' => $this->phone,
+            'email' => $this->email */
+
+      /*   if (address){
+            address->update(addressDate);
+        }else{
+            address =  Address::create(addressDate);
+        }
+ */
 
         $this->dispatch('toast', message: __('Compañía actualizada correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
     }
