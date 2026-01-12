@@ -71,7 +71,7 @@ class Show extends Component
             ['label' => __('ID')],
             ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
             ['label' => __('Nivel de Riesgo'), 'field' => 'risk_level', 'sortable' => true],
-            ['label' => __('Empleado')],
+            ['label' => __('Nombre de empleado')],
             ['label' => __('Respuestas')],
             ['label' => __('Alertas')],
             ['label' => __('Promedio')],
