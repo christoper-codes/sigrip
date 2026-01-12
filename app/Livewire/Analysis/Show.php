@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Analysis;
 
+use App\Exports\ApplicationResponsesExport;
 use App\Livewire\Traits\Table;
 use App\Models\Application;
 use App\Models\Department;
@@ -10,6 +11,8 @@ use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class Show extends Component
 {
@@ -84,6 +87,13 @@ class Show extends Component
          $this->refreshTableData();
 
          Flux::modal('select-application')->close();
+    }
+
+    public function downloadResults(): BinaryFileResponse
+    {
+        $questionnaire_name = ucfirst(str_replace('-', ' ', explode('-', $this->application_data['slug'], -1) ? implode('-', explode('-', $this->application_data['slug'], -1)) : $this->application_data['slug']));
+        $export_name = str_replace(' ', '_', strtolower($questionnaire_name)) . '_inicio:' . $this->application_data['start_date'] . '_fin:' . $this->application_data['expiration_date'] . '_responses.xlsx';
+        return Excel::download(new ApplicationResponsesExport($this->application_data['questionnaire_responses']), $export_name);
     }
 
     public function showResponses(int $response_id): void

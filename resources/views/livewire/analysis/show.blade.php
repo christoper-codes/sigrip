@@ -26,6 +26,11 @@
             <div class="mb-10">
                 <flux:heading size="lg">{{ ucfirst(str_replace('-', ' ', explode('-', $application_data['slug'], -1) ? implode('-', explode('-', $application_data['slug'], -1)) : $application_data['slug'])) }}</flux:heading>
                 <flux:text class="mt-2">{{ 'Inicio: ' . $application_data['start_date'] . ' - Término: ' . $application_data['expiration_date'] }}</flux:text>
+                <div class="mt-5">
+                    <flux:button icon="arrow-down" wire:click='downloadResults' class="!w-full !py-8 !border !border-primary !bg-primary/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
+                        {{ __('Descargar resultados') }}
+                    </flux:button>
+                </div>
             </div>
             <x-appearance.livewiretable
                 :headers="$headers"
