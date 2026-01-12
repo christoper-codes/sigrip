@@ -21,7 +21,7 @@ class ApplicationResponsesExport implements FromArray, WithHeadings, WithStyles,
     {
         return array_map(function ($item) {
             return [
-                $item['id'] ?? '',
+                $item['uuid'] ?? '',
                 $item['created_at'] ?? '',
                 $item['risk_level'] ?? '',
                 $item['user']['name'] ?? 'Anónimo',

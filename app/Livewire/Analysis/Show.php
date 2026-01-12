@@ -91,8 +91,7 @@ class Show extends Component
 
     public function downloadResults(): BinaryFileResponse
     {
-        $questionnaire_name = ucfirst(str_replace('-', ' ', explode('-', $this->application_data['slug'], -1) ? implode('-', explode('-', $this->application_data['slug'], -1)) : $this->application_data['slug']));
-        $export_name = str_replace(' ', '_', strtolower($questionnaire_name)) . '_inicio:' . $this->application_data['start_date'] . '_fin:' . $this->application_data['expiration_date'] . '_responses.xlsx';
+        $export_name =  $this->application_data['slug'] . '_responses.xlsx';
         return Excel::download(new ApplicationResponsesExport($this->application_data['questionnaire_responses']), $export_name);
     }
 
