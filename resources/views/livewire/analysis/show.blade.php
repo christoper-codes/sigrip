@@ -34,7 +34,7 @@
             </div>
             <x-appearance.livewiretable
                 :headers="$headers"
-                search_placeholder="{{ __('Nombre de empleado') }}"
+                search_placeholder="{{ __('Nombre de empleado o ID de respuesta') }}"
                 :total_results="$total_results"
                 :current_page="$current_page"
                 :total_pages="$total_pages"

@@ -72,7 +72,7 @@ class Show extends Component
             ->toArray();
 
         $this->table_items = $this->application_data['questionnaire_responses'];
-        $this->search_fields = ['user.name'];
+        $this->search_fields = ['user.name', 'uuid'];
         $this->headers = [
             ['label' => __('ID')],
             ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
