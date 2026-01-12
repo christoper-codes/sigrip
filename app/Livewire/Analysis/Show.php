@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Analysis;
 
+use App\Livewire\Traits\Table;
 use App\Models\Application;
 use App\Models\Department;
 use Flux\Flux;
@@ -11,6 +12,8 @@ use Livewire\Component;
 
 class Show extends Component
 {
+    use Table;
+
     public array $departments = [];
     public ?array $applications = [];
     public ?string $application_error = null;

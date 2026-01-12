@@ -31,7 +31,7 @@ class Index extends Component
              return empty($departament['manager_id']);
         });
         if ($no_manager) {
-            $this->dispatch('toast', message: __('Por seguridad, debe asignar un gerente a este departamento.'), type: 'warning');
+            $this->dispatch('toast', message: __('Por seguridad, debe asignar un gerente a todos los departamentos.'), type: 'warning');
         }
 
         $this->search_fields = ['name'];
