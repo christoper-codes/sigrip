@@ -54,10 +54,10 @@
                             </td>
                             <td class="p-4">{{ $response['average_score'] }}</td>
                             <td class="p-4">
-                                <flux:button wire:click="showAnalysisDepartment({{ $response['id'] }})" icon="building-office" href="#" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
+                                <flux:button wire:click="showAnalysisDepartment({{ $response['id'] }})" icon="building-office" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
                             </td>
                             <td class="p-4">
-                                <flux:button wire:click="showAnalysisUser({{ $response['id'] }})" icon="user" href="#" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
+                                <flux:button wire:click="showAnalysisUser({{ $response['id'] }})" icon="user" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
                             </td>
                         </tr>
                     @endforeach
