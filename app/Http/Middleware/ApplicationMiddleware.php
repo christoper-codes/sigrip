@@ -22,7 +22,7 @@ class ApplicationMiddleware
         $application = Application::where('slug', $slug)->firstOrFail();
         $is_visitor = false;
 
-        if(! $application->is_active){
+        if(! $application->is_active || ($application->expiration_date && $application->expiration_date < now())){
             return redirect()->route('application.inactive');
         }
 
