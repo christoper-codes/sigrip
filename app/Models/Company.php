@@ -28,6 +28,11 @@ class Company extends Model
         return $this->belongsTo(Organization::class);
     }
 
+    public function address(): BelongsTo
+    {
+         return $this->belongsTo(Address::class);
+    }
+
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
