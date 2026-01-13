@@ -15,16 +15,16 @@ class Update extends Component
     #[Validate(['required', 'string', 'min:3', 'max:255'])]
     public ?string $name = null;
 
-    #[Validate(['nullable', 'string', 'max:255'])]
+    #[Validate(['required', 'string', 'max:255'])]
     public ?string $address_line = null;
 
-    #[Validate(['nullable', 'string', 'max:255'])]
+    #[Validate(['required', 'string', 'max:255'])]
     public ?string $zip_code = null;
 
-    #[Validate(['nullable', 'regex:/^[0-9]+$/'])]
+    #[Validate(['required', 'regex:/^[0-9]+$/'])]
     public ?string $phone = null;
 
-    #[Validate(['nullable', 'string', 'max:255'])]
+    #[Validate(['required', 'string', 'max:255'])]
     public ?string $email = null;
 
     #[Validate(['nullable', 'string', 'max:500'])]
