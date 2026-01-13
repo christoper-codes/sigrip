@@ -20,9 +20,9 @@
                     </td>
                     <td class="p-4">
                         @if($application['pivot']['is_active'])
-                            <flux:icon.x-circle />
+                            <flux:icon.x-circle class="size-7 text-red-500"/>
                         @else
-                            <flux:icon.check-circle />
+                            <flux:icon.check-circle class="size-7 text-green-500"/>
                         @endif
                     </td>
                     <td class="p-4">
