@@ -34,6 +34,14 @@ class Update extends Component
     {
         $this->name = $this->company->name;
         $this->description = $this->company->description;
+
+        $address = $this->company->address;
+        if($address){
+            $this->address_line = $address->address_line;
+            $this->zip_code = $address->zip_code;
+            $this->phone = $address->phone;
+            $this->email = $address->email;
+        }
     }
 
     public function submit()
