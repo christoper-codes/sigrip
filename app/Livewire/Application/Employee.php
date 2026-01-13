@@ -14,7 +14,11 @@ class Employee extends Component
 
     public function mount(): void
     {
-        $this->table_items = Auth::user()->applications()->get()->toArray() ?? [];
+        $this->table_items = Auth::user()->applications()
+            ->limit(10)
+            ->orderByDesc('created_at')
+            ->get()
+            ->toArray();
 
         $this->search_fields = ['name'];
         $this->headers = [
