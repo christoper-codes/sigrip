@@ -27,7 +27,7 @@
                     </td>
                     <td class="p-4">
                         @if(! $application['pivot']['is_active'])
-                            {{ $application['pivot']['updated_at'] }}
+                            {{ dateFormat($application['pivot']['updated_at']) }}
                         @else
                             {{ __('Sin fecha') }}
                         @endif
