@@ -14,13 +14,19 @@ class Employee extends Component
 
     public function mount(): void
     {
-        $this->table_items = Auth::user()->applications()
+        $applications = Auth::user()->applications()
             ->limit(10)
             ->orderByDesc('created_at')
             ->get()
             ->toArray();
 
-        $this->search_fields = ['name'];
+        foreach ($applications as &$application) {
+            $application['slug_normalized'] = strtolower(str_replace('-', ' ', $application['slug']));
+        }
+        unset($application);
+
+        $this->table_items = $applications;
+        $this->search_fields = ['slug_normalized'];
         $this->headers = [
             ['label' => __('Nombre')],
             ['label' => __('Fecha de Inicio'), 'field' => 'start_date', 'sortable' => true],
