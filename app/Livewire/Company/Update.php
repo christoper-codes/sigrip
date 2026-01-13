@@ -40,24 +40,28 @@ class Update extends Component
     {
         $this->validate();
 
+        $address = $this->company->address ?? null;
+
+        $address_data = [
+            'address_line' => $this->address_line,
+            'zip_code' => $this->zip_code,
+            'phone' => $this->phone,
+            'email' => $this->email
+        ];
+
+        if ($address){
+            $address->update($address_data);
+        }
+
+        if(! $address){
+            $address = Address::create($address_data);
+        }
+
         $this->company->update([
+            'address_id' => $address->id,
             'name' => $this->name,
             'description' => $this->description,
         ]);
-
-        $address = $this->company->address ?? null;
-
-       /*   addressDate = 'address_line' => $this->address_line,
-            'zip_code' => $this->zip_code,
-            'phone' => $this->phone,
-            'email' => $this->email */
-
-      /*   if (address){
-            address->update(addressDate);
-        }else{
-            address =  Address::create(addressDate);
-        }
- */
 
         $this->dispatch('toast', message: __('Compañía actualizada correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
     }
