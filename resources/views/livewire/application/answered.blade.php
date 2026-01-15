@@ -4,6 +4,9 @@
          <flux:heading size="xl" class="uppercase!">{{ __('Aplicación respondida') }}</flux:heading>
         <flux:text class="mt-4 mb-8">
             {{ __('Esta aplicación ya ha sido respondida, no se pueden enviar más respuestas.') }}
+            @auth
+                <flux:link href="{{ route('application.index') }}">{{ __('Mis aplicaciones') }}</flux:link>
+            @endauth
         </flux:text>
     </div>
 </div>

@@ -4,6 +4,9 @@
          <flux:heading size="xl" class="uppercase!">{{ __('Aplicación Inactiva') }}</flux:heading>
         <flux:text class="mt-4 mb-8">
             {{ __('Esta aplicación no está activa en este momento o ha expirado.') }}
+            @auth
+                <flux:link href="{{ route('application.index') }}">{{ __('Mis aplicaciones') }}</flux:link>
+            @endauth
         </flux:text>
     </div>
 </div>

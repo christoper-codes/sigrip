@@ -4,6 +4,9 @@
          <flux:heading size="xl" class="uppercase!">{{ __('¡Gracias por contestar el formulario!') }}</flux:heading>
         <flux:text class="mt-4 mb-8">
             {{ __('Hemos recibido tus respuestas correctamente. Tu opinión impulsa nuestra mejora continua.') }}
+            @auth
+                <flux:link href="{{ route('application.index') }}">{{ __('Mis aplicaciones') }}</flux:link>
+            @endauth
         </flux:text>
     </div>
 </div>
