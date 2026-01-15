@@ -9,7 +9,7 @@
                         if (hour >= 5 && hour < 12) {
                             this.greeting = '{{ __('Buenos días,') }}';
                         } else if (hour >= 12 && hour < 18) {
-                            this.greeting = '{{ __('Buenas tarde,') }}';
+                            this.greeting = '{{ __('Buena tarde,') }}';
                         } else {
                             this.greeting = '{{ __('Buena noche,') }}';
                         }
