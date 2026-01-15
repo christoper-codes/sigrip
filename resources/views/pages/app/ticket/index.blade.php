@@ -7,22 +7,31 @@
             </div>
         </x-appearance.header>
 
-        <div x-data="{ selectedTab: '{{ auth()->user()->can('viewDepartmentManager', auth()->user()) ? 'recent' : 'employee' }}' }" class="w-full">
+        <div
+            x-data="{
+                selectedTab: (new URLSearchParams(window.location.search).get('tab')) ??
+                    '{{ auth()->user()->can('viewDepartmentManager', auth()->user()) ? 'recent' : 'employee' }}'
+            }"
+            class="w-full">
             <div x-on:keydown.right.prevent="$focus.wrap().next()" x-on:keydown.left.prevent="$focus.wrap().previous()" class="flex gap-2 overflow-x-auto border-b border-neutral-300 dark:border-neutral-700" role="tablist" aria-label="tab options">
                  @can('viewDepartmentManager', auth()->user())
-                    <button x-on:click="selectedTab = 'recent'" x-bind:aria-selected="selectedTab === 'recent'" x-bind:tabindex="selectedTab === 'recent' ? '0' : '-1'" x-bind:class="selectedTab === 'recent' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelRecent">
+                    <a href="{{ route('ticket.index') }}?tab=recent" wire:navigate>
+                        <button x-bind:aria-selected="selectedTab === 'recent'" x-bind:tabindex="selectedTab === 'recent' ? '0' : '-1'" x-bind:class="selectedTab === 'recent' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelRecent">
+                            <div class="flex items-center gap-2">
+                                <flux:icon.bell-alert class="size-5" />
+                                <span>{{ __('Recientes') }}</span>
+                            </div>
+                        </button>
+                    </a>
+                @endcan
+                <a href="{{ route('ticket.index') }}?tab=employee" wire:navigate
+                    <button x-bind:aria-selected="selectedTab === 'employee'" x-bind:tabindex="selectedTab === 'employee' ? '0' : '-1'" x-bind:class="selectedTab === 'employee' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelEmployee">
                         <div class="flex items-center gap-2">
-                            <flux:icon.bell-alert class="size-5" />
-                            <span>{{ __('Recientes') }}</span>
+                            <flux:icon.folder class="size-5" />
+                            <span>{{ __('Mis tickets') }}</span>
                         </div>
                     </button>
-                @endcan
-                <button x-on:click="selectedTab = 'employee'" x-bind:aria-selected="selectedTab === 'employee'" x-bind:tabindex="selectedTab === 'employee' ? '0' : '-1'" x-bind:class="selectedTab === 'employee' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelEmployee">
-                    <div class="flex items-center gap-2">
-                        <flux:icon.folder class="size-5" />
-                        <span>{{ __('Mis tickets') }}</span>
-                    </div>
-                </button>
+                </a>
                 <button x-on:click="selectedTab = 'create'" x-bind:aria-selected="selectedTab === 'create'" x-bind:tabindex="selectedTab === 'create' ? '0' : '-1'" x-bind:class="selectedTab === 'create' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelCreateUpdate">
                     <div class="flex items-center gap-2">
                         <flux:icon.cube class="size-5" />
