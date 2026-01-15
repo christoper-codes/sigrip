@@ -11,6 +11,7 @@ use App\Models\Department;
 use App\Models\User;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -29,9 +30,16 @@ class Index extends Component
 
     public function mount()
     {
-        $this->departments = Department::where('company_id', Auth::user()->company?->id)
-            ->get()
-            ->toArray();
+        if(Gate::check('viewCompanyAdmin', Auth::user())){
+            $this->departments = Department::where('company_id', Auth::user()->company?->id)
+                ->get()
+                ->toArray();
+        } else {
+            $this->departments = Department::where('manager_id', Auth::user()->department_id)
+                ->get()
+                ->toArray();
+        }
+
         if(! $this->departments){
           $this->dispatch('toast', message: __('No hay departamentos disponibles.'), type: NotificationTypesEnum::WARNING->value);
         }
