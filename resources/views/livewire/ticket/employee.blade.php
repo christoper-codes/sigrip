@@ -158,52 +158,24 @@
                 </div>
             @endif
 
-            <form wire:submit.prevent="submit" class="space-y-4">
+            <form class="space-y-4">
                 <flux:field>
-                    <flux:switch label="Es prioritario" wire:model="is_priority" align="left" name="is_priority"/>
+                    <flux:switch label="Es prioritario" wire:model="is_priority" disabled align="left" name="is_priority"/>
                     <flux:error name="is_priority" />
                 </flux:field>
                 <flux:field>
-                    <flux:radio.group wire:model="ticket_status" variant="segmented" size="sm">
+                    <flux:radio.group wire:model="ticket_status" disabled variant="segmented" size="sm">
                         @foreach($ticket_statuses as $ticket_status)
                             <flux:radio value="{{ $ticket_status['id'] }}" label="{{ $ticket_status['name'] }}" />
                         @endforeach
                     </flux:radio.group>
                 </flux:field>
-                <div x-data="{ openTicketResponse: 1 }" class="max-w-4xl mx-auto space-y-4 z-20 relative mt-5">
-                    <div class="bg-light-variant dark:bg-neutral-700 border border-neutral-300 dark:border-neutral-700 rounded-2xl overflow-hidden">
-                        <button type="button" @click="openTicketResponse = openTicketResponse === 0 ? -1 : 0" class="w-full px-6 py-5 text-left flex items-center justify-between gap-5 hover:bg-neutral-200/20 dark:hover:bg-neutral-900/20 transition-colors duration-500 cursor-pointer">
-                            <flux:text>{{ __('Agregar respuesta') }}</flux:text>
-                            <flux:icon.plus x-show="openTicketResponse !== 0" class="size-5 text-neutral-600 dark:text-neutral-400" />
-                            <flux:icon.minus x-show="openTicketResponse === 0" class="size-5 text-primary" />
-                        </button>
-                        <div x-show="openTicketResponse === 0" class="px-6 pb-5 space-y-4" x-transition>
-                            <flux:field>
-                                <flux:label>{{ __('Respuesta') }}</flux:label>
-                                <flux:textarea name="ticket_text_response" resize="none" wire:model="ticket_text_response" icon="chat-bubble-bottom-center-text" placeholder="{{ __('Escribe la respuesta para el ticket') }}"/>
-                                <flux:error name="ticket_text_response"/>
-                            </flux:field>
-                            <flux:field>
-                                <flux:label>{{ __('Subir evidencias (archivos, imágenes, documentos)') }}</flux:label>
-                                <flux:input type="file" name="ticket_files_response" wire:model="ticket_files_response" multiple accept=".xlsx, .csv, .pdf, .jpg, .png" />
 
-                                <div wire:loading wire:target="ticket_files_response">
-                                    <div class="flex items-center gap-1">
-                                        <flux:icon.loading class="size-3"/>
-                                        <flux:text class="!text-xs">{{ __('Cargando archivo') }}</flux:text>
-                                    </div>
-                                </div>
-                                <flux:error name="ticket_files_response" class="!mt-0"/>
-                            </flux:field>
-                        </div>
-                    </div>
-                </div>
                 <div class="flex gap-2 mt-7">
                     <flux:spacer />
                     <flux:modal.close>
                         <flux:button type="button" variant="filled">{{ __('Cerrar') }}</flux:button>
                     </flux:modal.close>
-                    <flux:button type="submit" variant="primary">{{ __('Guardar actualización') }}</flux:button>
                 </div>
             </form>
 
