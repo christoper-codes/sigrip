@@ -28,8 +28,6 @@
                 @endcanany
                 @can('viewDepartmentManager', auth()->user())
                     <flux:sidebar.item class="!py-5 text-neutral-300! dark:text-neutral-200!" icon="cube" :href="route('department.index')" :current="request()->routeIs('department.index')" wire:navigate>{{ __('Departamentos') }}</flux:navlist.item>
-                @endcan
-                @can('viewDepartmentManager', auth()->user())
                     <flux:sidebar.item class="!py-5 text-neutral-300! dark:text-neutral-200!" icon="users" :href="route('employee.index')" :current="request()->routeIs('employee.index')" wire:navigate>{{ __('Empleados') }}</flux:navlist.item>
                 @endcan
             </flux:sidebar.nav>
@@ -39,8 +37,8 @@
                     <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="squares-plus" :href="route('application.index')" :current="request()->routeIs('application.index')" wire:navigate>{{ __('Aplicaciones') }}</flux:sidebar.item>
                     @can('viewDepartmentManager', auth()->user())
                         <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="clipboard-document-list" :href="route('questionnaire.index')" :current="request()->routeIs('questionnaire.index')" wire:navigate>{{ __('Questionarios') }}</flux:sidebar.item>
+                        <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="chart-bar" :href="route('analysis.index')" :current="request()->routeIs('analysis.index')" wire:navigate>{{ __('Analisis Ai') }}</flux:sidebar.item>
                     @endcan
-                    <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="chart-bar" :href="route('analysis.index')" :current="request()->routeIs('analysis.index')" wire:navigate>{{ __('Analisis Ai') }}</flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
             <flux:sidebar.nav variant="outline">

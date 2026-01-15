@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AnalysisMiddleware;
 use App\Http\Middleware\ApplicationMiddleware;
 use App\Http\Middleware\CompanyMiddleware;
 use App\Http\Middleware\DepartmentMiddleware;
@@ -44,8 +45,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware(QuestionnaireMiddleware::class)
         ->name('questionnaire.index');
 
-
-    Route::view('analysis', 'pages.app.analysis.index')->name('analysis.index');
+    Route::view('analysis', 'pages.app.analysis.index')
+        ->middleware(AnalysisMiddleware::class)
+        ->name('analysis.index');
 });
 
 Route::view('applications/inactive', 'pages.app.application.inactive')->name('application.inactive');
