@@ -178,30 +178,6 @@
                     </flux:modal.close>
                 </div>
             </form>
-
-            <flux:modal name="analyze-ticket-ai-modal" class="w-[90%] md:w-xl">
-                <div class="space-y-5">
-                    <div>
-                        <flux:heading size="lg">{{ __('Análisis AI') }}</flux:heading>
-                        <flux:text>{{ __('Recomendaciones generadas para el manejo del ticket') }}</flux:text>
-                    </div>
-                    <div class="bg-light-variant dark:bg-dark-variant p-5 rounded-xl border border-neutral-300 dark:border-neutral-700">
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-2">
-                                <flux:icon.sparkles variant="mini" class="text-primary!"/>
-                                <flux:heading>{{ __('Análisis AI para el departamento') }}</flux:heading>
-                            </div>
-                            <flux:text class="mt-2 leading-relaxed">{{ $analyze_ticket_ai_response }}</flux:text>
-                        </div>
-                    </div>
-                    <div class="flex gap-2">
-                        <flux:spacer />
-                        <flux:modal.close>
-                            <flux:button variant="filled">{{ __('Cancelar') }}</flux:button>
-                        </flux:modal.close>
-                    </div>
-                </div>
-            </flux:modal>
         </flux:modal>
     @endif
 </div>
