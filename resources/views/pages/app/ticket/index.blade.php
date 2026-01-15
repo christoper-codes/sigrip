@@ -7,12 +7,20 @@
             </div>
         </x-appearance.header>
 
-        <div x-data="{ selectedTab: 'recent' }" class="w-full">
+        <div x-data="{ selectedTab: '{{ auth()->user()->can('viewDepartmentManager', auth()->user()) ? 'recent' : 'employee' }}' }" class="w-full">
             <div x-on:keydown.right.prevent="$focus.wrap().next()" x-on:keydown.left.prevent="$focus.wrap().previous()" class="flex gap-2 overflow-x-auto border-b border-neutral-300 dark:border-neutral-700" role="tablist" aria-label="tab options">
-                <button x-on:click="selectedTab = 'recent'" x-bind:aria-selected="selectedTab === 'recent'" x-bind:tabindex="selectedTab === 'recent' ? '0' : '-1'" x-bind:class="selectedTab === 'recent' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelRecent">
+                 @can('viewDepartmentManager', auth()->user())
+                    <button x-on:click="selectedTab = 'recent'" x-bind:aria-selected="selectedTab === 'recent'" x-bind:tabindex="selectedTab === 'recent' ? '0' : '-1'" x-bind:class="selectedTab === 'recent' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelRecent">
+                        <div class="flex items-center gap-2">
+                            <flux:icon.bell-alert class="size-5" />
+                            <span>{{ __('Recientes') }}</span>
+                        </div>
+                    </button>
+                @endcan
+                <button x-on:click="selectedTab = 'employee'" x-bind:aria-selected="selectedTab === 'employee'" x-bind:tabindex="selectedTab === 'employee' ? '0' : '-1'" x-bind:class="selectedTab === 'employee' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelEmployee">
                     <div class="flex items-center gap-2">
-                        <flux:icon.bell-alert class="size-5" />
-                        <span>{{ __('Recientes') }}</span>
+                        <flux:icon.folder class="size-5" />
+                        <span>{{ __('Mis tickets') }}</span>
                     </div>
                 </button>
                 <button x-on:click="selectedTab = 'create'" x-bind:aria-selected="selectedTab === 'create'" x-bind:tabindex="selectedTab === 'create' ? '0' : '-1'" x-bind:class="selectedTab === 'create' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelCreateUpdate">
@@ -21,16 +29,21 @@
                         <span>{{ __('Crear') }}</span>
                     </div>
                 </button>
-                <button x-on:click="selectedTab = 'employee'" x-bind:aria-selected="selectedTab === 'employee'" x-bind:tabindex="selectedTab === 'employee' ? '0' : '-1'" x-bind:class="selectedTab === 'employee' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelEmployee">
-                    <div class="flex items-center gap-2">
-                        <flux:icon.folder class="size-5" />
-                        <span>{{ __('Mis tickets') }}</span>
-                    </div>
-                </button>
             </div>
             <div class="px-2 mt-10">
-                <div x-cloak x-show="selectedTab === 'recent'" id="tabpanelRecent" role="tabpanel" aria-label="recent">
-                    <livewire:ticket.index />
+                @can('viewDepartmentManager', auth()->user())
+                    <div x-cloak x-show="selectedTab === 'recent'" id="tabpanelRecent" role="tabpanel" aria-label="recent">
+                        <livewire:ticket.index />
+                    </div>
+                @endcan
+                <div x-cloak x-show="selectedTab === 'employee'" id="tabpanelEmployee" role="tabpanel" aria-label="employee">
+                    <div>
+                        <flux:heading size="xl">{{ __('Mis tickets') }}</flux:heading>
+                        <flux:text class="mt-2">{{ __('Aquí puedes ver y gestionar tus tickets creados.') }}</flux:text>
+                        <div class="mt-5">
+                            <livewire:ticket.employee />
+                        </div>
+                    </div>
                 </div>
                 <div x-cloak x-show="selectedTab === 'create'" id="tabpanelCreateUpdate" role="tabpanel" aria-label="create">
                     <div class="max-w-2xl">
@@ -38,15 +51,6 @@
                         <flux:text class="mt-2">{{ __('Completa el formulario para crear un nuevo ticket y dar seguimiento a la incidencia.') }}</flux:text>
                         <div class="mt-10">
                             <livewire:ticket.store />
-                        </div>
-                    </div>
-                </div>
-                <div x-cloak x-show="selectedTab === 'employee'" id="tabpanelEmployee" role="tabpanel" aria-label="employee">
-                    <div>
-                        <flux:heading size="xl">{{ __('Mis tickets') }}</flux:heading>
-                        <flux:text class="mt-2">{{ __('Aquí puedes ver y gestionar tus tickets creados.') }}</flux:text>
-                        <div class="mt-5">
-                            <livewire:ticket.employee />
                         </div>
                     </div>
                 </div>
