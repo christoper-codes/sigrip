@@ -25,7 +25,11 @@
                         <x-appearance.badge status="active" />
                     </td>
                     <td class="p-4">
-                       <flux:button variant="filled" icon="pencil" wire:click="editDepartment({{ $department['id'] }})" />
+                        @can('viewCompanyAdmin', auth()->user())
+                            <flux:button variant="filled" icon="pencil" wire:click="editDepartment({{ $department['id'] }})" />
+                        @else
+                            <flux:button disabled icon="lock-closed" />
+                        @endcan
                     </td>
                 </tr>
             @endforeach
