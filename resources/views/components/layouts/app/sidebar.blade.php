@@ -29,7 +29,9 @@
                 @can('viewDepartmentManager', auth()->user())
                     <flux:sidebar.item class="!py-5 text-neutral-300! dark:text-neutral-200!" icon="cube" :href="route('department.index')" :current="request()->routeIs('department.index')" wire:navigate>{{ __('Departamentos') }}</flux:navlist.item>
                 @endcan
-                <flux:sidebar.item class="!py-5 text-neutral-300! dark:text-neutral-200!" icon="users" :href="route('employee.index')" :current="request()->routeIs('employee.index')" wire:navigate>{{ __('Empleados') }}</flux:navlist.item>
+                @can('viewDepartmentManager', auth()->user())
+                    <flux:sidebar.item class="!py-5 text-neutral-300! dark:text-neutral-200!" icon="users" :href="route('employee.index')" :current="request()->routeIs('employee.index')" wire:navigate>{{ __('Empleados') }}</flux:navlist.item>
+                @endcan
             </flux:sidebar.nav>
             <flux:sidebar.nav variant="outline">
                 <flux:navlist.group :heading="__('Core')" class="grid sidebar-heading"></flux:navlist.group>
