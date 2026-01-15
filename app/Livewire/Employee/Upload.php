@@ -38,15 +38,9 @@ class Upload extends Component
 
     public function mount()
     {
-        if(Gate::check('viewCompanyAdmin', Auth::user())){
-            $this->departments = Department::where('company_id', Auth::user()->company?->id)
+        $this->departments = Department::where('company_id', Auth::user()->company?->id)
                 ->get()
                 ->toArray();
-        } else {
-            $this->departments = Department::where('manager_id', Auth::user()->department_id)
-                ->get()
-                ->toArray();
-        }
 
         $this->roles = Role::all()->filter(function ($role) {
             return $role->name !== RoleEnum::SYSTEM_OWNER->value && $role->name !== RoleEnum::COMPANY_ADMIN->value;
