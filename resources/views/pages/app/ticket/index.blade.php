@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div x-cloak x-show="selectedTab === 'employee'" id="tabpanelEmployee" role="tabpanel" aria-label="employee">
-                    <div class="max-w-2xl">
+                    <div>
                         <flux:heading size="xl">{{ __('Mis tickets') }}</flux:heading>
                         <flux:text class="mt-2">{{ __('Aquí puedes ver y gestionar tus tickets creados.') }}</flux:text>
                         <div class="mt-5">
