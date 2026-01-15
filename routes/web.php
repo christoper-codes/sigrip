@@ -4,6 +4,7 @@ use App\Http\Middleware\ApplicationMiddleware;
 use App\Http\Middleware\CompanyMiddleware;
 use App\Http\Middleware\DepartmentMiddleware;
 use App\Http\Middleware\EmployeeMiddleware;
+use App\Http\Middleware\IndexApplicationMiddleware;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -36,7 +37,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('tickets', 'pages.app.ticket.index')->name('ticket.index');
     Route::view('questionnaires', 'pages.app.questionnaire.index')->name('questionnaire.index');
 
-    Route::view('applications', 'pages.app.application.index')->name('application.index');
+    Route::view('applications', 'pages.app.application.index')
+        ->middleware(IndexApplicationMiddleware::class)
+        ->name('application.index');
+
     Route::view('analysis', 'pages.app.analysis.index')->name('analysis.index');
 });
 
