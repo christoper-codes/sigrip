@@ -38,7 +38,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('questionnaires', 'pages.app.questionnaire.index')->name('questionnaire.index');
 
     Route::view('applications', 'pages.app.application.index')
-        ->middleware(IndexApplicationMiddleware::class)
         ->name('application.index');
 
     Route::view('analysis', 'pages.app.analysis.index')->name('analysis.index');

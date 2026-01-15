@@ -36,9 +36,7 @@
             <flux:sidebar.nav variant="outline">
                 <flux:navlist.group :heading="__('Core')" class="grid sidebar-heading"></flux:navlist.group>
                 <flux:sidebar.group expandable icon="star" :heading="__('Principales')" class="grid">
-                     @can('viewDepartmentManager', auth()->user())
-                        <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="squares-plus" :href="route('application.index')" :current="request()->routeIs('application.index')" wire:navigate>{{ __('Aplicaciones') }}</flux:sidebar.item>
-                    @endcan
+                    <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="squares-plus" :href="route('application.index')" :current="request()->routeIs('application.index')" wire:navigate>{{ __('Aplicaciones') }}</flux:sidebar.item>
                     <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="clipboard-document-list" :href="route('questionnaire.index')" :current="request()->routeIs('questionnaire.index')" wire:navigate>{{ __('Questionarios') }}</flux:sidebar.item>
                     <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="chart-bar" :href="route('analysis.index')" :current="request()->routeIs('analysis.index')" wire:navigate>{{ __('Analisis Ai') }}</flux:sidebar.item>
                 </flux:sidebar.group>
