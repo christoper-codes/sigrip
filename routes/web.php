@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AlertMiddleware;
 use App\Http\Middleware\AnalysisMiddleware;
 use App\Http\Middleware\ApplicationMiddleware;
 use App\Http\Middleware\CompanyMiddleware;
@@ -35,8 +36,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->name('employee.index');
 
     Route::view('notifications', 'pages.app.notification.index')->name('notification.index');
-    Route::view('alerts', 'pages.app.alert.index')->name('alert.index');
-    Route::view('tickets', 'pages.app.ticket.index')->name('ticket.index');
 
     Route::view('applications', 'pages.app.application.index')
         ->name('application.index');
@@ -48,6 +47,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('analysis', 'pages.app.analysis.index')
         ->middleware(AnalysisMiddleware::class)
         ->name('analysis.index');
+
+    Route::view('alerts', 'pages.app.alert.index')
+        ->middleware(AlertMiddleware::class)
+        ->name('alert.index');
+
+    Route::view('tickets', 'pages.app.ticket.index')->name('ticket.index');
 });
 
 Route::view('applications/inactive', 'pages.app.application.inactive')->name('application.inactive');
