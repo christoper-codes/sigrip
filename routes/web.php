@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\ApplicationMiddleware;
 use App\Http\Middleware\CompanyMiddleware;
+use App\Http\Middleware\DepartmentMiddleware;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -16,10 +17,15 @@ Route::get('/', function () {
 */
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'pages.app.dashboard')->name('dashboard');
+
     Route::view('company', 'pages.app.company.index')
             ->middleware(CompanyMiddleware::class)
             ->name('company.index');
-    Route::view('departments', 'pages.app.department.index')->name('department.index');
+
+    Route::view('departments', 'pages.app.department.index')
+            ->middleware(DepartmentMiddleware::class)
+            ->name('department.index');
+
     Route::view('employees', 'pages.app.employee.index')->name('employee.index');
     Route::view('notifications', 'pages.app.notification.index')->name('notification.index');
     Route::view('alerts', 'pages.app.alert.index')->name('alert.index');
