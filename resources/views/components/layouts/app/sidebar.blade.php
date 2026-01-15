@@ -74,7 +74,7 @@
                     @endcan
                     <flux:sidebar.item class="!py-5 cursor-pointer! text-neutral-300! dark:text-neutral-200!" icon="document-text" :href="route('ticket.index')" :current="request()->routeIs('ticket.index')" wire:navigate>
                         <span>{{ __('Tickets') }}</span>
-                        @if(auth()->user()?->company?->getActiveTickets() > 0)
+                        @if(auth()->user()?->company?->getActiveTickets() > 0 && auth()->user()->can('viewDepartmentManager', auth()->user()))
                             <div class="inline rounded-sm border border-primary bg-primary/10 text-center text-xs px-2 py-0.5 ml-1">
                                 {{ auth()->user()->company->getActiveTickets() }}
                             </div>
