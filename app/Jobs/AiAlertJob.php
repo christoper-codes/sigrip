@@ -50,6 +50,11 @@ class AiAlertJob implements ShouldQueue
             auth_required: $this->application->auth_required,
         );
 
+        if(isset($promt['average_score'])){
+            $this->questionnaire_response->average_score = $promt['average_score'];
+            $this->questionnaire_response->save();
+        }
+
         if (!((bool) $promt['critical_response'] || in_array($promt['type'], ['text', 'mixed']))) {
             return;
         }
@@ -77,6 +82,7 @@ class AiAlertJob implements ShouldQueue
                 'created_by_ai' => true,
             ]);
 
+            $this->questionnaire_response->refresh();
             $this->questionnaire_response->ai_response = $ai_response;
             $this->questionnaire_response->average_score = $ai_response['average_score'];
             $this->questionnaire_response->risk_level = $ai_response['risk_level'];

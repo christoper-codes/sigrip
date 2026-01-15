@@ -217,6 +217,7 @@ RESPONDE SOLO CON EL SIGUIENTE JSON (sin markdown, sin comentarios adicionales):
                 'prompt' => trim($prompt),
                 'critical_response' => $critical_response,
                 'type' => $type,
+                'average_score' => $average_score,
             ];
             return $data;
     }
