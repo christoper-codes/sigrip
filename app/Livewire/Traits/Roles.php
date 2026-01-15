@@ -36,6 +36,28 @@ trait Roles
         $user = User::find($this->selected_employee_id);
         $user->userRoles()->sync($this->employee_roles);
 
+        if (in_array(3, $this->employee_roles)) {
+            $department = $user->department;
+            if ($department) {
+                $users = $department->users;
+                foreach ($users as $deptUser) {
+                    if ($deptUser->id === $user->id) continue;
+                    $roleIds = $deptUser->userRoles->pluck('id')->toArray();
+                    if (!in_array(1, $roleIds) && !in_array(2, $roleIds) && in_array(3, $roleIds)) {
+                        $newRoles = array_diff($roleIds, [3]);
+                        $deptUser->userRoles()->sync($newRoles);
+                    }
+                }
+            }
+        }
+
+
+        if($user->hasRole(RoleEnum::DEPARTMENT_MANAGER->value)) {
+            $deparment = $user->department;
+            $deparment->manager_id = $user->id;
+            $deparment->save();
+        }
+
         $this->dispatch('toast', message: __('Roles actualizados correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
     }
 }
