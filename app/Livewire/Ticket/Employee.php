@@ -71,7 +71,7 @@ class Employee extends Component
 
     public function ticketDetailModalClosed(): void
     {
-        $this->js('document.querySelector("#ticket-btn").click()');
+        $this->js('document.querySelector("#employee-ticket-btn").click()');
     }
 
     public function render()

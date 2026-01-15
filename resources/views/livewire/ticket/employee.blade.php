@@ -1,4 +1,6 @@
 <div>
+    <flux:button id="employee-ticket-btn" class="hidden!" variant="primary">{{ __('test') }}</flux:button>
+
     @if($tickets)
         <div x-data="{ animation: false }"
             x-init="$nextTick(() => animation = true)"
