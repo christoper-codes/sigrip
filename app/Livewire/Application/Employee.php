@@ -28,11 +28,11 @@ class Employee extends Component
         $this->table_items = $applications;
         $this->search_fields = ['slug_normalized'];
         $this->headers = [
-            ['label' => __('Nombre')],
-            ['label' => __('Fecha de Inicio'), 'field' => 'start_date', 'sortable' => true],
-            ['label' => __('Fecha de Expiración'), 'field' => 'expiration_date', 'sortable' => true],
+            ['label' => __('Nombre del cuestionario')],
             ['label' => __('Aplicar')],
             ['label' => __('Se ha respondido')],
+            ['label' => __('Fecha de Inicio'), 'field' => 'start_date', 'sortable' => true],
+            ['label' => __('Fecha de Expiración'), 'field' => 'expiration_date', 'sortable' => true],
             ['label' => __('Fecha de respuesta'), 'field' => 'response_date', 'sortable' => true],
         ];
          $this->refreshTableData();

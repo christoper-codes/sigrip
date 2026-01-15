@@ -13,8 +13,6 @@
             @foreach ($paginated_items as $application)
                 <tr>
                     <td class="p-4">{{ ucfirst(str_replace('-', ' ', explode('-', $application['slug'], -1) ? implode('-', explode('-', $application['slug'], -1)) : $application['slug'])) }}</td>
-                    <td class="p-4">{{ $application['start_date'] }}</td>
-                    <td class="p-4">{{ $application['expiration_date'] }}</td>
                     <td class="p-4">
                         <flux:button href="{{ route('application.show', ['slug' => $application['slug']]) }}" icon="clipboard-document-list" class="border! border-primary! bg-primary/10!">{{ __('Aplicar') }}</flux:button>
                     </td>
@@ -25,6 +23,8 @@
                             <flux:icon.check-circle class="size-7 text-green-500"/>
                         @endif
                     </td>
+                    <td class="p-4">{{ $application['start_date'] }}</td>
+                    <td class="p-4">{{ $application['expiration_date'] }}</td>
                     <td class="p-4">
                         @if(! $application['pivot']['is_active'])
                             {{ dateFormat($application['pivot']['updated_at']) }}
