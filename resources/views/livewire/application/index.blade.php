@@ -97,7 +97,9 @@
             <flux:field>
                 <flux:label>{{ __('Departamento emisor') }}</flux:label>
                 <flux:select class="!h-12" name="issuing_department" wire:model="form.issuing_department">
-                    <flux:select.option value="{{ $form->department['id'] }}">{{ $form->department['name'] }}</flux:select.option>
+                    @if ($form->department)
+                        <flux:select.option value="{{ $form->department['id'] }}">{{ $form->department['name'] }}</flux:select.option>
+                    @endif
                 </flux:select>
                 <flux:error name="form.issuing_department" class="!mt-0"/>
             </flux:field>

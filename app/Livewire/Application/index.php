@@ -62,16 +62,17 @@ class Index extends Component
             ['label' => __('Acciones')],
         ];
 
-         $this->form->department = Department::where('company_id', Auth::user()->company?->id)
+         $department = Department::where('company_id', Auth::user()->company?->id)
             ->where('metadata->hr_department', true)
-            ->first()
-            ->toArray();
+            ->first();
 
-        $this->form->issuing_department = $this->form->department['id'];
+        $this->form->department = $department ? $department->toArray() : [];
 
-        $this->form->departments = Department::where('company_id', Auth::user()->company?->id)
-            ->get()
-            ->toArray();
+        $this->form->issuing_department = $this->form->department['id'] ?? null;
+
+        $departments = Department::where('company_id', Auth::user()->company?->id)
+            ->get();
+        $this->form->departments = $departments ? $departments->toArray() : [];
 
         $this->form->questionnaires = Questionnaire::where(function ($query) {
                 $query->where('is_base', true)
