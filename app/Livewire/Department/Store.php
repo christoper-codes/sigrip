@@ -13,14 +13,23 @@ use Livewire\Component;
 class Store extends Component
 {
     public DepartmentForm $form;
+    public bool $exist_company = false;
 
     public function mount(bool $hr_department): void
     {
         $this->form->hr_department = $hr_department;
+        $this->exist_company = Auth::user()->company?->id ? true : false;
+        if (! $this->exist_company) {
+            $this->dispatch('toast', message: __('Primero debes crear una compañía para poder crear un departamento.'), type: NotificationTypesEnum::ERROR->value);
+        }
     }
 
     public function submit(): void
     {
+        if (! $this->exist_company) {
+            $this->dispatch('toast', message: __('Primero debes crear una compañía para poder crear un departamento.'), type: NotificationTypesEnum::ERROR->value);
+            return;
+        }
         $this->validate();
 
         $hr_department = Department::where('company_id', Auth::user()->company->id)
