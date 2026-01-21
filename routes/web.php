@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GoogleController;
 use App\Http\Middleware\AlertMiddleware;
 use App\Http\Middleware\AnalysisMiddleware;
 use App\Http\Middleware\ApplicationMiddleware;
@@ -16,7 +17,9 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');
-
+;
+Route::get('auth/google', [GoogleController::class, 'redirect'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleController::class, 'callback']);
 /*
 * App Dashboard Routes
 */

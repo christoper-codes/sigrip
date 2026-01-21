@@ -2,6 +2,13 @@
     <div class="flex flex-col gap-6">
         <x-auth-header :title="__('Crear una cuenta')" :description="__('Ingresa tus datos a continuación para crear tu cuenta')" />
 
+        <div class="flex items-center justify-center mt-4">
+            <a href="{{ route('auth.google') }}"
+            class="!whitespace-nowrap !w-full !py-6 rounded-full !text-base !bg-red-600 hover:!bg-red-700 !transition-all !duration-500 !text-center !text-white">
+                {{ __('Continuar con Google') }}
+            </a>
+        </div>
+
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
 
