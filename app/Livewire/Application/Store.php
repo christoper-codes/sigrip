@@ -21,27 +21,27 @@ class Store extends Component
 
     public function mount()
     {
-        $this->form->department = Department::where('company_id', Auth::user()->company?->id)
+        $department = Department::where('company_id', Auth::user()->company?->id)
             ->where('metadata->hr_department', true)
-            ->first()
-            ->toArray();
+            ->first();
+        $this->form->department = $department ? $department->toArray() : [];
 
         if (! $this->form->department) {
             $this->dispatch('toast', message: __('No hay departamentos de RRHH disponibles.'), type: NotificationTypesEnum::WARNING->value);
         }
 
-        $this->form->issuing_department = $this->form->department['id'];
+        $this->form->issuing_department = $this->form->department['id'] ?? null;
 
-        $this->form->departments = Department::where('company_id', Auth::user()->company?->id)
-            ->get()
-            ->toArray();
+        $departments = Department::where('company_id', Auth::user()->company?->id)
+            ->get();
+        $this->form->departments = $departments ? $departments->toArray() : [];
 
-        $this->form->questionnaires = Questionnaire::where(function ($query) {
+        $questionnaires = Questionnaire::where(function ($query) {
                 $query->where('is_base', true)
                 ->orWhere('company_id', Auth::user()->company?->id);
             })
-            ->get()
-            ->toArray();
+            ->get();
+        $this->form->questionnaires = $questionnaires ? $questionnaires->toArray() : [];
     }
 
     public function submit(): void
