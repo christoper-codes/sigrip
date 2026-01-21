@@ -18,7 +18,6 @@ class CompanyMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
-        Gate::authorize('viewSystemOwner', $user);
         Gate::authorize('viewCompanyAdmin', $user);
 
         return $next($request);
