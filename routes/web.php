@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');
-;
+
 Route::get('auth/google', [GoogleController::class, 'redirect'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class, 'callback']);
 /*
