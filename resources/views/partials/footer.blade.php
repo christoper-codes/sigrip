@@ -36,7 +36,7 @@
                 </svg>
             </div>
             <div class="mb-5 text-sm flex items-center gap-3">
-                <flux:link href="{{ route('terms.service') }}">
+                <flux:link href="{{ route('terms.use') }}">
                     {{ __('Terminos de uso') }}
                 </flux:link>
                 <flux:link href="{{ route('privacy.policy') }}">

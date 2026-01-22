@@ -27,7 +27,7 @@ Route::get('auth/google/callback', [GoogleController::class, 'callback']);
 /*
 * Policy and Terms Routes
 */
-Route::view('terms-of-service', 'pages.policies.terms-service')->name('terms.service');
+Route::view('terms-of-use', 'pages.policies.terms-use')->name('terms.use');
 Route::view('privacy-policy', 'pages.policies.privacy-policy')->name('privacy.policy');
 
 /*
