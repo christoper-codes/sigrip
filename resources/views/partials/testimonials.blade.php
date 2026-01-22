@@ -20,7 +20,7 @@
                 <div>
                     <div class="flex items-center gap-3">
                         <div class="size-10 rounded-full overflow-hidden">
-                            <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=150" alt="testimonial user">
+                            <img class="w-full h-full object-cover" src="/images/testimonio-1.jpeg" alt="testimonial user">
                         </div>
                         <div>
                             <h3 class="font-bold">{{ __('Ana Martínez') }}</h3>
@@ -42,8 +42,7 @@
                 <div>
                     <div class="flex items-center gap-3">
                         <div class="size-10 rounded-full overflow-hidden">
-                            <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=150" alt="testimonial user">
-                        </div>
+                            <img class="w-full h-full object-cover" src="/images/testimonio-2.jpeg" alt="testimonial user">                        </div>
                         <div>
                             <h3 class="font-bold">{{ __('Luis Gómez') }}</h3>
                             <p class="text-sm opacity-70">{{ __('Director de Operaciones') }}</p>
@@ -64,8 +63,7 @@
                 <div>
                     <div class="flex items-center gap-3">
                         <div class="size-10 rounded-full overflow-hidden">
-                            <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=150" alt="testimonial user">
-                        </div>
+                            <img class="w-full h-full object-cover" src="/images/testimonio-3.jpeg" alt="testimonial user">                        </div>
                         <div>
                             <h3 class="font-bold">{{ __('Carla Ruiz') }}</h3>
                             <p class="text-sm opacity-70">{{ __('Especialista en Bienestar Laboral') }}</p>
