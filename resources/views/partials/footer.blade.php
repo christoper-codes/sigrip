@@ -35,6 +35,11 @@
                     ]]></style>
                 </svg>
             </div>
+            <div class="mb-5 text-sm">
+                <a href="{{ route('terms.service') }}">
+                    {{ __('Terminos de uso') }}
+                </a>
+            </div>
         </div>
     </x-main-container>
 </section>

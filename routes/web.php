@@ -18,8 +18,18 @@ Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');
 
+/*
+* Google OAuth Routes
+*/
 Route::get('auth/google', [GoogleController::class, 'redirect'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class, 'callback']);
+
+/*
+* Policy and Terms Routes
+*/
+Route::view('terms-of-service', 'pages.policies.terms-service')->name('terms.service');
+Route::view('privacy-policy', 'pages.policies.privacy-policy')->name('privacy.policy');
+
 /*
 * App Dashboard Routes
 */
