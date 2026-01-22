@@ -35,10 +35,13 @@
                     ]]></style>
                 </svg>
             </div>
-            <div class="mb-5 text-sm">
-                <a href="{{ route('terms.service') }}">
+            <div class="mb-5 text-sm flex items-center gap-3">
+                <flux:link href="{{ route('terms.service') }}">
                     {{ __('Terminos de uso') }}
-                </a>
+                </flux:link>
+                <flux:link href="{{ route('privacy.policy') }}">
+                    {{ __('Política de privacidad') }}
+                </flux:link>
             </div>
         </div>
     </x-main-container>
