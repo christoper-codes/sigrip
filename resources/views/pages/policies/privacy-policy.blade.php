@@ -12,62 +12,69 @@
                         <x-icon.sun variant="mini" class="size-4! text-dark! dark:text-light!"/>
                     </flux:link>
                 </div>
-                <main>
-                    <section>
-                        <a href="{{ route('terms-of-use') }}" wire:navigate>
+                <main class="flex items-start gap-10 mt-16">
+                    <section class="text-sm hidden lg:flex flex-col gap-5 lg:w-[20%]">
+                        <a href="{{ route('terms.use') }}" wire:navigate>
                             {{ __('Terminos de uso') }}
                         </a>
-                        <a href="{{ route('terms-of-use') }}" wire:navigate>
-                            {{ __('Terminos de uso') }}
+                        <a href="{{ route('privacy.policy') }}" wire:navigate>
+                            {{ __('Política de privacidad') }}
                         </a>
                     </section>
-                    <section>
-                        <h1 class="text-3xl font-bold mb-6">{{ __('Política de Privacidad') }}</h1>
-                        <p class="mb-4">En Neura, la protección de tus datos personales y la privacidad de tu empresa son nuestra máxima prioridad. Esta política describe cómo recopilamos, usamos, almacenamos y protegemos la información que nos proporcionas al utilizar nuestra plataforma de bienestar laboral, análisis inteligente y gestión de riesgos psicosociales.</p>
+                    <section class="w-full lg:w-[80%]">
+                        <flux:heading size="xl">{{ __('Política de Privacidad') }}</flux:heading>
+                        <flux:text class="mt-2 mb-6 leading-relaxed">
+                            <em>{{ __('Última actualización: 30 de enero de 2025') }}</em>
+                        </flux:text>
+                        <flux:text class="mb-4 leading-relaxed">En Neura, la protección de tus datos personales y la privacidad de tu empresa son nuestra máxima prioridad. Esta política describe cómo recopilamos, usamos, almacenamos y protegemos la información que nos proporcionas al utilizar nuestra plataforma de bienestar laboral, análisis inteligente y gestión de riesgos psicosociales.</flux:text>
 
-                        <h2 class="text-2xl font-semibold mt-8 mb-2">1. Información que recopilamos</h2>
-                        <ul class="list-disc pl-6 mb-4">
-                            <li>Datos de registro y contacto (nombre, correo electrónico, empresa, departamento, etc.).</li>
-                            <li>Respuestas a cuestionarios, tickets, alertas y cualquier información ingresada en la plataforma.</li>
-                            <li>Datos de uso, actividad y navegación dentro de Neura.</li>
+                        <flux:heading size="lg" class="mb-2">1. Información que recopilamos</flux:heading>
+                        <ul class="list-disc pl-6 mb-4 flex flex-col gap-2">
+                            <flux:text>Datos de registro y contacto (nombre, correo electrónico, empresa, departamento, etc.).</flux:text>
+                            <flux:text>Respuestas a cuestionarios, tickets, alertas y cualquier información ingresada en la plataforma.</flux:text>
+                            <flux:text>Datos de uso, actividad y navegación dentro de Neura.</flux:text>
                         </ul>
 
-                        <h2 class="text-2xl font-semibold mt-8 mb-2">2. Uso de la información</h2>
-                        <ul class="list-disc pl-6 mb-4">
-                            <li>Brindar acceso seguro y personalizado a la plataforma.</li>
-                            <li>Generar análisis, reportes y alertas automáticas para la mejora del bienestar laboral y cumplimiento normativo.</li>
-                            <li>Gestionar tickets, notificaciones y comunicación interna.</li>
-                            <li>Mejorar la experiencia de usuario y la seguridad de la plataforma.</li>
+                        <flux:heading size="lg" class="mb-2">2. Uso de la información</flux:heading>
+                        <ul class="list-disc pl-6 mb-4 flex flex-col gap-2">
+                            <flux:text>Brindar acceso seguro y personalizado a la plataforma.</flux:text>
+                            <flux:text>Generar análisis, reportes y alertas automáticas para la mejora del bienestar laboral y cumplimiento normativo.</flux:text>
+                            <flux:text>Gestionar tickets, notificaciones y comunicación interna.</flux:text>
+                            <flux:text>Mejorar la experiencia de usuario y la seguridad de la plataforma.</flux:text>
                         </ul>
 
-                        <h2 class="text-2xl font-semibold mt-8 mb-2">3. Protección y almacenamiento de datos</h2>
-                        <ul class="list-disc pl-6 mb-4">
-                            <li>Utilizamos medidas de seguridad técnicas y organizativas para proteger tus datos contra accesos no autorizados, pérdida o alteración.</li>
-                            <li>El acceso a la información está restringido únicamente a personal autorizado y bajo estricta confidencialidad.</li>
-                            <li>Los datos se almacenan en servidores seguros y se conservan solo el tiempo necesario para los fines descritos.</li>
+                        <flux:heading size="lg" class="mb-2">3. Protección y almacenamiento de datos</flux:heading>
+                        <ul class="list-disc pl-6 mb-4 flex flex-col gap-2">
+                            <flux:text>Utilizamos medidas de seguridad técnicas y organizativas para proteger tus datos contra accesos no autorizados, pérdida o alteración.</flux:text>
+                            <flux:text>El acceso a la información está restringido únicamente a personal autorizado y bajo estricta confidencialidad.</flux:text>
+                            <flux:text>Los datos se almacenan en servidores seguros y se conservan solo el tiempo necesario para los fines descritos.</flux:text>
                         </ul>
 
-                        <h2 class="text-2xl font-semibold mt-8 mb-2">4. Compartición de información</h2>
-                        <ul class="list-disc pl-6 mb-4">
-                            <li>No compartimos tus datos personales con terceros, salvo obligación legal o consentimiento explícito.</li>
-                            <li>En caso de integraciones con servicios externos (por ejemplo, Google Drive), se solicitará tu autorización previa.</li>
+                        <flux:heading size="lg" class="mb-2">4. Compartición de información</flux:heading>
+                        <ul class="list-disc pl-6 mb-4 flex flex-col gap-2">
+                            <flux:text>No compartimos tus datos personales con terceros, salvo obligación legal o consentimiento explícito.</flux:text>
+                            <flux:text>En caso de integraciones con servicios externos (por ejemplo, Google Drive), se solicitará tu autorización previa.</flux:text>
                         </ul>
 
-                        <h2 class="text-2xl font-semibold mt-8 mb-2">5. Derechos de los usuarios</h2>
-                        <ul class="list-disc pl-6 mb-4">
-                            <li>Puedes acceder, rectificar o eliminar tus datos personales en cualquier momento desde tu perfil o contactando a soporte.</li>
-                            <li>Respetamos tu derecho a la privacidad y a la portabilidad de tus datos.</li>
+                        <flux:heading size="lg" class="mb-2">5. Derechos de los usuarios</flux:heading>
+                        <ul class="list-disc pl-6 mb-4 flex flex-col gap-2">
+                            <flux:text>Puedes acceder, rectificar o eliminar tus datos personales en cualquier momento desde tu perfil o contactando a soporte.</flux:text>
+                            <flux:text>Respetamos tu derecho a la privacidad y a la portabilidad de tus datos.</flux:text>
                         </ul>
 
-                        <h2 class="text-2xl font-semibold mt-8 mb-2">6. Cambios en la política</h2>
-                        <p class="mb-4">Neura puede actualizar esta política de privacidad para reflejar mejoras en la plataforma o cambios legales. Te notificaremos sobre cualquier modificación relevante.</p>
+                        <flux:heading size="lg" class="mb-2">6. Cambios en la política</flux:heading>
+                        <ul class="list-disc pl-6 mb-4 flex flex-col gap-2">
+                            <flux:text>Neura puede actualizar esta política de privacidad para reflejar mejoras en la plataforma o cambios legales. Te notificaremos sobre cualquier modificación relevante.</flux:text>
+                        </ul>
 
-                        <h2 class="text-2xl font-semibold mt-8 mb-2">7. Contacto</h2>
-                        <p>Si tienes dudas o deseas ejercer tus derechos, contáctanos en <a href="mailto:soporte@neura.com" class="text-primary underline">soporte@neura.com</a>.</p>
+                        <flux:heading size="lg" class="mb-2">7. Contacto</flux:heading>
+                        <ul class="list-disc pl-6 mb-4 flex flex-col gap-2">
+                            <flux:text>Si tienes dudas o deseas ejercer tus derechos, contáctanos en <a href="mailto:soporte@neura.com" class="text-primary underline">soporte@neura.com</a>.</flux:text>
+                        </ul>
                     </section>
                 </main>
             </div>
-            <div class="mt-40">
+            <div class="mt-16">
                 <x-appearance.rightsreserved />
             </div>
         </flux:main>
