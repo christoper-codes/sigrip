@@ -12,12 +12,20 @@
                         <x-icon.sun variant="mini" class="size-4! text-dark! dark:text-light!"/>
                     </flux:link>
                 </div>
-                <main class="flex items-start gap-10 mt-16">
-                    <section class="text-sm hidden lg:flex flex-col gap-5 lg:w-[20%]">
-                        <a href="{{ route('terms.use') }}" wire:navigate>
+                <main class="flex items-start gap-5 mt-16">
+                    <section class="text-sm hidden lg:flex flex-col gap-2 lg:w-[20%]">
+                        <a href="{{ route('terms.use') }}" wire:navigate
+                            @class([
+                                'opacity-50 pl-4 py-2' => !request()->routeIs('terms.use'),
+                                'opacity-100 pl-4 py-2 border-l-2 border-l-yellow-500' => request()->routeIs('terms.use')
+                            ])>
                             {{ __('Terminos de uso') }}
                         </a>
-                        <a href="{{ route('privacy.policy') }}" wire:navigate>
+                        <a href="{{ route('privacy.policy') }}" wire:navigate
+                            @class([
+                                'opacity-50 pl-4 py-2' => !request()->routeIs('privacy.policy'),
+                                'opacity-100 pl-4 py-2 border-l-2 border-l-yellow-500' => request()->routeIs('privacy.policy')
+                            ])>
                             {{ __('Política de privacidad') }}
                         </a>
                     </section>
