@@ -3,7 +3,7 @@
         <div x-data="{
                 billing: 'Mensual',
                 proPrice: 1500,
-                premiumPrice: 2000,
+                premiumPrice: 1500,
                 get proDisplayPrice() {
                     return this.billing === 'Mensual' ? this.proPrice : (this.proPrice * 10);
                 },
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="mt-10 flex flex-col md:flex-row gap-7 md:gap-0 items-center justify-center">
-                <div class="h-full md:h-[660px] rounded-4xl border-2 border-primary w-full md:w-96 p-7 flex flex-col gap-7 justify-center">
+                <div class="h-full rounded-4xl border-2 border-primary w-full md:w-md p-7 flex flex-col gap-7 justify-center">
                     <div class="flex flex-col gap-5">
                         <div class="py-2 px-4 rounded-full text-light text-sm border border-neutral-800 inline-block bg-gradient-to-b from-dark to-neutral-800 self-start text-center">
                             {{ __('Premium') }}
@@ -52,64 +52,11 @@
                         <ul class="space-y-3">
                             <li class="flex items-center gap-3 text-base">
                                 <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Todo lo que incluye el plan pro') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Cuestionarios ilimitados') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Integración Google Drive') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Empleados ilimitados') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Departamentos ilimitados') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Módulo de tickets psicosociales') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Predicción IA de problemas') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('API de integración') }}</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <x-links.primary
-                        url="{{ route('register') }}"
-                        title="{{ __('Comenzar prueba gratuita') }}"
-                        class="!py-4"
-                    />
-                </div>
-                <div class="h-full md:h-[605px] rounded-l-4xl md:rounded-l  rounded-r-4xl border-l-2 md:border-l-0 border-t-2 border-r-2 border-b-2 border-neutral-800 w-full md:w-96 p-7 flex flex-col justify-center gap-7">
-                    <div class="flex flex-col gap-5">
-                        <div class="py-2 px-4 rounded-full text-light text-sm border border-neutral-800 inline-block bg-gradient-to-b from-dark to-neutral-800 self-start text-center">
-                            {{ __('Pro') }}
-                        </div>
-                        <p class="text-4xl font-extrabold">
-                            $<span x-text="proDisplayPrice.toLocaleString()"></span><span class="text-lg font-medium"> /<span x-text="billingLabel"></span></span>
-                        </p>
-                        <p class="opacity-70 leading-relaxed text-base">
-                            {{ __('Comienza con potencia. Todo lo esencial para cumplir NOM-035 desde hoy.') }}
-                        </p>
-                        <ul class="space-y-3">
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
                                 <span>{{ __('3 cuestionarios NOM-035 incluidos') }}</span>
                             </li>
                             <li class="flex items-center gap-3 text-base">
                                 <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('2 cuestionarios onboarding incluidos') }}</span>
+                                <span>{{ __('3 cuestionarios onboarding incluidos') }}</span>
                             </li>
                             <li class="flex items-center gap-3 text-base">
                                 <flux:icon.check class="size-4 text-primary" />
@@ -133,10 +80,43 @@
                             </li>
                             <li class="flex items-center gap-3 text-base">
                                 <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Hasta 35 empleados y 4 departamentos') }}</span>
+                                <span>{{ __('Cuestionarios ilimitados') }}</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-base">
+                                <flux:icon.check class="size-4 text-primary" />
+                                <span>{{ __('Empleados ilimitados') }}</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-base">
+                                <flux:icon.check class="size-4 text-primary" />
+                                <span>{{ __('Departamentos ilimitados') }}</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-base">
+                                <flux:icon.check class="size-4 text-primary" />
+                                <span>{{ __('Módulo de tickets psicosociales') }}</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-base">
+                                <flux:icon.check class="size-4 text-primary" />
+                                <span>{{ __('Predicción IA de problemas') }}</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-base">
+                                <flux:icon.check class="size-4 text-primary" />
+                                <span>{{ __('API de integración') }}</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-base">
+                                <flux:icon.check class="size-4 text-primary" />
+                                <span>{{ __('Capacitación via videos') }}</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-base">
+                                <flux:icon.check class="size-4 text-primary" />
+                                <span>{{ __('Actualización continua') }}</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-base">
+                                <flux:icon.check class="size-4 text-primary" />
+                                <span>{{ __('Integración Google Drive (proximamente)') }}</span>
                             </li>
                         </ul>
                     </div>
+
                     <x-links.primary
                         url="{{ route('register') }}"
                         title="{{ __('Comenzar prueba gratuita') }}"
