@@ -18,7 +18,7 @@
                      features: [
                          {
                              title: 'Cuestionarios Inteligentes',
-                             description: 'Sistema completo con 3 cuestionarios NOM-035 predefinidos y la capacidad de crear evaluaciones personalizadas. La IA analiza respuestas en tiempo real, detecta patrones de riesgo y genera reportes automáticos para cumplimiento normativo.'
+                             description: 'Sistema completo con 6 cuestionarios predefinidos y la capacidad de crear evaluaciones personalizadas. La IA analiza respuestas en tiempo real, detecta patrones de riesgo y genera reportes automáticos para cumplimiento normativo.'
                          },
                          {
                              title: 'Alertas Automáticas',
