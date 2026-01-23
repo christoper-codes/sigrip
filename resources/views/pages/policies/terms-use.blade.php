@@ -32,7 +32,7 @@
                     <section class="w-full lg:w-[80%]">
                         <flux:heading size="xl">{{ __('Términos de Uso') }}</flux:heading>
                         <flux:text class="mt-2 mb-6 leading-relaxed">
-                            <em>{{ __('Última actualización: 30 de enero de 2025') }}</em>
+                            <em>{{ __('Última actualización: 30 de enero de 2026') }}</em>
                         </flux:text>
                         <flux:text class="mb-4 leading-relaxed">
                             Bienvenido a Neura. Al acceder y utilizar nuestra plataforma, aceptas cumplir con los siguientes términos y condiciones. Por favor, léelos cuidadosamente antes de utilizar nuestros servicios.

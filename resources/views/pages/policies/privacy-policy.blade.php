@@ -32,7 +32,7 @@
                     <section class="w-full lg:w-[80%]">
                         <flux:heading size="xl">{{ __('Política de Privacidad') }}</flux:heading>
                         <flux:text class="mt-2 mb-6 leading-relaxed">
-                            <em>{{ __('Última actualización: 30 de enero de 2025') }}</em>
+                            <em>{{ __('Última actualización: 30 de enero de 2026') }}</em>
                         </flux:text>
                         <flux:text class="mb-4 leading-relaxed">En Neura, la protección de tus datos personales y la privacidad de tu empresa son nuestra máxima prioridad. Esta política describe cómo recopilamos, usamos, almacenamos y protegemos la información que nos proporcionas al utilizar nuestra plataforma de bienestar laboral, análisis inteligente y gestión de riesgos psicosociales.</flux:text>
 
