@@ -1,4 +1,4 @@
-<x-layouts.application :title="__('Terminos de uso')">
+<x-layouts.application :title="__('Política de Privacidad')">
     <section id="application-show" class="h-full!">
         <flux:main class="!max-w-[70rem] !w-full h-full! !mx-auto !px-0 !py-0 relative flex! flex-col! justify-between!">
             <div class="absolute left-0 lg:hidden top-0 lg:-top-96 h-[280px] w-[100px] lg:h-[400px] lg:w-[300px] rounded-full blur-[100px] lg:blur-[150px] bg-transparent dark:bg-yellow-50/20"></div>
@@ -78,6 +78,11 @@
                         <flux:heading size="lg" class="mb-2">7. Contacto</flux:heading>
                         <ul class="list-disc pl-6 mb-4 flex flex-col gap-2">
                             <flux:text>Si tienes dudas o deseas ejercer tus derechos, contáctanos en <a href="mailto:soporte@neura.com" class="text-primary underline">soporte@neura.com</a>.</flux:text>
+                        </ul>
+
+                        <flux:heading size="lg" class="mb-2">8. Uso informativo</flux:heading>
+                        <ul class="list-disc pl-6 mb-4 flex flex-col gap-2">
+                            <flux:text>La información y análisis generados por Neura tienen fines informativos y de apoyo al cumplimiento normativo. No constituyen asesoría profesional ni sustituyen la intervención de especialistas en recursos humanos o salud mental.</flux:text>
                         </ul>
                     </section>
                 </main>
