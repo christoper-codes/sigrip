@@ -45,10 +45,9 @@
                         <div class="flex items-center gap-5 text-base">
                             <a href="#">{{ __('Como funciona') }}</a>
                             <a href="#faqs">{{ __('Preguntas') }}</a>
-                            <a href="#">{{ __('Precios') }}</a>
+                            <a href="#pricing">{{ __('Precios') }}</a>
                              <div x-data class="size-7 border border-neutral-300 dark:border-neutral-600 rounded-full flex items-center justify-center">
-                                <flux:icon.sun x-show="$flux.appearance === 'light'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
-                                <flux:icon.sun x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
+                                <flux:icon.sun x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
                             </div>
                         </div>
                     </div>
@@ -100,7 +99,7 @@
                     <a href="#faqs" @click="mobileMenuOpen = false" class="block py-3 border-b border-neutral-200 dark:border-neutral-800">
                         <span>{{ __('Preguntas') }}</span>
                     </a>
-                    <a href="#" @click="mobileMenuOpen = false" class="block py-3 border-b border-neutral-200 dark:border-neutral-800">
+                    <a href="#pricing" @click="mobileMenuOpen = false" class="block py-3 border-b border-neutral-200 dark:border-neutral-800">
                         {{ __('Precios') }}
                     </a>
                 </nav>
