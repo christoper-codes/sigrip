@@ -36,12 +36,12 @@
                 </svg>
             </div>
             <div class="mb-5 text-sm flex items-center gap-3">
-                <flux:link href="{{ route('terms.use') }}">
+                <a class="underline text-xm" href="{{ route('terms.use') }}" wire:navigate>
                     {{ __('Terminos de uso') }}
-                </flux:link>
-                <flux:link href="{{ route('privacy.policy') }}">
+                </a>
+                <a class="underline text-xm" href="{{ route('privacy.policy') }}" wire:navigate>
                     {{ __('Política de privacidad') }}
-                </flux:link>
+                </a>
             </div>
         </div>
     </x-main-container>
