@@ -1,0 +1,164 @@
+{
+  "questionnaire_id": "nom035_guia_referencia_I",
+  "title": "Guía de Referencia I",
+  "subtitle": "Identificación de trabajadores sujetos a acontecimientos traumáticos severos",
+  "norm": "NOM-035-STPS-2018",
+  "instructions": [
+    "Responde todas las preguntas con sinceridad",
+    "La información es confidencial",
+    "Si todas las respuestas de la Sección I son 'No', el cuestionario finaliza automáticamente"
+  ],
+  "objectives": [
+    "Identificar exposición a acontecimientos traumáticos severos",
+    "Determinar si se requiere valoración clínica",
+    "Cumplir con la Guía de Referencia I de la NOM-035"
+  ],
+  "themes": [
+    {
+      "name": "I. Acontecimiento traumático severo",
+      "section_code": "I",
+      "description": "Eventos traumáticos ocurridos durante o con motivo del trabajo.",
+      "questions": [
+        {
+          "id": "gr1_q1",
+          "text": "¿Ha presenciado o sufrido un accidente que haya tenido como consecuencia la muerte, la pérdida de un miembro o una lesión grave?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Sí" },
+            { "value": 0, "label": "No" }
+          ],
+          "critical_values": [1]
+        },
+        {
+          "id": "gr1_q2",
+          "text": "¿Ha sido víctima de asaltos durante o con motivo del trabajo?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Sí" },
+            { "value": 0, "label": "No" }
+          ],
+          "critical_values": [1]
+        },
+        {
+          "id": "gr1_q3",
+          "text": "¿Ha sufrido actos violentos que derivaron en lesiones graves?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Sí" },
+            { "value": 0, "label": "No" }
+          ],
+          "critical_values": [1]
+        },
+        {
+          "id": "gr1_q4",
+          "text": "¿Ha sido víctima de secuestro?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Sí" },
+            { "value": 0, "label": "No" }
+          ],
+          "critical_values": [1]
+        },
+        {
+          "id": "gr1_q5",
+          "text": "¿Ha recibido amenazas durante o con motivo del trabajo?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Sí" },
+            { "value": 0, "label": "No" }
+          ],
+          "critical_values": [1]
+        },
+        {
+          "id": "gr1_q6",
+          "text": "¿Ha vivido cualquier otro acontecimiento que haya puesto en riesgo su vida o salud, o la de otras personas?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Sí" },
+            { "value": 0, "label": "No" }
+          ],
+          "critical_values": [1]
+        }
+      ]
+    },
+    {
+      "name": "II. Recuerdos persistentes",
+      "section_code": "II",
+      "trigger_section": "I",
+      "questions": [
+        {
+          "id": "gr2_q1",
+          "text": "¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestar?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Sí" },
+            { "value": 0, "label": "No" }
+          ],
+          "critical_values": [1]
+        },
+        {
+          "id": "gr2_q2",
+          "text": "¿Ha tenido sueños recurrentes sobre el acontecimiento que le producen malestar?",
+          "type": "select",
+          "options": [
+            { "value": 1, "label": "Sí" },
+            { "value": 0, "label": "No" }
+          ],
+          "critical_values": [1]
+        }
+      ]
+    },
+    {
+      "name": "III. Evitación",
+      "section_code": "III",
+      "trigger_section": "I",
+      "questions": [
+        { "id": "gr3_q1", "text": "¿Ha evitado sentimientos, conversaciones o situaciones que le recuerden el acontecimiento?", "type": "select", "options": [{ "value": 1, "label": "Sí" }, { "value": 0, "label": "No" }], "critical_values": [1] },
+        { "id": "gr3_q2", "text": "¿Ha evitado actividades, lugares o personas que le recuerden el acontecimiento?", "type": "select", "options": [{ "value": 1, "label": "Sí" }, { "value": 0, "label": "No" }], "critical_values": [1] },
+        { "id": "gr3_q3", "text": "¿Ha tenido dificultad para recordar alguna parte importante del evento?", "type": "select", "options": [{ "value": 1, "label": "Sí" }, { "value": 0, "label": "No" }], "critical_values": [1] },
+        { "id": "gr3_q4", "text": "¿Ha disminuido su interés en actividades cotidianas?", "type": "select", "options": [{ "value": 1, "label": "Sí" }, { "value": 0, "label": "No" }], "critical_values": [1] },
+        { "id": "gr3_q5", "text": "¿Se ha sentido alejado o distante de los demás?", "type": "select", "options": [{ "value": 1, "label": "Sí" }, { "value": 0, "label": "No" }], "critical_values": [1] },
+        { "id": "gr3_q6", "text": "¿Ha tenido dificultad para expresar sus sentimientos?", "type": "select", "options": [{ "value": 1, "label": "Sí" }, { "value": 0, "label": "No" }], "critical_values": [1] },
+        { "id": "gr3_q7", "text": "¿Ha sentido que su vida se va a acortar o que tiene un futuro limitado?", "type": "select", "options": [{ "value": 1, "label": "Sí" }, { "value": 0, "label": "No" }], "critical_values": [1] }
+      ]
+    },
+    {
+      "name": "IV. Afectación",
+      "section_code": "IV",
+      "trigger_section": "I",
+      "questions": [
+        { "id": "gr4_q1", "text": "¿Ha tenido dificultades para dormir?", "type": "select", "options": [{ "value": 1, "label": "Sí" }, { "value": 0, "label": "No" }], "critical_values": [1] },
+        { "id": "gr4_q2", "text": "¿Ha estado particularmente irritable o con arranques de coraje?", "type": "select", "options": [{ "value": 1, "label": "Sí" }, { "value": 0, "label": "No" }], "critical_values": [1] },
+        { "id": "gr4_q3", "text": "¿Ha tenido dificultad para concentrarse?", "type": "select", "options": [{ "value": 1, "label": "Sí" }, { "value": 0, "label": "No" }], "critical_values": [1] },
+        { "id": "gr4_q4", "text": "¿Ha estado nervioso o constantemente en alerta?", "type": "select", "options": [{ "value": 1, "label": "Sí" }, { "value": 0, "label": "No" }], "critical_values": [1] },
+        { "id": "gr4_q5", "text": "¿Se ha sobresaltado fácilmente?", "type": "select", "options": [{ "value": 1, "label": "Sí" }, { "value": 0, "label": "No" }], "critical_values": [1] }
+      ]
+    }
+  ],
+  "nom035_rules": {
+    "clinical_evaluation_required_when": [
+      { "section": "II", "condition": "sum >= 1", "reason": "Recuerdos persistentes" },
+      { "section": "III", "condition": "sum >= 3", "reason": "Conductas de evitación" },
+      { "section": "IV", "condition": "sum >= 2", "reason": "Síntomas de afectación" }
+    ]
+  },
+  "risk_evaluation": {
+    "green": [
+      {
+        "label": "Sin indicios de acontecimiento traumático severo",
+        "criteria": "Todas las respuestas en la Sección I son 'No'",
+        "min": null,
+        "max": null
+      }
+    ],
+    "red": [
+      {
+        "label": "Indicadores de acontecimiento traumático severo",
+        "criteria": "Al menos una respuesta en la Sección I es 'Sí'",
+        "min": null,
+        "max": null
+      }
+    ]
+  },
+  "file_path": null
+}
