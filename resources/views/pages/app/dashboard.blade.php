@@ -18,7 +18,7 @@
                 <div class="text-3xl leading-normal">
                     <span x-text="greeting"></span>
                     <br>
-                    <span class="uppercase">Usuario de la plataforma Neura</span>
+                    <span class="uppercase">{{ auth()->user()->name }}</span>
                     <br>
                     <span class="text-sm opacity-70" x-text="currentDateTime"></span>
                 </div>
