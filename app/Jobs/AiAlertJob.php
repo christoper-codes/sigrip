@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Actions\Application\GenerateAiAlertAction;
 use App\Actions\Application\GeneratePromptAction;
+use App\Actions\Application\GeneratePromptNom035Section1Action;
 use App\Actions\User\CreateNotificationAction;
 use App\Enums\RoleEnum;
 use App\Events\NotificationEvent;
@@ -15,6 +16,7 @@ use App\Models\SupportTicketStatus;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class AiAlertJob implements ShouldQueue
@@ -44,11 +46,21 @@ class AiAlertJob implements ShouldQueue
      */
     public function handle(): void
     {
-       $promt = (new GeneratePromptAction)->execute(
-            responses: $this->responses,
-            questionnaire: $this->questionnaire['metadata'],
-            auth_required: $this->application->auth_required,
-        );
+        if($this->questionnaire['name'] == 'Guia de Referencia I - (NOM-035)'){
+            $promt = (new GeneratePromptNom035Section1Action)->execute(
+                responses: $this->responses,
+                questionnaire: $this->questionnaire['metadata'],
+                auth_required: $this->application->auth_required,
+            );
+        } else {
+            $promt = (new GeneratePromptAction)->execute(
+                responses: $this->responses,
+                questionnaire: $this->questionnaire['metadata'],
+                auth_required: $this->application->auth_required,
+            );
+        }
+
+        Log::info('AI Prompt Generated', ['prompt' => $promt]);
 
         if(isset($promt['average_score'])){
             $this->questionnaire_response->average_score = $promt['average_score'];

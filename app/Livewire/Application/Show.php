@@ -46,7 +46,6 @@ class Show extends Component
         if ($this->error_message) {
             return;
         }
-        dd('here');
 
         if($this->is_visitor){
             $this->dispatch('toast', message: __('Esta aplicación no puede ser enviada por un visitante.'), type: NotificationTypesEnum::WARNING->value);
