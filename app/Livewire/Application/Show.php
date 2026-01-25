@@ -180,23 +180,23 @@ class Show extends Component
 
     public function saveProgress(): void
     {
-    $theme_key = 'answers-' . $this->application->slug . '-theme-' . $this->current_theme_step;
-    $theme = $this->current_theme;
-    foreach ($theme['questions'] as $question) {
-    $qid = $question['id'];
-    if (!array_key_exists($qid, $this->answers) || $this->answers[$qid] === null || $this->answers[$qid] === '') {
-    $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
-    }
-    }
+        $theme_key = 'answers-' . $this->application->slug . '-theme-' . $this->current_theme_step;
+        $theme = $this->current_theme;
+        foreach ($theme['questions'] as $question) {
+            $qid = $question['id'];
+            if (!array_key_exists($qid, $this->answers) || $this->answers[$qid] === null || $this->answers[$qid] === '') {
+                $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+            }
+        }
 
-    $theme_answers = [];
-    foreach ($theme['questions'] as $question) {
-    $qid = $question['id'];
-    if (isset($this->answers[$qid])) {
-    $theme_answers[$qid] = $this->answers[$qid];
-    }
-    }
-    session([$theme_key => $theme_answers]);
+        $theme_answers = [];
+        foreach ($theme['questions'] as $question) {
+            $qid = $question['id'];
+            if (isset($this->answers[$qid])) {
+                $theme_answers[$qid] = $this->answers[$qid];
+            }
+        }
+        session([$theme_key => $theme_answers]);
     }
 
     public function prevTheme()
