@@ -128,6 +128,7 @@ class Show extends Component
                 $theme_questions[] = [
                     'question' => $q['text'] ?? null,
                     'answer' => $answer_label ?? $user_response['value'],
+                    'value' => $user_response['value'] ?? null,
                 ];
             }
             if (count($theme_questions)) {

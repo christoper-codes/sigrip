@@ -28,6 +28,7 @@ class ApplicationShowResponsesExport implements FromArray, WithHeadings, WithSty
                     $item['theme_name'] ?? '',
                     $question['question'] ?? '',
                     $question['answer'] ?? '',
+                    $question['value'] ?? '',
                 ];
             }
         }
@@ -41,14 +42,15 @@ class ApplicationShowResponsesExport implements FromArray, WithHeadings, WithSty
             'Tema',
             'Pregunta',
             'Respuesta',
+            'Valor'
         ];
     }
 
     public function styles(Worksheet $sheet)
     {
-        $sheet->getStyle('A1:D1')->getFont()->setBold(true);
-        $sheet->getStyle('A1:D1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-        $sheet->getStyle('A1:D1')->getBorders()->getAllBorders()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('FF000000'));
+        $sheet->getStyle('A1:E1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:E1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $sheet->getStyle('A1:E1')->getBorders()->getAllBorders()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('FF000000'));
         return [];
     }
 
@@ -56,9 +58,10 @@ class ApplicationShowResponsesExport implements FromArray, WithHeadings, WithSty
     {
         return [
             'A' => 10,
-            'B' => 22,
-            'C' => 50,
+            'B' => 40,
+            'C' => 70,
             'D' => 28,
+            'E' => 15,
         ];
     }
 }
