@@ -53,12 +53,7 @@ class Show extends Component
             return;
         }
 
-        $allAnswers = [];
-        for ($i = 0; $i < $this->theme_count; $i++) {
-            $theme_key = 'answers-' . $this->application->slug . '-theme-' . $i;
-            $theme_answers = session($theme_key, []);
-            $allAnswers = array_merge($allAnswers, $theme_answers);
-        }
+        $allAnswers = $this->getAllAnswers();
         $this->answers = $allAnswers;
 
         DB::beginTransaction();
