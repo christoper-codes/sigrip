@@ -16,7 +16,6 @@ use App\Models\SupportTicketStatus;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class AiAlertJob implements ShouldQueue
@@ -59,8 +58,6 @@ class AiAlertJob implements ShouldQueue
                 auth_required: $this->application->auth_required,
             );
         }
-
-        Log::info('AI Prompt Generated', ['prompt' => $promt]);
 
         if(isset($promt['average_score'])){
             $this->questionnaire_response->average_score = $promt['average_score'];
