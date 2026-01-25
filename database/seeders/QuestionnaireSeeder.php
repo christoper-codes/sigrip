@@ -50,7 +50,7 @@ class QuestionnaireSeeder extends Seeder
         Questionnaire::create([
             'questionnaire_category_id' => 1,
             'organization_id' => 1,
-            'name' => 'Guía de Referencia I - NOM-035',
+            'name' => 'Guia de Referencia I - (NOM-035)',
             'description' => 'Identificación de trabajadores sujetos a acontecimientos traumáticos severos',
             'metadata' => json_decode($nom035_1, true),
             'is_base' => true,
