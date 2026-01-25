@@ -10,6 +10,7 @@ use Livewire\Component;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Show extends Component
 {
@@ -45,6 +46,7 @@ class Show extends Component
         if ($this->error_message) {
             return;
         }
+        dd('here');
 
         if($this->is_visitor){
             $this->dispatch('toast', message: __('Esta aplicación no puede ser enviada por un visitante.'), type: NotificationTypesEnum::WARNING->value);
@@ -176,6 +178,31 @@ class Show extends Component
             $this->setThemesAndCurrentTheme();
             $this->theme_change++;
         }
+        if ($this->questionnaire['name'] == 'Guia de Referencia I - (NOM-035)') {
+            $allAnswers = $this->getAllAnswers();
+            if(isset($allAnswers['gr1_q1'])){
+                $submit = true;
+                collect($allAnswers)->each(function ($answer, $question_id) use (&$submit) {
+                    if (Str::startsWith($question_id, 'gr1_q') && $answer == 1) {
+                        $submit = false;
+                    }
+                });
+                if($submit){
+                    $this->submit();
+                }
+            }
+        }
+    }
+
+    public function getAllAnswers(): array
+    {
+        $allAnswers = [];
+        for ($i = 0; $i < $this->theme_count; $i++) {
+            $theme_key = 'answers-' . $this->application->slug . '-theme-' . $i;
+            $theme_answers = session($theme_key, []);
+            $allAnswers = array_merge($allAnswers, $theme_answers);
+        }
+        return $allAnswers;
     }
 
     public function saveProgress(): void
@@ -184,8 +211,18 @@ class Show extends Component
         $theme = $this->current_theme;
         foreach ($theme['questions'] as $question) {
             $qid = $question['id'];
-            if (!array_key_exists($qid, $this->answers) || $this->answers[$qid] === null || $this->answers[$qid] === '') {
-                $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+            if (
+                !array_key_exists($qid, $this->answers) ||
+                $this->answers[$qid] === null ||
+                $this->answers[$qid] === ''
+                ) {
+                if($this->questionnaire['name'] == 'Guia de Referencia I - (NOM-035)'){
+                    if(Str::startsWith($qid, 'gr1_q')){
+                        $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                    }
+                } else {
+                    $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                }
             }
         }
 
