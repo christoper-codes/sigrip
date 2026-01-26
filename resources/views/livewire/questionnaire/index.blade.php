@@ -14,7 +14,7 @@
                 <tr>
                     <td class="p-4">{{ $questionnaire_item['name'] }}</td>
                     <td class="p-4">{{ $questionnaire_item['category']['name'] }}</td>
-                    <td class="p-4">{{ $questionnaire_item['category']['description'] }}</td>
+                    <td class="p-4">{{ $questionnaire_item['description'] }}</td>
                     <td class="p-4">
                         <flux:button icon="clipboard-document-list" variant="filled" wire:click="showDetails({{ $questionnaire_item['id'] }})">
                             {{ __('Detalles') }}
