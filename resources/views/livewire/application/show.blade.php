@@ -48,7 +48,7 @@
         </div>
         <div class="mt-14 flex flex-col lg:flex-row lg:flex-wrap lg:items-center justify-start gap-3 max-w-4xl">
             @foreach ($questionnaire['metadata']['instructions'] as $instruction)
-                <div class="py-2 px-4 rounded-full text-center text-sm border bg-light-variant dark:bg-dark-variant border-neutral-300 dark:border-neutral-700 w-max">
+                <div class="py-2 px-4 rounded-full text-center text-xs lg:text-sm border bg-light-variant dark:bg-dark-variant border-neutral-300 dark:border-neutral-700 lg:w-max">
                     <span class="inline">
                         {{ __($instruction) }}
                     </span>
