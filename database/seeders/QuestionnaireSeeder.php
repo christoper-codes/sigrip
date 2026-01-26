@@ -20,6 +20,16 @@ class QuestionnaireSeeder extends Seeder
         Questionnaire::create([
             'questionnaire_category_id' => 1,
             'organization_id' => 1,
+            'name' => 'Guia de Referencia I - (NOM-035)',
+            'description' => 'Identificación de trabajadores sujetos a acontecimientos traumáticos severos',
+            'metadata' => json_decode($nom035_1, true),
+            'is_base' => true,
+            'is_active' => true,
+        ]);
+
+        Questionnaire::create([
+            'questionnaire_category_id' => 1,
+            'organization_id' => 1,
             'name' => 'Escaneo emocional mensual',
             'description' => 'Cuestionario para identificar y evaluar los factores de riesgo psicosocial en el entorno laboral',
             'metadata' => json_decode($monthly_scan, true),
@@ -43,16 +53,6 @@ class QuestionnaireSeeder extends Seeder
             'name' => 'Test de honestidad laboral',
             'description' => 'Evaluación diseñada para medir la honestidad y la integridad de los empleados en el entorno laboral.',
             'metadata' => json_decode($honestly_test, true),
-            'is_base' => true,
-            'is_active' => true,
-        ]);
-
-        Questionnaire::create([
-            'questionnaire_category_id' => 1,
-            'organization_id' => 1,
-            'name' => 'Guia de Referencia I - (NOM-035)',
-            'description' => 'Identificación de trabajadores sujetos a acontecimientos traumáticos severos',
-            'metadata' => json_decode($nom035_1, true),
             'is_base' => true,
             'is_active' => true,
         ]);
