@@ -225,6 +225,13 @@ class Show extends Component
                     if(Str::startsWith($qid, 'gr1_q')){
                         $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
                     }
+                } else if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+                    if (
+                            in_array($qid, ['gr2_q41', 'gr2_q42', 'gr2_q43']) &&
+                            (!isset($this->answers['gr2_q40_filter_clients']) || $this->answers['gr2_q40_filter_clients'] == 1 || $this->answers['gr2_q40_filter_clients'] == 4)
+                        ) {
+                            $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                        }
                 } else {
                     $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
                 }
