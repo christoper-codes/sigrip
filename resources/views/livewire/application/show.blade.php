@@ -93,6 +93,11 @@
                                     {{ __('Responder solo \'Sí\' debe brindar servicio a clientes o usuarios') }}
                                 </div>
                             @endif
+                            @if(in_array($question['id'], ['gr2_q44', 'gr2_q45', 'gr2_q46']))
+                                <div class="py-2 px-2 text-xs border-l-4 border-r-4 border-primary rounded-md">
+                                    {{ __('Responder solo \'Sí\' eres jefe de otros trabajadores') }}
+                                </div>
+                            @endif
                         </div>
 
                         @if (in_array($question['type'], ['select', 'radio_button']) && !empty($question['options']))
