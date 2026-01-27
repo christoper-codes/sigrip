@@ -6,6 +6,7 @@ use App\Actions\Application\GenerateAiAlertAction;
 use App\Actions\Application\GeneratePromptAction;
 use App\Actions\Application\GeneratePromptNom035Section1Action;
 use App\Actions\User\CreateNotificationAction;
+use App\Enums\NomEnum;
 use App\Enums\RoleEnum;
 use App\Events\NotificationEvent;
 use App\Models\Alert;
@@ -45,7 +46,7 @@ class AiAlertJob implements ShouldQueue
      */
     public function handle(): void
     {
-        if($this->questionnaire['name'] == 'Guia de Referencia I - (NOM-035)'){
+        if($this->questionnaire['name'] == NomEnum::NOM_1->value){
             $promt = (new GeneratePromptNom035Section1Action)->execute(
                 responses: $this->responses,
                 questionnaire: $this->questionnaire['metadata'],

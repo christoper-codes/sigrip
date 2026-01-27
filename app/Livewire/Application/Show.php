@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Application;
 
+use App\Enums\NomEnum;
 use App\Enums\NotificationTypesEnum;
 use App\Jobs\AiAlertJob;
 use App\Models\Application;
@@ -172,7 +173,7 @@ class Show extends Component
             $this->setThemesAndCurrentTheme();
             $this->theme_change++;
         }
-        if ($this->questionnaire['name'] == 'Guia de Referencia I - (NOM-035)') {
+        if ($this->questionnaire['name'] == NomEnum::NOM_1->value) {
             $allAnswers = $this->getAllAnswers();
             if(isset($allAnswers['gr1_q1'])){
                 $submit = true;
@@ -210,7 +211,7 @@ class Show extends Component
                 $this->answers[$qid] === null ||
                 $this->answers[$qid] === ''
                 ) {
-                if($this->questionnaire['name'] == 'Guia de Referencia I - (NOM-035)'){
+                if($this->questionnaire['name'] == NomEnum::NOM_1->value){
                     if(Str::startsWith($qid, 'gr1_q')){
                         $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
                     }
