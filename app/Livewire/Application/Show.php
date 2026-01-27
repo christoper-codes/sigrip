@@ -187,6 +187,16 @@ class Show extends Component
                 }
             }
         }
+
+        if ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
+            $allAnswers = $this->getAllAnswers();
+            if(isset($allAnswers['gr2_q43_filter_supervisor'])){
+                $skip = true;
+                if($allAnswers['gr2_q43_filter_supervisor'] == 1){
+                    $skip = false;
+                }
+            }
+        }
     }
 
     public function getAllAnswers(): array
