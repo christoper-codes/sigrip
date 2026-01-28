@@ -232,6 +232,12 @@ class Show extends Component
                         ) {
                             $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
                         }
+                    if (
+                            in_array($qid, ['gr2_q44', 'gr2_q45', 'gr2_q46']) &&
+                            (!isset($this->answers['gr2_q43_filter_supervisor']) || $this->answers['gr2_q43_filter_supervisor'] == 1 || $this->answers['gr2_q43_filter_supervisor'] == 4)
+                        ) {
+                            $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                        }
                 } else {
                     $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
                 }
