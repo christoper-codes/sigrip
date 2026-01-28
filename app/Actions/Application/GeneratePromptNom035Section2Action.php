@@ -102,15 +102,15 @@ class GeneratePromptNom035Section2Action
   "risk_level": "[green/yellow/orange/red según análisis]",
   "alert": [true si hay alerta, false si no hay alerta],
   "type_alert": "[red/orange/yellow/null]",
-  "questions_alert": [],
-  "recommendation_for_user": "",
-  "recommendation_for_department": "",
-  "alert_name": "",
-  "subject_alert": "",
+  "questions_alert": [array de objetos con información completa de preguntas críticas. Incluye question_id, question (texto), value (valor numérico), label (etiqueta seleccionada). Ejemplo: [{"question_id": "gr1_q1", "question": "¿Ha presenciado o sufrido un accidente...?", "value": 1, "label": "Sí"}]],
+  "recommendation_for_user": "[recomendación específica para el usuario]",
+  "recommendation_for_department": "[recomendación para el departamento o empresa]",
+  "alert_name": "[nombre corto para la alerta]",
+  "subject_alert": "[asunto para la alerta]",
   "ticket_data": {
     "incident_type_id": null,
-    "ticket_title": "",
-    "ticket_description": ""
+    "ticket_title": "[título sugerido para el ticket]",
+    "ticket_description": "[descripción sugerida para el ticket]"
   }
 }';
 
