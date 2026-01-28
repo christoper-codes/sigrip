@@ -146,8 +146,36 @@ class Show extends Component
 
     public function showAlerts(int $response_id): void
     {
-        $item  = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
-        $this->alert_responses = $item['ai_response']['questions_alert'] ?? [];
+        $item = collect($this->application_data['questionnaire_responses']) ->firstWhere('id', $response_id);
+        $alerts = $item['ai_response']['questions_alert'] ?? [];
+        $themes = $this->questionnaire['metadata']['themes'] ?? [];
+
+        $grouped = [];
+        foreach ($themes as $theme) {
+            $theme_alerts = [];
+            foreach ($theme['questions'] as $q) {
+                $alert = collect($alerts)->firstWhere('question_id', $q['id']);
+                if (! $alert) {
+                    continue;
+                }
+
+                $theme_alerts[] = [
+                    'question' => $alert['question'] ?? $q['text'] ?? null,
+                    'label'    => $alert['label'] ?? null,
+                    'value'    => $alert['value'] ?? null,
+                ];
+            }
+
+            if (count($theme_alerts)) {
+                $grouped[] = [
+                    'theme_name'        => $theme['name'] ?? '',
+                    'theme_description' => $theme['description'] ?? '',
+                    'questions'         => $theme_alerts,
+                ];
+            }
+        }
+
+        $this->alert_responses = $grouped;
         Flux::modal('show-alerts-modal')->show();
     }
 

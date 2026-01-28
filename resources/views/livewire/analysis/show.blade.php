@@ -160,22 +160,31 @@
         </div>
         <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
             @if($alert_responses)
-                <ul class="list-decimal ml-6">
-                   @foreach($alert_responses as $alert)
-                        <li class="mb-3">
-                            <p class="text-sm font-semibold">{{ $alert['question'] }}</p>
-                            <ul class="list-disc ml-4 mt-1 text-sm opacity-75">
-                                <li>
-                                    @if($alert['label'])
-                                        <span>{{ $alert['label'] }}</span>
-                                    @else
-                                        <span>{{ __('Sin respuesta') }}</span>
-                                    @endif
-                                </li>
-                            </ul>
-                        </li>
-                    @endforeach
-                </ul>
+                @foreach($alert_responses as $theme)
+                    <flux:heading size="lg" class="text-primary!">
+                        {{ $theme['theme_name'] }}
+                    </flux:heading>
+
+                    <ul class="list-decimal ml-6 mt-2">
+                        @foreach($theme['questions'] as $alert)
+                            <li class="mb-3">
+                                <p class="text-sm font-semibold">
+                                    {{ $alert['question'] }}
+                                </p>
+
+                                <ul class="list-disc ml-4 mt-1 text-sm opacity-75">
+                                    <li>
+                                        @if($alert['label'])
+                                            <span>{{ $alert['label'] }}</span>
+                                        @else
+                                            <span>{{ __('Sin respuesta') }}</span>
+                                        @endif
+                                    </li>
+                                </ul>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endforeach
             @else
                 <flux:text>{{ __('No se encontraron respuestas críticas para esta respuesta.') }}</flux:text>
             @endif
