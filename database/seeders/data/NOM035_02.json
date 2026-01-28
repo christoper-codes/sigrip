@@ -575,7 +575,7 @@
         "section_code": "G",
         "questions": [
             {
-            "id": "gr2_q40_filter_clients",
+            "id": "gr2_q41",
             "text": "En mi trabajo debo brindar servicio a clientes o usuarios",
             "type": "select",
             "options": [
@@ -585,7 +585,7 @@
             "critical_values": null
             },
             {
-                "id": "gr2_q41",
+                "id": "gr2_q42",
                 "text": "Atiendo clientes o usuarios muy enojados",
                 "type": "select",
                 "options": [
@@ -598,7 +598,7 @@
                 "critical_values": [4, 3]
             },
             {
-                "id": "gr2_q42",
+                "id": "gr2_q43",
                 "text": "Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas",
                 "type": "select",
                 "options": [
@@ -611,7 +611,7 @@
                 "critical_values": [4, 3]
             },
             {
-                "id": "gr2_q43",
+                "id": "gr2_q44",
                 "text": "Para hacer mi trabajo debo demostrar sentimientos distintos a los míos",
                 "type": "select",
                 "options": [
@@ -630,7 +630,7 @@
         "section_code": "H",
         "questions":[
             {
-                "id": "gr2_q43_filter_supervisor",
+                "id": "gr2_q45",
                 "text": "Soy jefe de otros trabajadores",
                 "type": "select",
                 "options": [
@@ -640,7 +640,7 @@
                 "critical_values": null
             },
             {
-                "id": "gr2_q44",
+                "id": "gr2_q46",
                 "text": "Comunican tarde los asuntos de trabajo",
                 "type": "select",
                 "options": [
@@ -653,7 +653,7 @@
                 "critical_values": [4, 3]
             },
             {
-                "id": "gr2_q45",
+                "id": "gr2_q47",
                 "text": "Dificultan el logro de los resultados del trabajo",
                 "type": "select",
                 "options": [
@@ -666,7 +666,7 @@
                 "critical_values": [4, 3]
             },
             {
-                "id": "gr2_q46",
+                "id": "gr2_q48",
                 "text": "Ignoran las sugerencias para mejorar su trabajo",
                 "type": "select",
                 "options": [

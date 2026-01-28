@@ -88,12 +88,12 @@
                     <flux:field class="w-full">
                         <div class="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-4">
                             <flux:label>{{ __($question['text']) }}</flux:label>
-                            @if(in_array($question['id'], ['gr2_q41', 'gr2_q42', 'gr2_q43']))
+                            @if(in_array($question['id'], ['gr2_q42', 'gr2_q43', 'gr2_q44']))
                                 <div class="py-2 px-2 text-xs border-l-4 border-r-4 border-primary rounded-md">
                                     {{ __('Responder solo \'Sí\' debe brindar servicio a clientes o usuarios') }}
                                 </div>
                             @endif
-                            @if(in_array($question['id'], ['gr2_q44', 'gr2_q45', 'gr2_q46']))
+                            @if(in_array($question['id'], ['gr2_q46', 'gr2_q47', 'gr2_q48']))
                                 <div class="py-2 px-2 text-xs border-l-4 border-r-4 border-primary rounded-md">
                                     {{ __('Responder solo \'Sí\' eres jefe de otros trabajadores') }}
                                 </div>

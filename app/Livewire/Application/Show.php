@@ -190,9 +190,9 @@ class Show extends Component
 
         if ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
             $allAnswers = $this->getAllAnswers();
-            if(isset($allAnswers['gr2_q43_filter_supervisor'])){
+            if(isset($allAnswers['gr2_q45'])){
                 $skip = true;
-                if($allAnswers['gr2_q43_filter_supervisor'] == 1){
+                if($allAnswers['gr2_q45'] == 1){
                     $skip = false;
                 }
             }
@@ -227,14 +227,14 @@ class Show extends Component
                     }
                 } else if($this->questionnaire['name'] == NomEnum::NOM_2->value){
                     if (
-                            in_array($qid, ['gr2_q41', 'gr2_q42', 'gr2_q43']) &&
-                            (!isset($this->answers['gr2_q40_filter_clients']) || $this->answers['gr2_q40_filter_clients'] == 1 || $this->answers['gr2_q40_filter_clients'] == 4)
+                            in_array($qid, ['gr2_q42', 'gr2_q43', 'gr2_q44']) &&
+                            (!isset($this->answers['gr2_q41']) || $this->answers['gr2_q41'] == 1 || $this->answers['gr2_q41'] == 4)
                         ) {
                             $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
                         }
                     if (
-                            in_array($qid, ['gr2_q44', 'gr2_q45', 'gr2_q46']) &&
-                            (!isset($this->answers['gr2_q43_filter_supervisor']) || $this->answers['gr2_q43_filter_supervisor'] == 1 || $this->answers['gr2_q43_filter_supervisor'] == 4)
+                            in_array($qid, ['gr2_q46', 'gr2_q47', 'gr2_q48']) &&
+                            (!isset($this->answers['gr2_q45']) || $this->answers['gr2_q45'] == 1 || $this->answers['gr2_q45'] == 4)
                         ) {
                             $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
                         }
