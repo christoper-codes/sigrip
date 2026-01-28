@@ -55,26 +55,7 @@ class Show extends Component
 
         $allAnswers = $this->getAllAnswers();
         $this->answers = $allAnswers;
-        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
-            if ($this->answers['gr2_q41'] == 3){
-                $this->answers['gr2_q41'] = 2;
-                unset($this->answers['gr2_q42']);
-                unset($this->answers['gr2_q43']);
-                unset($this->answers['gr2_q44']);
-            }
-            if ($this->answers['gr2_q41'] == 4){
-                $this->answers['gr2_q41'] = 1;
-            }
-            if ($this->answers['gr2_q45'] == 3){
-                $this->answers['gr2_q45'] = 2;
-                unset($this->answers['gr2_q46']);
-                unset($this->answers['gr2_q47']);
-                unset($this->answers['gr2_q48']);
-            }
-            if ($this->answers['gr2_q45'] == 4){
-                $this->answers['gr2_q45'] = 1;
-            }
-        }
+        $this->validateNom2SpecialCases();
 
         DB::beginTransaction();
         try{
@@ -130,6 +111,30 @@ class Show extends Component
         } catch (\Exception $e) {
             DB::rollBack();
             $this->dispatch('toast', message: __('Ocurrió un error al enviar la aplicación. Por favor, intenta nuevamente.'), type: NotificationTypesEnum::ERROR->value);
+        }
+    }
+
+    public function validateNom2SpecialCases(): void
+    {
+        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+            if ($this->answers['gr2_q41'] == 3){
+                $this->answers['gr2_q41'] = 2;
+                unset($this->answers['gr2_q42']);
+                unset($this->answers['gr2_q43']);
+                unset($this->answers['gr2_q44']);
+            }
+            if ($this->answers['gr2_q41'] == 4){
+                $this->answers['gr2_q41'] = 1;
+            }
+            if ($this->answers['gr2_q45'] == 3){
+                $this->answers['gr2_q45'] = 2;
+                unset($this->answers['gr2_q46']);
+                unset($this->answers['gr2_q47']);
+                unset($this->answers['gr2_q48']);
+            }
+            if ($this->answers['gr2_q45'] == 4){
+                $this->answers['gr2_q45'] = 1;
+            }
         }
     }
 
