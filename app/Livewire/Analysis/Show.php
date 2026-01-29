@@ -86,6 +86,7 @@ class Show extends Component
             ['label' => __('Promedio')],
             ['label' => __('Ai - departamento')],
             ['label' => __('Ai - empleado')],
+            ['label' => __('Calificación por Dominio')],
         ];
          $this->refreshTableData();
 

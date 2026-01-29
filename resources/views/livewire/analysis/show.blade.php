@@ -64,6 +64,9 @@
                             <td class="p-4">
                                 <flux:button wire:click="showAnalysisUser({{ $response['id'] }})" icon="user" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
                             </td>
+                            <td class="p-4">
+                                <flux:button variant="filled" wire:click="showDomainRating({{ $response['id'] }})" icon="chart-bar">{{ __('Dominio') }}</flux:button>
+                            </td>
                         </tr>
                     @endforeach
                 </x-slot:table>
@@ -79,7 +82,7 @@
         </div>
     @endif
 
-   <flux:modal name="select-application" class="w-[90%] md:w-md space-y-7">
+    <flux:modal name="select-application" class="w-[90%] md:w-md space-y-7">
         <div>
             <flux:heading size="lg">{{ __('Seleccione una aplicación') }}</flux:heading>
             <flux:text class="mt-2">{{ __('Ver resultados detallados') }}</flux:text>
@@ -256,25 +259,25 @@
         </div>
         <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
             @if($domain_rating)
-                <div class="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
+                <div class="overflow-x-auto">
                     <table class="min-w-full border-collapse text-sm">
-                        <thead class="bg-gray-100 dark:bg-gray-800">
+                        <thead>
                             <tr>
-                                <th class="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-200">
+                                <th class="px-4 py-3 text-left font-semibold">
                                     {{ __('Dominio') }}
                                 </th>
-                                <th class="px-4 py-3 text-right font-semibold text-gray-700 dark:text-gray-200">
+                                <th class="px-4 py-3 text-right font-semibold">
                                     {{ __('Calificación (Cdom)') }}
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                        <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
                             @foreach($domain_rating as $domain => $score)
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-900 transition">
-                                    <td class="px-4 py-3 text-gray-800 dark:text-gray-100">
+                                <tr>
+                                    <td class="px-4 py-3 opacity-70">
                                         {{ $domain }}
                                     </td>
-                                    <td class="px-4 py-3 text-right font-medium text-gray-900 dark:text-gray-100">
+                                    <td class="px-4 py-3 text-right font-medium">
                                         {{ $score }}
                                     </td>
                                 </tr>
