@@ -69,6 +69,9 @@
                             <td class="p-4">
                                 <flux:button variant="filled" wire:click="showCategoryRating({{ $response['id'] }})" icon="chart-pie">{{ __('Categoría') }}</flux:button>
                             </td>
+                            <td class="p-4">
+                                <flux:button variant="filled" wire:click="showFinalScore({{ $response['id'] }})" icon="star">{{ __('Final') }}</flux:button>
+                            </td>
                         </tr>
                     @endforeach
                 </x-slot:table>
@@ -296,6 +299,22 @@
         </div>
     </flux:modal>
 
+    <flux:modal name="show-final-score-modal" class="w-[90%] md:w-full space-y-7">
+        <div>
+            <flux:heading size="xl">{{ __('Calificación Final') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Calificación final obtenida sumando el puntaje de todos y cada uno de los ítems') }}</flux:text>
+        </div>
+        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+            @if($final_score)
+               <flux:heading size="xl">{{ $final_score }}</flux:heading>
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-2">
+            <flux:modal.close>
+                <flux:button>{{ __('Cerrar') }}</flux:button>
+            </flux:modal.close>
+        </div>
+    </flux:modal>
     <flux:modal name="show-domain-rating-modal" class="w-[90%] md:w-full space-y-7">
         <div>
             <flux:heading size="xl">{{ __('Calificación del dominio') }}</flux:heading>

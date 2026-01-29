@@ -33,6 +33,7 @@ class Show extends Component
     public ?array $category_rating = null;
     public ?string $department_analysis = null;
     public ?string $user_analysis = null;
+    public ?float $final_score = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -89,6 +90,7 @@ class Show extends Component
             ['label' => __('Ai - empleado')],
             ['label' => __('Calificación por Dominio')],
             ['label' => __('Calificación por Categoría')],
+            ['label' => __('Calificación Final')],
         ];
          $this->refreshTableData();
 
@@ -203,6 +205,15 @@ class Show extends Component
         $domain_rating = (new DomainRatingAction)->execute(responses: $responses);
         $this->category_rating = (new CategoryRatingAction)->execute(domain_scores: $domain_rating);
         Flux::modal('show-category-rating-modal')->show();
+    }
+
+    public function showFinalScore(int $response_id): void
+    {
+        $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
+        $responses = $item['response_data'] ?? [];
+
+        $this->final_score = collect($responses)->sum(fn ($r) => (int) $r['value']);
+        Flux::modal('show-final-score-modal')->show();
     }
 
     public function showAnalysisDepartment(int $response_id): void
