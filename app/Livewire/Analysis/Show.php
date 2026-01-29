@@ -85,10 +85,10 @@ class Show extends Component
             ['label' => __('Nombre de empleado')],
             ['label' => __('Respuestas')],
             ['label' => __('Alertas')],
-            ['label' => __('Promedio')],
             ['label' => __('Ai - departamento')],
             ['label' => __('Ai - empleado')],
             ['label' => __('Calificación por Dominio')],
+            ['label' => __('Calificación por Categoría')],
         ];
          $this->refreshTableData();
 

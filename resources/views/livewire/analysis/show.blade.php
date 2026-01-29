@@ -57,7 +57,6 @@
                             <td class="p-4">
                                 <flux:button wire:click="showAlerts({{ $response['id'] }})" icon="exclamation-triangle" variant="primary">{{ __('Alertas') }}</flux:button>
                             </td>
-                            <td class="p-4">{{ $response['average_score'] }}</td>
                             <td class="p-4">
                                 <flux:button wire:click="showAnalysisDepartment({{ $response['id'] }})" icon="building-office" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
                             </td>
@@ -66,6 +65,9 @@
                             </td>
                             <td class="p-4">
                                 <flux:button variant="filled" wire:click="showDomainRating({{ $response['id'] }})" icon="chart-bar">{{ __('Dominio') }}</flux:button>
+                            </td>
+                            <td class="p-4">
+                                <flux:button variant="filled" wire:click="showCategoryRating({{ $response['id'] }})" icon="chart-pie">{{ __('Categoría') }}</flux:button>
                             </td>
                         </tr>
                     @endforeach
