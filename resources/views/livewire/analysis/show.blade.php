@@ -304,9 +304,9 @@
             <flux:heading size="xl">{{ __('Calificación Final') }}</flux:heading>
             <flux:text class="mt-2">{{ __('Calificación final obtenida sumando el puntaje de todos y cada uno de los ítems') }}</flux:text>
         </div>
-        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+        <div class="text-center py-2">
             @if($final_score)
-               <flux:heading size="xl">{{ $final_score }}</flux:heading>
+               <flux:heading class="text-6xl! font-bold!">{{ $final_score }}</flux:heading>
             @endif
         </div>
         <div class="flex justify-end items-center gap-2">
