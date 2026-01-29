@@ -27,6 +27,7 @@ class Show extends Component
     public bool $search_responses = false;
     public ?array $all_responses = null;
     public ?array $alert_responses = null;
+    public ?array $domain_rating = null;
     public ?string $department_analysis = null;
     public ?string $user_analysis = null;
 
@@ -179,6 +180,12 @@ class Show extends Component
 
         $this->alert_responses = $grouped;
         Flux::modal('show-alerts-modal')->show();
+    }
+
+    public function showDomainRating(int $response_id): void
+    {
+
+        Flux::modal('show-domain-rating-modal')->show();
     }
 
     public function showAnalysisDepartment(int $response_id): void
