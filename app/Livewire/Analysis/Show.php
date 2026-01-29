@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Analysis;
 
+use App\Actions\Analysis\CategoryRatingAction;
 use App\Actions\Analysis\DomainRatingAction;
 use App\Exports\ApplicationResponsesExport;
 use App\Exports\ApplicationShowResponsesExport;
@@ -29,6 +30,7 @@ class Show extends Component
     public ?array $all_responses = null;
     public ?array $alert_responses = null;
     public ?array $domain_rating = null;
+    public ?array $category_rating = null;
     public ?string $department_analysis = null;
     public ?string $user_analysis = null;
 
@@ -191,6 +193,16 @@ class Show extends Component
 
         $this->domain_rating = (new DomainRatingAction)->execute(responses: $responses);
         Flux::modal('show-domain-rating-modal')->show();
+    }
+
+    public function showCategoryRating(int $response_id): void
+    {
+        $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
+        $responses = $item['response_data'] ?? [];
+
+        $domain_rating = (new DomainRatingAction)->execute(responses: $responses);
+        $this->category_rating = (new CategoryRatingAction)->execute(domain_scores: $domain_rating);
+        Flux::modal('show-category-rating-modal')->show();
     }
 
     public function showAnalysisDepartment(int $response_id): void
