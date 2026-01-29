@@ -252,6 +252,48 @@
         </div>
     </flux:modal>
 
+    <flux:modal name="show-category-rating-modal" class="w-[90%] md:w-full space-y-7">
+        <div>
+            <flux:heading size="xl">{{ __('Calificación de las categorías (Ccat)') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Obtenido sumando el puntaje de cada uno de los ítems que integran la categoría') }}</flux:text>
+        </div>
+        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+            @if($category_rating)
+                <div class="overflow-x-auto">
+                    <table class="min-w-full border-collapse text-sm">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3 text-left font-semibold">
+                                    {{ __('Categoría') }}
+                                </th>
+                                <th class="px-4 py-3 text-right font-semibold">
+                                    {{ __('Calificación (Ccat)') }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
+                            @foreach($category_rating as $category => $score)
+                                <tr>
+                                    <td class="px-4 py-3 opacity-70">
+                                        {{ $category }}
+                                    </td>
+                                    <td class="px-4 py-3 text-right font-medium">
+                                        {{ $score }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-2">
+            <flux:modal.close>
+                <flux:button>{{ __('Cerrar') }}</flux:button>
+            </flux:modal.close>
+        </div>
+    </flux:modal>
+
     <flux:modal name="show-domain-rating-modal" class="w-[90%] md:w-full space-y-7">
         <div>
             <flux:heading size="xl">{{ __('Calificación del dominio') }}</flux:heading>
