@@ -126,11 +126,16 @@
                     <div class="mb-4">
                         <flux:heading size="lg" class="text-primary!">{{ $theme['theme_name'] }}</flux:heading>
                         <flux:text class="mb-3!">{{ $theme['theme_description'] }}</flux:text>
-                        <ul class="list-decimal ml-6">
+                        <ul class="ml-2">
                             @foreach($theme['questions'] as $q)
-                                <li class="mb-3">
-                                    <p class="text-sm font-semibold">{{ $q['question'] }}</p>
-                                    <ul class="list-disc ml-4 mt-1 text-sm opacity-75">
+                                <li class="mb-4">
+                                    <div class="text-sm font-semibold flex items-center gap-2">
+                                        <p>{{ $q['id'] }}</p>
+                                        <span>-</span>
+                                        <p>{{ $q['question'] }}</p>
+                                    </div>
+
+                                    <ul class="list-disc ml-6 mt-1 text-sm opacity-75">
                                         <li>
                                             @if($q['answer'])
                                                 <span>{{ $q['answer'] }}</span>

@@ -126,6 +126,7 @@ class Show extends Component
                     }
                 }
                 $theme_questions[] = [
+                    'id' => isset($q['id']) ? substr($q['id'], strrpos($q['id'], '_') + 1) : null,
                     'question' => $q['text'] ?? null,
                     'answer' => $answer_label ?? $user_response['value'],
                     'value' => $user_response['value'] ?? null,
@@ -160,6 +161,7 @@ class Show extends Component
                 }
 
                 $theme_alerts[] = [
+                    'id' => isset($q['id']) ? substr($q['id'], strrpos($q['id'], '_') + 1) : null,
                     'question' => $alert['question'] ?? $q['text'] ?? null,
                     'label'    => $alert['label'] ?? null,
                     'value'    => $alert['value'] ?? null,
