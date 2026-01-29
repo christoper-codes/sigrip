@@ -248,4 +248,46 @@
             </flux:modal.close>
         </div>
     </flux:modal>
+
+    <flux:modal name="show-domain-rating-modal" class="w-[90%] md:w-full space-y-7">
+        <div>
+            <flux:heading size="xl">{{ __('Calificación del dominio') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Obtenido sumando el puntaje de cada uno de los ítems que integran el dominio') }}</flux:text>
+        </div>
+        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+            @if($domain_rating)
+                <div class="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
+                    <table class="min-w-full border-collapse text-sm">
+                        <thead class="bg-gray-100 dark:bg-gray-800">
+                            <tr>
+                                <th class="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-200">
+                                    {{ __('Dominio') }}
+                                </th>
+                                <th class="px-4 py-3 text-right font-semibold text-gray-700 dark:text-gray-200">
+                                    {{ __('Calificación (Cdom)') }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                            @foreach($domain_rating as $domain => $score)
+                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-900 transition">
+                                    <td class="px-4 py-3 text-gray-800 dark:text-gray-100">
+                                        {{ $domain }}
+                                    </td>
+                                    <td class="px-4 py-3 text-right font-medium text-gray-900 dark:text-gray-100">
+                                        {{ $score }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-2">
+            <flux:modal.close>
+                <flux:button>{{ __('Cerrar') }}</flux:button>
+            </flux:modal.close>
+        </div>
+    </flux:modal>
 </div>
