@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Analysis;
 
+use App\Actions\Analysis\DomainRatingAction;
 use App\Exports\ApplicationResponsesExport;
 use App\Exports\ApplicationShowResponsesExport;
 use App\Livewire\Traits\Table;
@@ -184,7 +185,10 @@ class Show extends Component
 
     public function showDomainRating(int $response_id): void
     {
+        $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
+        $responses = $item['response_data'] ?? [];
 
+        $this->domain_rating = (new DomainRatingAction)->execute(responses: $responses);
         Flux::modal('show-domain-rating-modal')->show();
     }
 
