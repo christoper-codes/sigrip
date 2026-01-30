@@ -77,11 +77,17 @@ class Show extends Component
             ->first()
             ->toArray();
 
+        $this->application_data['questionnaire_responses'] = collect($this->application_data['questionnaire_responses'])->transform(function ($response) {
+                $response['final_score'] = collect($response['response_data'])->sum(fn ($r) => (int) $r['value']);
+                return $response;
+            })->toArray();
+
         $this->table_items = $this->application_data['questionnaire_responses'];
         $this->search_fields = ['user.name', 'uuid'];
         $this->headers = [
             ['label' => __('ID')],
             ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
+            ['label' => __('Calificación Final')],
             ['label' => __('Nivel de Riesgo'), 'field' => 'risk_level', 'sortable' => true],
             ['label' => __('Nombre de empleado')],
             ['label' => __('Respuestas')],
@@ -90,7 +96,6 @@ class Show extends Component
             ['label' => __('Ai - empleado')],
             ['label' => __('Calificación por Dominio')],
             ['label' => __('Calificación por Categoría')],
-            ['label' => __('Calificación Final')],
         ];
          $this->refreshTableData();
 
