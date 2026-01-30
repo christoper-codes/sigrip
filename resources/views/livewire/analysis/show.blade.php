@@ -314,14 +314,14 @@
             @if($final_score)
                <flux:heading class="text-6xl! font-bold!">{{ $final_score['final_score'] }}</flux:heading>
                 <div x-data="{ openFaq: 1 }" class="max-w-4xl mx-auto space-y-4 z-20 relative mt-5">
-                    <div class="bg-variant dark:bg-dark-variant rounded-2xl overflow-hidden">
-                        <button @click="openFaq = openFaq === 0 ? -1 : 0" class="w-full px-6 py-5 text-left flex items-center justify-between gap-5 bg-variant dark:bg-dark-variant cursor-pointer">
+                    <div class="bg-light-variant dark:bg-dark-variant rounded-2xl overflow-hidden">
+                        <button @click="openFaq = openFaq === 0 ? -1 : 0" class="w-full px-6 py-5 text-left flex items-center justify-between gap-5 bg-light-variant dark:bg-dark-variant cursor-pointer">
                             <flux:text>{{ __('Nivel de riesgo psicosocial: ') }} <span class="font-bold">{{ $final_score['classification']['label'] }}</span></flux:text>
                             <flux:icon.plus x-show="openFaq !== 0" class="size-5 text-neutral-600 dark:text-neutral-400" />
                             <flux:icon.minus x-show="openFaq === 0" class="size-5 text-primary" />
                         </button>
                         <div x-show="openFaq === 0" x-transition class="px-6 pb-5">
-                            <ul class="opacity-70 space-y-6 text-left">
+                            <ul class="space-y-6 text-left">
                                 <li>
                                     <flux:text class="text-left leading-relaxed!">{{ $final_score['classification']['description'] }}</flux:text>
                                 </li>
