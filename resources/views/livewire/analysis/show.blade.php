@@ -324,7 +324,7 @@
     </flux:modal>
     <flux:modal name="show-domain-rating-modal" class="w-[90%] md:w-full space-y-7">
         <div>
-            <flux:heading size="xl">{{ __('Calificación del dominio') }}</flux:heading>
+            <flux:heading size="xl">{{ __('Calificación del dominio (Cdom)') }}</flux:heading>
             <flux:text class="mt-2">{{ __('Obtenido sumando el puntaje de cada uno de los ítems que integran el dominio') }}</flux:text>
         </div>
         <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
@@ -336,8 +336,11 @@
                                 <th class="px-4 py-3 text-left font-semibold">
                                     {{ __('Dominio') }}
                                 </th>
-                                <th class="px-4 py-3 text-right font-semibold">
-                                    {{ __('Calificación (Cdom)') }}
+                                <th class="px-4 py-3 text-left font-semibold">
+                                    {{ __('Calificación') }}
+                                </th>
+                                <th class="px-4 py-3 text-left font-semibold">
+                                    {{ __('Categoría') }}
                                 </th>
                             </tr>
                         </thead>
@@ -347,8 +350,11 @@
                                     <td class="px-4 py-3 opacity-70">
                                         {{ $domain }}
                                     </td>
-                                    <td class="px-4 py-3 text-right font-medium">
-                                        {{ $score }}
+                                    <td class="px-4 py-3 text-left font-medium">
+                                        {{ $score['score'] }}
+                                    </td>
+                                    <td class="px-4 py-3 text-left font-medium">
+                                        {{ $score['category'] }}
                                     </td>
                                 </tr>
                             @endforeach
