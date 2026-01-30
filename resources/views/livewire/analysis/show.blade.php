@@ -306,7 +306,8 @@
         </div>
         <div class="text-center py-2">
             @if($final_score)
-               <flux:heading class="text-6xl! font-bold!">{{ $final_score }}</flux:heading>
+               <flux:heading class="text-6xl! font-bold!">{{ $final_score['final_score'] }}</flux:heading>
+                <flux:text class="mt-3 text-base!">{{ __('Nivel de riesgo psicosocial: ') }} <span class="font-bold">{{ $final_score['classification'] }}</span></flux:text>
             @endif
         </div>
         <div class="flex justify-end items-center gap-2">
