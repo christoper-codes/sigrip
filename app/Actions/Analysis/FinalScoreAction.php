@@ -6,8 +6,7 @@ class FinalScoreAction
 {
     public function execute(array $responses): array
     {
-        $final_score = collect($responses)
-            ->sum(fn ($r) => (int) $r['value']);
+        $final_score = collect($responses)->sum(fn ($response) => (int) $response['value']);
 
         $classification = match (true) {
             $final_score < 20  => 'Nulo o despreciable',
