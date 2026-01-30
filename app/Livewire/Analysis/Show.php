@@ -212,15 +212,6 @@ class Show extends Component
         Flux::modal('show-category-rating-modal')->show();
     }
 
-    public function showFinalScore(int $response_id): void
-    {
-        $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
-        $responses = $item['response_data'] ?? [];
-
-        $this->final_score = collect($responses)->sum(fn ($r) => (int) $r['value']);
-        Flux::modal('show-final-score-modal')->show();
-    }
-
     public function showAnalysisDepartment(int $response_id): void
     {
         $item  = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
