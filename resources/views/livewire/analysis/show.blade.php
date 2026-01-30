@@ -340,6 +340,9 @@
                                     {{ __('Calificación') }}
                                 </th>
                                 <th class="px-4 py-3 text-left font-semibold">
+                                    {{ __('Clasificación') }}
+                                </th>
+                                <th class="px-4 py-3 text-left font-semibold">
                                     {{ __('Categoría') }}
                                 </th>
                             </tr>
@@ -354,6 +357,9 @@
                                         {{ $score['score'] }}
                                     </td>
                                     <td class="px-4 py-3 text-left font-medium">
+                                        {{ $score['classification'] }}
+                                    </td>
+                                    <td class="px-4 py-3 text-left font-medium opacity-70">
                                         {{ $score['category'] }}
                                     </td>
                                 </tr>
