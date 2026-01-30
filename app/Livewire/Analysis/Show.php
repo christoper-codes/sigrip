@@ -34,7 +34,7 @@ class Show extends Component
     public ?array $category_rating = null;
     public ?string $department_analysis = null;
     public ?string $user_analysis = null;
-    public ?float $final_score = null;
+    public ?array $final_score = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
