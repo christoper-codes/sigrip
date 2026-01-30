@@ -271,8 +271,11 @@
                                 <th class="px-4 py-3 text-left font-semibold">
                                     {{ __('Categoría') }}
                                 </th>
-                                <th class="px-4 py-3 text-right font-semibold">
-                                    {{ __('Calificación (Ccat)') }}
+                                <th class="px-4 py-3 text-left font-semibold">
+                                    {{ __('Calificación') }}
+                                </th>
+                                <th class="px-4 py-3 text-left font-semibold">
+                                    {{ __('Clasificación') }}
                                 </th>
                             </tr>
                         </thead>
@@ -282,8 +285,11 @@
                                     <td class="px-4 py-3 opacity-70">
                                         {{ $category }}
                                     </td>
-                                    <td class="px-4 py-3 text-right font-medium">
-                                        {{ $score }}
+                                    <td class="px-4 py-3 font-medium">
+                                        {{ $score['score'] }}
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="opacity-70">{{ __('Riesgo psicosocial: ') }}</span> <span class="font-medium">{{ $score['classification'] }}</span>
                                     </td>
                                 </tr>
                             @endforeach
