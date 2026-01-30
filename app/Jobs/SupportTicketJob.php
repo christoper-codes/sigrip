@@ -18,9 +18,7 @@ class SupportTicketJob implements ShouldQueue
     public int $tries = 1;
     public int $backoff = 5;
 
-    /**
-     * Create a new job instance.
-     */
+
     public function __construct(
         public int $company,
         public int $department,
@@ -35,14 +33,14 @@ class SupportTicketJob implements ShouldQueue
         public bool $created_by_ai = false,
         public ?int $alert_id = null,
         public ?string $alert_uuid = null,
+        public ?string $contact_email = null,
+        public ?string $contact_name = null,
     )
     {
         $this->onQueue('tickets');
     }
 
-    /**
-     * Execute the job.
-     */
+
     public function handle(): void
     {
         $ticket = SupportTicket::create([
@@ -52,9 +50,12 @@ class SupportTicketJob implements ShouldQueue
             'support_ticket_status_id' => $this->support_ticket_status,
             'alert_id' => $this->alert_id,
             'alert_uuid' => $this->alert_uuid,
+            'tracking_uuid' => $this->is_anonymous ? \Illuminate\Support\Str::uuid() : null,
             'created_by_user_id' => $this->is_anonymous ? null : $this->created_by_user,
             'title' => $this->title,
             'description' => $this->description,
+            'contact_email' => $this->contact_email,
+            'contact_name' => $this->contact_name,
             'metadata' => [
                 'evidences' => $this->evidence_files,
             ],
@@ -111,6 +112,5 @@ class SupportTicketJob implements ShouldQueue
             );
         }
 
-        // Email notification
     }
 }

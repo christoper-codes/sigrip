@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\SupportTicketController;
 use App\Http\Middleware\AlertMiddleware;
 use App\Http\Middleware\AnalysisMiddleware;
 use App\Http\Middleware\ApplicationMiddleware;
@@ -20,9 +21,7 @@ Route::get('/', function () {
 
 Route::get('auth/google', [GoogleController::class, 'redirect'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class, 'callback']);
-/*
-* App Dashboard Routes
-*/
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'pages.app.dashboard')->name('dashboard');
 
@@ -71,9 +70,7 @@ Route::middleware(ApplicationMiddleware::class)->group(function () {
     })->name('application.show');
 });
 
-/*
-* User Settings Routes
-*/
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
@@ -92,3 +89,8 @@ Route::middleware(['auth'])->group(function () {
         )
         ->name('two-factor.show');
 });
+
+Route::get('/ticket/{company}/anon', [SupportTicketController::class, 'anonForm'])->name('ticket.anon.form');
+Route::get('/ticket/seguimiento/{uuid?}', function ($uuid = null) {
+    return view('pages.app.ticket.track-form', compact('uuid'));
+})->name('ticket.track');
