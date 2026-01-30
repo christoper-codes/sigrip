@@ -47,7 +47,6 @@
                         <tr>
                             <td class="p-4">{{ $response['uuid'] }}</td>
                             <td class="p-4">{{ dateFormat($response['created_at']) }}</td>
-                            <td class="p-4">{{ $response['final_score'] ?? '' }}</td>
                             <td class="p-4">
                                 {{ $response['risk_level'] == 'red' ? __('Rojo') : ($response['risk_level'] == 'yellow' ? __('Amarillo') : __('Verde')) }}
                             </td>
@@ -69,6 +68,9 @@
                             </td>
                             <td class="p-4">
                                 <flux:button variant="filled" wire:click="showCategoryRating({{ $response['id'] }})" icon="chart-pie">{{ __('Categoría') }}</flux:button>
+                            </td>
+                            <td class="p-4">
+                                <flux:button variant="filled" wire:click="showFinalScore({{ $response['id'] }})" icon="star">{{ __('Final') }}</flux:button>
                             </td>
                         </tr>
                     @endforeach
