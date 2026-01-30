@@ -65,16 +65,17 @@ class CategoryRatingAction
         ];
 
         $results = [];
+
         foreach ($categories as $category => $config) {
             $score = 0;
+
             foreach ($config['domains'] as $domain) {
-                $score += $domain_scores[$domain] ?? 0;
+                $score += $domain_scores[$domain]['score'] ?? 0;
             }
 
-            $classification = $this->classify($score, $config['ranges']);
             $results[$category] = [
                 'score' => $score,
-                'classification' => $classification,
+                'classification' => $this->classify($score, $config['ranges']),
             ];
         }
 
