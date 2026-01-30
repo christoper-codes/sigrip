@@ -4,6 +4,7 @@ namespace App\Livewire\Analysis;
 
 use App\Actions\Analysis\CategoryRatingAction;
 use App\Actions\Analysis\DomainRatingAction;
+use App\Actions\Analysis\FinalScoreAction;
 use App\Exports\ApplicationResponsesExport;
 use App\Exports\ApplicationShowResponsesExport;
 use App\Livewire\Traits\Table;
@@ -212,7 +213,7 @@ class Show extends Component
         $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $responses = $item['response_data'] ?? [];
 
-        $this->final_score = collect($responses)->sum(fn ($r) => (int) $r['value']);
+        $this->final_score = (new FinalScoreAction)->execute(responses: $responses);
         Flux::modal('show-final-score-modal')->show();
     }
 
