@@ -46,7 +46,6 @@
                     @foreach ($paginated_items as $response)
                         <tr>
                             <td class="p-4">{{ $response['uuid'] }}</td>
-                            <td class="p-4">{{ dateFormat($response['created_at']) }}</td>
                             <td class="p-4">{{ $response['classification']  }}</td>
                             <td class="p-4">{{ $response['user']['name'] ?? 'Anónimo' }}</td>
                             <td class="p-4">
@@ -70,6 +69,7 @@
                             <td class="p-4">
                                 <flux:button variant="filled" wire:click="showFinalScore({{ $response['id'] }})" icon="star">{{ __('Final') }}</flux:button>
                             </td>
+                            <td class="p-4">{{ dateFormat($response['created_at']) }}</td>
                         </tr>
                     @endforeach
                 </x-slot:table>

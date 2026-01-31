@@ -96,7 +96,6 @@ class Show extends Component
         $this->search_fields = ['user.name', 'uuid'];
         $this->headers = [
             ['label' => __('ID')],
-            ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
             ['label' => __('Nivel de Riesgo'), 'field' => 'classification', 'sortable' => true],
             ['label' => __('Nombre de empleado')],
             ['label' => __('Respuestas')],
@@ -106,6 +105,7 @@ class Show extends Component
             ['label' => __('Calificación por Dominio')],
             ['label' => __('Calificación por Categoría')],
             ['label' => __('Calificación Final')],
+            ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
         ];
          $this->refreshTableData();
 
