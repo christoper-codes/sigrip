@@ -20,18 +20,19 @@ class ApplicationShowResponsesNom2Export implements FromArray, WithHeadings, Wit
     public function array(): array
     {
        $rows = [];
-        $counter = 1;
         foreach ($this->responses as $item) {
             foreach ($item['questions'] as $question) {
                 $rows[] = [
-                    $counter++,
-                    $item['theme_name'] ?? '',
+                    $question['id'] ?? '',
+                    $question['category'] ?? '',
+                    $question['domain'] ?? '',
                     $question['question'] ?? '',
                     $question['answer'] ?? '',
                     $question['value'] ?? '',
                 ];
             }
         }
+
         return $rows;
     }
 
@@ -49,9 +50,9 @@ class ApplicationShowResponsesNom2Export implements FromArray, WithHeadings, Wit
 
     public function styles(Worksheet $sheet)
     {
-        $sheet->getStyle('A1:E1')->getFont()->setBold(true);
-        $sheet->getStyle('A1:E1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-        $sheet->getStyle('A1:E1')->getBorders()->getAllBorders()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('FF000000'));
+        $sheet->getStyle('A1:F1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:F1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $sheet->getStyle('A1:F1')->getBorders()->getAllBorders()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('FF000000'));
         return [];
     }
 
@@ -59,10 +60,11 @@ class ApplicationShowResponsesNom2Export implements FromArray, WithHeadings, Wit
     {
         return [
             'A' => 10,
-            'B' => 40,
-            'C' => 70,
-            'D' => 28,
-            'E' => 15,
+            'B' => 35,
+            'C' => 40,
+            'D' => 70,
+            'E' => 20,
+            'F' => 15,
         ];
     }
 }
