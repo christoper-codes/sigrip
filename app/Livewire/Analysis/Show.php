@@ -8,6 +8,7 @@ use App\Actions\Analysis\FinalScoreAction;
 use App\Enums\NomEnum;
 use App\Exports\ApplicationResponsesExport;
 use App\Exports\ApplicationShowResponsesExport;
+use App\Exports\ApplicationShowResponsesNom2Export;
 use App\Livewire\Traits\Table;
 use App\Models\Application;
 use App\Models\Department;
@@ -138,7 +139,7 @@ class Show extends Component
                 return $theme;
             })->toArray();
 
-            dd($this->all_responses);
+            return Excel::download(new ApplicationShowResponsesNom2Export($this->all_responses), $export_name);
         }
 
 
