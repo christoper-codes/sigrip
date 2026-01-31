@@ -21,7 +21,7 @@ class DomainRatingAction
 
             'Carga de trabajo' => [
                 'category' => 'Factores propios de la actividad',
-                'items' => [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 41, 42, 43],
+                'items' => [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 42, 43, 44],
                 'ranges' => [
                     'Nulo o despreciable' => [0, 11],
                     'Bajo' => [12, 15],
@@ -81,7 +81,7 @@ class DomainRatingAction
 
             'Relaciones en el trabajo' => [
                 'category' => 'Liderazgo y relaciones en el trabajo',
-                'items' => [30, 31, 32, 44, 45, 46],
+                'items' => [30, 31, 32, 44, 46, 47, 48],
                 'ranges' => [
                     'Nulo o despreciable' => [0, 4],
                     'Bajo' => [5, 7],
