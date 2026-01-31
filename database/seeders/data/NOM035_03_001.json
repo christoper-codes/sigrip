@@ -1,0 +1,24 @@
+{
+  "questionnaire_id": "nom035_guia_referencia_III",
+  "title": "Guía de Referencia III",
+  "subtitle": "Identificación y análisis de los factores de riesgo psicosocial y evaluación del entorno organizacional en los centros de trabajo",
+  "norm": "NOM-035-STPS-2018",
+  "instructions": [
+    "Este cuestionario tiene como finalidad identificar y analizar los factores de riesgo psicosocial, así como evaluar el entorno organizacional en los centros de trabajo.",
+    "No existen respuestas correctas o incorrectas.",
+    "Responda cada pregunta considerando su experiencia durante los últimos seis meses en su centro de trabajo.",
+    "Seleccione la opción que mejor refleje su situación."
+  ],
+  "objectives": [
+    "Identificar los factores de riesgo psicosocial presentes en el centro de trabajo.",
+    "Evaluar el entorno organizacional favorable.",
+    "Proporcionar información que permita definir acciones de prevención y control conforme a la NOM-035-STPS-2018."
+  ],
+  "themes": [
+
+  ],
+  "risk_evaluation": {
+        "green": [],
+        "red": []
+    }
+}
