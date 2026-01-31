@@ -5,6 +5,7 @@ namespace App\Livewire\Analysis;
 use App\Actions\Analysis\CategoryRatingAction;
 use App\Actions\Analysis\DomainRatingAction;
 use App\Actions\Analysis\FinalScoreAction;
+use App\Enums\NomEnum;
 use App\Exports\ApplicationResponsesExport;
 use App\Exports\ApplicationShowResponsesExport;
 use App\Livewire\Traits\Table;
@@ -121,7 +122,79 @@ class Show extends Component
     public function downloadResponses(): BinaryFileResponse
     {
         $export_name =  $this->application_data['slug'] . '_detailed_responses.xlsx';
+        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+            $export_name =  $this->application_data['slug'] . '_guia_referencia_ii_responses.xlsx';
+            $this->all_responses = collect($this->all_responses)->transform(function ($theme) {
+                $theme['questions'] = collect($theme['questions'])->transform(function ($question) {
+                    $item = (int) preg_replace('/\D/', '', $question['id']);
+                    $resolve = $this->resolveDomainAndCategory($item);
+
+                    return array_merge($question, [
+                        'domain'   => $resolve['domain'],
+                        'category' => $resolve['category'],
+                    ]);
+                })->toArray();
+
+                return $theme;
+            })->toArray();
+
+            dd($this->all_responses);
+        }
+
+
         return Excel::download(new ApplicationShowResponsesExport($this->all_responses), $export_name);
+    }
+
+    public function resolveDomainAndCategory(int $item): array
+    {
+        $domain_map = [
+            'Condiciones en el ambiente de trabajo' => [
+                'category' => 'Ambiente de trabajo',
+                'items' => [1, 2, 3],
+            ],
+            'Carga de trabajo' => [
+                'category' => 'Factores propios de la actividad',
+                'items' => [4,5,6,7,8,9,10,11,12,13,41,42,43],
+            ],
+            'Falta de control sobre el trabajo' => [
+                'category' => 'Factores propios de la actividad',
+                'items' => [18,19,20,21,22,26,27],
+            ],
+            'Jornada de trabajo' => [
+                'category' => 'Organización del tiempo de trabajo',
+                'items' => [14,15],
+            ],
+            'Interferencia en la relación trabajo-familia' => [
+                'category' => 'Organización del tiempo de trabajo',
+                'items' => [16,17],
+            ],
+            'Liderazgo' => [
+                'category' => 'Liderazgo y relaciones en el trabajo',
+                'items' => [23,24,25,28,29],
+            ],
+            'Relaciones en el trabajo' => [
+                'category' => 'Liderazgo y relaciones en el trabajo',
+                'items' => [30,31,32,44,45,46],
+            ],
+            'Violencia' => [
+                'category' => 'Liderazgo y relaciones en el trabajo',
+                'items' => [33,34,35,36,37,38,39,40],
+            ],
+        ];
+
+        foreach ($domain_map as $domain => $config) {
+            if (in_array($item, $config['items'], true)) {
+                return [
+                    'domain' => $domain,
+                    'category' => $config['category'],
+                ];
+            }
+        }
+
+        return [
+            'domain' => null,
+            'category' => null,
+        ];
     }
 
     public function showResponses(int $response_id): void
