@@ -47,9 +47,7 @@
                         <tr>
                             <td class="p-4">{{ $response['uuid'] }}</td>
                             <td class="p-4">{{ dateFormat($response['created_at']) }}</td>
-                            <td class="p-4">
-                                {{ $response['risk_level'] == 'red' ? __('Rojo') : ($response['risk_level'] == 'yellow' ? __('Amarillo') : __('Verde')) }}
-                            </td>
+                            <td class="p-4">{{ $response['classification']  }}</td>
                             <td class="p-4">{{ $response['user']['name'] ?? 'Anónimo' }}</td>
                             <td class="p-4">
                                 <flux:button wire:click="showResponses({{ $response['id'] }})" icon="clipboard-document-list" variant="primary">{{ __('Respuestas') }}</flux:button>

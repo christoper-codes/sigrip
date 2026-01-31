@@ -78,12 +78,26 @@ class Show extends Component
             ->first()
             ->toArray();
 
+        $this->application_data['questionnaire_responses'] = collect($this->application_data['questionnaire_responses'])
+                ->transform(function ($response) {
+                    $final_score = collect($response['response_data'])->sum(fn ($response) => (int) $response['value']);
+                    $classification = match (true) {
+                        $final_score < 20  => 'Nulo o despreciable',
+                        $final_score < 45  => 'Bajo',
+                        $final_score < 70  => 'Medio',
+                        $final_score < 90  => 'Alto',
+                        default            => 'Muy alto',
+                    };
+                    $response['classification'] = $classification;
+                    return $response;
+                })->toArray();
+
         $this->table_items = $this->application_data['questionnaire_responses'];
         $this->search_fields = ['user.name', 'uuid'];
         $this->headers = [
             ['label' => __('ID')],
             ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
-            ['label' => __('Nivel de Riesgo'), 'field' => 'risk_level', 'sortable' => true],
+            ['label' => __('Nivel de Riesgo'), 'field' => 'classification', 'sortable' => true],
             ['label' => __('Nombre de empleado')],
             ['label' => __('Respuestas')],
             ['label' => __('Alertas')],
