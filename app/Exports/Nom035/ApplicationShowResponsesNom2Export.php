@@ -6,9 +6,10 @@ use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ApplicationShowResponsesNom2Export implements FromArray, WithHeadings, WithStyles, WithColumnWidths
+class ApplicationShowResponsesNom2Export implements FromArray, WithHeadings, WithStyles, WithColumnWidths, WithTitle
 {
     protected array $responses;
 
@@ -66,5 +67,10 @@ class ApplicationShowResponsesNom2Export implements FromArray, WithHeadings, Wit
             'E' => 20,
             'F' => 15,
         ];
+    }
+
+    public function title(): string
+    {
+        return 'Respuestas';
     }
 }

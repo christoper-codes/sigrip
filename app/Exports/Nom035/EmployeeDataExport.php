@@ -6,9 +6,10 @@ use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class EmployeeDataExport implements FromArray, WithHeadings, WithStyles, WithColumnWidths
+class EmployeeDataExport implements FromArray, WithHeadings, WithStyles, WithColumnWidths, WithTitle
 {
     protected array $user_data;
 
@@ -69,5 +70,10 @@ class EmployeeDataExport implements FromArray, WithHeadings, WithStyles, WithCol
             'M' => 30,
             'N' => 30,
         ];
+    }
+
+    public function title(): string
+    {
+        return 'Empleado';
     }
 }

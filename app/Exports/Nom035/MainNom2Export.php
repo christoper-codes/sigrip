@@ -17,8 +17,8 @@ class MainNom2Export implements WithMultipleSheets
     public function sheets(): array
     {
         return [
-            'Respuestas' => new ApplicationShowResponsesNom2Export($this->responses),
             'Empleado'   => new EmployeeDataExport($this->user_data),
+            'Respuestas' => new ApplicationShowResponsesNom2Export($this->responses),
         ];
     }
 }

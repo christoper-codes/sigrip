@@ -8,7 +8,7 @@ use App\Actions\Analysis\FinalScoreAction;
 use App\Enums\NomEnum;
 use App\Exports\ApplicationResponsesExport;
 use App\Exports\ApplicationShowResponsesExport;
-use App\Exports\ApplicationShowResponsesNom2Export;
+use App\Exports\Nom035\MainNom2Export;
 use App\Livewire\Traits\Table;
 use App\Models\Application;
 use App\Models\Department;
@@ -152,7 +152,26 @@ class Show extends Component
                 return $theme;
             })->toArray();
 
-            return Excel::download(new ApplicationShowResponsesNom2Export($this->all_responses), $export_name);
+            $user_data = [
+                [
+                    'christoper santos',
+                    'Masculino',
+                    '29',
+                    'Soltero',
+                    'Licenciatura',
+                    'Analista de datos',
+                    'Departamento de TI',
+                    'Tiempo completo',
+                    'Indefinido',
+                    'Operativo',
+                    'Diurna',
+                    'No',
+                    '3',
+                    '5',
+                ]
+            ];
+
+            return Excel::download(new MainNom2Export($this->all_responses, $user_data), $export_name);
         }
 
         return Excel::download(new ApplicationShowResponsesExport($this->all_responses), $export_name);
