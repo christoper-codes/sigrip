@@ -130,6 +130,64 @@
                 "critical_values": [4, 3]
             }
         ]
+    },
+    {
+        "name": "Responsabilidades del puesto",
+        "section_code": "C",
+        "questions": [
+            {
+                "id": "gr3_q13",
+                "text": "En mi trabajo soy responsable de cosas de mucho valor",
+                "type": "select",
+                "options": [
+                    { "value": 4, "label": "Siempre" },
+                    { "value": 3, "label": "Casi siempre" },
+                    { "value": 2, "label": "Algunas veces" },
+                    { "value": 1, "label": "Casi nunca" },
+                    { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr3_q14",
+                "text": "Respondo ante mi jefe por los resultados de toda mi área de trabajo",
+                "type": "select",
+                "options": [
+                    { "value": 4, "label": "Siempre" },
+                    { "value": 3, "label": "Casi siempre" },
+                    { "value": 2, "label": "Algunas veces" },
+                    { "value": 1, "label": "Casi nunca" },
+                    { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr3_q15",
+                "text": "En el trabajo me dan órdenes contradictorias",
+                "type": "select",
+                "options": [
+                    { "value": 4, "label": "Siempre" },
+                    { "value": 3, "label": "Casi siempre" },
+                    { "value": 2, "label": "Algunas veces" },
+                    { "value": 1, "label": "Casi nunca" },
+                    { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr3_q16",
+                "text": "Considero que en mi trabajo me piden hacer cosas innecesarias",
+                "type": "select",
+                "options": [
+                    { "value": 4, "label": "Siempre" },
+                    { "value": 3, "label": "Casi siempre" },
+                    { "value": 2, "label": "Algunas veces" },
+                    { "value": 1, "label": "Casi nunca" },
+                    { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            }
+        ]
     }
   ],
   "risk_evaluation": {
