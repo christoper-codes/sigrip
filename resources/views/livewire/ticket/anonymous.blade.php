@@ -1,13 +1,13 @@
 <div class="mx-auto lg:px-8 py-12 w-full max-w-2xl">
-    <div class="py-2 px-4 rounded-full text-center text-sm border bg-primary/20 border-primary inline-block mx-auto">
-        {{ $company_name }}
-    </div>
-    <flux:heading size="xl" class="text-3xl mb-4 mt-1">{{ __('Reporta una incidencia') }}</flux:heading>
-    <flux:text class="mb-8">
-        {{ __('Utiliza este formulario para levantar un ticket de incidencia en cualquier departamento, sin necesidad de revelar tu identidad') }}
-    </flux:text>
+    @if (! $submitted)
+        <div class="py-2 px-4 rounded-full text-center text-sm border bg-primary/20 border-primary inline-block mx-auto">
+            {{ $company_name }}
+        </div>
+        <flux:heading size="xl" class="text-3xl mb-4 mt-1">{{ __('Reporta una incidencia') }}</flux:heading>
+        <flux:text class="mb-8">
+            {{ __('Utiliza este formulario para levantar un ticket de incidencia en cualquier departamento, sin necesidad de revelar tu identidad') }}
+        </flux:text>
 
-    @if (!$submitted)
         <form wire:submit="createTicket" class="space-y-6 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-2xl p-8">
             <flux:field>
                 <flux:label class="font-semibold">{{ __('Departamento donde surge la incidencia') }}</flux:label>
@@ -88,7 +88,7 @@
             </div>
             <flux:heading size="lg">{{ __('¡Ticket creado exitosamente!') }}</flux:heading>
 
-            <div class="bg-light-variant dark:bg-dark-variant border-2 border-green-500/30 rounded-2xl p-8 space-y-4">
+            <div class="bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-2xl p-8 space-y-4">
                 <flux:text class="font-semibold text-neutral-800 dark:text-neutral-200">
                     {{ __('Tu código de seguimiento es:') }}
                 </flux:text>
@@ -102,28 +102,23 @@
                 </flux:text>
             </div>
 
-            <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl p-6">
+            <div class="bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 rounded-2xl p-6">
                 <flux:text class="text-neutral-700 dark:text-neutral-300 mb-4">
                     {{ __('Puedes dar seguimiento a tu ticket en cualquier momento usando el código anterior en:') }}
                 </flux:text>
-                <a href="{{ route('ticket.track', ['uuid' => $ticket_reference]) }}" target="_blank" class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline font-semibold">
+                <a href="{{ route('ticket.track.form', ['uuid' => $ticket_reference]) }}" target="_blank" class="inline-flex items-center gap-2">
                     <flux:icon.link class="size-5" />
-                    {{ route('ticket.track', ['uuid' => $ticket_reference]) }}
+                    <span class="truncate max-w-[200px] md:max-w-none md:whitespace-normal block">
+                        {{ route('ticket.track.form', ['uuid' => $ticket_reference]) }}
+                    </span>
                 </a>
             </div>
 
-            @if($contact_email)
-                <flux:text class="text-neutral-600 dark:text-neutral-400">
-                    {{ __('También recibirás un correo de confirmación en:') }}
-                    <span class="font-semibold">{{ $contact_email }}</span>
-                </flux:text>
-            @endif
-
             <div class="flex gap-3 justify-center">
-                <flux:button type="button" wire:click="resetForm" variant="primary">
+                <flux:button wire:click="resetForm" variant="filled">
                     {{ __('Crear otro ticket') }}
                 </flux:button>
-                <flux:button type="button" href="{{ route('ticket.track', ['uuid' => $ticket_reference]) }}" target="_blank" variant="ghost">
+                <flux:button variant="primary" href="{{ route('ticket.track.form', ['uuid' => $ticket_reference]) }}" target="_blank">
                     {{ __('Ver mi ticket') }}
                 </flux:button>
             </div>
