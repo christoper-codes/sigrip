@@ -1,4 +1,4 @@
-<div class="mx-auto px-8 py-12 w-full max-w-3xl">
+<div class="mx-auto lg:px-8 py-12 w-full max-w-3xl">
     <flux:heading size="xl" class="text-3xl mb-4">{{ __('Seguimiento de incidencia') }}</flux:heading>
     <flux:text class="text-neutral-600 dark:text-neutral-500 mb-8">
         {{ __('Ingresa tu código de seguimiento para ver el estado de tu ticket') }}
@@ -28,7 +28,7 @@
             >
                 @if($found && $ticket)
                     <div class="bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-2xl p-8 space-y-6">
-                        <div class="flex items-start justify-between">
+                        <div class="flex flex-col lg:flex-row items-start gap-2 lg:justify-between">
                             <div>
                                 <flux:heading size="xl" class="mb-2">{{ $ticket->title }}</flux:heading>
                                 <flux:text class="text-neutral-600 dark:text-neutral-400">
@@ -65,14 +65,37 @@
                                 <flux:text>{{ $ticket->description }}</flux:text>
                             </div>
                         </div>
-
-                        @if($ticket->contact_email)
-                            <div>
-                                <flux:text class="mb-1 opacity-70">{{ __('Email de Contacto') }}</flux:text>
-                                <flux:text class="text-lg">{{ $ticket->contact_email }}</flux:text>
-                            </div>
-                        @endif
                     </div>
+                    @if($ticket->ticketResponses)
+                        <flux:heading size="xl" class="mt-10 mb-4">{{ __('Respuestas') }}</flux:heading>
+                        <div class="flex flex-col gap-4">
+                            @foreach($ticket->ticketResponses as $response)
+                                <div class="bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-2xl p-5">
+                                   <div class="flex items-start gap-2">
+                                        <flux:icon.chat-bubble-oval-left-ellipsis variant="mini"/>
+                                        <flux:heading size="lg">{{ $response['metadata']['text_response'] }}</flux:heading>
+                                    </div>
+                                   <div class="flex items-start gap-2 mt-2">
+                                        <flux:icon.calendar variant="mini"/>
+                                        <flux:text >{{ dateFormat($response['created_at']) }}</flux:text>
+                                    </div>
+                                    @if(isset($response['metadata']['files_response']) && is_array($response['metadata']['files_response']) && count($response['metadata']['files_response']) > 0)
+                                        <div>
+                                            <ul class="list-disc ml-6 space-y-1">
+                                                @foreach($response['metadata']['files_response'] as $evidence)
+                                                    <li>
+                                                        <a href="{{ asset('storage/' . $evidence) }}" target="_blank" class="text-primary underline text-xs">
+                                                            {{ basename($evidence) }}
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 @else
                     <div class="text-center">
                         <div class="inline-flex items-center justify-center mb-4">

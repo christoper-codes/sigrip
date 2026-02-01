@@ -30,7 +30,7 @@ class TrackTicket extends Component
         }
 
         $this->ticket = SupportTicket::where('tracking_uuid', $this->tracking_code)
-            ->with(['department', 'incidentType', 'supportTicketStatus', 'company'])
+            ->with(['department', 'incidentType', 'supportTicketStatus', 'company', 'ticketResponses'])
             ->first();
 
         if ($this->ticket) {
