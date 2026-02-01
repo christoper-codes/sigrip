@@ -5,7 +5,6 @@ use App\Enums\NotificationTypesEnum;
 use App\Jobs\SupportTicketJob;
 use App\Models\Department;
 use App\Models\IncidentType;
-use App\Models\SupportTicket;
 use App\Models\SupportTicketStatus;
 use App\Models\Company;
 use Livewire\Component;
@@ -23,6 +22,7 @@ class Anonymous extends Component
     public bool $submitted = false;
     public ?string $ticket_reference = null;
     public int $company_id;
+    public string $company_name;
 
     #[Validate(['required', 'integer', 'exists:departments,id'])]
     public ?int $department_id = null;
@@ -47,9 +47,9 @@ class Anonymous extends Component
 
     public function mount(): void
     {
-        $this->departments = Department::where('company_id', $this->company_id)
-            ->pluck('name', 'id')
-            ->toArray();
+        $company = Company::find($this->company_id);
+        $this->company_name = $company->name;
+        $this->departments = $company->departments()->pluck('name', 'id')->toArray();
 
         $this->incident_types = IncidentType::pluck('name', 'id')->toArray();
 

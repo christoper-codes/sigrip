@@ -1,5 +1,8 @@
-<div class="mx-auto px-8 py-12 w-full max-w-2xl">
-    <flux:heading size="xl" class="text-3xl mb-4">{{ __('Reporta una incidencia') }}</flux:heading>
+<div class="mx-auto lg:px-8 py-12 w-full max-w-2xl">
+    <div class="py-2 px-4 rounded-full text-center text-sm border bg-primary/20 border-primary inline-block mx-auto">
+        {{ $company_name }}
+    </div>
+    <flux:heading size="xl" class="text-3xl mb-4 mt-1">{{ __('Reporta una incidencia') }}</flux:heading>
     <flux:text class="mb-8">
         {{ __('Utiliza este formulario para levantar un ticket de incidencia en cualquier departamento, sin necesidad de revelar tu identidad') }}
     </flux:text>
@@ -71,8 +74,8 @@
             </flux:field>
 
             <div class="flex gap-3">
-                <flux:button type="submit" variant="primary" class="flex-1">
-                    {{ __('Crear Ticket') }}
+                <flux:button type="submit" variant="primary" class="flex-1 py-6!">
+                    {{ __('Crear incidencia') }}
                 </flux:button>
             </div>
         </form>
