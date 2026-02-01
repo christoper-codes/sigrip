@@ -55,10 +55,12 @@ class SupportTicketJob implements ShouldQueue
             'created_by_user_id' => $this->is_anonymous ? null : $this->created_by_user,
             'title' => $this->title,
             'description' => $this->description,
-            'contact_email' => $this->contact_email,
-            'contact_name' => $this->contact_name,
             'metadata' => [
                 'evidences' => $this->evidence_files,
+                'user' => [
+                    'contact_email' => $this->contact_email,
+                    'contact_name' => $this->contact_name,
+                ]
             ],
             'is_priority' => $this->is_priority,
             'created_by_ai' => $this->created_by_ai,
