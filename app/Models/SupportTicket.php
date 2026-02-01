@@ -23,8 +23,6 @@ class SupportTicket extends Model
         'assigned_to_user_id',
         'title',
         'description',
-        'contact_email',
-        'contact_name',
         'metadata',
         'is_priority',
         'created_by_ai',
