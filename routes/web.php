@@ -72,7 +72,6 @@ Route::middleware(ApplicationMiddleware::class)->group(function () {
 Route::get('/ticket/{company}/anon', [SupportTicketController::class, 'anonForm'])->name('ticket.anon.form');
 Route::get('/ticket/seguimiento/{uuid?}', [SupportTicketController::class, 'trackForm'])->name('ticket.track.form');
 
-
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 

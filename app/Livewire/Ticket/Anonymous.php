@@ -45,10 +45,8 @@ class Anonymous extends Component
     #[Validate(['nullable', 'array'])]
     public $evidence_files = [];
 
-    public function mount(int $companyId): void
+    public function mount(): void
     {
-        $this->company_id = $companyId;
-
         $this->departments = Department::where('company_id', $this->company_id)
             ->pluck('name', 'id')
             ->toArray();
