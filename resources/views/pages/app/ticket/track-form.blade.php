@@ -1,4 +1,4 @@
-<x-layouts.application :title="__('Seguimiento de Ticket')">
+<x-layouts.application :title="__('Seguimiento de incidencia')">
     <section id="ticket-track" class="h-full!">
         <flux:main class="!w-full h-full! !mx-auto !px-0 !py-0 relative flex! flex-col! justify-between!">
             <div class="absolute left-0 lg:hidden top-0 lg:-top-96 h-[280px] w-[100px] lg:h-[400px] lg:w-[300px] rounded-full blur-[100px] lg:blur-[150px] bg-transparent dark:bg-blue-50/20"></div>

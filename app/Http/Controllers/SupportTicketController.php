@@ -11,7 +11,7 @@ class SupportTicketController extends Controller
         return view('pages.app.ticket.anon-form', ['company_id' => $company_id]);
     }
 
-    public function trackForm(string $uuid = null): View
+    public function trackForm(?string $uuid = null): View
     {
         return view('pages.app.ticket.track-form', ['uuid' => $uuid]);
     }
