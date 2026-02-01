@@ -30,37 +30,37 @@
                     <div class="bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-2xl p-8 space-y-6">
                         <div class="flex items-start justify-between">
                             <div>
-                                <flux:heading size="lg" class="mb-2">{{ $ticket->title }}</flux:heading>
+                                <flux:heading size="xl" class="mb-2">{{ $ticket->title }}</flux:heading>
                                 <flux:text class="text-neutral-600 dark:text-neutral-400">
-                                    {{ __('Creado el') }}: {{ $ticket->created_at->format('d/m/Y H:i') }}
+                                    {{ dateFormat($ticket->created_at) }}
                                 </flux:text>
                             </div>
-                            <flux:badge size="lg" :color="$ticket->supportTicketStatus->name === 'abierto' ? 'blue' : ($ticket->supportTicketStatus->name === 'cerrado' ? 'green' : 'yellow')">
+                            <div class="py-1 px-3 rounded-full text-center text-sm border bg-primary/20 border-primary">
                                 {{ ucfirst($ticket->supportTicketStatus->name) }}
-                            </flux:badge>
+                            </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <flux:text class="font-semibold text-sm text-neutral-500 dark:text-neutral-400 mb-1">{{ __('Empresa') }}</flux:text>
+                                <flux:text class="mb-1 opacity-70">{{ __('Empresa') }}</flux:text>
                                 <flux:text class="text-lg">{{ $ticket->company->name }}</flux:text>
                             </div>
                             <div>
-                                <flux:text class="font-semibold text-sm text-neutral-500 dark:text-neutral-400 mb-1">{{ __('Departamento') }}</flux:text>
+                                <flux:text class="mb-1 opacity-70">{{ __('Departamento') }}</flux:text>
                                 <flux:text class="text-lg">{{ $ticket->department->name }}</flux:text>
                             </div>
                             <div>
-                                <flux:text class="font-semibold text-sm text-neutral-500 dark:text-neutral-400 mb-1">{{ __('Tipo de Incidente') }}</flux:text>
+                                <flux:text class="mb-1 opacity-70">{{ __('Tipo de Incidente') }}</flux:text>
                                 <flux:text class="text-lg">{{ $ticket->incidentType->name }}</flux:text>
                             </div>
                             <div>
-                                <flux:text class="font-semibold text-sm text-neutral-500 dark:text-neutral-400 mb-1">{{ __('Prioridad') }}</flux:text>
+                                <flux:text class="mb-1 opacity-70">{{ __('Prioridad') }}</flux:text>
                                 <flux:text class="text-lg">{{ $ticket->is_priority ? __('Alta') : __('Normal') }}</flux:text>
                             </div>
                         </div>
 
                         <div>
-                            <flux:text class="font-semibold text-sm text-neutral-500 dark:text-neutral-400 mb-2">{{ __('Descripción') }}</flux:text>
+                            <flux:text class="mb-2 opacity-70">{{ __('Descripción') }}</flux:text>
                             <div class="bg-white dark:bg-neutral-800 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
                                 <flux:text>{{ $ticket->description }}</flux:text>
                             </div>
@@ -68,16 +68,8 @@
 
                         @if($ticket->contact_email)
                             <div>
-                                <flux:text class="font-semibold text-sm text-neutral-500 dark:text-neutral-400 mb-1">{{ __('Email de Contacto') }}</flux:text>
-                                <flux:text>{{ $ticket->contact_email }}</flux:text>
-                            </div>
-                        @endif
-
-                        @if($ticket->resolved_at)
-                            <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
-                                <flux:text class="font-semibold text-green-800 dark:text-green-300">
-                                    {{ __('Ticket Resuelto el') }}: {{ $ticket->resolved_at->format('d/m/Y H:i') }}
-                                </flux:text>
+                                <flux:text class="mb-1 opacity-70">{{ __('Email de Contacto') }}</flux:text>
+                                <flux:text class="text-lg">{{ $ticket->contact_email }}</flux:text>
                             </div>
                         @endif
                     </div>
