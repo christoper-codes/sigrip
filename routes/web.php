@@ -70,11 +70,7 @@ Route::middleware(ApplicationMiddleware::class)->group(function () {
 });
 
 Route::get('/ticket/{company}/anon', [SupportTicketController::class, 'anonForm'])->name('ticket.anon.form');
-
-Route::get('/ticket/seguimiento/{uuid?}', function ($uuid = null) {
-    return view('pages.app.ticket.track-form', compact('uuid'));
-})->name('ticket.track');
-
+Route::get('/ticket/seguimiento/{uuid?}', [SupportTicketController::class, 'trackForm'])->name('ticket.track.form');
 
 
 Route::middleware(['auth'])->group(function () {
