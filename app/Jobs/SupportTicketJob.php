@@ -35,6 +35,7 @@ class SupportTicketJob implements ShouldQueue
         public ?string $alert_uuid = null,
         public ?string $contact_email = null,
         public ?string $contact_name = null,
+        public ?string $tracking_uuid = null,
     )
     {
         $this->onQueue('tickets');
@@ -50,7 +51,7 @@ class SupportTicketJob implements ShouldQueue
             'support_ticket_status_id' => $this->support_ticket_status,
             'alert_id' => $this->alert_id,
             'alert_uuid' => $this->alert_uuid,
-            'tracking_uuid' => $this->is_anonymous ? \Illuminate\Support\Str::uuid() : null,
+            'tracking_uuid' => $this->tracking_uuid,
             'created_by_user_id' => $this->is_anonymous ? null : $this->created_by_user,
             'title' => $this->title,
             'description' => $this->description,

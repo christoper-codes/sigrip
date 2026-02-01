@@ -76,33 +76,13 @@ class Anonymous extends Component
             }
         }
 
-        $openStatus = SupportTicketStatus::where('name', 'abierto')->first();
-
-        $trackingUuid = (string) Str::uuid();
-
-        $ticket = SupportTicket::create([
-            'company_id' => $this->company_id,
-            'department_id' => $this->department_id,
-            'incident_type_id' => $this->incident_type_id,
-            'support_ticket_status_id' => $openStatus->id,
-            'tracking_uuid' => $trackingUuid,
-            'created_by_user_id' => null,
-            'title' => $this->title,
-            'description' => $this->description,
-            'contact_email' => $this->contact_email,
-            'contact_name' => $this->contact_name,
-            'metadata' => [
-                'evidences' => $evidence_paths,
-            ],
-            'is_priority' => $this->is_priority,
-            'created_by_ai' => false,
-        ]);
+        $tracking_uuid = (string) str_pad(mt_rand(0, 999999), 8, '0', STR_PAD_LEFT);
 
         SupportTicketJob::dispatch(
             company: $this->company_id,
             department: $this->department_id,
             incident_type: $this->incident_type_id,
-            support_ticket_status: $openStatus->id,
+            support_ticket_status: SupportTicketStatus::where('name', 'abierto')->first()->id,
             created_by_user: null,
             title: $this->title,
             description: $this->description,
@@ -114,9 +94,10 @@ class Anonymous extends Component
             alert_uuid: null,
             contact_email: $this->contact_email,
             contact_name: $this->contact_name,
+            tracking_uuid: $tracking_uuid,
         );
 
-        $this->ticket_reference = $trackingUuid;
+        $this->ticket_reference = $tracking_uuid;
         $this->submitted = true;
         $this->dispatch('toast', message: __('Ticket creado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
     }
