@@ -67,7 +67,10 @@
                         </div>
                     </div>
                     @if($ticket->ticketResponses)
-                        <flux:heading size="xl" class="mt-10 mb-4">{{ __('Respuestas') }}</flux:heading>
+                        <flux:heading size="xl" class="mt-10 mb-2">{{ __('Respuestas') }}</flux:heading>
+                        <flux:text class="text-neutral-600 dark:text-neutral-500 mb-6">
+                            {{ __('Revisa las respuestas proporcionadas por el equipo de soporte a tu incidencia') }}
+                        </flux:text>
                         <div class="flex flex-col gap-4">
                             @foreach($ticket->ticketResponses as $response)
                                 <div class="bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-2xl p-5">
@@ -80,7 +83,7 @@
                                         <flux:text >{{ dateFormat($response['created_at']) }}</flux:text>
                                     </div>
                                     @if(isset($response['metadata']['files_response']) && is_array($response['metadata']['files_response']) && count($response['metadata']['files_response']) > 0)
-                                        <div>
+                                        <div class="mt-4">
                                             <ul class="list-disc ml-6 space-y-1">
                                                 @foreach($response['metadata']['files_response'] as $evidence)
                                                     <li>
