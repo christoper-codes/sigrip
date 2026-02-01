@@ -19,7 +19,7 @@ class Anonymous extends Component
 
     public ?array $departments = [];
     public ?array $incident_types = [];
-    public bool $is_priority = false;
+    public bool $is_priority = true;
     public bool $submitted = false;
     public ?string $ticket_reference = null;
     public int $company_id;
@@ -52,6 +52,8 @@ class Anonymous extends Component
             ->toArray();
 
         $this->incident_types = IncidentType::pluck('name', 'id')->toArray();
+
+        $this->is_priority = true;
     }
 
     public function createTicket(): void

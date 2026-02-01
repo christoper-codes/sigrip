@@ -1,12 +1,11 @@
 <div class="mx-auto px-8 py-12 w-full max-w-2xl">
-    <flux:heading size="xl" class="text-3xl mb-4">{{ __('Crear un nuevo ticket') }}</flux:heading>
-    <flux:text class="text-neutral-600 dark:text-neutral-500 mb-8">
-        {{ __('Completa el formulario para crear un nuevo ticket.') }}
+    <flux:heading size="xl" class="text-3xl mb-4">{{ __('Reporta una incidencia') }}</flux:heading>
+    <flux:text class="mb-8">
+        {{ __('Utiliza este formulario para levantar un ticket de incidencia en cualquier departamento, sin necesidad de revelar tu identidad') }}
     </flux:text>
 
     @if (!$submitted)
         <form wire:submit="createTicket" class="space-y-6 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-2xl p-8">
-
             <flux:field>
                 <flux:label class="font-semibold">{{ __('Departamento donde surge la incidencia') }}</flux:label>
                 <flux:select wire:model="department_id" class="mt-2 !h-12">
@@ -39,6 +38,18 @@
                 <flux:label class="font-semibold">{{ __('Descripción de la incidencia') }}</flux:label>
                 <flux:textarea wire:model="description" placeholder="{{ __('Describe con detalle el problema...') }}" rows="6" class="mt-2" resize="none" icon="chat-bubble-bottom-center-text" />
                 <flux:error name="description" />
+            </flux:field>
+
+            <flux:field>
+                <flux:label class="font-semibold">{{ __('Correo electrónico (opcional)') }}</flux:label>
+                <flux:input wire:model="contact_email" type="email" placeholder="{{ __('Tu correo electrónico') }}" class="mt-2" icon="envelope" />
+                <flux:error name="contact_email" />
+            </flux:field>
+
+            <flux:field>
+                <flux:label class="font-semibold">{{ __('Nombre (opcional)') }}</flux:label>
+                <flux:input wire:model="contact_name" type="text" placeholder="{{ __('Tu nombre') }}" class="mt-2" icon="user" />
+                <flux:error name="contact_name" />
             </flux:field>
 
             <flux:field>
