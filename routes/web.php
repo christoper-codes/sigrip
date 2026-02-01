@@ -60,7 +60,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::view('applications/inactive', 'pages.app.application.inactive')->name('application.inactive');
 Route::view('applications/answered', 'pages.app.application.answered')->name('application.answered');
 Route::view('applications/thanks', 'pages.app.application.thanks')->name('application.thanks');
-
 Route::middleware(ApplicationMiddleware::class)->group(function () {
     Route::get('applications/{slug}', function (Request $request) {
         $application = $request->attributes->get('application');
@@ -69,6 +68,13 @@ Route::middleware(ApplicationMiddleware::class)->group(function () {
         return view('pages.app.application.show', compact('application', 'is_visitor'));
     })->name('application.show');
 });
+
+Route::get('/ticket/{company}/anon', [SupportTicketController::class, 'anonForm'])->name('ticket.anon.form');
+
+Route::get('/ticket/seguimiento/{uuid?}', function ($uuid = null) {
+    return view('pages.app.ticket.track-form', compact('uuid'));
+})->name('ticket.track');
+
 
 
 Route::middleware(['auth'])->group(function () {
@@ -89,8 +95,3 @@ Route::middleware(['auth'])->group(function () {
         )
         ->name('two-factor.show');
 });
-
-Route::get('/ticket/{company}/anon', [SupportTicketController::class, 'anonForm'])->name('ticket.anon.form');
-Route::get('/ticket/seguimiento/{uuid?}', function ($uuid = null) {
-    return view('pages.app.ticket.track-form', compact('uuid'));
-})->name('ticket.track');
