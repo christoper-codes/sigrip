@@ -3,7 +3,6 @@ namespace App\Livewire\Ticket;
 
 use App\Enums\NotificationTypesEnum;
 use App\Jobs\SupportTicketJob;
-use App\Models\Department;
 use App\Models\IncidentType;
 use App\Models\SupportTicketStatus;
 use App\Models\Company;
@@ -45,9 +44,12 @@ class Anonymous extends Component
     #[Validate(['nullable', 'array'])]
     public $evidence_files = [];
 
-    public function mount(): void
+    public function mount()
     {
         $company = Company::find($this->company_id);
+        if(! $company) {
+           abort(404);
+        }
         $this->company_name = $company->name;
         $this->departments = $company->departments()->pluck('name', 'id')->toArray();
 
