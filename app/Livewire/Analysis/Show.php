@@ -180,9 +180,9 @@ class Show extends Component
             ]];
 
             /* Domain data */
-            $domain = (new DomainRatingAction)->execute(responses: $responses);
+            $domain_scores = (new DomainRatingAction)->execute(responses: $responses);
             $domain_data = [];
-            foreach ($domain as $domain => $score) {
+            foreach ($domain_scores as $domain => $score) {
                 $domain_data[] = [
                     $domain,
                     $score['score'] ?? 0,
@@ -191,12 +191,24 @@ class Show extends Component
                 ];
             }
 
+            /* Category data */
+            $category = (new CategoryRatingAction)->execute(domain_scores: $domain_scores);
+            $category_data = [];
+            foreach ($category as $category_name => $score) {
+                $category_data[] = [
+                    $category_name,
+                    $score['score'] ?? 0,
+                    $score['classification'] ?? null,
+                ];
+            }
+
             return Excel::download(new MainNom2Export(
                     responses: $all_responses,
                     user_data: $user_data,
                     alert_responses: $alert_responses,
                     analysis_ai: $analysis_ai,
-                    domain_data: $domain_data
+                    domain_data: $domain_data,
+                    category_data: $category_data
                 ), $export_name);
         }
 
