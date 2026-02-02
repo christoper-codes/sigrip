@@ -43,30 +43,30 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <flux:text class="mb-1 opacity-70">{{ __('Empresa') }}</flux:text>
-                                <flux:text class="text-lg">{{ $ticket->company->name }}</flux:text>
+                                <flux:heading>{{ $ticket->company->name }}</flux:heading>
                             </div>
                             <div>
                                 <flux:text class="mb-1 opacity-70">{{ __('Departamento') }}</flux:text>
-                                <flux:text class="text-lg">{{ $ticket->department->name }}</flux:text>
+                                <flux:heading>{{ $ticket->department->name }}</flux:heading>
                             </div>
                             <div>
                                 <flux:text class="mb-1 opacity-70">{{ __('Tipo de Incidente') }}</flux:text>
-                                <flux:text class="text-lg">{{ $ticket->incidentType->name }}</flux:text>
+                                <flux:heading>{{ $ticket->incidentType->name }}</flux:heading>
                             </div>
                             <div>
                                 <flux:text class="mb-1 opacity-70">{{ __('Prioridad') }}</flux:text>
-                                <flux:text class="text-lg">{{ $ticket->is_priority ? __('Alta') : __('Normal') }}</flux:text>
+                                <flux:heading>{{ $ticket->is_priority ? __('Alta') : __('Normal') }}</flux:heading>
                             </div>
                         </div>
 
                         <div>
                             <flux:text class="mb-2 opacity-70">{{ __('Descripción') }}</flux:text>
                             <div class="bg-white dark:bg-neutral-800 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
-                                <flux:text>{{ $ticket->description }}</flux:text>
+                                <flux:heading>{{ $ticket->description }}</flux:heading>
                             </div>
                         </div>
                     </div>
-                    @if($ticket->ticketResponses)
+                    @if($ticket->ticketResponses && count($ticket->ticketResponses) > 0)
                         <flux:heading size="xl" class="mt-10 mb-2">{{ __('Respuestas') }}</flux:heading>
                         <flux:text class="text-neutral-600 dark:text-neutral-500 mb-6">
                             {{ __('Revisa las respuestas proporcionadas por el equipo de soporte a tu incidencia') }}
