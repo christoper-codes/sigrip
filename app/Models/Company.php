@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Company extends Model
 {
     protected $fillable = [
+        'uuid',
         'organization_id',
         'image_id',
         'address_id',
