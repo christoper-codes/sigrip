@@ -139,19 +139,7 @@ class Show extends Component
         $export_name =  $this->application_data['slug'] . '_detailed_responses.xlsx';
         if($this->questionnaire['name'] == NomEnum::NOM_2->value){
             $export_name =  $this->application_data['slug'] . '_guia_referencia_ii_responses.xlsx';
-            $this->all_responses = collect($this->all_responses)->transform(function ($theme) {
-                $theme['questions'] = collect($theme['questions'])->transform(function ($question) {
-                    $item = (int) preg_replace('/\D/', '', $question['id']);
-                    $resolve = $this->resolveDomainAndCategory($item);
-
-                    return array_merge($question, [
-                        'domain'   => $resolve['domain'],
-                        'category' => $resolve['category'],
-                    ]);
-                })->toArray();
-
-                return $theme;
-            })->toArray();
+            $this->all_responses = $this->setDomainAndCategory($this->all_responses);
 
             $user_data = [
                 [
@@ -172,10 +160,36 @@ class Show extends Component
                 ]
             ];
 
-            return Excel::download(new MainNom2Export($this->all_responses, $user_data), $export_name);
+            $item = collect($this->application_data['questionnaire_responses'])->first();
+            $themes = $this->questionnaire['metadata']['themes'] ?? [];
+            $alerts = (new GetAlertResponsesAction)->execute(response: $item, themes: $themes);
+            $alert_responses = $this->setDomainAndCategory($alerts);
+
+            return Excel::download(new MainNom2Export(
+                responses: $this->all_responses,
+                user_data: $user_data,
+                alert_responses: $alert_responses
+                ), $export_name);
         }
 
         return Excel::download(new ApplicationShowResponsesExport($this->all_responses), $export_name);
+    }
+
+    public function setDomainAndCategory(array $responses): array
+    {
+        return collect($responses)->transform(function ($theme) {
+                $theme['questions'] = collect($theme['questions'])->transform(function ($question) {
+                    $item = (int) preg_replace('/\D/', '', $question['id']);
+                    $resolve = $this->resolveDomainAndCategory($item);
+
+                    return array_merge($question, [
+                        'domain'   => $resolve['domain'],
+                        'category' => $resolve['category'],
+                    ]);
+                })->toArray();
+
+                 return $theme;
+            })->toArray();
     }
 
     public function resolveDomainAndCategory(int $item): array

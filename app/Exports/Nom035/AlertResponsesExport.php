@@ -18,62 +18,59 @@ class AlertResponsesExport implements FromArray, WithHeadings, WithStyles, WithC
         $this->alert_responses = $alert_responses;
     }
 
-    public function array(): array
+     public function array(): array
     {
-       return $this->alert_responses;
+       $rows = [];
+        foreach ($this->alert_responses as $item) {
+            foreach ($item['questions'] as $question) {
+                $rows[] = [
+                    $question['id'] ?? '',
+                    $question['category'] ?? '',
+                    $question['domain'] ?? '',
+                    $question['question'] ?? '',
+                    $question['label'] ?? '',
+                    $question['value'] ?? '',
+                ];
+            }
+        }
+
+        return $rows;
     }
 
     public function headings(): array
     {
         return [
-            'Nombre completo',
-            'Sexo',
-            'Edad',
-            'Estado civil',
-            'Nivel de estudios',
-            'Puesto de trabajo',
-            'Departamento',
-            'Tipo de puesto',
-            'Tipo de contratación',
-            'Tipo de personal',
-            'Tipo de jornada',
-            'Realiza rotación de turnos',
-            'Experiencia en el puesto actual (años)',
-            'Experiencia laboral total (años)',
+            'ID',
+            'Categoria',
+            'Dominio',
+            'Pregunta',
+            'Respuesta',
+            'Valor'
         ];
     }
 
     public function styles(Worksheet $sheet)
     {
-        $sheet->getStyle('A1:N1')->getFont()->setBold(true);
-        $sheet->getStyle('A1:N1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-        $sheet->getStyle('A1:N1')->getBorders()->getAllBorders()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('FF000000'));
-
+        $sheet->getStyle('A1:F1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:F1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $sheet->getStyle('A1:F1')->getBorders()->getAllBorders()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('FF000000'));
         return [];
     }
 
     public function columnWidths(): array
     {
         return [
-            'A' => 30,
-            'B' => 15,
-            'C' => 10,
-            'D' => 20,
-            'E' => 30,
-            'F' => 30,
-            'G' => 30,
-            'H' => 30,
-            'I' => 30,
-            'J' => 30,
-            'K' => 30,
-            'L' => 30,
-            'M' => 35,
-            'N' => 30,
+            'A' => 10,
+            'B' => 35,
+            'C' => 40,
+            'D' => 70,
+            'E' => 20,
+            'F' => 15,
         ];
     }
 
     public function title(): string
     {
-        return 'Empleado';
+        return 'Alertas';
     }
 }
