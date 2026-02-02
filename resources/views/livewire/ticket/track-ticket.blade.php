@@ -1,6 +1,8 @@
 <div class="mx-auto lg:px-8 py-12 w-full max-w-3xl">
-    <flux:heading size="xl" class="text-3xl mb-4">{{ __('Seguimiento de incidencia') }}</flux:heading>
-    <flux:text class="text-neutral-600 dark:text-neutral-500 mb-8">
+    <h1 class="text-3xl max-w-4xl uppercase mb-4 mt-3">
+        {{ __('Seguimiento de incidencia') }}</span>
+    </h1>
+    <flux:text class="mb-10">
         {{ __('Ingresa tu código de seguimiento para ver el estado de tu ticket') }}
     </flux:text>
 
