@@ -130,6 +130,18 @@
                     <flux:icon.finger-print variant="mini"/>
                     <flux:text>{{ __('Tipo de ticket ') }} {{ $detail_ticket['created_by_user'] ? __('autenticado') : __('anónimo') }}</flux:text>
                 </div>
+                @if($detail_ticket['metadata']['user']['contact_name'])
+                    <div class="flex items-center gap-2">
+                        <flux:icon.user variant="mini"/>
+                        <flux:text>{{ __('Creado por ') }} {{ $detail_ticket['metadata']['user']['contact_name'] }}</flux:text>
+                    </div>
+                @endif
+                 @if($detail_ticket['metadata']['user']['contact_email'])
+                    <div class="flex items-center gap-2">
+                        <flux:icon.envelope variant="mini"/>
+                        <flux:text>{{ $detail_ticket['metadata']['user']['contact_email'] }}</flux:text>
+                    </div>
+                 @endif
                 @if($detail_ticket['created_by_user'])
                     <div class="flex items-center gap-2">
                         <flux:icon.user variant="mini"/>
