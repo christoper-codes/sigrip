@@ -40,7 +40,9 @@ new class extends Component {
                 <flux:heading size="lg">{{ __('¿Seguro que deseas eliminar tu cuenta?') }}</flux:heading>
 
                 <flux:subheading>
-                    {{ __('Una vez eliminada tu cuenta, todos sus recursos y datos se borrarán de forma permanente. Ingresa tu contraseña para confirmar que deseas eliminar tu cuenta definitivamente.') }}
+                    {{ __('Una vez eliminada tu cuenta, todos sus recursos y datos se borrarán de forma permanente. Para solicitar la eliminación de tu cuenta, envía un correo a') }}
+                    <a href="mailto:Soporte@neura.com" class="text-yellow-500">Soporte@neura.com</a>.
+                    {{ __('Tu solicitud será atendida a la brevedad y recibirás una respuesta en el menor tiempo posible.') }}
                 </flux:subheading>
             </div>
 
