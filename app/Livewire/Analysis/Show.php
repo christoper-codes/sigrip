@@ -108,6 +108,7 @@ class Show extends Component
                 ['label' => __('Calificación por Categoría')],
                 ['label' => __('Calificación Final')],
                 ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
+                ['label' => __('Descarga excel')],
             ];
         } else {
             $this->headers = [
@@ -118,6 +119,7 @@ class Show extends Component
                 ['label' => __('Ai - departamento')],
                 ['label' => __('Ai - empleado')],
                 ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
+                ['label' => _('Descarga excel')],
             ];
         }
 
@@ -128,13 +130,13 @@ class Show extends Component
          Flux::modal('select-application')->close();
     }
 
-    public function downloadResults(): BinaryFileResponse
+    public function downloadAllResults(): BinaryFileResponse
     {
         $export_name =  $this->application_data['slug'] . '_responses.xlsx';
         return Excel::download(new ApplicationResponsesExport($this->application_data['questionnaire_responses']), $export_name);
     }
 
-    public function downloadResponses(int $response_id): BinaryFileResponse
+    public function downloadResults(int $response_id): BinaryFileResponse
     {
         $response = collect($this->application_data['questionnaire_responses']) ->firstWhere('id', $response_id);
         $responses = $response['response_data'] ?? [];
