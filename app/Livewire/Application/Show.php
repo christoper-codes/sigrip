@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Application;
 
+use App\Enums\NomEnum;
 use App\Enums\NotificationTypesEnum;
 use App\Jobs\AiAlertJob;
 use App\Models\Application;
@@ -10,6 +11,7 @@ use Livewire\Component;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Show extends Component
 {
@@ -51,13 +53,9 @@ class Show extends Component
             return;
         }
 
-        $allAnswers = [];
-        for ($i = 0; $i < $this->theme_count; $i++) {
-            $theme_key = 'answers-' . $this->application->slug . '-theme-' . $i;
-            $theme_answers = session($theme_key, []);
-            $allAnswers = array_merge($allAnswers, $theme_answers);
-        }
+        $allAnswers = $this->getAllAnswers();
         $this->answers = $allAnswers;
+        $this->validateNom2SpecialCases();
 
         DB::beginTransaction();
         try{
@@ -113,6 +111,30 @@ class Show extends Component
         } catch (\Exception $e) {
             DB::rollBack();
             $this->dispatch('toast', message: __('Ocurrió un error al enviar la aplicación. Por favor, intenta nuevamente.'), type: NotificationTypesEnum::ERROR->value);
+        }
+    }
+
+    public function validateNom2SpecialCases(): void
+    {
+        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+            if ($this->answers['gr2_q41'] == 3){
+                $this->answers['gr2_q41'] = 2;
+                unset($this->answers['gr2_q42']);
+                unset($this->answers['gr2_q43']);
+                unset($this->answers['gr2_q44']);
+            }
+            if ($this->answers['gr2_q41'] == 4){
+                $this->answers['gr2_q41'] = 1;
+            }
+            if ($this->answers['gr2_q45'] == 3){
+                $this->answers['gr2_q45'] = 2;
+                unset($this->answers['gr2_q46']);
+                unset($this->answers['gr2_q47']);
+                unset($this->answers['gr2_q48']);
+            }
+            if ($this->answers['gr2_q45'] == 4){
+                $this->answers['gr2_q45'] = 1;
+            }
         }
     }
 
@@ -176,28 +198,86 @@ class Show extends Component
             $this->setThemesAndCurrentTheme();
             $this->theme_change++;
         }
-    }
+        if ($this->questionnaire['name'] == NomEnum::NOM_1->value) {
+            $allAnswers = $this->getAllAnswers();
+            if(isset($allAnswers['gr1_q1'])){
+                $submit = true;
+                collect($allAnswers)->each(function ($answer, $question_id) use (&$submit) {
+                    if (Str::startsWith($question_id, 'gr1_q') && $answer == 1) {
+                        $submit = false;
+                    }
+                });
+                if($submit){
+                    $this->submit();
+                }
+            }
+        }
 
-public function saveProgress(): void
-{
-    $theme_key = 'answers-' . $this->application->slug . '-theme-' . $this->current_theme_step;
-    $theme = $this->current_theme;
-    foreach ($theme['questions'] as $question) {
-        $qid = $question['id'];
-        if (!array_key_exists($qid, $this->answers) || $this->answers[$qid] === null || $this->answers[$qid] === '') {
-            $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+        if ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
+            $allAnswers = $this->getAllAnswers();
+            if(isset($allAnswers['gr2_q45'])){
+                $skip = true;
+                if($allAnswers['gr2_q45'] == 1){
+                    $skip = false;
+                }
+            }
         }
     }
 
-    $theme_answers = [];
-    foreach ($theme['questions'] as $question) {
-        $qid = $question['id'];
-        if (isset($this->answers[$qid])) {
-            $theme_answers[$qid] = $this->answers[$qid];
+    public function getAllAnswers(): array
+    {
+        $allAnswers = [];
+        for ($i = 0; $i < $this->theme_count; $i++) {
+            $theme_key = 'answers-' . $this->application->slug . '-theme-' . $i;
+            $theme_answers = session($theme_key, []);
+            $allAnswers = array_merge($allAnswers, $theme_answers);
         }
+        return $allAnswers;
     }
-    session([$theme_key => $theme_answers]);
-}
+
+    public function saveProgress(): void
+    {
+        $theme_key = 'answers-' . $this->application->slug . '-theme-' . $this->current_theme_step;
+        $theme = $this->current_theme;
+        foreach ($theme['questions'] as $question) {
+            $qid = $question['id'];
+            if (
+                !array_key_exists($qid, $this->answers) ||
+                $this->answers[$qid] === null ||
+                $this->answers[$qid] === ''
+                ) {
+                if($this->questionnaire['name'] == NomEnum::NOM_1->value){
+                    if(Str::startsWith($qid, 'gr1_q')){
+                        $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                    }
+                } else if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+                    if (
+                            in_array($qid, ['gr2_q42', 'gr2_q43', 'gr2_q44']) &&
+                            (!isset($this->answers['gr2_q41']) || $this->answers['gr2_q41'] == 1 || $this->answers['gr2_q41'] == 4)
+                        ) {
+                            $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                        }
+                    if (
+                            in_array($qid, ['gr2_q46', 'gr2_q47', 'gr2_q48']) &&
+                            (!isset($this->answers['gr2_q45']) || $this->answers['gr2_q45'] == 1 || $this->answers['gr2_q45'] == 4)
+                        ) {
+                            $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                        }
+                } else {
+                    $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                }
+            }
+        }
+
+        $theme_answers = [];
+        foreach ($theme['questions'] as $question) {
+            $qid = $question['id'];
+            if (isset($this->answers[$qid])) {
+                $theme_answers[$qid] = $this->answers[$qid];
+            }
+        }
+        session([$theme_key => $theme_answers]);
+    }
 
     public function prevTheme()
     {

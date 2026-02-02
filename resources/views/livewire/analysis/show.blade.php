@@ -46,10 +46,9 @@
                     @foreach ($paginated_items as $response)
                         <tr>
                             <td class="p-4">{{ $response['uuid'] }}</td>
-                            <td class="p-4">{{ dateFormat($response['created_at']) }}</td>
-                            <td class="p-4">
-                                {{ $response['risk_level'] == 'red' ? __('Rojo') : ($response['risk_level'] == 'yellow' ? __('Amarillo') : __('Verde')) }}
-                            </td>
+                            @if($questionnaire['name'] == \App\Enums\NomEnum::NOM_2->value)
+                                <td class="p-4">{{ $response['classification']  }}</td>
+                            @endif
                             <td class="p-4">{{ $response['user']['name'] ?? 'Anónimo' }}</td>
                             <td class="p-4">
                                 <flux:button wire:click="showResponses({{ $response['id'] }})" icon="clipboard-document-list" variant="primary">{{ __('Respuestas') }}</flux:button>
@@ -57,13 +56,24 @@
                             <td class="p-4">
                                 <flux:button wire:click="showAlerts({{ $response['id'] }})" icon="exclamation-triangle" variant="primary">{{ __('Alertas') }}</flux:button>
                             </td>
-                            <td class="p-4">{{ $response['average_score'] }}</td>
                             <td class="p-4">
                                 <flux:button wire:click="showAnalysisDepartment({{ $response['id'] }})" icon="building-office" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
                             </td>
                             <td class="p-4">
                                 <flux:button wire:click="showAnalysisUser({{ $response['id'] }})" icon="user" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
                             </td>
+                            @if($questionnaire['name'] == \App\Enums\NomEnum::NOM_2->value)
+                                <td class="p-4">
+                                    <flux:button variant="filled" wire:click="showDomainRating({{ $response['id'] }})" icon="chart-bar">{{ __('Dominio') }}</flux:button>
+                                </td>
+                                <td class="p-4">
+                                    <flux:button variant="filled" wire:click="showCategoryRating({{ $response['id'] }})" icon="chart-pie">{{ __('Categoría') }}</flux:button>
+                                </td>
+                                <td class="p-4">
+                                    <flux:button variant="filled" wire:click="showFinalScore({{ $response['id'] }})" icon="star">{{ __('Final') }}</flux:button>
+                                </td>
+                            @endif
+                            <td class="p-4">{{ dateFormat($response['created_at']) }}</td>
                         </tr>
                     @endforeach
                 </x-slot:table>
@@ -79,7 +89,7 @@
         </div>
     @endif
 
-   <flux:modal name="select-application" class="w-[90%] md:w-md space-y-7">
+    <flux:modal name="select-application" class="w-[90%] md:w-md space-y-7">
         <div>
             <flux:heading size="lg">{{ __('Seleccione una aplicación') }}</flux:heading>
             <flux:text class="mt-2">{{ __('Ver resultados detallados') }}</flux:text>
@@ -126,11 +136,16 @@
                     <div class="mb-4">
                         <flux:heading size="lg" class="text-primary!">{{ $theme['theme_name'] }}</flux:heading>
                         <flux:text class="mb-3!">{{ $theme['theme_description'] }}</flux:text>
-                        <ul class="list-decimal ml-6">
+                        <ul class="ml-2">
                             @foreach($theme['questions'] as $q)
-                                <li class="mb-3">
-                                    <p class="text-sm font-semibold">{{ $q['question'] }}</p>
-                                    <ul class="list-disc ml-4 mt-1 text-sm opacity-75">
+                                <li class="mb-4">
+                                    <div class="text-sm font-semibold flex items-start gap-2">
+                                        <p>{{ $q['id'] }}</p>
+                                        <span>-</span>
+                                        <p>{{ $q['question'] }}</p>
+                                    </div>
+
+                                    <ul class="list-disc ml-6 mt-1 text-sm opacity-75">
                                         <li>
                                             @if($q['answer'])
                                                 <span>{{ $q['answer'] }}</span>
@@ -160,22 +175,33 @@
         </div>
         <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
             @if($alert_responses)
-                <ul class="list-decimal ml-6">
-                   @foreach($alert_responses as $alert)
-                        <li class="mb-3">
-                            <p class="text-sm font-semibold">{{ $alert['question'] }}</p>
-                            <ul class="list-disc ml-4 mt-1 text-sm opacity-75">
-                                <li>
-                                    @if($alert['label'])
-                                        <span>{{ $alert['label'] }}</span>
-                                    @else
-                                        <span>{{ __('Sin respuesta') }}</span>
-                                    @endif
-                                </li>
-                            </ul>
-                        </li>
-                    @endforeach
-                </ul>
+                @foreach($alert_responses as $theme)
+                    <flux:heading size="lg" class="text-primary!">
+                        {{ $theme['theme_name'] }}
+                    </flux:heading>
+
+                    <ul class="ml-2 mt-2">
+                        @foreach($theme['questions'] as $alert)
+                            <li class="mb-4">
+                                <div class="text-sm font-semibold flex items-start gap-2">
+                                    <p>{{ $alert['id'] }}</p>
+                                    <span>-</span>
+                                    <p>{{ $alert['question'] }}</p>
+                                </div>
+
+                                <ul class="list-disc ml-6 mt-1 text-sm opacity-75">
+                                    <li>
+                                        @if($alert['label'])
+                                            <span>{{ $alert['label'] }}</span>
+                                        @else
+                                            <span>{{ __('Sin respuesta') }}</span>
+                                        @endif
+                                    </li>
+                                </ul>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endforeach
             @else
                 <flux:text>{{ __('No se encontraron respuestas críticas para esta respuesta.') }}</flux:text>
             @endif
@@ -223,6 +249,140 @@
                         <flux:heading>{{ __('Análisis AI para el empleado') }}</flux:heading>
                     </div>
                     <flux:text class="leading-relaxed">{{ $user_analysis }}</flux:text>
+                </div>
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-2">
+            <flux:modal.close>
+                <flux:button>{{ __('Cerrar') }}</flux:button>
+            </flux:modal.close>
+        </div>
+    </flux:modal>
+
+    <flux:modal name="show-category-rating-modal" class="w-[90%] md:w-full space-y-7">
+        <div>
+            <flux:heading size="xl">{{ __('Calificación de las categorías (Ccat)') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Obtenido sumando el puntaje de cada uno de los ítems que integran la categoría') }}</flux:text>
+        </div>
+        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+            @if($category_rating)
+                <div class="overflow-x-auto">
+                    <table class="min-w-full border-collapse text-sm">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3 text-left font-semibold">
+                                    {{ __('Categoría') }}
+                                </th>
+                                <th class="px-4 py-3 text-left font-semibold">
+                                    {{ __('Calificación') }}
+                                </th>
+                                <th class="px-4 py-3 text-left font-semibold">
+                                    {{ __('Clasificación') }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
+                            @foreach($category_rating as $category => $score)
+                                <tr>
+                                    <td class="px-4 py-3 opacity-70">
+                                        {{ $category }}
+                                    </td>
+                                    <td class="px-4 py-3 font-medium">
+                                        {{ $score['score'] }}
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="opacity-70">{{ __('Riesgo psicosocial: ') }}</span> <span class="font-medium">{{ $score['classification'] }}</span>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-2">
+            <flux:modal.close>
+                <flux:button>{{ __('Cerrar') }}</flux:button>
+            </flux:modal.close>
+        </div>
+    </flux:modal>
+
+    <flux:modal name="show-final-score-modal" class="w-[90%] md:w-full space-y-7">
+        <div>
+            <flux:heading size="xl">{{ __('Calificación Final') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Calificación final obtenida sumando el puntaje de todos y cada uno de los ítems') }}</flux:text>
+        </div>
+        <div class="text-center py-2">
+            @if($final_score)
+               <flux:heading class="text-6xl! font-bold!">{{ $final_score['final_score'] }}</flux:heading>
+                <div x-data="{ openFaq: 1 }" class="max-w-4xl mx-auto space-y-4 z-20 relative mt-5">
+                    <div class="bg-light-variant dark:bg-dark-variant rounded-2xl overflow-hidden">
+                        <button @click="openFaq = openFaq === 0 ? -1 : 0" class="w-full px-6 py-5 text-left flex items-center justify-between gap-5 bg-light-variant dark:bg-dark-variant cursor-pointer">
+                            <flux:text>{{ __('Nivel de riesgo psicosocial: ') }} <span class="font-bold">{{ $final_score['classification']['label'] }}</span></flux:text>
+                            <flux:icon.plus x-show="openFaq !== 0" class="size-5 text-neutral-600 dark:text-neutral-400" />
+                            <flux:icon.minus x-show="openFaq === 0" class="size-5 text-primary" />
+                        </button>
+                        <div x-show="openFaq === 0" x-transition class="px-6 pb-5">
+                            <ul class="space-y-6 text-left">
+                                <li>
+                                    <flux:text class="text-left leading-relaxed!">{{ $final_score['classification']['description'] }}</flux:text>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-2">
+            <flux:modal.close>
+                <flux:button>{{ __('Cerrar') }}</flux:button>
+            </flux:modal.close>
+        </div>
+    </flux:modal>
+    <flux:modal name="show-domain-rating-modal" class="w-[90%] md:w-full space-y-7">
+        <div>
+            <flux:heading size="xl">{{ __('Calificación del dominio (Cdom)') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Obtenido sumando el puntaje de cada uno de los ítems que integran el dominio') }}</flux:text>
+        </div>
+        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+            @if($domain_rating)
+                <div class="overflow-x-auto">
+                    <table class="min-w-full border-collapse text-sm">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3 text-left font-semibold">
+                                    {{ __('Dominio') }}
+                                </th>
+                                <th class="px-4 py-3 text-left font-semibold">
+                                    {{ __('Calificación') }}
+                                </th>
+                                <th class="px-4 py-3 text-left font-semibold">
+                                    {{ __('Clasificación') }}
+                                </th>
+                                <th class="px-4 py-3 text-left font-semibold">
+                                    {{ __('Categoría') }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
+                            @foreach($domain_rating as $domain => $score)
+                                <tr>
+                                    <td class="px-4 py-3 opacity-70">
+                                        {{ $domain }}
+                                    </td>
+                                    <td class="px-4 py-3 text-left font-medium">
+                                        {{ $score['score'] }}
+                                    </td>
+                                    <td class="px-4 py-3 text-left font-medium">
+                                        {{ $score['classification'] }}
+                                    </td>
+                                    <td class="px-4 py-3 text-left font-medium opacity-70">
+                                        {{ $score['category'] }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             @endif
         </div>

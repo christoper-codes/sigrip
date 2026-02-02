@@ -86,12 +86,12 @@
             <flux:spacer />
 
             <flux:sidebar.nav variant="outline">
-                <flux:sidebar.item class="text-neutral-300! dark:text-neutral-200!" icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Repository') }}
+                <flux:sidebar.item class="text-neutral-300! dark:text-neutral-200!" icon="video-camera" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
+                    {{ __('Tutoriales') }}
                 </flux:sidebar.item>
 
-                <flux:sidebar.item class="text-neutral-300! dark:text-neutral-200!" icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
+                <flux:sidebar.item class="text-neutral-300! dark:text-neutral-200!" icon="book-open-text" href="{{ route('terms.use') }}" target="_blank">
+                    {{ __('Legal') }}
                 </flux:sidebar.item>
            </flux:sidebar.nav>
 

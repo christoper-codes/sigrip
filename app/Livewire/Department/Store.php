@@ -70,6 +70,7 @@ class Store extends Component
 
         $this->dispatch('toast', message: __('Departamento creado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
         $this->reset();
+        $this->exist_company = Auth::user()->company?->id ? true : false;
     }
 
     public function searchManager(): void

@@ -48,7 +48,7 @@
         </div>
         <div class="mt-14 flex flex-col lg:flex-row lg:flex-wrap lg:items-center justify-start gap-3 max-w-4xl">
             @foreach ($questionnaire['metadata']['instructions'] as $instruction)
-                <div class="py-2 px-4 rounded-full text-center text-sm border bg-light-variant dark:bg-dark-variant border-neutral-300 dark:border-neutral-700 w-max">
+                <div class="py-2 px-4 rounded-full text-center text-xs lg:text-sm border bg-light-variant dark:bg-dark-variant border-neutral-300 dark:border-neutral-700 lg:w-max">
                     <span class="inline">
                         {{ __($instruction) }}
                     </span>
@@ -85,8 +85,21 @@
             </div>
             <div class="flex flex-col gap-10">
                 @foreach ($current_theme['questions'] as $question)
-                    <flux:field class="w-full max-w-xl">
-                        <flux:label>{{ __($question['text']) }}</flux:label>
+                    <flux:field class="w-full">
+                        <div class="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-4">
+                            <flux:label>{{ __($question['text']) }}</flux:label>
+                            @if(in_array($question['id'], ['gr2_q42', 'gr2_q43', 'gr2_q44']))
+                                <div class="py-2 px-2 text-xs border-l-4 border-r-4 border-primary rounded-md">
+                                    {{ __('Responder solo \'Sí\' debe brindar servicio a clientes o usuarios') }}
+                                </div>
+                            @endif
+                            @if(in_array($question['id'], ['gr2_q46', 'gr2_q47', 'gr2_q48']))
+                                <div class="py-2 px-2 text-xs border-l-4 border-r-4 border-primary rounded-md">
+                                    {{ __('Responder solo \'Sí\' eres jefe de otros trabajadores') }}
+                                </div>
+                            @endif
+                        </div>
+
                         @if (in_array($question['type'], ['select', 'radio_button']) && !empty($question['options']))
                             <flux:radio.group
                                 name="answers.{{ $question['id'] }}"

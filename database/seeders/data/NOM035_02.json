@@ -1,0 +1,702 @@
+{
+  "questionnaire_id": "nom035_guia_referencia_II",
+  "title": "Guía de Referencia II",
+  "subtitle": "Identificación y análisis de los factores de riesgo psicosocial",
+  "norm": "NOM-035-STPS-2018",
+  "instructions": [
+    "Responda considerando las condiciones de su centro de trabajo en los últimos dos meses",
+    "No existen respuestas correctas o incorrectas",
+    "La información es confidencial y será usada únicamente para fines de mejora del ambiente laboral"
+  ],
+  "objectives": [
+    "Identificar factores de riesgo psicosocial en el centro de trabajo",
+    "Analizar el impacto de estos factores en la salud de los trabajadores",
+    "Cumplir con la Guía de Referencia II de la NOM-035"
+  ],
+  "themes": [
+    {
+      "name": "Condiciones del ambiente de trabajo",
+      "section_code": "A",
+      "questions": [
+            {
+                "id": "gr2_q1",
+                "text": "Mi trabajo me exige hacer mucho esfuerzo físico",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4,3]
+            },
+            {
+                "id": "gr2_q2",
+                "text": "Me preocupa sufrir un accidente en mi trabajo",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4,3]
+            },
+            {
+                "id": "gr2_q3",
+                "text": "Considero que las actividades que realizo son peligrosas",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4,3]
+            },
+            {
+                "id": "gr2_q4",
+                "text": "Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q5",
+                "text": "Por la cantidad de trabajo que tengo debo trabajar sin parar",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q6",
+                "text": "Considero que es necesario mantener un ritmo de trabajo acelerado",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q7",
+                "text": "Mi trabajo exige que esté muy concentrado",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [1, 2]
+            },
+            {
+                "id": "gr2_q8",
+                "text": "Mi trabajo requiere que memorice mucha información",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q9",
+                "text": "Mi trabajo exige que atienda varios asuntos al mismo tiempo",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            }
+        ]
+    },
+    {
+        "name": "Factores propios de la actividad y responsabilidades",
+        "section_code": "B",
+        "questions":[
+            {
+                "id": "gr2_q10",
+                "text": "En mi trabajo soy responsable de cosas de mucho valor",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q11",
+                "text": "Respondo ante mi jefe por los resultados de toda mi área de trabajo",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q12",
+                "text": "En mi trabajo me dan órdenes contradictorias",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q13",
+                "text": "Considero que en mi trabajo me piden hacer cosas innecesarias",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            }
+        ]
+    },
+    {
+        "name": "Organización del tiempo de trabajo y relación trabajo-familia",
+        "section_code": "C",
+        "questions": [
+            {
+                "id": "gr2_q14",
+                "text": "Trabajo horas extras más de tres veces a la semana",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q15",
+                "text": "Mi trabajo me exige laborar en días de descanso, festivos o fines de semana",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q16",
+                "text": "Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q17",
+                "text": "Pienso en las actividades familiares o personales cuando estoy en mi trabajo",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            }
+        ]
+    },
+    {
+        "name": "Control y autonomía sobre el trabajo",
+        "section_code": "D",
+        "questions": [
+            {
+                "id": "gr2_q18",
+                "text": "Mi trabajo permite que desarrolle nuevas habilidades",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            },
+            {
+                "id": "gr2_q19",
+                "text": "En mi trabajo puedo aspirar a un mejor puesto",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            },
+            {
+                "id": "gr2_q20",
+                "text": "Durante mi jornada de trabajo puedo tomar pausas cuando las necesito",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            },
+            {
+                "id": "gr2_q21",
+                "text": "Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            },
+            {
+                "id": "gr2_q22",
+                "text": "Puedo cambiar el orden de las actividades que realizo en mi trabajo",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            }
+            ]
+    },
+    {
+        "name": "Capacitación y claridad de funciones",
+        "section_code": "E",
+        "questions": [
+            {
+                "id": "gr2_q23",
+                "text": "Me informan con claridad cuáles son mis funciones",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            },
+            {
+                "id": "gr2_q24",
+                "text": "Me explican claramente los resultados que debo obtener en mi trabajo",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            },
+            {
+                "id": "gr2_q25",
+                "text": "Me informan con quién puedo resolver problemas o asuntos de trabajo",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            },
+            {
+                "id": "gr2_q26",
+                "text": "Me permiten asistir a capacitaciones relacionadas con mi trabajo",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            },
+            {
+                "id": "gr2_q27",
+                "text": "Recibo capacitación útil para hacer mi trabajo",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            }
+            ]
+    },
+    {
+        "name": "Liderazgo, relaciones y violencia en el trabajo",
+        "section_code": "F",
+        "questions": [
+            {
+                "id": "gr2_q28",
+                "text": "Mi jefe tiene en cuenta mis puntos de vista y opiniones",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            },
+            {
+                "id": "gr2_q29",
+                "text": "Mi jefe ayuda a solucionar los problemas que se presentan en el trabajo",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            },
+            {
+                "id": "gr2_q30",
+                "text": "Puedo confiar en mis compañeros de trabajo",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            },
+            {
+                "id": "gr2_q31",
+                "text": "Cuando tenemos que realizar trabajo de equipo los compañeros colaboran",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            },
+            {
+                "id": "gr2_q32",
+                "text": "Mis compañeros de trabajo me ayudan cuando tengo dificultades",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            },
+            {
+                "id": "gr2_q33",
+                "text": "En mi trabajo puedo expresarme libremente sin interrupciones",
+                "type": "select",
+                "options": [
+                { "value": 0, "label": "Siempre" },
+                { "value": 1, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 3, "label": "Casi nunca" },
+                { "value": 4, "label": "Nunca" }
+                ],
+                "critical_values": [3, 4]
+            },
+            {
+                "id": "gr2_q34",
+                "text": "Recibo críticas constantes a mi persona y/o trabajo",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q35",
+                "text": "Recibo burlas, calumnias, difamaciones, humillaciones o ridiculizaciones",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4,3]
+            },
+            {
+                "id": "gr2_q36",
+                "text": "Se ignora mi presencia o se me excluye de las reuniones de trabajo y en la toma de decisiones",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q37",
+                "text": "Se manipulan las situaciones de trabajo para hacerme parecer un mal trabajador",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q38",
+                "text": "Se ignoran mis éxitos laborales y se atribuyen a otros trabajadores",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q39",
+                "text": "Me bloquean o impiden las oportunidades que tengo para obtener ascenso o mejora en mi trabajo",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q40",
+                "text": "He presenciado actos de violencia en mi centro de trabajo",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            }
+            ]
+    },
+    {
+        "name": "Atención a clientes y cargas emocionales",
+        "section_code": "G",
+        "questions": [
+            {
+            "id": "gr2_q41",
+            "text": "En mi trabajo debo brindar servicio a clientes o usuarios",
+            "type": "select",
+            "options": [
+                { "value": 1, "label": "Sí" },
+                { "value": 2, "label": "No" }
+            ],
+            "critical_values": null
+            },
+            {
+                "id": "gr2_q42",
+                "text": "Atiendo clientes o usuarios muy enojados",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q43",
+                "text": "Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q44",
+                "text": "Para hacer mi trabajo debo demostrar sentimientos distintos a los míos",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            }
+            ]
+    },
+    {
+        "name": "Relación con colaboradores que supervisa",
+        "section_code": "H",
+        "questions":[
+            {
+                "id": "gr2_q45",
+                "text": "Soy jefe de otros trabajadores",
+                "type": "select",
+                "options": [
+                    { "value": 1, "label": "Sí" },
+                    { "value": 2, "label": "No" }
+                ],
+                "critical_values": null
+            },
+            {
+                "id": "gr2_q46",
+                "text": "Comunican tarde los asuntos de trabajo",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q47",
+                "text": "Dificultan el logro de los resultados del trabajo",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            },
+            {
+                "id": "gr2_q48",
+                "text": "Ignoran las sugerencias para mejorar su trabajo",
+                "type": "select",
+                "options": [
+                { "value": 4, "label": "Siempre" },
+                { "value": 3, "label": "Casi siempre" },
+                { "value": 2, "label": "Algunas veces" },
+                { "value": 1, "label": "Casi nunca" },
+                { "value": 0, "label": "Nunca" }
+                ],
+                "critical_values": [4, 3]
+            }
+            ]
+    }
+  ],
+  "risk_evaluation": {
+        "green": [
+            {
+                "label": "Sin indicadores de riesgo psicosocial",
+                "criteria": "Ninguna respuesta en las secciones A a H es crítica",
+                "min": null,
+                "max": null
+            }
+        ],
+        "red": [
+            {
+                "label": "Indicadores de riesgo psicosocial presentes",
+                "criteria": "Al menos una respuesta en las secciones A a H es crítica",
+                "min": null,
+                "max": null
+            }
+        ]
+    }
+}

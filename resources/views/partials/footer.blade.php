@@ -35,6 +35,14 @@
                     ]]></style>
                 </svg>
             </div>
+            <div class="mb-5 text-sm flex items-center gap-3">
+                <a class="underline text-xm" href="{{ route('terms.use') }}" wire:navigate>
+                    {{ __('Terminos de uso') }}
+                </a>
+                <a class="underline text-xm" href="{{ route('privacy.policy') }}" wire:navigate>
+                    {{ __('Política de privacidad') }}
+                </a>
+            </div>
         </div>
     </x-main-container>
 </section>

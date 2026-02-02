@@ -16,10 +16,7 @@
         window.addEventListener('resize', () => checkScroll())
     "
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out"
-    :class="scrolled ? 'pt-4' : 'pt-2'"
-    data-aos="fade-zoom-in"
-    data-aos-once="true"
-    data-aos-duration="2000"
+    :class="scrolled ? 'pt-5' : 'pt-2'"
     >
     <div
         class="mx-auto transition-all duration-500 ease-in-out"
@@ -47,11 +44,10 @@
                     <div class="transition-all duration-500 hidden lg:block">
                         <div class="flex items-center gap-5 text-base">
                             <a href="#">{{ __('Como funciona') }}</a>
-                            <a href="#">{{ __('Preguntas') }}</a>
-                            <a href="#">{{ __('Precios') }}</a>
+                            <a href="#faqs">{{ __('Preguntas') }}</a>
+                            <a href="#pricing">{{ __('Precios') }}</a>
                              <div x-data class="size-7 border border-neutral-300 dark:border-neutral-600 rounded-full flex items-center justify-center">
-                                <flux:icon.sun x-show="$flux.appearance === 'light'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
-                                <flux:icon.sun x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
+                                <flux:icon.sun x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
                             </div>
                         </div>
                     </div>
@@ -100,10 +96,10 @@
                     <a href="#" @click="mobileMenuOpen = false" class="block py-3 border-b border-neutral-200 dark:border-neutral-800">
                         {{ __('Como funciona') }}
                     </a>
-                    <a href="#" @click="mobileMenuOpen = false" class="block py-3 border-b border-neutral-200 dark:border-neutral-800">
+                    <a href="#faqs" @click="mobileMenuOpen = false" class="block py-3 border-b border-neutral-200 dark:border-neutral-800">
                         <span>{{ __('Preguntas') }}</span>
                     </a>
-                    <a href="#" @click="mobileMenuOpen = false" class="block py-3 border-b border-neutral-200 dark:border-neutral-800">
+                    <a href="#pricing" @click="mobileMenuOpen = false" class="block py-3 border-b border-neutral-200 dark:border-neutral-800">
                         {{ __('Precios') }}
                     </a>
                 </nav>
