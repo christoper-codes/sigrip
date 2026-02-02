@@ -179,11 +179,24 @@ class Show extends Component
                 'ticket_description' => $response['ai_response']['ticket_data']['ticket_description'] ?? null,
             ]];
 
+            /* Domain data */
+            $domain = (new DomainRatingAction)->execute(responses: $responses);
+            $domain_data = [];
+            foreach ($domain as $domain => $score) {
+                $domain_data[] = [
+                    $domain,
+                    $score['score'] ?? 0,
+                    $score['classification'] ?? null,
+                    $score['category'] ?? null,
+                ];
+            }
+
             return Excel::download(new MainNom2Export(
                     responses: $all_responses,
                     user_data: $user_data,
                     alert_responses: $alert_responses,
-                    analysis_ai: $analysis_ai
+                    analysis_ai: $analysis_ai,
+                    domain_data: $domain_data
                 ), $export_name);
         }
 

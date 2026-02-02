@@ -48,8 +48,8 @@ class DomainExport implements FromArray, WithStyles, WithColumnWidths, WithTitle
     {
         return [
             'A' => 40,
-            'B' => 40,
-            'C' => 40,
+            'B' => 20,
+            'C' => 30,
             'D' => 40,
         ];
     }

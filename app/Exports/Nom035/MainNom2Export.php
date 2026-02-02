@@ -9,17 +9,20 @@ class MainNom2Export implements WithMultipleSheets
     protected array $user_data;
     protected array $alert_responses;
     protected array $analysis_ai;
+    protected array $domain_data;
 
     public function __construct(
         array $responses,
         array $user_data,
         array $alert_responses,
-        array $analysis_ai)
+        array $analysis_ai,
+        array $domain_data)
     {
         $this->responses = $responses;
         $this->user_data = $user_data;
         $this->alert_responses = $alert_responses;
         $this->analysis_ai = $analysis_ai;
+        $this->domain_data = $domain_data;
     }
 
     public function sheets(): array
@@ -29,6 +32,7 @@ class MainNom2Export implements WithMultipleSheets
             'Respuestas' => new ApplicationShowResponsesNom2Export($this->responses),
             'Alertas' => new AlertResponsesExport($this->alert_responses),
             'Análisis AI' => new AnalysisAiExport($this->analysis_ai),
+            'Dominio' => new DomainExport($this->domain_data),
         ];
     }
 }

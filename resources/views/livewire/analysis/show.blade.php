@@ -339,6 +339,7 @@
             </flux:modal.close>
         </div>
     </flux:modal>
+
     <flux:modal name="show-domain-rating-modal" class="w-[90%] md:w-full space-y-7">
         <div>
             <flux:heading size="xl">{{ __('Calificación del dominio (Cdom)') }}</flux:heading>
