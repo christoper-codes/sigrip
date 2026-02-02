@@ -63,7 +63,8 @@
                 <div>
                     <div class="flex items-center gap-3">
                         <div class="size-10 rounded-full overflow-hidden">
-                            <img class="w-full h-full object-cover" src="/images/testimonio-3.jpeg" alt="testimonial user">                        </div>                        <div>
+                            <img class="w-full h-full object-cover" src="/images/testimonio-3.jpeg" alt="testimonial user">                        </div>
+                        <div>
                             <h3 class="font-bold">{{ __('Carla Ruiz') }}</h3>
                             <p class="text-sm opacity-70">{{ __('Especialista en Bienestar Laboral') }}</p>
                         </div>
