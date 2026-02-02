@@ -20,8 +20,9 @@ class Anonymous extends Component
     public bool $is_priority = true;
     public bool $submitted = false;
     public ?string $ticket_reference = null;
-    public int $company_id;
+    public string $company_uuid;
     public string $company_name;
+    public ?Company $company = null;
 
     #[Validate(['required', 'integer', 'exists:departments,id'])]
     public ?int $department_id = null;
@@ -46,13 +47,12 @@ class Anonymous extends Component
 
     public function mount()
     {
-        $company = Company::find($this->company_id);
-        if(! $company) {
+        $this->company = Company::where('uuid', $this->company_uuid)->first();
+        if(! $this->company) {
            abort(404);
         }
-        $this->company_name = $company->name;
-        $this->departments = $company->departments()->pluck('name', 'id')->toArray();
-
+        $this->company_name = $this->company->name;
+        $this->departments = $this->company->departments()->pluck('name', 'id')->toArray();
         $this->incident_types = IncidentType::pluck('name', 'id')->toArray();
 
         $this->is_priority = true;
@@ -69,10 +69,9 @@ class Anonymous extends Component
 
         $evidence_paths = [];
         if (!empty($this->evidence_files)) {
-            $company = Company::find($this->company_id);
             foreach ($this->evidence_files as $file) {
                 $original = $file->getClientOriginalName();
-                $file_name = $this->company_id . '_' . Str::replace(' ', '_', trim(Str::lower($company->name))) . '_' . time() . '_' . $original;
+                $file_name = $this->company->id . '_' . Str::replace(' ', '_', trim(Str::lower($this->company->name))) . '_' . time() . '_' . $original;
                 $file_path = $file->storeAs('tickets', $file_name, 'public');
                 $evidence_paths[] = $file_path;
             }
@@ -81,7 +80,7 @@ class Anonymous extends Component
         $tracking_uuid = (string) str_pad(mt_rand(0, 999999), 8, '0', STR_PAD_LEFT);
 
         SupportTicketJob::dispatch(
-            company: $this->company_id,
+            company: $this->company->id,
             department: $this->department_id,
             incident_type: $this->incident_type_id,
             support_ticket_status: SupportTicketStatus::where('name', 'abierto')->first()->id,

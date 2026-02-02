@@ -12,7 +12,7 @@
                     <flux:icon.sun x-show="$flux.appearance === 'dark'" x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
                 </div>
             </div>
-            <livewire:ticket.anonymous :company_id="$company_id" />
+            <livewire:ticket.anonymous :company_uuid="$company_uuid" />
             <x-appearance.rightsreserved />
         </flux:main>
     </section>

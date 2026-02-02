@@ -6,9 +6,9 @@ use Illuminate\View\View;
 
 class SupportTicketController extends Controller
 {
-    public function anonForm(string $company_id): View
+    public function anonForm(string $company_uuid): View
     {
-        return view('pages.app.ticket.anon-form', ['company_id' => $company_id]);
+        return view('pages.app.ticket.anon-form', ['company_uuid' => $company_uuid]);
     }
 
     public function trackForm(?string $uuid = null): View
