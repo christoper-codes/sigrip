@@ -42,21 +42,10 @@ new class extends Component {
                 <flux:subheading>
                     {{ __('Una vez eliminada tu cuenta, todos sus recursos y datos se borrarán de forma permanente. Para solicitar la eliminación de tu cuenta, envía un correo a') }}
                     <a href="mailto:Soporte@neura.com" class="text-yellow-500">Soporte@neura.com</a>.
-                    {{ __('Tu solicitud será atendida a la brevedad y recibirás una respuesta en el menor tiempo posible.') }}
+                    {{ __('En el correo incluye el nombre de la compañía, tu nombre completo y en el asunto "Eliminación de cuenta". Tu solicitud será atendida a la brevedad y recibirás una respuesta en el menor tiempo posible.') }}
                 </flux:subheading>
             </div>
 
-            <flux:input wire:model="password" :label="__('Password')" type="password" />
-
-            <div class="flex justify-end space-x-2 rtl:space-x-reverse">
-                <flux:modal.close>
-                    <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
-                </flux:modal.close>
-
-                <flux:button variant="danger" type="submit" data-test="confirm-delete-user-button">
-                    {{ __('Eliminar cuenta') }}
-                </flux:button>
-            </div>
         </form>
     </flux:modal>
 </section>
