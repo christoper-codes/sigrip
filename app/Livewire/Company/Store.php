@@ -9,6 +9,7 @@ use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class Store extends Component
 {
@@ -24,7 +25,9 @@ class Store extends Component
     {
         $this->validate();
 
+        $uuid = Str::slug($this->name) . '-' . str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
         $company = Company::create([
+            'uuid' => $uuid,
             'organization_id' => Auth::user()->organization->id,
             'name' => $this->name,
             'description' => $this->description,
