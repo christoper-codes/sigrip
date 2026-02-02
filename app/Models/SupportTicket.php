@@ -18,6 +18,7 @@ class SupportTicket extends Model
         'support_ticket_status_id',
         'alert_id',
         'alert_uuid',
+        'tracking_uuid',
         'created_by_user_id',
         'assigned_to_user_id',
         'title',

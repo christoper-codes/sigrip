@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('support_tickets', function (Blueprint $table) {
             $table->id();
+            $table->uuid('tracking_uuid')->nullable()->unique();
             $table->foreignId('company_id')->constrained('companies');
             $table->foreignId('department_id')->constrained('departments');
             $table->foreignId('incident_type_id')->constrained('incident_types');

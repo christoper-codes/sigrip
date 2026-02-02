@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->nullable()->unique();
             $table->foreignId('organization_id')->constrained('organizations');
             $table->foreignId('image_id')->nullable()->constrained('images');
             $table->foreignId('address_id')->nullable()->constrained('addresses');

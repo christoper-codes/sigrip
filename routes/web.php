@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\SupportTicketController;
 use App\Http\Middleware\AlertMiddleware;
 use App\Http\Middleware\AnalysisMiddleware;
 use App\Http\Middleware\ApplicationMiddleware;
@@ -71,7 +72,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::view('applications/inactive', 'pages.app.application.inactive')->name('application.inactive');
 Route::view('applications/answered', 'pages.app.application.answered')->name('application.answered');
 Route::view('applications/thanks', 'pages.app.application.thanks')->name('application.thanks');
-
 Route::middleware(ApplicationMiddleware::class)->group(function () {
     Route::get('applications/{slug}', function (Request $request) {
         $application = $request->attributes->get('application');
@@ -81,9 +81,9 @@ Route::middleware(ApplicationMiddleware::class)->group(function () {
     })->name('application.show');
 });
 
-/*
-* User Settings Routes
-*/
+Route::get('/ticket/{company}/incidencias', [SupportTicketController::class, 'anonForm'])->name('ticket.anon.form');
+Route::get('/ticket/seguimiento/{uuid?}', [SupportTicketController::class, 'trackForm'])->name('ticket.track.form');
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
