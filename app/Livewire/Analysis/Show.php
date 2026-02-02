@@ -5,6 +5,7 @@ namespace App\Livewire\Analysis;
 use App\Actions\Analysis\CategoryRatingAction;
 use App\Actions\Analysis\DomainRatingAction;
 use App\Actions\Analysis\FinalScoreAction;
+use App\Actions\Analysis\GetAlertResponsesAction;
 use App\Enums\NomEnum;
 use App\Exports\ApplicationResponsesExport;
 use App\Exports\ApplicationShowResponsesExport;
@@ -275,36 +276,12 @@ class Show extends Component
     public function showAlerts(int $response_id): void
     {
         $item = collect($this->application_data['questionnaire_responses']) ->firstWhere('id', $response_id);
-        $alerts = $item['ai_response']['questions_alert'] ?? [];
         $themes = $this->questionnaire['metadata']['themes'] ?? [];
+        $this->alert_responses = (new GetAlertResponsesAction)->execute(
+            response: $item,
+            themes: $themes
+        );
 
-        $grouped = [];
-        foreach ($themes as $theme) {
-            $theme_alerts = [];
-            foreach ($theme['questions'] as $q) {
-                $alert = collect($alerts)->firstWhere('question_id', $q['id']);
-                if (! $alert) {
-                    continue;
-                }
-
-                $theme_alerts[] = [
-                    'id' => isset($q['id']) ? substr($q['id'], strrpos($q['id'], '_') + 1) : null,
-                    'question' => $alert['question'] ?? $q['text'] ?? null,
-                    'label'    => $alert['label'] ?? null,
-                    'value'    => $alert['value'] ?? null,
-                ];
-            }
-
-            if (count($theme_alerts)) {
-                $grouped[] = [
-                    'theme_name'        => $theme['name'] ?? '',
-                    'theme_description' => $theme['description'] ?? '',
-                    'questions'         => $theme_alerts,
-                ];
-            }
-        }
-
-        $this->alert_responses = $grouped;
         Flux::modal('show-alerts-modal')->show();
     }
 
