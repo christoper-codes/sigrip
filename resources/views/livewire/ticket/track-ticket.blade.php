@@ -39,7 +39,6 @@
                                 {{ ucfirst($ticket->supportTicketStatus->name) }}
                             </div>
                         </div>
-
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <flux:text class="mb-1 opacity-70">{{ __('Empresa') }}</flux:text>
@@ -58,7 +57,20 @@
                                 <flux:heading>{{ $ticket->is_priority ? __('Alta') : __('Normal') }}</flux:heading>
                             </div>
                         </div>
-
+                        @if ($ticket['metadata'] && isset($ticket['metadata']['evidences']) && is_array($ticket['metadata']['evidences']) && count($ticket['metadata']['evidences']) > 0)
+                            <div>
+                                <flux:text class="mb-2 opacity-70">{{ __('Evidencias adjuntas') }}</flux:text>
+                                <ul class="list-disc ml-6 space-y-1">
+                                    @foreach($ticket['metadata']['evidences'] as $evidence)
+                                        <li>
+                                            <a href="{{ asset('storage/' . $evidence) }}" target="_blank" class="text-primary underline text-xs">
+                                                {{ basename($evidence) }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <div>
                             <flux:text class="mb-2 opacity-70">{{ __('Descripción') }}</flux:text>
                             <div class="bg-white dark:bg-neutral-800 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
