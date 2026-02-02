@@ -174,13 +174,18 @@ class Show extends Component
             $alert_responses = $this->setDomainAndCategory($alerts);
 
             /* Analysis Ai */
-            $analysis_ai = $response;
-            dd($analysis_ai);
+            $analysis_ai = [
+                'recommendation_for_user' => $response['ai_response']['recommendation_for_user'] ?? null,
+                'recommendation_for_department' => $response['ai_response']['recommendation_for_department'] ?? null,
+                'ticket_title' => $response['ai_response']['ticket_data']['ticket_title'] ?? null,
+                'ticket_description' => $response['ai_response']['ticket_data']['ticket_description'] ?? null,
+            ];
 
             return Excel::download(new MainNom2Export(
                 responses: $all_responses,
                 user_data: $user_data,
-                alert_responses: $alert_responses
+                alert_responses: $alert_responses,
+                analysis_ai: $analysis_ai
                 ), $export_name);
         }
 
