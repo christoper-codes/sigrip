@@ -134,13 +134,20 @@ class Show extends Component
         return Excel::download(new ApplicationResponsesExport($this->application_data['questionnaire_responses']), $export_name);
     }
 
-    public function downloadResponses(): BinaryFileResponse
+    public function downloadResponses(int $response_id): BinaryFileResponse
     {
+        $response = collect($this->application_data['questionnaire_responses']) ->firstWhere('id', $response_id);
+        $responses = $response['response_data'] ?? [];
+        $themes = $this->questionnaire['metadata']['themes'];
+        $format_responses = $this->setFormatResponses($themes, $responses);
+
         $export_name =  $this->application_data['slug'] . '_detailed_responses.xlsx';
         if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+            /*  Responses */
             $export_name =  $this->application_data['slug'] . '_guia_referencia_ii_responses.xlsx';
-            $this->all_responses = $this->setDomainAndCategory($this->all_responses);
+            $all_responses = $this->setDomainAndCategory($format_responses);
 
+            /* User data */
             $user_data = [
                 [
                     'christoper santos',
@@ -160,19 +167,22 @@ class Show extends Component
                 ]
             ];
 
-            $item = collect($this->application_data['questionnaire_responses'])->first();
-            $themes = $this->questionnaire['metadata']['themes'] ?? [];
-            $alerts = (new GetAlertResponsesAction)->execute(response: $item, themes: $themes);
+            /* Alert responses */
+            $alerts = (new GetAlertResponsesAction)->execute(response: $response, themes: $themes);
             $alert_responses = $this->setDomainAndCategory($alerts);
 
+            /* Analysis Ai */
+            $analysis_ai = $response;
+            dd($analysis_ai);
+
             return Excel::download(new MainNom2Export(
-                responses: $this->all_responses,
+                responses: $all_responses,
                 user_data: $user_data,
                 alert_responses: $alert_responses
                 ), $export_name);
         }
 
-        return Excel::download(new ApplicationShowResponsesExport($this->all_responses), $export_name);
+        return Excel::download(new ApplicationShowResponsesExport($format_responses), $export_name);
     }
 
     public function setDomainAndCategory(array $responses): array
@@ -249,8 +259,14 @@ class Show extends Component
         $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $responses = $item['response_data'] ?? [];
         $themes = $this->questionnaire['metadata']['themes'];
+        $this->all_responses = $this->setFormatResponses($themes, $responses);
 
-        $grouped = [];
+        Flux::modal('show-responses-modal')->show();
+    }
+
+    public function setFormatResponses(array $themes, array $responses): array
+    {
+        $format_responses = [];
         foreach ($themes as $theme) {
             $theme_questions = [];
             foreach ($theme['questions'] as $q) {
@@ -275,7 +291,7 @@ class Show extends Component
                 ];
             }
             if (count($theme_questions)) {
-                $grouped[] = [
+                $format_responses[] = [
                     'theme_name' => $theme['name'] ?? '',
                     'theme_description' => $theme['description'] ?? '',
                     'questions' => $theme_questions,
@@ -283,8 +299,7 @@ class Show extends Component
             }
         }
 
-        $this->all_responses = $grouped;
-        Flux::modal('show-responses-modal')->show();
+        return $format_responses;
     }
 
     public function showAlerts(int $response_id): void
