@@ -151,22 +151,20 @@ class Show extends Component
 
             /* User data */
             $user_data = [
-                [
-                    'christoper santos',
-                    'Masculino',
-                    '29',
-                    'Soltero',
-                    'Licenciatura',
-                    'Analista de datos',
-                    'Departamento de TI',
-                    'Tiempo completo',
-                    'Indefinido',
-                    'Operativo',
-                    'Diurna',
-                    'No',
-                    '3',
-                    '5',
-                ]
+                ['Nombre completo', 'chris'],
+                ['Sexo', 'masculino'],
+                ['Edad', '30'],
+                ['Estado civil', 'soltero'],
+                ['Nivel de estudios', 'licenciatura'],
+                ['Puesto de trabajo', 'desarrollador'],
+                ['Departamento', 'tecnología'],
+                ['Tipo de puesto', 'senior'],
+                ['Tipo de contratación', 'tiempo completo'],
+                ['Tipo de personal', 'permanente'],
+                ['Tipo de jornada', 'diurna'],
+                ['Realiza rotación de turnos', 'no'],
+                ['Experiencia en el puesto actual (años)', '5'],
+                ['Experiencia laboral total (años)', '10'],
             ];
 
             /* Alert responses */

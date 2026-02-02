@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class EmployeeDataExport implements FromArray, WithHeadings, WithStyles, WithColumnWidths, WithTitle
+class EmployeeDataExport implements FromArray, WithStyles, WithColumnWidths, WithTitle
 {
     protected array $user_data;
 
@@ -20,55 +20,21 @@ class EmployeeDataExport implements FromArray, WithHeadings, WithStyles, WithCol
 
     public function array(): array
     {
-       return $this->user_data;
-    }
-
-    public function headings(): array
-    {
-        return [
-            'Nombre completo',
-            'Sexo',
-            'Edad',
-            'Estado civil',
-            'Nivel de estudios',
-            'Puesto de trabajo',
-            'Departamento',
-            'Tipo de puesto',
-            'Tipo de contratación',
-            'Tipo de personal',
-            'Tipo de jornada',
-            'Realiza rotación de turnos',
-            'Experiencia en el puesto actual (años)',
-            'Experiencia laboral total (años)',
-        ];
+        return $this->user_data;
     }
 
     public function styles(Worksheet $sheet)
     {
-        $sheet->getStyle('A1:N1')->getFont()->setBold(true);
-        $sheet->getStyle('A1:N1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-        $sheet->getStyle('A1:N1')->getBorders()->getAllBorders()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('FF000000'));
-
+        $sheet->getStyle('A:A')->getFont()->setBold(true);
+        $sheet->getStyle('B:B')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
         return [];
     }
 
     public function columnWidths(): array
     {
         return [
-            'A' => 30,
-            'B' => 15,
-            'C' => 10,
-            'D' => 20,
-            'E' => 30,
-            'F' => 30,
-            'G' => 30,
-            'H' => 30,
-            'I' => 30,
-            'J' => 30,
-            'K' => 30,
-            'L' => 30,
-            'M' => 35,
-            'N' => 30,
+            'A' => 40,
+            'B' => 40,
         ];
     }
 
