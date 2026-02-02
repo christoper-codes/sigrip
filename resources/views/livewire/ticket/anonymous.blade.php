@@ -106,10 +106,10 @@
                 <flux:text class="text-neutral-700 dark:text-neutral-300 mb-4">
                     {{ __('Puedes dar seguimiento a tu ticket en cualquier momento usando el código anterior en:') }}
                 </flux:text>
-                <a href="{{ route('ticket.track.form', ['uuid' => $ticket_reference]) }}" target="_blank" class="inline-flex items-center gap-2">
+                <a href="{{ route('ticket.track.form') }}" target="_blank" class="inline-flex items-center gap-2">
                     <flux:icon.link class="size-5" />
                     <span class="truncate max-w-[200px] md:max-w-none md:whitespace-normal block">
-                        {{ route('ticket.track.form', ['uuid' => $ticket_reference]) }}
+                        {{ route('ticket.track.form') }}
                     </span>
                 </a>
             </div>
@@ -118,8 +118,8 @@
                 <flux:button wire:click="resetForm" variant="filled">
                     {{ __('Crear otro ticket') }}
                 </flux:button>
-                <flux:button variant="primary" href="{{ route('ticket.track.form', ['uuid' => $ticket_reference]) }}" target="_blank">
-                    {{ __('Ver mi ticket') }}
+                <flux:button variant="primary" href="{{ route('ticket.track.form') }}" target="_blank">
+                    {{ __('Ver seguimiento') }}
                 </flux:button>
             </div>
         </div>
