@@ -106,11 +106,13 @@ new class extends Component {
                 </div>
 
                 <x-action-message class="me-3" on="profile-updated">
-                    {{ __('Saved.') }}
+                    {{ __('Guardar') }}
                 </x-action-message>
             </div>
         </form>
 
-        <livewire:settings.delete-user-form />
+        @canany(['viewCompanyAdmin', 'viewSystemOwner'], auth()->user())
+            <livewire:settings.delete-user-form />
+        @endcanany
     </x-settings.layout>
 </section>
