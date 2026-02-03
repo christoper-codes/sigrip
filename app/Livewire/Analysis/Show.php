@@ -165,6 +165,7 @@ class Show extends Component
                 ['Realiza rotación de turnos', 'no'],
                 ['Experiencia en el puesto actual (años)', '5'],
                 ['Experiencia laboral total (años)', '10'],
+                ['Questionario aplicado', $this->questionnaire['name']],
             ];
 
             /* Alert responses */
@@ -205,7 +206,7 @@ class Show extends Component
             /* Final data */
             $final = (new FinalScoreAction)->execute(responses: $responses);
             $final_data = [
-                ['Questionario', 'NOM-035 Guía de Referencia II'],
+                ['Questionario', $this->questionnaire['name']],
                 ['Puntaje final', $final['final_score']],
                 ['Clasificación', $final['classification']['label']],
                 ['Acción', $final['classification']['description']]
