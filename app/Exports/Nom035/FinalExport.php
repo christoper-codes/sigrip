@@ -15,7 +15,18 @@ class FinalExport implements FromArray, WithStyles, WithColumnWidths, WithTitle,
 
     public function __construct(array $final_data)
     {
-        $this->final_data = $final_data;
+        if (isset($final_data[0]) && is_array($final_data[0]) && count($final_data) === 4) {
+            $this->final_data = [
+                [
+                    $final_data[0][1] ?? null,
+                    $final_data[1][1] ?? null,
+                    $final_data[2][1] ?? null,
+                    $final_data[3][1] ?? null,
+                ]
+            ];
+        } else {
+            $this->final_data = $final_data;
+        }
     }
 
     public function array(): array

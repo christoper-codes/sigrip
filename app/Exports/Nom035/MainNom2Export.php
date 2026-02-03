@@ -11,6 +11,7 @@ class MainNom2Export implements WithMultipleSheets
     protected array $analysis_ai;
     protected array $domain_data;
     protected array $category_data;
+    protected array $final_data;
 
     public function __construct(
         array $responses,
@@ -18,7 +19,9 @@ class MainNom2Export implements WithMultipleSheets
         array $alert_responses,
         array $analysis_ai,
         array $domain_data,
-        array $category_data)
+        array $category_data,
+        array $final_data
+    )
     {
         $this->responses = $responses;
         $this->user_data = $user_data;
@@ -26,6 +29,7 @@ class MainNom2Export implements WithMultipleSheets
         $this->analysis_ai = $analysis_ai;
         $this->domain_data = $domain_data;
         $this->category_data = $category_data;
+        $this->final_data = $final_data;
     }
 
     public function sheets(): array
@@ -37,6 +41,7 @@ class MainNom2Export implements WithMultipleSheets
             'Análisis AI' => new AnalysisAiExport($this->analysis_ai),
             'Dominio' => new DomainExport($this->domain_data),
             'Categoría' => new CategoryExport($this->category_data),
+            'Final' => new FinalExport($this->final_data),
         ];
     }
 }

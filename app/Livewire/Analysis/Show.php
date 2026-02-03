@@ -202,13 +202,23 @@ class Show extends Component
                 ];
             }
 
+            /* Final data */
+            $final = (new FinalScoreAction)->execute(responses: $responses);
+            $final_data = [
+                ['Questionario', 'NOM-035 Guía de Referencia II'],
+                ['Puntaje final', $final['final_score']],
+                ['Clasificación', $final['classification']['label']],
+                ['Acción', $final['classification']['description']]
+            ];
+
             return Excel::download(new MainNom2Export(
                     responses: $all_responses,
                     user_data: $user_data,
                     alert_responses: $alert_responses,
                     analysis_ai: $analysis_ai,
                     domain_data: $domain_data,
-                    category_data: $category_data
+                    category_data: $category_data,
+                    final_data: $final_data
                 ), $export_name);
         }
 
