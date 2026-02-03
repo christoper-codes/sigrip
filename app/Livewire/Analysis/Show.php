@@ -185,7 +185,7 @@ class Show extends Component
             foreach ($domain_scores as $domain => $score) {
                 $domain_data[] = [
                     $domain,
-                    $score['score'] ?? 0,
+                    (string) $score['score'] ?? (string) 0,
                     $score['classification'] ?? null,
                     $score['category'] ?? null,
                 ];
@@ -197,7 +197,7 @@ class Show extends Component
             foreach ($category as $category_name => $score) {
                 $category_data[] = [
                     $category_name,
-                    $score['score'] ?? 0,
+                    (string) $score['score'] ?? (string) 0,
                     $score['classification'] ?? null,
                 ];
             }
