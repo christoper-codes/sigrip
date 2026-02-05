@@ -20,7 +20,7 @@
                 <div>
                     <div class="flex items-center gap-3">
                         <div class="size-10 rounded-full overflow-hidden">
-                            <img class="w-full h-full object-cover" src="/images/testimonio-1.jpeg" alt="testimonial user">
+                            <flux:avatar name="Ana Martinez" color="red" class="size-10" />
                         </div>
                         <div>
                             <h3 class="font-bold">{{ __('Ana Martínez') }}</h3>
@@ -42,7 +42,8 @@
                 <div>
                     <div class="flex items-center gap-3">
                         <div class="size-10 rounded-full overflow-hidden">
-                            <img class="w-full h-full object-cover" src="/images/testimonio-2.jpeg" alt="testimonial user">                        </div>
+                            <flux:avatar name="Luis Gomez" color="orange" class="size-10" />
+                        </div>
                         <div>
                             <h3 class="font-bold">{{ __('Luis Gómez') }}</h3>
                             <p class="text-sm opacity-70">{{ __('Director de Operaciones') }}</p>
@@ -63,7 +64,8 @@
                 <div>
                     <div class="flex items-center gap-3">
                         <div class="size-10 rounded-full overflow-hidden">
-                            <img class="w-full h-full object-cover" src="/images/testimonio-3.jpeg" alt="testimonial user">                        </div>
+                            <flux:avatar name="Carla Ruiz" color="amber" class="size-10" />
+                        </div>
                         <div>
                             <h3 class="font-bold">{{ __('Carla Ruiz') }}</h3>
                             <p class="text-sm opacity-70">{{ __('Especialista en Bienestar Laboral') }}</p>
