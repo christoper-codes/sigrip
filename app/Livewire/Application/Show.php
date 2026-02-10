@@ -263,7 +263,20 @@ class Show extends Component
                         ) {
                             $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
                         }
-                } else {
+                } else if($this->questionnaire['name'] == NomEnum::NOM_3->value) {
+                    if (
+                            in_array($qid, ['gr3_q66', 'gr3_q67', 'gr3_q68', 'gr3_q69']) &&
+                            (!isset($this->answers['gr3_q65']) || $this->answers['gr3_q65'] == 1 || $this->answers['gr3_q65'] == 4)
+                        ) {
+                            $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                        }
+                    if (
+                            in_array($qid, ['gr3_q71', 'gr3_q72', 'gr3_q73', 'gr3_q74']) &&
+                            (!isset($this->answers['gr3_q70']) || $this->answers['gr3_q70'] == 1 || $this->answers['gr3_q70'] == 4)
+                        ) {
+                            $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                        }
+                }else {
                     $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
                 }
             }
