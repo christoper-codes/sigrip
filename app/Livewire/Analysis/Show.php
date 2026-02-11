@@ -4,6 +4,7 @@ namespace App\Livewire\Analysis;
 
 use App\Actions\Analysis\CategoryRatingAction;
 use App\Actions\Analysis\DomainRatingAction;
+use App\Actions\Analysis\DomainRatingNom3Action;
 use App\Actions\Analysis\FinalScoreAction;
 use App\Actions\Analysis\GetAlertResponsesAction;
 use App\Enums\NomEnum;
@@ -389,7 +390,14 @@ class Show extends Component
         $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $responses = $item['response_data'] ?? [];
 
-        $this->domain_rating = (new DomainRatingAction)->execute(responses: $responses);
+        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+            $this->domain_rating = (new DomainRatingAction)->execute(responses: $responses);
+        }
+
+        if($this->questionnaire['name'] == NomEnum::NOM_3->value){
+            $this->domain_rating = (new DomainRatingNom3Action)->execute(responses: $responses);
+        }
+
         Flux::modal('show-domain-rating-modal')->show();
     }
 
