@@ -111,6 +111,20 @@ class Show extends Component
                 ['label' => __('Descarga excel')],
             ];
         } else if($this->questionnaire['name'] == NomEnum::NOM_3->value) {
+            $this->application_data['questionnaire_responses'] = collect($this->application_data['questionnaire_responses'])
+                    ->transform(function ($response) {
+                        $final_score = collect($response['response_data'])->sum(fn ($response) => (int) $response['value']);
+                        $classification = match (true) {
+                            $final_score < 50  => 'Nulo o despreciable',
+                            $final_score < 75  => 'Bajo',
+                            $final_score < 99  => 'Medio',
+                            $final_score < 140  => 'Alto',
+                            default            => 'Muy alto',
+                        };
+                        $response['classification'] = $classification;
+                        return $response;
+                    })->toArray();
+
             $this->headers = [
                 ['label' => __('ID')],
                 ['label' => __('Nivel de Riesgo'), 'field' => 'classification', 'sortable' => true],
