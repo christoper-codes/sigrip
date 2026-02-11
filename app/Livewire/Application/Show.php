@@ -114,6 +114,34 @@ class Show extends Component
         }
     }
 
+    public function validateNom3SpecialCases(): void
+    {
+        if($this->questionnaire['name'] == NomEnum::NOM_3->value){
+            if($this->answers['gr3_q65'] == 1){
+                $this->answers['gr3_q65'] = 2;
+                unset($this->answers['gr3_q66']);
+                unset($this->answers['gr3_q67']);
+                unset($this->answers['gr3_q68']);
+                unset($this->answers['gr3_q69']);
+            }
+
+            if ($this->answers['gr3_q65'] == 0){
+                $this->answers['gr3_q65'] = 1;
+            }
+            if($this->answers['gr3_q70'] == 1){
+                $this->answers['gr3_q70'] = 2;
+                unset($this->answers['gr3_q71']);
+                unset($this->answers['gr3_q72']);
+                unset($this->answers['gr3_q73']);
+                unset($this->answers['gr3_q74']);
+            }
+
+            if ($this->answers['gr3_q70'] == 0){
+                $this->answers['gr3_q70'] = 1;
+            }
+        }
+    }
+
     public function validateNom2SpecialCases(): void
     {
         if($this->questionnaire['name'] == NomEnum::NOM_2->value){
