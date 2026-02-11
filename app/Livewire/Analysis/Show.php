@@ -110,6 +110,21 @@ class Show extends Component
                 ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
                 ['label' => __('Descarga excel')],
             ];
+        } else if($this->questionnaire['name'] == NomEnum::NOM_3->value) {
+            $this->headers = [
+                ['label' => __('ID')],
+                ['label' => __('Nivel de Riesgo'), 'field' => 'classification', 'sortable' => true],
+                ['label' => __('Nombre de empleado')],
+                ['label' => __('Respuestas')],
+                ['label' => __('Alertas')],
+                ['label' => __('Ai - departamento')],
+                ['label' => __('Ai - empleado')],
+                ['label' => __('Calificación por Dominio')],
+                ['label' => __('Calificación por Categoría')],
+                ['label' => __('Calificación Final')],
+                ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
+                ['label' => __('Descarga excel')],
+            ];
         } else {
             $this->headers = [
                 ['label' => __('ID')],
@@ -119,7 +134,7 @@ class Show extends Component
                 ['label' => __('Ai - departamento')],
                 ['label' => __('Ai - empleado')],
                 ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
-                ['label' => _('Descarga excel')],
+                ['label' => __('Descarga excel')],
             ];
         }
 

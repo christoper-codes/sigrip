@@ -46,7 +46,7 @@
                     @foreach ($paginated_items as $response)
                         <tr>
                             <td class="p-4">{{ $response['uuid'] }}</td>
-                            @if($questionnaire['name'] == \App\Enums\NomEnum::NOM_2->value)
+                            @if($questionnaire['name'] == \App\Enums\NomEnum::NOM_2->value || $questionnaire['name'] == \App\Enums\NomEnum::NOM_3->value)
                                 <td class="p-4">{{ $response['classification']  }}</td>
                             @endif
                             <td class="p-4">{{ $response['user']['name'] ?? 'Anónimo' }}</td>
@@ -62,7 +62,7 @@
                             <td class="p-4">
                                 <flux:button wire:click="showAnalysisUser({{ $response['id'] }})" icon="user" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
                             </td>
-                            @if($questionnaire['name'] == \App\Enums\NomEnum::NOM_2->value)
+                            @if($questionnaire['name'] == \App\Enums\NomEnum::NOM_2->value || $questionnaire['name'] == \App\Enums\NomEnum::NOM_3->value)
                                 <td class="p-4">
                                     <flux:button variant="filled" wire:click="showDomainRating({{ $response['id'] }})" icon="chart-bar">{{ __('Dominio') }}</flux:button>
                                 </td>
