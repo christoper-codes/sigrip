@@ -60,7 +60,8 @@ class AiAlertJob implements ShouldQueue
                 questionnaire: $this->questionnaire['metadata'],
                 auth_required: $this->application->auth_required,
             );
-            Log::info('PROMPT NOM 2', ['prompt' => $promt]);
+        } else if($this->questionnaire['name'] == NomEnum::NOM_3->value) {
+
         } else {
             $promt = (new GeneratePromptAction)->execute(
                 responses: $this->responses,
