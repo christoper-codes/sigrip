@@ -56,6 +56,7 @@ class Show extends Component
         $allAnswers = $this->getAllAnswers();
         $this->answers = $allAnswers;
         $this->validateNom2SpecialCases();
+        $this->validateNom3SpecialCases();
 
         DB::beginTransaction();
         try{
