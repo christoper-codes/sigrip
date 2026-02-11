@@ -6,6 +6,7 @@ use App\Actions\Application\GenerateAiAlertAction;
 use App\Actions\Application\GeneratePromptAction;
 use App\Actions\Application\GeneratePromptNom035Section1Action;
 use App\Actions\Application\GeneratePromptNom035Section2Action;
+use App\Actions\Application\GeneratePromptNom035Section3Action;
 use App\Actions\User\CreateNotificationAction;
 use App\Enums\NomEnum;
 use App\Enums\RoleEnum;
@@ -18,7 +19,6 @@ use App\Models\SupportTicketStatus;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class AiAlertJob implements ShouldQueue
@@ -61,7 +61,11 @@ class AiAlertJob implements ShouldQueue
                 auth_required: $this->application->auth_required,
             );
         } else if($this->questionnaire['name'] == NomEnum::NOM_3->value) {
-
+            $promt = (new GeneratePromptNom035Section3Action)->execute(
+                responses: $this->responses,
+                questionnaire: $this->questionnaire['metadata'],
+                auth_required: $this->application->auth_required,
+            );
         } else {
             $promt = (new GeneratePromptAction)->execute(
                 responses: $this->responses,
