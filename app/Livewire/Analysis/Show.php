@@ -406,8 +406,16 @@ class Show extends Component
         $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $responses = $item['response_data'] ?? [];
 
-        $domain_rating = (new DomainRatingAction)->execute(responses: $responses);
-        $this->category_rating = (new CategoryRatingAction)->execute(domain_scores: $domain_rating);
+        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+            $domain_rating = (new DomainRatingAction)->execute(responses: $responses);
+            $this->category_rating = (new CategoryRatingAction)->execute(domain_scores: $domain_rating);
+        }
+
+        if($this->questionnaire['name'] == NomEnum::NOM_3->value){
+            $domain_rating = (new DomainRatingNom3Action)->execute(responses: $responses);
+            $this->category_rating = (new CategoryRatingAction)->execute(domain_scores: $domain_rating);
+        }
+
         Flux::modal('show-category-rating-modal')->show();
     }
 
