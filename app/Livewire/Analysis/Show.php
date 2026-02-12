@@ -3,6 +3,7 @@
 namespace App\Livewire\Analysis;
 
 use App\Actions\Analysis\CategoryRatingAction;
+use App\Actions\Analysis\CategoryRatingNom3Action;
 use App\Actions\Analysis\DomainRatingAction;
 use App\Actions\Analysis\DomainRatingNom3Action;
 use App\Actions\Analysis\FinalScoreAction;
@@ -413,7 +414,7 @@ class Show extends Component
 
         if($this->questionnaire['name'] == NomEnum::NOM_3->value){
             $domain_rating = (new DomainRatingNom3Action)->execute(responses: $responses);
-            $this->category_rating = (new CategoryRatingAction)->execute(domain_scores: $domain_rating);
+            $this->category_rating = (new CategoryRatingNom3Action)->execute(domain_scores: $domain_rating);
         }
 
         Flux::modal('show-category-rating-modal')->show();
