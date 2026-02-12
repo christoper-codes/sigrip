@@ -7,6 +7,7 @@ use App\Actions\Analysis\CategoryRatingNom3Action;
 use App\Actions\Analysis\DomainRatingAction;
 use App\Actions\Analysis\DomainRatingNom3Action;
 use App\Actions\Analysis\FinalScoreAction;
+use App\Actions\Analysis\FinalScoreNom3Action;
 use App\Actions\Analysis\GetAlertResponsesAction;
 use App\Enums\NomEnum;
 use App\Exports\ApplicationResponsesExport;
