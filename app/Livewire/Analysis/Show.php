@@ -425,7 +425,14 @@ class Show extends Component
         $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $responses = $item['response_data'] ?? [];
 
-        $this->final_score = (new FinalScoreAction)->execute(responses: $responses);
+        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+            $this->final_score = (new FinalScoreAction)->execute(responses: $responses);
+        }
+
+        if($this->questionnaire['name'] == NomEnum::NOM_3->value){
+            $this->final_score = (new FinalScoreNom3Action)->execute(responses: $responses);
+        }
+
         Flux::modal('show-final-score-modal')->show();
     }
 
