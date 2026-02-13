@@ -72,8 +72,31 @@
             <form wire:submit.prevent="submitEmployeeData" class="space-y-6 px-5 py-6 lg:px-7 lg:py-7 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-xl">
                 <flux:field>
                     <flux:label>{{ __('Nombre completo') }}</flux:label>
-                    <flux:input name="employee_name" wire:model="form.employee_name" icon="user" placeholder="{{ __('John Doe') }}"/>
-                    <flux:error name="form.employee_name" />
+                    <flux:input name="name" wire:model="form.name" icon="user" placeholder="{{ __('John Doe') }}"/>
+                    <flux:error name="form.name" />
+                </flux:field>
+                <flux:field>
+                    <flux:label>{{ __('Sexo') }}</flux:label>
+                    <flux:select class="!h-12" name="sex" wire:model="form.sex">
+                        <flux:select.option value="">{{ __('Seleccione un sexo') }}</flux:select.option>
+                        <flux:select.option value="masculino">{{ __('Masculino') }}</flux:select.option>
+                        <flux:select.option value="femenino">{{ __('Femenino') }}</flux:select.option>
+                    </flux:select>
+                    <flux:error name="form.sex" />
+                </flux:field>
+                <flux:field>
+                    <flux:label>{{ __('Edad') }}</flux:label>
+                    <flux:input name="age" wire:model="form.age" icon="cake" placeholder="{{ __('30') }}" type="number" min="0" max="120"/>
+                    <flux:error name="form.age" />
+                </flux:field>
+                <flux:field>
+                    <flux:label>{{ __('Puesto') }}</flux:label>
+                    <flux:select class="!h-12" name="sex" wire:model="form.sex">
+                        <flux:select.option value="">{{ __('Seleccione un sexo') }}</flux:select.option>
+                        <flux:select.option value="masculino">{{ __('Masculino') }}</flux:select.option>
+                        <flux:select.option value="femenino">{{ __('Femenino') }}</flux:select.option>
+                    </flux:select>
+                    <flux:error name="form.position" />
                 </flux:field>
             </form>
         </section>
