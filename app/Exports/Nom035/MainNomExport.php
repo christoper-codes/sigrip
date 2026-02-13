@@ -3,7 +3,7 @@ namespace App\Exports\Nom035;
 
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class MainNom2Export implements WithMultipleSheets
+class MainNomExport implements WithMultipleSheets
 {
     protected array $responses;
     protected array $user_data;

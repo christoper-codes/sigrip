@@ -12,7 +12,7 @@ use App\Actions\Analysis\GetAlertResponsesAction;
 use App\Enums\NomEnum;
 use App\Exports\ApplicationResponsesExport;
 use App\Exports\ApplicationShowResponsesExport;
-use App\Exports\Nom035\MainNom2Export;
+use App\Exports\Nom035\MainNomExport;
 use App\Livewire\Traits\Table;
 use App\Models\Application;
 use App\Models\Department;
@@ -244,7 +244,7 @@ class Show extends Component
                 ['Acción', $final['classification']['description']]
             ];
 
-            return Excel::download(new MainNom2Export(
+            return Excel::download(new MainNomExport(
                     responses: $all_responses,
                     user_data: $user_data,
                     alert_responses: $alert_responses,
@@ -323,7 +323,7 @@ class Show extends Component
                 ['Acción', $final['classification']['description']]
             ];
 
-            return Excel::download(new MainNom2Export(
+            return Excel::download(new MainNomExport(
                     responses: $all_responses,
                     user_data: $user_data,
                     alert_responses: $alert_responses,
