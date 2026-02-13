@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('questionnaire_id')->constrained('questionnaires');
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->foreignId('department_id')->constrained('departments');
+            $table->json('employee_data')->nullable();
             $table->json('response_data');
             $table->json('ai_response')->nullable();
             $table->decimal('average_score', 5, 2)->nullable();

@@ -14,6 +14,7 @@ class QuestionnaireResponse extends Model
         'questionnaire_id',
         'user_id',
         'department_id',
+        'employee_data',
         'response_data',
         'ai_response',
         'average_score',
