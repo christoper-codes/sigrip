@@ -195,15 +195,31 @@ class Show extends Component
         $result['total_responses'] = $responses->count();
         $result['start_date'] = $this->application_data['start_date'] ?? null;
         $result['expiration_date'] = $this->application_data['expiration_date'] ?? null;
+        $keyLabels = [
+            'sex' => 'Sexo',
+            'age' => 'Rango de edad',
+            'marital_status' => 'Estado civil',
+            'education_level' => 'Nivel de estudios',
+            'status_education_level' => 'Estado del nivel de estudios',
+            'department' => 'Departamento, Sección o Área',
+            'job_type' => 'Tipo de puesto',
+            'contract_type' => 'Tipo de contratación',
+            'personnel_type' => 'Tipo de personal',
+            'work_schedule_type' => 'Tipo de jornada de trabajo',
+            'shift_rotation' => 'Realiza rotación de turnos',
+            'experience_current_job' => 'Experiencia (años). Tiempo en el puesto actual',
+            'total_experience' => 'Experiencia (años). Tiempo experiencia laboral',
+        ];
 
         if (($this->application_data['employee_data_required'] ?? false) && $responses->count() > 0) {
-            $employee_keys = collect($responses->first()['employee_data'] ?? [])->keys()->filter(fn($k) => $k !== 'name');
+            $employee_keys = collect($responses->first()['employee_data'] ?? [])->keys()->filter(fn($k) => $k !== 'name' && $k !== 'questionnaire_name');
             $employee_stats = [];
             foreach ($employee_keys as $key) {
                 $counts = $responses->map(fn($r) => $r['employee_data'][$key] ?? null)
                     ->filter()
                     ->countBy();
-                $employee_stats[$key] = $counts->toArray();
+                $label = $keyLabels[$key] ?? ucfirst(str_replace('_', ' ', $key));
+                $employee_stats[$label] = $counts->toArray();
             }
             $result['employee_data_stats'] = $employee_stats;
         }

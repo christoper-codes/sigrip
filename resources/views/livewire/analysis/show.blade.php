@@ -290,9 +290,30 @@
                         <flux:icon.sparkles variant="mini" class="text-primary!"/>
                         <flux:heading>{{ __('Resultados') }}</flux:heading>
                     </div>
-
-
-
+                    <div class="mt-4">
+                        <ul class="list-disc ml-5">
+                            <li><strong>{{ __('Total de respuestas:') }}</strong> {{ $general_analysis['total_responses'] ?? 0 }}</li>
+                            <li><strong>{{ __('Fecha de inicio:') }}</strong> {{ $general_analysis['start_date'] ?? '-' }}</li>
+                            <li><strong>{{ __('Fecha de expiración:') }}</strong> {{ $general_analysis['expiration_date'] ?? '-' }}</li>
+                        </ul>
+                    </div>
+                    @if(isset($general_analysis['employee_data_stats']))
+                        <div class="mt-4">
+                            <flux:heading size="md">{{ __('Estadísticas de datos de empleado') }}</flux:heading>
+                            <ul class="list-disc ml-5">
+                                @foreach($general_analysis['employee_data_stats'] as $key => $stats)
+                                    <li class="mb-2">
+                                        <strong>{{ __(ucfirst(str_replace('_', ' ', $key))) }}:</strong>
+                                        <ul class="list-disc ml-5">
+                                            @foreach($stats as $value => $count)
+                                                <li>{{ $value }}: <span class="font-bold">{{ $count }}</span></li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
             @else
                 <flux:text>{{ __('No se pudo generar el análisis general para esta aplicación.') }}</flux:text>
