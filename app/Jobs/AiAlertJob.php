@@ -70,7 +70,7 @@ class AiAlertJob implements ShouldQueue
             $promt = (new GeneratePromptAction)->execute(
                 responses: $this->responses,
                 questionnaire: $this->questionnaire['metadata'],
-                auth_required: $this->application->auth_required,
+                auth_required: true,
             );
         }
 

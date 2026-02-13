@@ -7,7 +7,7 @@ use App\Services\ApplicationAverageService;
 
 final class GeneratePromptAction
 {
-    public function execute(array $responses, array $questionnaire, bool $auth_required = false): array
+    public function execute(array $responses, array $questionnaire, bool $auth_required = true): array
     {
         $incident_types = IncidentType::all(['id', 'name'])->toArray();
 
