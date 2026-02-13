@@ -15,7 +15,7 @@
   ],
   "themes": [
     {
-      "name": "I. Acontecimiento traumático severo",
+      "name": "Acontecimiento traumático severo",
       "section_code": "I",
       "description": "Eventos traumáticos ocurridos durante o con motivo del trabajo.",
       "questions": [
@@ -82,7 +82,7 @@
       ]
     },
     {
-      "name": "II. Recuerdos persistentes",
+      "name": "Recuerdos persistentes sobre el acontecimiento (durante el último mes)",
       "section_code": "II",
       "trigger_section": "I",
       "questions": [
@@ -109,7 +109,7 @@
       ]
     },
     {
-      "name": "III. Evitación",
+      "name": " Esfuerzo por evitar circunstancias parecidas o asociadas al acontecimiento (durante el último mes)",
       "section_code": "III",
       "trigger_section": "I",
       "questions": [
@@ -123,7 +123,7 @@
       ]
     },
     {
-      "name": "IV. Afectación",
+      "name": "Afectación (durante el último mes)",
       "section_code": "IV",
       "trigger_section": "I",
       "questions": [
