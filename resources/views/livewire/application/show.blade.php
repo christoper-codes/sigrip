@@ -68,7 +68,7 @@
                 <flux:heading size="lg" class="text-primary">{{ __('Datos laborales requeridos') }}</flux:heading>
                 <flux:text class="mt-2">{{ __('Por favor, completa tus datos laborales antes de continuar.') }}</flux:text>
                 <flux:modal.trigger name="employee-data-modal">
-                    <flux:button variant="primary" class="mt-6">{{ __('Continuar') }}</flux:button>
+                    <flux:button variant="primary" class="mt-6">{{ __('Comenzar') }}</flux:button>
                 </flux:modal.trigger>
             </div>
 

@@ -27,6 +27,7 @@ class QuestionnaireResponse extends Model
         return [
             'response_data' => 'array',
             'ai_response' => 'array',
+            'employee_data' => 'array',
         ];
     }
 

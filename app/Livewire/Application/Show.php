@@ -99,6 +99,7 @@ class Show extends Component
                 'questionnaire_id' => $this->questionnaire['id'],
                 'user_id' => $this->application->auth_required ? Auth::id() : null,
                 'department_id' => $this->application->executing_department_id,
+                'employee_data' => $this->application->employee_data_required ? $this->form->toArray() : null,
                 'response_data' => $responses,
                 'ai_response' => null,
                 'average_score' => null,
