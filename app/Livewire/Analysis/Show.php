@@ -41,6 +41,7 @@ class Show extends Component
     public ?string $department_analysis = null;
     public ?string $user_analysis = null;
     public ?array $final_score = null;
+    public ?array $employee_data = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -102,6 +103,7 @@ class Show extends Component
                 ['label' => __('Ai - empleado')],
                 ['label' => __('Calificación Final')],
                 ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
+                ['label' => __('Información del empleado')],
                 ['label' => __('Descarga excel')],
             ];
         } else if($this->questionnaire['name'] == NomEnum::NOM_2->value){
@@ -131,6 +133,7 @@ class Show extends Component
                 ['label' => __('Calificación por Categoría')],
                 ['label' => __('Calificación Final')],
                 ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
+                ['label' => __('Información del empleado')],
                 ['label' => __('Descarga excel')],
             ];
         } else if($this->questionnaire['name'] == NomEnum::NOM_3->value) {
@@ -160,6 +163,7 @@ class Show extends Component
                 ['label' => __('Calificación por Categoría')],
                 ['label' => __('Calificación Final')],
                 ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
+                ['label' => __('Información del empleado')],
                 ['label' => __('Descarga excel')],
             ];
         } else {
@@ -171,12 +175,13 @@ class Show extends Component
                 ['label' => __('Ai - departamento')],
                 ['label' => __('Ai - empleado')],
                 ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
+                ['label' => __('Información del empleado')],
                 ['label' => __('Descarga excel')],
             ];
         }
 
         $this->table_items = $this->application_data['questionnaire_responses'];
-        $this->search_fields = ['user.name', 'uuid'];
+        $this->search_fields = ['employee_data.name', 'uuid'];
         $this->refreshTableData();
 
          Flux::modal('select-application')->close();
@@ -617,7 +622,16 @@ class Show extends Component
     {
         $item  = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $this->user_analysis = $item['ai_response']['recommendation_for_user'] ?? 'No hay análisis disponible para esta respuesta.';
+
         Flux::modal('show-user-analysis-modal')->show();
+    }
+
+    public function showEmployeeData(int $response_id): void
+    {
+        $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
+        $this->employee_data = $item['employee_data'] ?? [];
+
+        Flux::modal('show-employee-data-modal')->show();
     }
 
     public function render()

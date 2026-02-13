@@ -49,7 +49,7 @@
                             @if($questionnaire['name'] == \App\Enums\NomEnum::NOM_1->value || $questionnaire['name'] == \App\Enums\NomEnum::NOM_2->value || $questionnaire['name'] == \App\Enums\NomEnum::NOM_3->value)
                                 <td class="p-4">{{ $response['classification']  }}</td>
                             @endif
-                            <td class="p-4">{{ $response['user']['name'] ?? 'Anónimo' }}</td>
+                            <td class="p-4">{{ $response['employee_data']['name'] ?? 'Anónimo' }}</td>
                             <td class="p-4">
                                 <flux:button wire:click="showResponses({{ $response['id'] }})" icon="clipboard-document-list" variant="primary">{{ __('Respuestas') }}</flux:button>
                             </td>
@@ -76,6 +76,9 @@
                                 </td>
                             @endif
                             <td class="p-4">{{ dateFormat($response['created_at']) }}</td>
+                            <td class="p-4">
+                                <flux:button variant="filled" wire:click="showEmployeeData({{ $response['id'] }})" icon="chart-bar">{{ __('Empleado') }}</flux:button>
+                            </td>
                             <td class="p-4">
                                 <flux:button wire:click="downloadResults({{ $response['id'] }})" icon="arrow-down" variant="primary" class="text-dark! dark:text-light! border! border-green-500! bg-green-500/10!">{{ __('Descargar') }}</flux:button>
                             </td>
