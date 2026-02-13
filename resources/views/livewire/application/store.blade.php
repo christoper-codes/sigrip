@@ -54,7 +54,7 @@
             <flux:error name="form.expiration_date" />
         </flux:field>
         <flux:field>
-            <flux:label>{{ __('Requiere autenticación') }}</flux:label>
+            <flux:label>{{ __('Solo para empleados registrados en la plataforma') }}</flux:label>
             <flux:switch wire:model="form.auth_required" align="left" name="auth_required"/>
             <flux:error name="form.auth_required" />
         </flux:field>

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('questionnaire_id')->constrained('questionnaires');
             $table->string('slug')->unique();
             $table->boolean('auth_required')->default(true);
+            $table->boolean('employee_data_required')->default(true);
             $table->date('start_date')->nullable();
             $table->date('expiration_date')->nullable();
             $table->boolean('is_active')->default(true);

@@ -29,5 +29,5 @@ class ApplicationForm extends Form
     public ?string $expiration_date = null;
 
     #[Validate(['required', 'bool'])]
-    public bool $auth_required = true;
+    public bool $auth_required = false;
 }
