@@ -33,9 +33,11 @@ class Show extends Component
     public ?int $total_questions = null;
     public ?int $current_questions = null;
     public int $theme_change = 0;
+    public bool $employee_data_submitted = false;
 
     public function mount(): void
     {
+        $this->employee_data_submitted = $this->application->employee_data_required ? false : true;
         $this->questionnaire = $this->application->questionnaire->toArray();
         $this->company_name = $this->application->issuingDepartment->company->name;
         $this->department_name = $this->application->executingDepartment->name;
@@ -124,7 +126,9 @@ class Show extends Component
 
     public function submitEmployeeData(): void
     {
+        $this->form->questionnaire_name = $this->questionnaire['name'] ?? null;
         $this->validate();
+        $this->employee_data_submitted = true;
     }
 
     public function validateNom3SpecialCases(): void

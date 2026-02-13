@@ -245,108 +245,117 @@
         </section>
     @endif
 
-    <section
-        id="questionnaire-themes"
-        class="mt-20"
-        style="scroll-margin-top: 70px;"
-        x-data="{ first: true }"
-        x-effect="
-            @this.theme_change;
-            if (!first) {
-                setTimeout(() => {
-                    document.getElementById('questionnaire-themes').scrollIntoView({ behavior: 'auto', block: 'start' });
-                }, 100);
-            }
-            first = false;
-        "
-        >
-        @if ($current_theme)
-            <div class="p-5 my-7 rounded-2xl border border-light-variant dark:border-dark-variant bg-light-variant dark:bg-dark-variant">
-                <flux:heading size="lg" class="text-primary">{{ __($current_theme['name']) }}</flux:heading>
-                @if (!empty($current_theme['description']))
-                    <flux:text class="mt-2">{{ __($current_theme['description']) }}</flux:text>
-                @endif
-            </div>
-            <div class="flex flex-col gap-10">
-                @foreach ($current_theme['questions'] as $question)
-                    <flux:field class="w-full">
-                        <div class="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-4">
-                            <flux:label>{{ __($question['text']) }}</flux:label>
-                            @if(in_array($question['id'], ['gr2_q42', 'gr2_q43', 'gr2_q44', 'gr3_q66', 'gr3_q67', 'gr3_q68', 'gr3_q69']))
-                                <div class="py-2 px-2 text-xs border-l-4 border-r-4 border-primary rounded-md">
-                                    {{ __('Responder solo \'Sí\' debe brindar servicio a clientes o usuarios') }}
-                                </div>
-                            @endif
-                            @if(in_array($question['id'], ['gr2_q46', 'gr2_q47', 'gr2_q48', 'gr3_q71', 'gr3_q72', 'gr3_q73', 'gr3_q74']))
-                                <div class="py-2 px-2 text-xs border-l-4 border-r-4 border-primary rounded-md">
-                                    {{ __('Responder solo \'Sí\' eres jefe de otros trabajadores') }}
-                                </div>
-                            @endif
-                        </div>
-
-                        @if (in_array($question['type'], ['select', 'radio_button']) && !empty($question['options']))
-                            <flux:radio.group
-                                name="answers.{{ $question['id'] }}"
-                                wire:model="answers.{{ $question['id'] }}"
-                                class="mt-2 ml-1"
-                            >
-                                @foreach ($question['options'] as $option)
-                                    <flux:radio value="{{ $option['value'] }}" label="{{ $option['label'] }}" />
-                                @endforeach
-                            </flux:radio.group>
-                        @elseif ($question['type'] === 'text')
-                            <flux:textarea
-                                name="answers.{{ $question['id'] }}"
-                                wire:model="answers.{{ $question['id'] }}"
-                                resize="none"
-                                class="mt-2 ml-1"
-                            />
+    @if($employee_data_submitted)
+        <div x-data="{ animation: false }"
+            x-init="$nextTick(() => animation = true)"
+            x-show="animation"
+            x-transition:enter="transition ease-out duration-500"
+            x-transition:enter-start="opacity-0 transform translate-x-8"
+            x-transition:enter-end="opacity-100 transform translate-x-0"
+            class="mt-20">
+            <section
+                id="questionnaire-themes"
+                style="scroll-margin-top: 70px;"
+                x-data="{ first: true }"
+                x-effect="
+                    @this.theme_change;
+                    if (!first) {
+                        setTimeout(() => {
+                            document.getElementById('questionnaire-themes').scrollIntoView({ behavior: 'auto', block: 'start' });
+                        }, 100);
+                    }
+                    first = false;
+                "
+                >
+                @if ($current_theme)
+                    <div class="p-5 my-7 rounded-2xl border border-light-variant dark:border-dark-variant bg-light-variant dark:bg-dark-variant">
+                        <flux:heading size="lg" class="text-primary">{{ __($current_theme['name']) }}</flux:heading>
+                        @if (!empty($current_theme['description']))
+                            <flux:text class="mt-2">{{ __($current_theme['description']) }}</flux:text>
                         @endif
-                        <flux:error name="answers.{{ $question['id'] }}" class="!mt-0"/>
-                    </flux:field>
-                @endforeach
-            </div>
-            <div class="mt-16 flex items-center gap-3">
-                <flux:button
-                    icon="arrow-left"
-                    variant="primary"
-                    wire:click="prevTheme"
-                    :disabled="$theme_index === 0"
-                    >
-                    {{ __('Anterior') }}
-                </flux:button>
-                @if ($theme_index === $theme_count - 1)
-                    <flux:button
-                        class="border! border-primary! bg-primary/10!"
-                        wire:click="submit"
-                    >
-                        <span wire:loading.remove wire:target="submit" class="flex items-center gap-1.5">
-                            {{ __('Finalizar aplicación') }}
-                        </span>
-                        <span wire:loading wire:target="submit">
-                            <x-flux::icon.loading class="size-4! mx-[53.8px]!" />
-                        </span>
-                    </flux:button>
-                @else
-                    <flux:button
-                        icon:trailing="arrow-right"
-                        variant="primary"
-                        wire:click="nextTheme"
-                        :disabled="$theme_index === $theme_count-1"
-                    >
-                        {{ __('Siguiente') }}
-                    </flux:button>
+                    </div>
+                    <div class="flex flex-col gap-10">
+                        @foreach ($current_theme['questions'] as $question)
+                            <flux:field class="w-full">
+                                <div class="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-4">
+                                    <flux:label>{{ __($question['text']) }}</flux:label>
+                                    @if(in_array($question['id'], ['gr2_q42', 'gr2_q43', 'gr2_q44', 'gr3_q66', 'gr3_q67', 'gr3_q68', 'gr3_q69']))
+                                        <div class="py-2 px-2 text-xs border-l-4 border-r-4 border-primary rounded-md">
+                                            {{ __('Responder solo \'Sí\' debe brindar servicio a clientes o usuarios') }}
+                                        </div>
+                                    @endif
+                                    @if(in_array($question['id'], ['gr2_q46', 'gr2_q47', 'gr2_q48', 'gr3_q71', 'gr3_q72', 'gr3_q73', 'gr3_q74']))
+                                        <div class="py-2 px-2 text-xs border-l-4 border-r-4 border-primary rounded-md">
+                                            {{ __('Responder solo \'Sí\' eres jefe de otros trabajadores') }}
+                                        </div>
+                                    @endif
+                                </div>
+
+                                @if (in_array($question['type'], ['select', 'radio_button']) && !empty($question['options']))
+                                    <flux:radio.group
+                                        name="answers.{{ $question['id'] }}"
+                                        wire:model="answers.{{ $question['id'] }}"
+                                        class="mt-2 ml-1"
+                                    >
+                                        @foreach ($question['options'] as $option)
+                                            <flux:radio value="{{ $option['value'] }}" label="{{ $option['label'] }}" />
+                                        @endforeach
+                                    </flux:radio.group>
+                                @elseif ($question['type'] === 'text')
+                                    <flux:textarea
+                                        name="answers.{{ $question['id'] }}"
+                                        wire:model="answers.{{ $question['id'] }}"
+                                        resize="none"
+                                        class="mt-2 ml-1"
+                                    />
+                                @endif
+                                <flux:error name="answers.{{ $question['id'] }}" class="!mt-0"/>
+                            </flux:field>
+                        @endforeach
+                    </div>
+                    <div class="mt-16 flex items-center gap-3">
+                        <flux:button
+                            icon="arrow-left"
+                            variant="primary"
+                            wire:click="prevTheme"
+                            :disabled="$theme_index === 0"
+                            >
+                            {{ __('Anterior') }}
+                        </flux:button>
+                        @if ($theme_index === $theme_count - 1)
+                            <flux:button
+                                class="border! border-primary! bg-primary/10!"
+                                wire:click="submit"
+                            >
+                                <span wire:loading.remove wire:target="submit" class="flex items-center gap-1.5">
+                                    {{ __('Finalizar aplicación') }}
+                                </span>
+                                <span wire:loading wire:target="submit">
+                                    <x-flux::icon.loading class="size-4! mx-[53.8px]!" />
+                                </span>
+                            </flux:button>
+                        @else
+                            <flux:button
+                                icon:trailing="arrow-right"
+                                variant="primary"
+                                wire:click="nextTheme"
+                                :disabled="$theme_index === $theme_count-1"
+                            >
+                                {{ __('Siguiente') }}
+                            </flux:button>
+                        @endif
+                    </div>
+                    @if($error_message)
+                        <div class="flex items-start gap-2 mt-5">
+                            <flux:icon.exclamation-triangle class="text-red-500 size-5" />
+                            <flux:text class="!text-red-500">{{ $error_message }}</flux:text>
+                        </div>
+                    @endif
+                    <div class="flex mt-5">
+                        <flux:text>{{ __('Preguntas ') }} {{ $current_questions }} {{ __(' de ') }} {{ $total_questions }}</flux:text>
+                    </div>
                 @endif
-            </div>
-             @if($error_message)
-                <div class="flex items-start gap-2 mt-5">
-                    <flux:icon.exclamation-triangle class="text-red-500 size-5" />
-                    <flux:text class="!text-red-500">{{ $error_message }}</flux:text>
-                </div>
-            @endif
-            <div class="flex mt-5">
-                <flux:text>{{ __('Preguntas ') }} {{ $current_questions }} {{ __(' de ') }} {{ $total_questions }}</flux:text>
-            </div>
-        @endif
-    </section>
+            </section>
+        </div>
+    @endif
 </div>
