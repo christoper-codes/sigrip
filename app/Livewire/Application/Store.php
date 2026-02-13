@@ -73,6 +73,7 @@ class Store extends Component
                 'questionnaire_id' => $this->form->questionnaire,
                 'slug' => $this->form->slug,
                 'auth_required' => $this->form->auth_required,
+                'employee_data_required' => $this->form->employee_data_required,
                 'start_date' => $this->form->start_date,
                 'expiration_date' => $this->form->expiration_date,
             ]);
@@ -95,6 +96,7 @@ class Store extends Component
                 'form.executing_department',
                 'form.questionnaire',
                 'form.auth_required',
+                'form.employee_data_required',
                 'form.start_date',
                 'form.expiration_date',
             ]);

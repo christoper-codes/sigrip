@@ -30,4 +30,7 @@ class ApplicationForm extends Form
 
     #[Validate(['required', 'bool'])]
     public bool $auth_required = false;
+
+    #[Validate(['required', 'bool'])]
+    public bool $employee_data_required = true;
 }

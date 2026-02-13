@@ -58,6 +58,11 @@
             <flux:switch wire:model="form.auth_required" align="left" name="auth_required"/>
             <flux:error name="form.auth_required" />
         </flux:field>
+        <flux:field>
+            <flux:label>{{ __('Requiere datos del empleado') }}</flux:label>
+            <flux:switch wire:model="form.employee_data_required" align="left" name="employee_data_required"/>
+            <flux:error name="form.employee_data_required" />
+        </flux:field>
 
         <flux:button type="submit" variant="primary">{{ __('Guardar') }}</flux:button>
     </form>

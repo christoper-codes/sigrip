@@ -19,6 +19,7 @@ class Application extends Model
         'questionnaire_id',
         'slug',
         'auth_required',
+        'employee_data_required',
         'start_date',
         'expiration_date',
         'is_active',
