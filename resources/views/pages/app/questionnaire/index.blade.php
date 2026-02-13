@@ -27,13 +27,13 @@
                     <flux:text class="mt-2">{{ __('Información de cuestionarios bases basada en: ') }}</flux:text>
                     <ul class="list-disc ml-5">
                         <li class="mt-2">
-                            <div class="flex items-center gap-x-2 opacity-70 text-xs">
-                                <flux:link href="#">{{ __('Decreto 1072 de 2015') }}</flux:link>
-                                <span>-</span>
-                                <flux:link href="#">{{ __('Decreto NOM 035') }}</flux:link>
-                                <span>-</span>
-                                <flux:link href="#">{{ __('Normas 2018') }}</flux:link>
-                            </div>
+                            <flux:link
+                                class="text-xs! text-dark! dark:text-light!"
+                                href="https://www.gob.mx/cms/uploads/attachment/file/540215/NORMA_Oficial_Mexicana_NOM-035-STPS-2018.pdf"
+                                target="_blank"
+                                >
+                                {{ __('NORMA Oficial Mexicana NOM-035-STPS-2018') }}
+                            </flux:link>
                         </li>
                     </ul>
                     <div class="mt-10">

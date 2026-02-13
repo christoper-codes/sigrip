@@ -24,8 +24,19 @@
             x-transition:enter-end="opacity-100 transform translate-x-0"
             class="mt-10">
             <div class="mb-10">
-                <flux:heading size="lg">{{ ucfirst(str_replace('-', ' ', explode('-', $application_data['slug'], -1) ? implode('-', explode('-', $application_data['slug'], -1)) : $application_data['slug'])) }}</flux:heading>
+                <flux:heading size="xl">{{ ucfirst(str_replace('-', ' ', explode('-', $application_data['slug'], -1) ? implode('-', explode('-', $application_data['slug'], -1)) : $application_data['slug'])) }}</flux:heading>
                 <flux:text class="mt-2">{{ 'Inicio: ' . $application_data['start_date'] . ' - Término: ' . $application_data['expiration_date'] }}</flux:text>
+                <ul class="list-disc ml-5">
+                    <li class="mt-2">
+                        <flux:link
+                            class="text-xs! text-dark! dark:text-light!"
+                            href="https://www.gob.mx/cms/uploads/attachment/file/540215/NORMA_Oficial_Mexicana_NOM-035-STPS-2018.pdf"
+                            target="_blank"
+                            >
+                            {{ __('NORMA Oficial Mexicana NOM-035-STPS-2018') }}
+                        </flux:link>
+                    </li>
+                </ul>
                 <div class="mt-5 max-w-60">
                     <flux:button icon="arrow-down" wire:click='downloadResults' class="!w-full !py-6 !border !border-primary !bg-primary/10 !rounded-xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
                         {{ __('Descargar resultados') }}
