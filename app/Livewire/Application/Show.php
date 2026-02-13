@@ -56,6 +56,11 @@ class Show extends Component
             return;
         }
 
+        if($this->application->employee_data_required){
+            $this->validate();
+        }
+
+
         $allAnswers = $this->getAllAnswers();
         $this->answers = $allAnswers;
         $this->validateNom2SpecialCases();
