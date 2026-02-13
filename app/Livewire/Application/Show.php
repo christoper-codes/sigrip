@@ -44,6 +44,14 @@ class Show extends Component
         $this->department_name = $this->application->executingDepartment->name;
         $this->current_theme_step = 0;
         $this->setThemesAndCurrentTheme();
+
+        $employee_data = session('employee_data_' . $this->application->id);
+        if ($employee_data) {
+            foreach ($employee_data as $key => $value) {
+                $this->form->{$key} = $value;
+            }
+            $this->employee_data_submitted = true;
+        }
     }
 
     public function submit()
@@ -130,6 +138,7 @@ class Show extends Component
         $this->form->questionnaire_name = $this->questionnaire['name'] ?? null;
         $this->validate();
         $this->employee_data_submitted = true;
+        session(['employee_data_' . $this->application->id => $this->form->toArray()]);
 
         Flux::modal('employee-data-modal')->close();
     }
