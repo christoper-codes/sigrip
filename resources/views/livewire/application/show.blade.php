@@ -61,6 +61,16 @@
             <flux:callout color="yellow" icon="information-circle" heading="{{ __('Estás accediendo a esta aplicación como visitante') }}" />
         </section>
     @endif
+
+    @if($application->employee_data_required)
+        <section class="mt-20">
+            <div class="p-5 my-7 rounded-2xl border border-light-variant dark:border-dark-variant bg-light-variant dark:bg-dark-variant">
+                <flux:heading size="lg" class="text-primary">{{ __('Datos laborales requeridos') }}</flux:heading>
+                <flux:text class="mt-2">{{ __('Por favor, completa tus datos laborales antes de continuar.') }}</flux:text>
+            </div>
+        </section>
+    @endif
+
     <section
         id="questionnaire-themes"
         class="mt-20"

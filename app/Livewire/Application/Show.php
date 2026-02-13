@@ -60,7 +60,6 @@ class Show extends Component
             $this->validate();
         }
 
-
         $allAnswers = $this->getAllAnswers();
         $this->answers = $allAnswers;
         $this->validateNom2SpecialCases();
