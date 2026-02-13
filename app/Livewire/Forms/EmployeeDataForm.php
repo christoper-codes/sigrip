@@ -23,6 +23,9 @@ class EmployeeDataForm extends Form
     public ?string $education_level = null;
 
     #[Validate(['required', 'string', 'min:3'])]
+    public ?string $status_education_level = null;
+
+    #[Validate(['required', 'string', 'min:3'])]
     public ?string $job_title = null;
 
     #[Validate(['required', 'string', 'min:3'])]

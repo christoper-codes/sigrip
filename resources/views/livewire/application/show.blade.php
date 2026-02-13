@@ -85,19 +85,154 @@
                     <flux:error name="form.sex" />
                 </flux:field>
                 <flux:field>
-                    <flux:label>{{ __('Edad') }}</flux:label>
-                    <flux:input name="age" wire:model="form.age" icon="cake" placeholder="{{ __('30') }}" type="number" min="0" max="120"/>
+                    <flux:label>{{ __('Edad en años') }}</flux:label>
+                    <flux:select class="!h-12" name="age" wire:model="form.age">
+                        <flux:select.option value="">{{ __('Seleccione un rango de edad') }}</flux:select.option>
+                        <flux:select.option value="15-19">{{ __('15 - 19') }}</flux:select.option>
+                        <flux:select.option value="20-24">{{ __('20 - 24') }}</flux:select.option>
+                        <flux:select.option value="25-29">{{ __('25 - 29') }}</flux:select.option>
+                        <flux:select.option value="30-34">{{ __('30 - 34') }}</flux:select.option>
+                        <flux:select.option value="35-39">{{ __('35 - 39') }}</flux:select.option>
+                        <flux:select.option value="40-44">{{ __('40 - 44') }}</flux:select.option>
+                        <flux:select.option value="45-49">{{ __('45 - 49') }}</flux:select.option>
+                        <flux:select.option value="50-54">{{ __('50 - 54') }}</flux:select.option>
+                        <flux:select.option value="55-59">{{ __('55 - 59') }}</flux:select.option>
+                        <flux:select.option value="60-64">{{ __('60 - 64') }}</flux:select.option>
+                        <flux:select.option value="65-69">{{ __('65 - 69') }}</flux:select.option>
+                        <flux:select.option value="70+">{{ __('70 o más') }}</flux:select.option>
+                    </flux:select>
                     <flux:error name="form.age" />
                 </flux:field>
                 <flux:field>
-                    <flux:label>{{ __('Puesto') }}</flux:label>
-                    <flux:select class="!h-12" name="sex" wire:model="form.sex">
-                        <flux:select.option value="">{{ __('Seleccione un sexo') }}</flux:select.option>
-                        <flux:select.option value="masculino">{{ __('Masculino') }}</flux:select.option>
-                        <flux:select.option value="femenino">{{ __('Femenino') }}</flux:select.option>
+                    <flux:label>{{ __('Estado civil') }}</flux:label>
+                    <flux:select class="!h-12" name="marital_status" wire:model="form.marital_status">
+                        <flux:select.option value="">{{ __('Seleccione un estado civil') }}</flux:select.option>
+                        <flux:select.option value="casado">{{ __('Casado') }}</flux:select.option>
+                        <flux:select.option value="soltero">{{ __('Soltero') }}</flux:select.option>
+                        <flux:select.option value="union libre">{{ __('Unión libre') }}</flux:select.option>
+                        <flux:select.option value="divorciado">{{ __('Divorciado') }}</flux:select.option>
+                        <flux:select.option value="viudo">{{ __('Viudo') }}</flux:select.option>
                     </flux:select>
+                    <flux:error name="form.marital_status" />
+                </flux:field>
+                <flux:field>
+                    <flux:label>{{ __('Nivel de estudios') }}</flux:label>
+                    <flux:select class="!h-12" name="education_level" wire:model="form.education_level">
+                        <flux:select.option value="">{{ __('Seleccione un nivel de estudios') }}</flux:select.option>
+                        <flux:select.option value="sin formacion">{{ __('Sin formación') }}</flux:select.option>
+                        <flux:select.option value="primaria">{{ __('Primaria') }}</flux:select.option>
+                        <flux:select.option value="secundaria">{{ __('Secundaria') }}</flux:select.option>
+                        <flux:select.option value="preparatoria o bachillerato">{{ __('Preparatoria o Bachillerato') }}</flux:select.option>
+                        <flux:select.option value="tecnico superior">{{ __('Técnico Superior') }}</flux:select.option>
+                        <flux:select.option value="licenciatura">{{ __('Licenciatura') }}</flux:select.option>
+                        <flux:select.option value="maestria">{{ __('Maestría') }}</flux:select.option>
+                        <flux:select.option value="doctorado">{{ __('Doctorado') }}</flux:select.option>
+                    </flux:select>
+                    <flux:error name="form.education_level" />
+                </flux:field>
+                <flux:field>
+                    <flux:label>{{ __('Estado del nivel de estudios') }}</flux:label>
+                    <flux:select class="!h-12" name="status_education_level" wire:model="form.status_education_level">
+                        <flux:select.option value="">{{ __('Seleccione un estado del nivel de estudios') }}</flux:select.option>
+                        <flux:select.option value="terminada">{{ __('Terminada') }}</flux:select.option>
+                        <flux:select.option value="en curso">{{ __('En curso') }}</flux:select.option>
+                        <flux:select.option value="incompleta">{{ __('Incompleta') }}</flux:select.option>
+                    </flux:select>
+                    <flux:error name="form.status_education_level" />
+                </flux:field>
+                <flux:field>
+                    <flux:label>{{ __('Puesto de trabajo') }}</flux:label>
+                    <flux:input name="position" wire:model="form.position" icon="briefcase" placeholder="{{ __('Analista de datos') }}"/>
                     <flux:error name="form.position" />
                 </flux:field>
+                <flux:field>
+                    <flux:label>{{ __('Departamento, Sección o Área') }}</flux:label>
+                    <flux:input name="department" wire:model="form.department" icon="building-office" placeholder="{{ __('Recursos Humanos') }}"/>
+                    <flux:error name="form.department" />
+                </flux:field>
+                <flux:field>
+                    <flux:label>{{ __('Tipo de puesto') }}</flux:label>
+                    <flux:select class="!h-12" name="job_type" wire:model="form.job_type">
+                        <flux:select.option value="">{{ __('Seleccione un tipo de puesto') }}</flux:select.option>
+                        <flux:select.option value="operativo">{{ __('Operativo') }}</flux:select.option>
+                        <flux:select.option value="profesional o tecnico">{{ __('Profesional o técnico') }}</flux:select.option>
+                        <flux:select.option value="supervisor">{{ __('Supervisor') }}</flux:select.option>
+                        <flux:select.option value="gerente">{{ __('Gerente') }}</flux:select.option>
+                    </flux:select>
+                    <flux:error name="form.job_type" />
+                </flux:field>
+                <flux:field>
+                    <flux:label>{{ __('Tipo de contratación') }}</flux:label>
+                    <flux:select class="!h-12" name="contract_type" wire:model="form.contract_type">
+                        <flux:select.option value="">{{ __('Seleccione un tipo de contratación') }}</flux:select.option>
+                        <flux:select.option value="por obra o proyecto">{{ __('Por obra o proyecto') }}</flux:select.option>
+                        <flux:select.option value="por tiempo determinado (temporal)">{{ __('Por tiempo determinado (temporal)') }}</flux:select.option>
+                        <flux:select.option value="tiempo indeterminado">{{ __('Tiempo indeterminado') }}</flux:select.option>
+                        <flux:select.option value="honorarios">{{ __('Honorarios') }}</flux:select.option>
+                    </flux:select>
+                    <flux:error name="form.contract_type" />
+                </flux:field>
+                <flux:field>
+                    <flux:label>{{ __('Tipo de personal') }}</flux:label>
+                    <flux:select class="!h-12" name="person_type" wire:model="form.person_type">
+                        <flux:select.option value="">{{ __('Seleccione un tipo de personal') }}</flux:select.option>
+                        <flux:select.option value="sindicalizado">{{ __('Sindicalizado') }}</flux:select.option>
+                        <flux:select.option value="ninguno">{{ __('Ninguno') }}</flux:select.option>
+                        <flux:select.option value="confianza">{{ __('Confianza') }}</flux:select.option>
+                    </flux:select>
+                    <flux:error name="form.person_type" />
+                </flux:field>
+                <flux:field>
+                    <flux:label>{{ __('Tipo de jornada de trabajo') }}</flux:label>
+                    <flux:select class="!h-12" name="work_schedule_type" wire:model="form.work_schedule_type">
+                        <flux:select.option value="">{{ __('Seleccione un tipo de jornada de trabajo') }}</flux:select.option>
+                        <flux:select.option value="fijo nocturno (entre las 20:00 y 6:00 hrs)">{{ __('Fijo nocturno (entre las 20:00 y 6:00 hrs)') }}</flux:select.option>
+                        <flux:select.option value="fijo diurno (entre las 6:00 y 20:00 hrs)">{{ __('Fijo diurno (entre las 6:00 y 20:00 hrs)') }}</flux:select.option>
+                        <flux:select.option value="fijo mixto (combinación de nocturno y diurno)">{{ __('Fijo mixto (combinación de nocturno y diurno)') }}</flux:select.option>
+                    </flux:select>
+                    <flux:error name="form.work_schedule_type" />
+                </flux:field>
+                <flux:field>
+                    <flux:label>{{ __('Realiza rotación de turnos') }}</flux:label>
+                    <flux:select class="!h-12" name="shift_rotation" wire:model="form.shift_rotation">
+                        <flux:select.option value="">{{ __('Seleccione una opción') }}</flux:select.option>
+                        <flux:select.option value="si">{{ __('Sí') }}</flux:select.option>
+                        <flux:select.option value="no">{{ __('No') }}</flux:select.option>
+                    </flux:select>
+                    <flux:error name="form.shift_rotation" />
+                </flux:field>
+                <flux:field>
+                    <flux:label>{{ __('Experiencia (años). Tiempo en el puesto actual') }}</flux:label>
+                    <flux:select class="!h-12" name="experience_current_job" wire:model="form.experience_current_job">
+                        <flux:select.option value="">{{ __('Seleccione una opción') }}</flux:select.option>
+                        <flux:select.option value="menos de 6 meses">{{ __('Menos de 6 meses') }}</flux:select.option>
+                        <flux:select.option value="entre 6 meses y  1 año">{{ __('Entre 6 meses y  1 año') }}</flux:select.option>
+                        <flux:select.option value="entre 1 a 4 años">{{ __('Entre 1 a 4 años') }}</flux:select.option>
+                        <flux:select.option value="entre 5 a 9 años">{{ __('Entre 5 a 9 años') }}</flux:select.option>
+                        <flux:select.option value="entre 10 a 14 años">{{ __('Entre 10 a 14 años') }}</flux:select.option>
+                        <flux:select.option value="entre 15 a 19 años">{{ __('Entre 15 a 19 años') }}</flux:select.option>
+                        <flux:select.option value="entre 20 a 24 años">{{ __('Entre 20 a 24 años') }}</flux:select.option>
+                        <flux:select.option value="25 años o más">{{ __('25 años o más') }}</flux:select.option>
+                    </flux:select>
+                    <flux:error name="form.experience_current_job" />
+                </flux:field>
+                <flux:field>
+                    <flux:label>{{ __('Experiencia (años). Tiempo experiencia laboral') }}</flux:label>
+                    <flux:select class="!h-12" name="total_experience" wire:model="form.total_experience">
+                        <flux:select.option value="">{{ __('Seleccione una opción') }}</flux:select.option>
+                        <flux:select.option value="menos de 6 meses">{{ __('Menos de 6 meses') }}</flux:select.option>
+                        <flux:select.option value="entre 6 meses y  1 año">{{ __('Entre 6 meses y  1 año') }}</flux:select.option>
+                        <flux:select.option value="entre 1 a 4 años">{{ __('Entre 1 a 4 años') }}</flux:select.option>
+                        <flux:select.option value="entre 5 a 9 años">{{ __('Entre 5 a 9 años') }}</flux:select.option>
+                        <flux:select.option value="entre 10 a 14 años">{{ __('Entre 10 a 14 años') }}</flux:select.option>
+                        <flux:select.option value="entre 15 a 19 años">{{ __('Entre 15 a 19 años') }}</flux:select.option>
+                        <flux:select.option value="entre 20 a 24 años">{{ __('Entre 20 a 24 años') }}</flux:select.option>
+                        <flux:select.option value="25 años o más">{{ __('25 años o más') }}</flux:select.option>
+                    </flux:select>
+                    <flux:error name="form.total_experience" />
+                </flux:field>
+
+                <flux:button type="submit" variant="primary">{{ __('Guardar') }}</flux:button>
             </form>
         </section>
     @endif
