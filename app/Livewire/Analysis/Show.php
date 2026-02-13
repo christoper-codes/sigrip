@@ -42,6 +42,7 @@ class Show extends Component
     public ?string $user_analysis = null;
     public ?array $final_score = null;
     public ?array $employee_data = null;
+    public ?array $general_analysis = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -183,8 +184,32 @@ class Show extends Component
         $this->table_items = $this->application_data['questionnaire_responses'];
         $this->search_fields = ['employee_data.name', 'uuid'];
         $this->refreshTableData();
+        $this->generalApplicationAnalysis();
 
-         Flux::modal('select-application')->close();
+        Flux::modal('select-application')->close();
+    }
+
+    public function generalApplicationAnalysis(): void
+    {
+        $responses = collect($this->application_data['questionnaire_responses']);
+        $result = [];
+        $result['total_responses'] = $responses->count();
+        $result['start_date'] = $this->application_data['start_date'] ?? null;
+        $result['expiration_date'] = $this->application_data['expiration_date'] ?? null;
+
+        if (($this->application_data['employee_data_required'] ?? false) && $responses->count() > 0) {
+            $employee_keys = collect($responses->first()['employee_data'] ?? [])->keys()->filter(fn($k) => $k !== 'name');
+            $employee_stats = [];
+            foreach ($employee_keys as $key) {
+                $counts = $responses->map(fn($r) => $r['employee_data'][$key] ?? null)
+                    ->filter()
+                    ->countBy();
+                $employee_stats[$key] = $counts->toArray();
+            }
+            $result['employee_data_stats'] = $employee_stats;
+        }
+
+        $this->general_analysis = $result;
     }
 
     public function downloadAllResults(): BinaryFileResponse
