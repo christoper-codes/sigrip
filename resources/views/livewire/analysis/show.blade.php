@@ -37,8 +37,11 @@
                         </flux:link>
                     </li>
                 </ul>
-                <div class="mt-5 max-w-60">
-                    <flux:button icon="arrow-down" wire:click='downloadResults' class="!w-full !py-6 !border !border-primary !bg-primary/10 !rounded-xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
+                <div class="mt-5 flex flex-col lg:flex-row items-center gap-2 max-w-md">
+                    <flux:button icon="bolt" wire:click='showGeneralAnalysis' class="!w-full !py-6 !border  !border-primary !bg-primary/10 !rounded-xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
+                        {{ __('Análisis general') }}
+                    </flux:button>
+                    <flux:button icon="arrow-down" wire:click='downloadResults' class="!w-full !py-6 !border border-green-500! bg-green-500/10! !rounded-xl !text-sm !cursor-pointer hover:!bg-green-500/5 !transition-colors !shadow-xl/50 !shadow-green-500/20">
                         {{ __('Descargar resultados') }}
                     </flux:button>
                 </div>

@@ -184,12 +184,11 @@ class Show extends Component
         $this->table_items = $this->application_data['questionnaire_responses'];
         $this->search_fields = ['employee_data.name', 'uuid'];
         $this->refreshTableData();
-        $this->generalApplicationAnalysis();
 
         Flux::modal('select-application')->close();
     }
 
-    public function generalApplicationAnalysis(): void
+    public function showGeneralAnalysis(): void
     {
         $responses = collect($this->application_data['questionnaire_responses']);
         $result = [];
@@ -210,6 +209,8 @@ class Show extends Component
         }
 
         $this->general_analysis = $result;
+
+        Flux::modal('general-analysis-modal')->show();
     }
 
     public function downloadAllResults(): BinaryFileResponse
