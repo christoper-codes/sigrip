@@ -174,8 +174,8 @@ class Show extends Component
         $responses = $response['response_data'] ?? [];
         $themes = $this->questionnaire['metadata']['themes'];
         $format_responses = $this->setFormatResponses($themes, $responses);
-
         $export_name =  $this->application_data['slug'] . '_detailed_responses.xlsx';
+
         if($this->questionnaire['name'] == NomEnum::NOM_2->value){
             /*  Responses */
             $export_name =  $this->application_data['slug'] . '_guia_referencia_ii_responses.xlsx';
@@ -255,6 +255,85 @@ class Show extends Component
                 ), $export_name);
         }
 
+        if($this->questionnaire['name'] == NomEnum::NOM_3->value){
+            /*  Responses */
+            $export_name =  $this->application_data['slug'] . '_guia_referencia_iii_responses.xlsx';
+            $all_responses = $this->setDomainAndCategory($format_responses);
+
+            /* User data */
+            $user_data = [
+                ['Nombre completo', 'chris'],
+                ['Sexo', 'masculino'],
+                ['Edad', '30'],
+                ['Estado civil', 'soltero'],
+                ['Nivel de estudios', 'licenciatura'],
+                ['Puesto de trabajo', 'desarrollador'],
+                ['Departamento', 'tecnología'],
+                ['Tipo de puesto', 'senior'],
+                ['Tipo de contratación', 'tiempo completo'],
+                ['Tipo de personal', 'permanente'],
+                ['Tipo de jornada', 'diurna'],
+                ['Realiza rotación de turnos', 'no'],
+                ['Experiencia en el puesto actual (años)', '5'],
+                ['Experiencia laboral total (años)', '10'],
+                ['Questionario aplicado', $this->questionnaire['name']],
+            ];
+
+            /* Alert responses */
+            $alerts = (new GetAlertResponsesAction)->execute(response: $response, themes: $themes);
+            $alert_responses = $this->setDomainAndCategory($alerts);
+
+            /* Analysis Ai */
+            $analysis_ai = [[
+                'recommendation_for_user' => $response['ai_response']['recommendation_for_user'] ?? null,
+                'recommendation_for_department' => $response['ai_response']['recommendation_for_department'] ?? null,
+                'ticket_title' => $response['ai_response']['ticket_data']['ticket_title'] ?? null,
+                'ticket_description' => $response['ai_response']['ticket_data']['ticket_description'] ?? null,
+            ]];
+
+            /* Domain data */
+            $domain_scores = (new DomainRatingNom3Action)->execute(responses: $responses);
+            $domain_data = [];
+            foreach ($domain_scores as $domain => $score) {
+                $domain_data[] = [
+                    $domain,
+                    (string) $score['score'] ?? (string) 0,
+                    $score['classification'] ?? null,
+                    $score['category'] ?? null,
+                ];
+            }
+
+            /* Category data */
+            $category = (new CategoryRatingNom3Action)->execute(domain_scores: $domain_scores);
+            $category_data = [];
+            foreach ($category as $category_name => $score) {
+                $category_data[] = [
+                    $category_name,
+                    (string) $score['score'] ?? (string) 0,
+                    $score['classification'] ?? null,
+                ];
+            }
+
+            /* Final data */
+            $final = (new FinalScoreNom3Action)->execute(responses: $responses);
+            $final_data = [
+                ['Questionario', $this->questionnaire['name']],
+                ['Puntaje final', $final['final_score']],
+                ['Clasificación', $final['classification']['label']],
+                ['Acción', $final['classification']['description']]
+            ];
+
+            return Excel::download(new MainNom2Export(
+                    responses: $all_responses,
+                    user_data: $user_data,
+                    alert_responses: $alert_responses,
+                    analysis_ai: $analysis_ai,
+                    domain_data: $domain_data,
+                    category_data: $category_data,
+                    final_data: $final_data
+                ), $export_name);
+        }
+
         return Excel::download(new ApplicationShowResponsesExport($format_responses), $export_name);
     }
 
@@ -263,7 +342,12 @@ class Show extends Component
         return collect($responses)->transform(function ($theme) {
                 $theme['questions'] = collect($theme['questions'])->transform(function ($question) {
                     $item = (int) preg_replace('/\D/', '', $question['id']);
-                    $resolve = $this->resolveDomainAndCategory($item);
+                    if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+                        $resolve = $this->resolveDomainAndCategory($item);
+                    }
+                    if($this->questionnaire['name'] == NomEnum::NOM_3->value){
+                        $resolve = $this->resolveDomainAndCategoryNom3($item);
+                    }
 
                     return array_merge($question, [
                         'domain'   => $resolve['domain'],
@@ -309,6 +393,75 @@ class Show extends Component
             'Violencia' => [
                 'category' => 'Liderazgo y relaciones en el trabajo',
                 'items' => [33,34,35,36,37,38,39,40],
+            ],
+        ];
+
+        foreach ($domain_map as $domain => $config) {
+            if (in_array($item, $config['items'], true)) {
+                return [
+                    'domain' => $domain,
+                    'category' => $config['category'],
+                ];
+            }
+        }
+
+        return [
+            'domain' => null,
+            'category' => null,
+        ];
+    }
+
+    public function resolveDomainAndCategoryNom3(int $item): array
+    {
+        $domain_map = [
+            'Condiciones en el ambiente de trabajo' => [
+                'category' => 'Ambiente de trabajo',
+                'items' => [1,2,3,4,5],
+            ],
+
+            'Carga de trabajo' => [
+                'category' => 'Factores propios de la actividad',
+                'items' => [6,7,8,9,10,11,12,13,14,15,16,66,67,68,69],
+            ],
+
+            'Falta de control sobre el trabajo' => [
+                'category' => 'Factores propios de la actividad',
+                'items' => [23,24,25,26,27,28,29,30,35,36],
+            ],
+
+            'Jornada de trabajo' => [
+                'category' => 'Organización del tiempo de trabajo',
+                'items' => [17,18],
+            ],
+
+            'Interferencia en la relación trabajo-familia' => [
+                'category' => 'Organización del tiempo de trabajo',
+                'items' => [19,20,21,22],
+            ],
+
+            'Liderazgo' => [
+                'category' => 'Liderazgo y relaciones en el trabajo',
+                'items' => [31,32,33,34,37,38,39,40,41],
+            ],
+
+            'Relaciones en el trabajo' => [
+                'category' => 'Liderazgo y relaciones en el trabajo',
+                'items' => [42,43,44,45,46,71,72,73,74],
+            ],
+
+            'Violencia' => [
+                'category' => 'Liderazgo y relaciones en el trabajo',
+                'items' => [57,58,59,60,61,62,63,64],
+            ],
+
+            'Reconocimiento del desempeño' => [
+                'category' => 'Entorno organizacional',
+                'items' => [47,48,49,50,51,52],
+            ],
+
+            'Insuficiente sentido de pertenencia e inestabilidad' => [
+                'category' => 'Entorno organizacional',
+                'items' => [53,54,55,56],
             ],
         ];
 
