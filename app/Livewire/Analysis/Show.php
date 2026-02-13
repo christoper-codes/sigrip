@@ -11,7 +11,7 @@ use App\Actions\Analysis\FinalScoreNom3Action;
 use App\Actions\Analysis\GetAlertResponsesAction;
 use App\Enums\NomEnum;
 use App\Exports\ApplicationResponsesExport;
-use App\Exports\ApplicationShowResponsesExport;
+use App\Exports\MainBaseExport;
 use App\Exports\Nom035\MainNomExport;
 use App\Livewire\Traits\Table;
 use App\Models\Application;
@@ -87,7 +87,7 @@ class Show extends Component
         if($this->questionnaire['name'] == NomEnum::NOM_1->value){
             $this->application_data['questionnaire_responses'] = collect($this->application_data['questionnaire_responses'])
                     ->transform(function ($response) {
-                        $alert = (bool) $response['ai_response']['alert'];
+                        $alert = (bool) $response['ai_response']['alert'] ?? false;
                         $response['classification'] = $alert ? 'Alto' : 'Nulo';
                         return $response;
                     })->toArray();
@@ -196,41 +196,41 @@ class Show extends Component
         $format_responses = $this->setFormatResponses($themes, $responses);
         $export_name =  $this->application_data['slug'] . '_detailed_responses.xlsx';
 
+        /* Analysis Ai */
+        $analysis_ai = [[
+            'recommendation_for_user' => $response['ai_response']['recommendation_for_user'] ?? null,
+            'recommendation_for_department' => $response['ai_response']['recommendation_for_department'] ?? null,
+            'ticket_title' => $response['ai_response']['ticket_data']['ticket_title'] ?? null,
+            'ticket_description' => $response['ai_response']['ticket_data']['ticket_description'] ?? null,
+        ]];
+
+        /* User data */
+        $user_data = [
+            ['Nombre completo', 'chris'],
+            ['Sexo', 'masculino'],
+            ['Edad', '30'],
+            ['Estado civil', 'soltero'],
+            ['Nivel de estudios', 'licenciatura'],
+            ['Puesto de trabajo', 'desarrollador'],
+            ['Departamento', 'tecnología'],
+            ['Tipo de puesto', 'senior'],
+            ['Tipo de contratación', 'tiempo completo'],
+            ['Tipo de personal', 'permanente'],
+            ['Tipo de jornada', 'diurna'],
+            ['Realiza rotación de turnos', 'no'],
+            ['Experiencia en el puesto actual (años)', '5'],
+            ['Experiencia laboral total (años)', '10'],
+            ['Questionario aplicado', $this->questionnaire['name']],
+        ];
+
         if($this->questionnaire['name'] == NomEnum::NOM_2->value){
             /*  Responses */
             $export_name =  $this->application_data['slug'] . '_guia_referencia_ii_responses.xlsx';
             $all_responses = $this->setDomainAndCategory($format_responses);
 
-            /* User data */
-            $user_data = [
-                ['Nombre completo', 'chris'],
-                ['Sexo', 'masculino'],
-                ['Edad', '30'],
-                ['Estado civil', 'soltero'],
-                ['Nivel de estudios', 'licenciatura'],
-                ['Puesto de trabajo', 'desarrollador'],
-                ['Departamento', 'tecnología'],
-                ['Tipo de puesto', 'senior'],
-                ['Tipo de contratación', 'tiempo completo'],
-                ['Tipo de personal', 'permanente'],
-                ['Tipo de jornada', 'diurna'],
-                ['Realiza rotación de turnos', 'no'],
-                ['Experiencia en el puesto actual (años)', '5'],
-                ['Experiencia laboral total (años)', '10'],
-                ['Questionario aplicado', $this->questionnaire['name']],
-            ];
-
             /* Alert responses */
             $alerts = (new GetAlertResponsesAction)->execute(response: $response, themes: $themes);
             $alert_responses = $this->setDomainAndCategory($alerts);
-
-            /* Analysis Ai */
-            $analysis_ai = [[
-                'recommendation_for_user' => $response['ai_response']['recommendation_for_user'] ?? null,
-                'recommendation_for_department' => $response['ai_response']['recommendation_for_department'] ?? null,
-                'ticket_title' => $response['ai_response']['ticket_data']['ticket_title'] ?? null,
-                'ticket_description' => $response['ai_response']['ticket_data']['ticket_description'] ?? null,
-            ]];
 
             /* Domain data */
             $domain_scores = (new DomainRatingAction)->execute(responses: $responses);
@@ -280,36 +280,9 @@ class Show extends Component
             $export_name =  $this->application_data['slug'] . '_guia_referencia_iii_responses.xlsx';
             $all_responses = $this->setDomainAndCategory($format_responses);
 
-            /* User data */
-            $user_data = [
-                ['Nombre completo', 'chris'],
-                ['Sexo', 'masculino'],
-                ['Edad', '30'],
-                ['Estado civil', 'soltero'],
-                ['Nivel de estudios', 'licenciatura'],
-                ['Puesto de trabajo', 'desarrollador'],
-                ['Departamento', 'tecnología'],
-                ['Tipo de puesto', 'senior'],
-                ['Tipo de contratación', 'tiempo completo'],
-                ['Tipo de personal', 'permanente'],
-                ['Tipo de jornada', 'diurna'],
-                ['Realiza rotación de turnos', 'no'],
-                ['Experiencia en el puesto actual (años)', '5'],
-                ['Experiencia laboral total (años)', '10'],
-                ['Questionario aplicado', $this->questionnaire['name']],
-            ];
-
             /* Alert responses */
             $alerts = (new GetAlertResponsesAction)->execute(response: $response, themes: $themes);
             $alert_responses = $this->setDomainAndCategory($alerts);
-
-            /* Analysis Ai */
-            $analysis_ai = [[
-                'recommendation_for_user' => $response['ai_response']['recommendation_for_user'] ?? null,
-                'recommendation_for_department' => $response['ai_response']['recommendation_for_department'] ?? null,
-                'ticket_title' => $response['ai_response']['ticket_data']['ticket_title'] ?? null,
-                'ticket_description' => $response['ai_response']['ticket_data']['ticket_description'] ?? null,
-            ]];
 
             /* Domain data */
             $domain_scores = (new DomainRatingNom3Action)->execute(responses: $responses);
@@ -354,7 +327,15 @@ class Show extends Component
                 ), $export_name);
         }
 
-        return Excel::download(new ApplicationShowResponsesExport($format_responses), $export_name);
+        $alerts = (new GetAlertResponsesAction)->execute(response: $response, themes: $themes);
+
+
+        return Excel::download(new MainBaseExport(
+            responses: $format_responses,
+            user_data: $user_data,
+            alert_responses: $alerts,
+            analysis_ai: $analysis_ai
+        ), $export_name);
     }
 
     public function setDomainAndCategory(array $responses): array
