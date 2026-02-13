@@ -84,7 +84,27 @@ class Show extends Component
             ->first()
             ->toArray();
 
-        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+        if($this->questionnaire['name'] == NomEnum::NOM_1->value){
+            $this->application_data['questionnaire_responses'] = collect($this->application_data['questionnaire_responses'])
+                    ->transform(function ($response) {
+                        $alert = (bool) $response['ai_response']['alert'];
+                        $response['classification'] = $alert ? 'Alto' : 'Nulo';
+                        return $response;
+                    })->toArray();
+
+            $this->headers = [
+                ['label' => __('ID')],
+                ['label' => __('Nivel de Riesgo'), 'field' => 'classification', 'sortable' => true],
+                ['label' => __('Nombre de empleado')],
+                ['label' => __('Respuestas')],
+                ['label' => __('Alertas')],
+                ['label' => __('Ai - departamento')],
+                ['label' => __('Ai - empleado')],
+                ['label' => __('Calificación Final')],
+                ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
+                ['label' => __('Descarga excel')],
+            ];
+        } else if($this->questionnaire['name'] == NomEnum::NOM_2->value){
             $this->application_data['questionnaire_responses'] = collect($this->application_data['questionnaire_responses'])
                     ->transform(function ($response) {
                         $final_score = collect($response['response_data'])->sum(fn ($response) => (int) $response['value']);
@@ -157,7 +177,7 @@ class Show extends Component
 
         $this->table_items = $this->application_data['questionnaire_responses'];
         $this->search_fields = ['user.name', 'uuid'];
-         $this->refreshTableData();
+        $this->refreshTableData();
 
          Flux::modal('select-application')->close();
     }
