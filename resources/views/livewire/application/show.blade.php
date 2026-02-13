@@ -68,6 +68,14 @@
                 <flux:heading size="lg" class="text-primary">{{ __('Datos laborales requeridos') }}</flux:heading>
                 <flux:text class="mt-2">{{ __('Por favor, completa tus datos laborales antes de continuar.') }}</flux:text>
             </div>
+
+            <form wire:submit.prevent="submitEmployeeData" class="space-y-6 px-5 py-6 lg:px-7 lg:py-7 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-xl">
+                <flux:field>
+                    <flux:label>{{ __('Nombre completo') }}</flux:label>
+                    <flux:input name="employee_name" wire:model="form.employee_name" icon="user" placeholder="{{ __('John Doe') }}"/>
+                    <flux:error name="form.employee_name" />
+                </flux:field>
+            </form>
         </section>
     @endif
 
