@@ -77,7 +77,7 @@
                             @endif
                             <td class="p-4">{{ dateFormat($response['created_at']) }}</td>
                             <td class="p-4">
-                                <flux:button variant="filled" wire:click="showEmployeeData({{ $response['id'] }})" icon="chart-bar">{{ __('Empleado') }}</flux:button>
+                                <flux:button variant="filled" wire:click="showEmployeeData({{ $response['id'] }})" icon="user">{{ __('Empleado') }}</flux:button>
                             </td>
                             <td class="p-4">
                                 <flux:button wire:click="downloadResults({{ $response['id'] }})" icon="arrow-down" variant="primary" class="text-dark! dark:text-light! border! border-green-500! bg-green-500/10!">{{ __('Descargar') }}</flux:button>
@@ -339,6 +339,110 @@
                         </div>
                     </div>
                 </div>
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-2">
+            <flux:modal.close>
+                <flux:button>{{ __('Cerrar') }}</flux:button>
+            </flux:modal.close>
+        </div>
+    </flux:modal>
+
+    <flux:modal name="show-employee-data-modal" class="w-[90%] md:w-full space-y-7">
+        <div>
+            <flux:heading size="xl">{{ __('Datos del Empleado') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Información detallada del empleado') }}</flux:text>
+        </div>
+        <div class="text-center py-2">
+            @if($employee_data && (bool) $application_data['employee_data_required'])
+                <form class="space-y-6">
+                    <flux:field>
+                        <flux:label>{{ __('Nombre completo') }}</flux:label>
+                        <flux:input icon="user" value="{{ $employee_data['name'] }}" readonly />
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>{{ __('Sexo') }}</flux:label>
+                        <flux:select class="!h-12">
+                            <flux:select.option value="{{ $employee_data['sex'] }}">{{ $employee_data['sex'] }}</flux:select.option>
+                        </flux:select>
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>{{ __('Edad en años') }}</flux:label>
+                        <flux:select class="!h-12">
+                            <flux:select.option value="{{ $employee_data['age'] }}">{{ $employee_data['age'] }}</flux:select.option>
+                        </flux:select>
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>{{ __('Estado civil') }}</flux:label>
+                        <flux:select class="!h-12">
+                            <flux:select.option value="{{ $employee_data['marital_status'] }}">{{ $employee_data['marital_status'] }}</flux:select.option>
+                        </flux:select>
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>{{ __('Nivel de estudios') }}</flux:label>
+                        <flux:select class="!h-12">
+                            <flux:select.option value="{{ $employee_data['education_level'] }}">{{ $employee_data['education_level'] }}</flux:select.option>
+                        </flux:select>
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>{{ __('Estado del nivel de estudios') }}</flux:label>
+                        <flux:select class="!h-12">
+                            <flux:select.option value="{{ $employee_data['status_education_level'] }}">{{ $employee_data['status_education_level'] }}</flux:select.option>
+                        </flux:select>
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>{{ __('Puesto de trabajo') }}</flux:label>
+                        <flux:input icon="briefcase" value="{{ $employee_data['job_title'] }}" readonly />
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>{{ __('Departamento, Sección o Área') }}</flux:label>
+                        <flux:input icon="building-office" value="{{ $employee_data['department'] }}" readonly />
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>{{ __('Tipo de puesto') }}</flux:label>
+                        <flux:select class="!h-12">
+                            <flux:select.option value="{{ $employee_data['job_type'] }}">{{ $employee_data['job_type'] }}</flux:select.option>
+                        </flux:select>
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>{{ __('Tipo de contratación') }}</flux:label>
+                        <flux:select class="!h-12">
+                            <flux:select.option value="{{ $employee_data['contract_type'] }}">{{ $employee_data['contract_type'] }}</flux:select.option>
+                        </flux:select>
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>{{ __('Tipo de personal') }}</flux:label>
+                        <flux:select class="!h-12">
+                            <flux:select.option value="{{ $employee_data['personnel_type'] }}">{{ $employee_data['personnel_type'] }}</flux:select.option>
+                        </flux:select>
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>{{ __('Tipo de jornada de trabajo') }}</flux:label>
+                        <flux:select class="!h-12">
+                            <flux:select.option value="{{ $employee_data['work_schedule_type'] }}">{{ $employee_data['work_schedule_type'] }}</flux:select.option>
+                        </flux:select>
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>{{ __('Realiza rotación de turnos') }}</flux:label>
+                        <flux:select class="!h-12">
+                            <flux:select.option value="{{ $employee_data['shift_rotation'] }}">{{ $employee_data['shift_rotation'] }}</flux:select.option>
+                        </flux:select>
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>{{ __('Experiencia (años). Tiempo en el puesto actual') }}</flux:label>
+                        <flux:select class="!h-12">
+                            <flux:select.option value="{{ $employee_data['experience_current_job'] }}">{{ $employee_data['experience_current_job'] }}</flux:select.option>
+                        </flux:select>
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>{{ __('Experiencia (años). Tiempo experiencia laboral') }}</flux:label>
+                        <flux:select class="!h-12">
+                            <flux:select.option value="{{ $employee_data['total_experience'] }}">{{ $employee_data['total_experience'] }}</flux:select.option>
+                        </flux:select>
+                    </flux:field>
+                </form>
+            @else
+                <flux:callout color="yellow" icon="information-circle" heading="{{ __('No se requirió información del empleado') }}" />
             @endif
         </div>
         <div class="flex justify-end items-center gap-2">
