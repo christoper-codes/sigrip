@@ -278,6 +278,33 @@
         </div>
     </flux:modal>
 
+    <flux:modal name="general-analysis-modal" class="w-[90%] md:w-full space-y-7">
+        <div>
+            <flux:heading size="xl">{{ __('Análisis general') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Promedio en respuestas para esta aplicación') }}</flux:text>
+        </div>
+        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+            @if($general_analysis)
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <flux:icon.sparkles variant="mini" class="text-primary!"/>
+                        <flux:heading>{{ __('Resultados') }}</flux:heading>
+                    </div>
+
+
+
+                </div>
+            @else
+                <flux:text>{{ __('No se pudo generar el análisis general para esta aplicación.') }}</flux:text>
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-2">
+            <flux:modal.close>
+                <flux:button>{{ __('Cerrar') }}</flux:button>
+            </flux:modal.close>
+        </div>
+    </flux:modal>
+
     <flux:modal name="show-category-rating-modal" class="w-[90%] md:w-full space-y-7">
         <div>
             <flux:heading size="xl">{{ __('Calificación de las categorías (Ccat)') }}</flux:heading>
