@@ -8,6 +8,7 @@ use App\Jobs\AiAlertJob;
 use App\Livewire\Forms\EmployeeDataForm;
 use App\Models\Application;
 use App\Models\QuestionnaireResponse;
+use Flux\Flux;
 use Livewire\Component;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -129,6 +130,8 @@ class Show extends Component
         $this->form->questionnaire_name = $this->questionnaire['name'] ?? null;
         $this->validate();
         $this->employee_data_submitted = true;
+
+        Flux::modal('employee-data-modal')->close();
     }
 
     public function validateNom3SpecialCases(): void
