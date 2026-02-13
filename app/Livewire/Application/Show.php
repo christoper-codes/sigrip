@@ -5,6 +5,7 @@ namespace App\Livewire\Application;
 use App\Enums\NomEnum;
 use App\Enums\NotificationTypesEnum;
 use App\Jobs\AiAlertJob;
+use App\Livewire\Forms\EmployeeDataForm;
 use App\Models\Application;
 use App\Models\QuestionnaireResponse;
 use Livewire\Component;
@@ -15,6 +16,8 @@ use Illuminate\Support\Str;
 
 class Show extends Component
 {
+    public EmployeeDataForm $form;
+
     public Application $application;
     public bool $is_visitor;
     public ?string $company_name = null;
