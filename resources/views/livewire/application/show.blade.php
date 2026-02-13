@@ -149,8 +149,8 @@
                     </flux:field>
                     <flux:field>
                         <flux:label>{{ __('Puesto de trabajo') }}</flux:label>
-                        <flux:input name="position" wire:model="form.position" icon="briefcase" placeholder="{{ __('Analista de datos') }}"/>
-                        <flux:error name="form.position" />
+                        <flux:input name="job_title" wire:model="form.job_title" icon="briefcase" placeholder="{{ __('Analista de datos') }}"/>
+                        <flux:error name="form.job_title" />
                     </flux:field>
                     <flux:field>
                         <flux:label>{{ __('Departamento, Sección o Área') }}</flux:label>
@@ -181,13 +181,13 @@
                     </flux:field>
                     <flux:field>
                         <flux:label>{{ __('Tipo de personal') }}</flux:label>
-                        <flux:select class="!h-12" name="person_type" wire:model="form.person_type">
+                        <flux:select class="!h-12" name="personnel_type" wire:model="form.personnel_type">
                             <flux:select.option value="">{{ __('Seleccione un tipo de personal') }}</flux:select.option>
                             <flux:select.option value="sindicalizado">{{ __('Sindicalizado') }}</flux:select.option>
                             <flux:select.option value="ninguno">{{ __('Ninguno') }}</flux:select.option>
                             <flux:select.option value="confianza">{{ __('Confianza') }}</flux:select.option>
                         </flux:select>
-                        <flux:error name="form.person_type" />
+                        <flux:error name="form.personnel_type" />
                     </flux:field>
                     <flux:field>
                         <flux:label>{{ __('Tipo de jornada de trabajo') }}</flux:label>

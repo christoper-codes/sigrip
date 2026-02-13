@@ -122,6 +122,11 @@ class Show extends Component
         }
     }
 
+    public function submitEmployeeData(): void
+    {
+        $this->validate();
+    }
+
     public function validateNom3SpecialCases(): void
     {
         if($this->questionnaire['name'] == NomEnum::NOM_3->value){
