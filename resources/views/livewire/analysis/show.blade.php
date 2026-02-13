@@ -320,7 +320,10 @@
                 <div x-data="{ openFaq: 1 }" class="max-w-4xl mx-auto space-y-4 z-20 relative mt-5">
                     <div class="bg-light-variant dark:bg-dark-variant rounded-2xl overflow-hidden">
                         <button @click="openFaq = openFaq === 0 ? -1 : 0" class="w-full px-6 py-5 text-left flex items-center justify-between gap-5 bg-light-variant dark:bg-dark-variant cursor-pointer">
-                            <flux:text>{{ __('Nivel de riesgo psicosocial: ') }} <span class="font-bold">{{ $final_score['classification']['label'] }}</span></flux:text>
+                            <flux:text>
+                                {{ $questionnaire['name'] == \App\Enums\NomEnum::NOM_1->value ?  __('Nivel de riesgo clínico: ') : __('Nivel de riesgo psicosocial: ') }}
+                                <span class="font-bold">{{ $final_score['classification']['label'] }}</span>
+                            </flux:text>
                             <flux:icon.plus x-show="openFaq !== 0" class="size-5 text-neutral-600 dark:text-neutral-400" />
                             <flux:icon.minus x-show="openFaq === 0" class="size-5 text-primary" />
                         </button>
