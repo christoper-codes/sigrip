@@ -46,7 +46,7 @@
                     @foreach ($paginated_items as $response)
                         <tr>
                             <td class="p-4">{{ $response['uuid'] }}</td>
-                            @if($questionnaire['name'] == \App\Enums\NomEnum::NOM_2->value || $questionnaire['name'] == \App\Enums\NomEnum::NOM_3->value)
+                            @if($questionnaire['name'] == \App\Enums\NomEnum::NOM_1->value || $questionnaire['name'] == \App\Enums\NomEnum::NOM_2->value || $questionnaire['name'] == \App\Enums\NomEnum::NOM_3->value)
                                 <td class="p-4">{{ $response['classification']  }}</td>
                             @endif
                             <td class="p-4">{{ $response['user']['name'] ?? 'Anónimo' }}</td>
@@ -69,6 +69,8 @@
                                 <td class="p-4">
                                     <flux:button variant="filled" wire:click="showCategoryRating({{ $response['id'] }})" icon="chart-pie">{{ __('Categoría') }}</flux:button>
                                 </td>
+                            @endif
+                            @if($questionnaire['name'] == \App\Enums\NomEnum::NOM_1->value || $questionnaire['name'] == \App\Enums\NomEnum::NOM_2->value || $questionnaire['name'] == \App\Enums\NomEnum::NOM_3->value)
                                 <td class="p-4">
                                     <flux:button variant="filled" wire:click="showFinalScore({{ $response['id'] }})" icon="star">{{ __('Final') }}</flux:button>
                                 </td>

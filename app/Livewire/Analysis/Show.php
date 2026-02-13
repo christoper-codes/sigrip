@@ -599,6 +599,21 @@ class Show extends Component
         $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $responses = $item['response_data'] ?? [];
 
+        if($this->questionnaire['name'] == NomEnum::NOM_1->value){
+            $alert = $item['ai_response']['alert'] ?? false;
+            $final_score = collect($responses)->sum(fn ($response) => (int) $response['value']);
+            $this->final_score = [
+                'final_score' => $final_score,
+                'classification' => [
+                    'label' => $alert ? 'Alto' : 'Nulo',
+                    'risk_level' => '',
+                    'description' => $alert ?
+                        'Se requiere una valoración clinica detallada para determinar las áreas de riesgo y las intervenciones necesarias.' :
+                        'No se identificaron riesgos significativos. Se recomienda mantener las condiciones actuales y promover un ambiente de trabajo saludable.',
+                ],
+            ];
+        }
+
         if($this->questionnaire['name'] == NomEnum::NOM_2->value){
             $this->final_score = (new FinalScoreAction)->execute(responses: $responses);
         }
