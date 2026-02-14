@@ -39,7 +39,7 @@
     <div class="mt-10">
         <flux:heading size="lg">{{ __('Administrar empleados') }}</flux:heading>
         <flux:text class="mt-2">{{ __('Agrega y gestiona empleados asociados a cada departamento') }}</flux:text>
-        <flux:button href="{{ route('employee.index') }}" icon="users" class="mt-5! !w-full !max-w-xs !py-8 !border !border-primary !bg-primary/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
+        <flux:button href="{{ route('employee.index') }}" icon="users" class="mt-5! !border  !border-primary !bg-primary/10 !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
             {{ __('Empleados') }}
         </flux:button>
     </div>
