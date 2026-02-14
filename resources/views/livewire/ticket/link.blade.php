@@ -1,12 +1,12 @@
 <div>
     <flux:modal.trigger name="link-ticket-modal">
-        <flux:button icon="share" wire:click="shareTicketLink()" variant="filled">{{ __('Compartir') }}</flux:button>
+        <flux:button icon="share" variant="filled">{{ __('Compartir') }}</flux:button>
     </flux:modal.trigger>
 
     <flux:modal name="link-ticket-modal" class="w-[90%] md:w-full!">
         <div class="space-y-6">
             <div>
-                <flux:heading size="lg">{{ __('Compartir link publico de incidencias') }}</flux:heading>
+                <flux:heading size="lg">{{ __('Link publico para crear incidencias') }}</flux:heading>
                 <flux:text class="mt-3">{{ __('Puedes descargar el código QR o copiar el link y compartirlo con los empleados.') }}</flux:text>
             </div>
             <div class="flex flex-col items-center gap-4">
