@@ -37,7 +37,7 @@
                         </flux:link>
                     </li>
                 </ul>
-                <div class="mt-5 flex flex-col lg:flex-row items-center gap-2 max-w-md">
+                <div class="mt-5 flex flex-col lg:flex-row items-center gap-3 max-w-md">
                     <flux:button icon="bolt" wire:click='showGeneralAnalysis' class="!w-full !py-6 !border  !border-primary !bg-primary/10 !rounded-xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
                         {{ __('Análisis general') }}
                     </flux:button>
@@ -283,7 +283,7 @@
             <flux:heading size="xl">{{ __('Análisis general') }}</flux:heading>
             <flux:text class="mt-2">{{ __('Promedio en respuestas para esta aplicación') }}</flux:text>
         </div>
-        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+        <div class="p-5 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
             @if($general_analysis)
                 <div class="space-y-4">
                     <div class="flex items-center gap-2">
@@ -291,7 +291,7 @@
                         <flux:heading class="text-primary!">{{ __('Resultados') }}</flux:heading>
                     </div>
                     <div class="mt-4">
-                        <ul class="list-disc ml-5 text-sm">
+                        <ul class="list-disc text-sm">
                             <li class="flex items-center gap-1 mb-2">
                                 {{ __('Total de respuestas:') }}
                                 <flux:text>{{ $general_analysis['total_responses'] ?? 0 }}</flux:text>
@@ -312,21 +312,39 @@
                                 <flux:icon.sparkles variant="mini" class="text-primary!"/>
                                 <flux:heading class="text-primary!">{{ __('Estadísticas de datos de empleado') }}</flux:heading>
                             </div>
-                            <ul class="ml-5 mt-4 text-sm">
-                                @foreach($general_analysis['employee_data_stats'] as $key => $stats)
-                                    <li class="mb-4">
-                                        {{ __(ucfirst(str_replace('_', ' ', $key))) }}:
-                                        <ul class="list-disc ml-5">
-                                            @foreach($stats as $value => $count)
-                                                <li class="flex items-center gap-1">
-                                                    {{ $value }}:
-                                                    <flux:text>{{ $count }}</flux:text>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                @endforeach
-                            </ul>
+                            <div class="mt-4 text-sm">
+                                <div x-data="{ openFaq: null }" class="space-y-4">
+                                    @foreach($general_analysis['employee_data_stats'] as $key => $stats)
+                                        <div class="border border-neutral-300 dark:border-neutral-700 bg-light-variant dark:bg-dark-variant rounded-2xl overflow-hidden">
+                                            <button @click="openFaq = openFaq === '{{ $key }}' ? null : '{{ $key }}'" type="button" class="w-full px-6 py-4 text-left flex items-center justify-between gap-5 bg-light-variant dark:bg-dark-variant cursor-pointer">
+                                                <span class="font-semibold">{{ __(ucfirst(str_replace('_', ' ', $key))) }}</span>
+                                                <span>
+                                                    <flux:icon.plus x-show="openFaq !== '{{ $key }}'" class="size-5 text-neutral-600 dark:text-neutral-400" />
+                                                    <flux:icon.minus x-show="openFaq === '{{ $key }}'" class="size-5 text-primary" />
+                                                </span>
+                                            </button>
+                                            <div x-show="openFaq === '{{ $key }}'" class="px-6 pb-5">
+                                                <table class="min-w-full border-collapse text-sm mt-2">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="px-2 py-2 text-left font-semibold">{{ __('Respuesta') }}</th>
+                                                            <th class="px-2 py-2 text-left font-semibold">{{ __('Empleados') }}</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($stats as $value => $count)
+                                                            <tr>
+                                                                <td class="px-2 py-1">{{ $value }}</td>
+                                                                <td class="px-2 py-1 font-bold">{{ $count }}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     @endif
                 </div>
