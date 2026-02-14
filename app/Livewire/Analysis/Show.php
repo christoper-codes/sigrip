@@ -20,6 +20,7 @@ use App\Models\Department;
 use App\Models\Questionnaire;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
@@ -235,7 +236,169 @@ class Show extends Component
 
     public function downloadAllResults()
     {
-        $export_folder = storage_path('app/exports/' . $this->application_data['slug'] . '_' . now()->format('Ymd_His'));
+        $relative_folder = 'exports/' . $this->application_data['slug'] . '_' . now()->format('Ymd_His');
+        Storage::disk('local')->makeDirectory($relative_folder);
+
+        foreach ($this->application_data['questionnaire_responses'] as $response) {
+            $this->generateExcelForResponse($response, $relative_folder);
+        }
+
+        $zip_name = basename($relative_folder) . '.zip';
+        $zip_path = storage_path('app/private/exports/' . $zip_name);
+        $zip = new \ZipArchive();
+        $xlsx_path = storage_path('app/private/' . $relative_folder);
+        if ($zip->open($zip_path, \ZipArchive::CREATE) === TRUE) {
+            foreach (glob($xlsx_path . '/*.xlsx') as $file) {
+                $zip->addFile($file, basename($file));
+            }
+            $zip->close();
+        }
+
+        $response = response()->download($zip_path)->deleteFileAfterSend(true);
+        Storage::disk('local')->deleteDirectory($relative_folder);
+
+        return $response;
+    }
+
+    private function generateExcelForResponse(array $response, string $folder)
+    {
+        $responses = $response['response_data'] ?? [];
+        $themes = $this->questionnaire['metadata']['themes'];
+        $format_responses = $this->setFormatResponses($themes, $responses);
+        $base_filename = ($response['employee_data']['name'] ?? 'respuesta_' . $response['id']);
+        $base_filename = preg_replace('/[^A-Za-z0-9_\-]/', '_', $base_filename);
+        $relative_folder = $folder;
+
+        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+            $export_name =  $base_filename . '_guia_referencia_ii_responses.xlsx';
+        } elseif($this->questionnaire['name'] == NomEnum::NOM_3->value){
+            $export_name =  $base_filename . '_guia_referencia_iii_responses.xlsx';
+        } else {
+            $export_name =  $base_filename . '_detailed_responses.xlsx';
+        }
+
+        Storage::disk('local')->makeDirectory($relative_folder);
+        $relative_path = $relative_folder . '/' . $export_name;
+
+        /* Analysis Ai */
+        $analysis_ai = [[
+            'recommendation_for_user' => $response['ai_response']['recommendation_for_user'] ?? null,
+            'recommendation_for_department' => $response['ai_response']['recommendation_for_department'] ?? null,
+            'ticket_title' => $response['ai_response']['ticket_data']['ticket_title'] ?? null,
+            'ticket_description' => $response['ai_response']['ticket_data']['ticket_description'] ?? null,
+        ]];
+
+        /* Employee data */
+        $employee_data = $response['employee_data'] ?? [];
+        $user_data = [
+            ['Nombre completo', $employee_data['name'] ?? null],
+            ['Sexo', $employee_data['sex'] ?? null],
+            ['Rango de edad', $employee_data['age'] ?? null],
+            ['Estado civil', $employee_data['marital_status'] ?? null],
+            ['Nivel de estudios', $employee_data['education_level'] ?? null],
+            ['Departamento, Sección o Área', $employee_data['department'] ?? null],
+            ['Puesto de trabajo', $employee_data['job_title'] ?? null],
+            ['Tipo de puesto', $employee_data['job_type'] ?? null],
+            ['Tipo de contratación', $employee_data['contract_type'] ?? null],
+            ['Tipo de personal', $employee_data['personnel_type'] ?? null],
+            ['Tipo de jornada de trabajo', $employee_data['work_schedule_type'] ?? null],
+            ['Realiza rotación de turnos', $employee_data['shift_rotation'] ?? null],
+            ['Experiencia (años). Tiempo en el puesto actual', $employee_data['experience_current_job'] ?? null],
+            ['Experiencia (años). Tiempo experiencia laboral', $employee_data['total_experience'] ?? null],
+            ['Questionario aplicado', $employee_data['questionnaire_name'] ?? null],
+        ];
+
+        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+            $all_responses = $this->setDomainAndCategory($format_responses);
+            $alerts = (new GetAlertResponsesAction)->execute(response: $response, themes: $themes);
+            $alert_responses = $this->setDomainAndCategory($alerts);
+            $domain_scores = (new DomainRatingAction)->execute(responses: $responses);
+            $domain_data = [];
+            foreach ($domain_scores as $domain => $score) {
+                $domain_data[] = [
+                    $domain,
+                    (string) $score['score'] ?? (string) 0,
+                    $score['classification'] ?? null,
+                    $score['category'] ?? null,
+                ];
+            }
+            $category = (new CategoryRatingAction)->execute(domain_scores: $domain_scores);
+            $category_data = [];
+            foreach ($category as $category_name => $score) {
+                $category_data[] = [
+                    $category_name,
+                    (string) $score['score'] ?? (string) 0,
+                    $score['classification'] ?? null,
+                ];
+            }
+            $final = (new FinalScoreAction)->execute(responses: $responses);
+            $final_data = [
+                ['Questionario', $this->questionnaire['name']],
+                ['Puntaje final', $final['final_score']],
+                ['Clasificación', $final['classification']['label']],
+                ['Acción', $final['classification']['description']]
+            ];
+
+            return Excel::store(new MainNomExport(
+                responses: $all_responses,
+                user_data: $user_data,
+                alert_responses: $alert_responses,
+                analysis_ai: $analysis_ai,
+                domain_data: $domain_data,
+                category_data: $category_data,
+                final_data: $final_data
+            ), $relative_path, 'local');
+        }
+        if($this->questionnaire['name'] == NomEnum::NOM_3->value){
+            $all_responses = $this->setDomainAndCategory($format_responses);
+            $alerts = (new GetAlertResponsesAction)->execute(response: $response, themes: $themes);
+            $alert_responses = $this->setDomainAndCategory($alerts);
+            $domain_scores = (new DomainRatingNom3Action)->execute(responses: $responses);
+            $domain_data = [];
+            foreach ($domain_scores as $domain => $score) {
+                $domain_data[] = [
+                    $domain,
+                    (string) $score['score'] ?? (string) 0,
+                    $score['classification'] ?? null,
+                    $score['category'] ?? null,
+                ];
+            }
+            $category = (new CategoryRatingNom3Action)->execute(domain_scores: $domain_scores);
+            $category_data = [];
+            foreach ($category as $category_name => $score) {
+                $category_data[] = [
+                    $category_name,
+                    (string) $score['score'] ?? (string) 0,
+                    $score['classification'] ?? null,
+                ];
+            }
+            $final = (new FinalScoreNom3Action)->execute(responses: $responses);
+            $final_data = [
+                ['Questionario', $this->questionnaire['name']],
+                ['Puntaje final', $final['final_score']],
+                ['Clasificación', $final['classification']['label']],
+                ['Acción', $final['classification']['description']]
+            ];
+
+            return Excel::store(new MainNomExport(
+                responses: $all_responses,
+                user_data: $user_data,
+                alert_responses: $alert_responses,
+                analysis_ai: $analysis_ai,
+                domain_data: $domain_data,
+                category_data: $category_data,
+                final_data: $final_data
+            ), $relative_path, 'local');
+        }
+
+        $alerts = (new GetAlertResponsesAction)->execute(response: $response, themes: $themes);
+
+        return Excel::store(new MainBaseExport(
+            responses: $format_responses,
+            user_data: $user_data,
+            alert_responses: $alerts,
+            analysis_ai: $analysis_ai
+        ), $relative_path, 'local');
     }
 
     public function downloadResults(int $response_id): BinaryFileResponse
