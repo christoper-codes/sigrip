@@ -127,6 +127,7 @@ class Show extends Component
                 $theme_key = 'answers-' . $this->application->slug . '-theme-' . $i;
                 session()->forget($theme_key);
             }
+            session()->forget('employee_data_' . $this->application->id);
             return redirect(route('application.thanks'));
         } catch (\Exception $e) {
             DB::rollBack();
