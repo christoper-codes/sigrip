@@ -288,25 +288,40 @@
                 <div class="space-y-4">
                     <div class="flex items-center gap-2">
                         <flux:icon.sparkles variant="mini" class="text-primary!"/>
-                        <flux:heading>{{ __('Resultados') }}</flux:heading>
+                        <flux:heading class="text-primary!">{{ __('Resultados') }}</flux:heading>
                     </div>
                     <div class="mt-4">
-                        <ul class="list-disc ml-5">
-                            <li><strong>{{ __('Total de respuestas:') }}</strong> {{ $general_analysis['total_responses'] ?? 0 }}</li>
-                            <li><strong>{{ __('Fecha de inicio:') }}</strong> {{ $general_analysis['start_date'] ?? '-' }}</li>
-                            <li><strong>{{ __('Fecha de expiración:') }}</strong> {{ $general_analysis['expiration_date'] ?? '-' }}</li>
+                        <ul class="list-disc ml-5 text-sm">
+                            <li class="flex items-center gap-1 mb-2">
+                                {{ __('Total de respuestas:') }}
+                                <flux:text>{{ $general_analysis['total_responses'] ?? 0 }}</flux:text>
+                            </li>
+                            <li class="flex items-center gap-1 mb-2">
+                                {{ __('Fecha de inicio:') }}
+                                <flux:text>{{ $general_analysis['start_date'] ?? '-' }}</flux:text>
+                            </li>
+                            <li class="flex items-center gap-1 mb-2">
+                                {{ __('Fecha de expiración:') }}
+                                <flux:text>{{ $general_analysis['expiration_date'] ?? '-' }}</flux:text>
+                            </li>
                         </ul>
                     </div>
                     @if(isset($general_analysis['employee_data_stats']))
-                        <div class="mt-4">
-                            <flux:heading size="md">{{ __('Estadísticas de datos de empleado') }}</flux:heading>
-                            <ul class="list-disc ml-5">
+                        <div class="mt-7">
+                            <div class="flex items-center gap-2">
+                                <flux:icon.sparkles variant="mini" class="text-primary!"/>
+                                <flux:heading class="text-primary!">{{ __('Estadísticas de datos de empleado') }}</flux:heading>
+                            </div>
+                            <ul class="ml-5 mt-4 text-sm">
                                 @foreach($general_analysis['employee_data_stats'] as $key => $stats)
-                                    <li class="mb-2">
-                                        <strong>{{ __(ucfirst(str_replace('_', ' ', $key))) }}:</strong>
+                                    <li class="mb-4">
+                                        {{ __(ucfirst(str_replace('_', ' ', $key))) }}:
                                         <ul class="list-disc ml-5">
                                             @foreach($stats as $value => $count)
-                                                <li>{{ $value }}: <span class="font-bold">{{ $count }}</span></li>
+                                                <li class="flex items-center gap-1">
+                                                    {{ $value }}:
+                                                    <flux:text>{{ $count }}</flux:text>
+                                                </li>
                                             @endforeach
                                         </ul>
                                     </li>
