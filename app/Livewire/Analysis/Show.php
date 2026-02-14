@@ -255,23 +255,24 @@ class Show extends Component
             'ticket_description' => $response['ai_response']['ticket_data']['ticket_description'] ?? null,
         ]];
 
-        /* User data */
+        /* Employee data */
+        $employee_data = $response['employee_data'] ?? [];
         $user_data = [
-            ['Nombre completo', 'chris'],
-            ['Sexo', 'masculino'],
-            ['Edad', '30'],
-            ['Estado civil', 'soltero'],
-            ['Nivel de estudios', 'licenciatura'],
-            ['Puesto de trabajo', 'desarrollador'],
-            ['Departamento', 'tecnología'],
-            ['Tipo de puesto', 'senior'],
-            ['Tipo de contratación', 'tiempo completo'],
-            ['Tipo de personal', 'permanente'],
-            ['Tipo de jornada', 'diurna'],
-            ['Realiza rotación de turnos', 'no'],
-            ['Experiencia en el puesto actual (años)', '5'],
-            ['Experiencia laboral total (años)', '10'],
-            ['Questionario aplicado', $this->questionnaire['name']],
+            ['Nombre completo', $employee_data['name'] ?? null],
+            ['Sexo', $employee_data['sex'] ?? null],
+            ['Rango de edad', $employee_data['age'] ?? null],
+            ['Estado civil', $employee_data['marital_status'] ?? null],
+            ['Nivel de estudios', $employee_data['education_level'] ?? null],
+            ['Departamento, Sección o Área', $employee_data['department'] ?? null],
+            ['Puesto de trabajo', $employee_data['job_title'] ?? null],
+            ['Tipo de puesto', $employee_data['job_type'] ?? null],
+            ['Tipo de contratación', $employee_data['contract_type'] ?? null],
+            ['Tipo de personal', $employee_data['personnel_type'] ?? null],
+            ['Tipo de jornada de trabajo', $employee_data['work_schedule_type'] ?? null],
+            ['Realiza rotación de turnos', $employee_data['shift_rotation'] ?? null],
+            ['Experiencia (años). Tiempo en el puesto actual', $employee_data['experience_current_job'] ?? null],
+            ['Experiencia (años). Tiempo experiencia laboral', $employee_data['total_experience'] ?? null],
+            ['Questionario aplicado', $employee_data['questionnaire_name'] ?? null],
         ];
 
         if($this->questionnaire['name'] == NomEnum::NOM_2->value){
