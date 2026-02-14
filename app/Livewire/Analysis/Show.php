@@ -195,13 +195,14 @@ class Show extends Component
         $result['total_responses'] = $responses->count();
         $result['start_date'] = $this->application_data['start_date'] ?? null;
         $result['expiration_date'] = $this->application_data['expiration_date'] ?? null;
-        $keyLabels = [
+        $key_labels = [
             'sex' => 'Sexo',
             'age' => 'Rango de edad',
             'marital_status' => 'Estado civil',
             'education_level' => 'Nivel de estudios',
             'status_education_level' => 'Estado del nivel de estudios',
             'department' => 'Departamento, Sección o Área',
+            'job_title' => 'Puesto de trabajo',
             'job_type' => 'Tipo de puesto',
             'contract_type' => 'Tipo de contratación',
             'personnel_type' => 'Tipo de personal',
@@ -218,7 +219,7 @@ class Show extends Component
                 $counts = $responses->map(fn($r) => $r['employee_data'][$key] ?? null)
                     ->filter()
                     ->countBy();
-                $label = $keyLabels[$key] ?? ucfirst(str_replace('_', ' ', $key));
+                $label = $key_labels[$key] ?? ucfirst(str_replace('_', ' ', $key));
                 $employee_stats[$label] = $counts->toArray();
             }
             $result['employee_data_stats'] = $employee_stats;
