@@ -8,7 +8,7 @@
             <li class="list-disc list-inside">{{ __('Password con minimo 8 caracteres') }}</li>
         </ul>
         <div class="mt-5">
-            <flux:button icon="arrow-down" wire:click='downloadTemplate' class="!w-full !py-8 !border !border-primary !bg-primary/10 !rounded-2xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
+            <flux:button wire:click='downloadTemplate' icon="arrow-down" class="!border  !border-primary !bg-primary/10 !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
                 {{ __('Descargar plantilla') }}
             </flux:button>
         </div>
