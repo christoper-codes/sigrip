@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Company;
 
+use App\Actions\Application\GenerateQrAction;
 use App\Enums\NotificationTypesEnum;
 use App\Enums\RoleEnum;
 use App\Models\Company;
@@ -36,6 +37,10 @@ class Store extends Component
         Auth::user()->update(['company_id' => $company->id]);
         $user_roles = Role::where('name', RoleEnum::COMPANY_ADMIN->value)->first();
         Auth::user()->userRoles()->attach($user_roles->id);
+
+        $url_qr = route('ticket.anon.form', ['company_uuid' => $company->uuid]);
+        $slug = Str::slug($company->name) . '-' . $company->uuid;
+        (new GenerateQrAction)->execute(url: $url_qr, slug: $slug);
 
         $this->dispatch('nextStep');
 
