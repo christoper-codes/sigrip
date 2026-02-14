@@ -264,7 +264,7 @@ class Show extends Component
         $responses = $response['response_data'] ?? [];
         $themes = $this->questionnaire['metadata']['themes'];
         $format_responses = $this->setFormatResponses($themes, $responses);
-        $base_filename = ($response['employee_data']['name'] ?? 'respuesta_' . $response['id']);
+        $base_filename = ($response['employee_data']['name'] ?? 'respuesta') . '_' . $response['uuid'];
         $base_filename = preg_replace('/[^A-Za-z0-9_\-]/', '_', $base_filename);
         $relative_folder = $folder;
 
