@@ -25,6 +25,7 @@ class Alert extends Model
         'read_by_user',
         'read_by_department',
         'created_by_ai',
+        'metadata',
         'is_active',
     ];
 
