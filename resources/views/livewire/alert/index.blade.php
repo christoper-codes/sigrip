@@ -99,7 +99,7 @@
                                     </div>
                                     <div class="bg-light dark:bg-neutral-800 inline-flex items-center gap-2 py-2 px-4 rounded-full border border-neutral-300 dark:border-neutral-700 max-w-max">
                                         <flux:icon.user variant="mini"/>
-                                        <flux:text class="text-xs!">{{ $alert['user'] ? $alert['user']['name'] : 'Empleado anonimo' }}</flux:text>
+                                        <flux:text class="text-xs!">{{ $alert['metadata']['employee_name'] ?? 'Empleado anonimo' }}</flux:text>
                                     </div>
                                 </div>
                             </section>
@@ -110,13 +110,11 @@
                                     </flux:button>
                                 @endif
                                 <flux:button class="basis-full sm:basis-auto md:basis-auto border! border-primary! bg-primary/10!" variant="filled" icon="sparkles" wire:click="readResponse({{ $alert['id'] }}, 'department')">
-                                    {{ $alert['user'] ? __('Analisis Ai (dpto)') :  __('Analisis Ai')}}
+                                    {{ __('Analisis Ai (dpto)') }}
                                 </flux:button>
-                                @if($alert['user'])
-                                    <flux:button class="basis-full sm:basis-auto md:basis-auto border! border-primary! bg-primary/10!" variant="filled" icon="sparkles" wire:click="readResponse({{ $alert['id'] }}, 'employee')">
-                                        {{ __('Analisis Ai (empleado)') }}
-                                    </flux:button>
-                                @endif
+                                <flux:button class="basis-full sm:basis-auto md:basis-auto border! border-primary! bg-primary/10!" variant="filled" icon="sparkles" wire:click="readResponse({{ $alert['id'] }}, 'employee')">
+                                    {{ __('Analisis Ai (empleado)') }}
+                                </flux:button>
                             </div>
                         </div>
                     @endforeach
