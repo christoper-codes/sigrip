@@ -2,20 +2,23 @@
 
 namespace App\Livewire\Ticket;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Link extends Component
 {
+    public ?string $slug = null;
+    public ?string $url = null;
 
-   public function shareTicketLink(int $id): void
+    public function mount(): void
     {
-        $application = Application::find($id);
-        $this->form->slug = $application->slug;
-        $this->form->url_qr = route('application.show', ['slug' => $this->form->slug]);
-
-        Flux::modal('index-qr-application-modal')->show();
+        $company = Auth::user()->company;
+        if ($company) {
+            $this->slug = Str::slug($company->name) . '-' . $company->uuid;
+            $this->url = route('ticket.anon.form', ['company_uuid' => $company->uuid]);
+        }
     }
-
 
     public function render()
     {
