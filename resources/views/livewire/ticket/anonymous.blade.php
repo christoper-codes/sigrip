@@ -6,9 +6,14 @@
         <h1 class="text-3xl max-w-4xl uppercase mb-4 mt-3">
             {{ __('Reporta una incidencia') }}</span>
         </h1>
-        <flux:text class="mb-10">
+        <flux:text>
             {{ __('Utiliza este formulario para levantar un ticket de incidencia en cualquier departamento, sin necesidad de revelar tu identidad') }}
         </flux:text>
+        <div class="mb-10 mt-3">
+            <flux:text>
+                {{ __('¿Ya has reportado una incidencia antes?') }} <flux:link class="ml-1!" href="{{ route('ticket.track.form') }}" wire:navigate>{{ __('Ver seguimiento') }}</flux:link>
+            </flux:text>
+        </div>
 
         <form wire:submit="createTicket" class="space-y-6 bg-light-variant dark:bg-dark-variant border border-neutral-300 dark:border-neutral-700 rounded-2xl p-8">
             <flux:field>
