@@ -18,6 +18,8 @@
                 <span class="text-primary" x-text="greeting"></span>
                 @auth
                     <span> {{ auth()->user()->name }} </span>
+                @else
+                    <span>{{ __('usuario neura') }}</span>
                 @endauth
             </flux:text>
         </div>
