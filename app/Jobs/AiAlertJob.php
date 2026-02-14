@@ -125,6 +125,7 @@ class AiAlertJob implements ShouldQueue
                     is_priority: true,
                     is_anonymous: true,
                     created_by_ai: true,
+                    contact_name: $this->questionnaire_response->employee_data['name'] ?? null,
                     alert_id: $alert->id,
                     alert_uuid: $alert->uuid,
                 );
