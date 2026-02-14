@@ -1,6 +1,12 @@
 <div>
+     <div class="mb-5">
+        <flux:heading size="lg">{{ __('Link publico para crear incidencias') }}</flux:heading>
+        <flux:text class="mt-2">{{ __('Puedes compartirlo con los empleados.') }}</flux:text>
+    </div>
     <flux:modal.trigger name="link-ticket-modal">
-        <flux:button icon="share" variant="filled">{{ __('Compartir') }}</flux:button>
+        <flux:button icon="share" class="!border  !border-primary !bg-primary/10 !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
+            {{ __('Compartir') }}
+        </flux:button>
     </flux:modal.trigger>
 
     <flux:modal name="link-ticket-modal" class="w-[90%] md:w-full!">
