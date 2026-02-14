@@ -16,7 +16,7 @@ class Link extends Component
         $company = Auth::user()->company;
         if ($company) {
             $this->slug = Str::slug($company->name) . '-' . $company->uuid;
-            $this->url = route('ticket.anon.form', ['company_uuid' => $company->uuid]);
+            $this->url = route('ticket.anon.form', ['company' => $company->uuid]);
         }
     }
 

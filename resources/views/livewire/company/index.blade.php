@@ -29,6 +29,12 @@
         </x-slot:table>
      </x-appearance.livewiretable>
 
+    @if(auth()->user()->company_id)
+        <div class="mt-10">
+            <livewire:ticket.link />
+        </div>
+    @endif
+
     <div class="mt-10">
         <flux:heading size="lg">{{ __('Departamentos asociados') }}</flux:heading>
         <flux:text class="mt-2">
