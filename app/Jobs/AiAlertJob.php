@@ -104,6 +104,10 @@ class AiAlertJob implements ShouldQueue
                 'risk_level' => $ai_response['risk_level'],
                 'risk_score' => $ai_response['average_score'],
                 'created_by_ai' => true,
+                'metadata' => [
+                    'application_name' => $this->application->questionnaire->name,
+                    'employee_name' => $this->questionnaire_response->employee_data['name'] ?? null,
+                ],
             ]);
 
             $this->questionnaire_response->refresh();
