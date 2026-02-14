@@ -46,7 +46,7 @@
 
             <flux:field>
                 <flux:label class="font-semibold">{{ __('Descripción de la incidencia') }}</flux:label>
-                <flux:textarea wire:model="description" placeholder="{{ __('Describe con detalle el problema...') }}" rows="6" class="mt-2" resize="none" icon="chat-bubble-bottom-center-text" />
+                <flux:textarea wire:model="description" placeholder="{{ __('Describe con detalle el problema...') }}" class="mt-2" resize="none" icon="chat-bubble-bottom-center-text" />
                 <flux:error name="description" />
             </flux:field>
 
