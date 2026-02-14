@@ -233,10 +233,9 @@ class Show extends Component
         Flux::modal('general-analysis-modal')->show();
     }
 
-    public function downloadAllResults(): BinaryFileResponse
+    public function downloadAllResults()
     {
-        $export_name =  $this->application_data['slug'] . '_responses.xlsx';
-        return Excel::download(new ApplicationResponsesExport($this->application_data['questionnaire_responses']), $export_name);
+        $export_folder = storage_path('app/exports/' . $this->application_data['slug'] . '_' . now()->format('Ymd_His'));
     }
 
     public function downloadResults(int $response_id): BinaryFileResponse
