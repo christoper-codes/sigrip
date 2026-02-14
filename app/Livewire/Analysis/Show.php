@@ -13,6 +13,7 @@ use App\Enums\NomEnum;
 use App\Exports\ApplicationResponsesExport;
 use App\Exports\MainBaseExport;
 use App\Exports\Nom035\MainNomExport;
+use App\Livewire\Traits\LimitItems;
 use App\Livewire\Traits\Table;
 use App\Models\Application;
 use App\Models\Department;
@@ -27,6 +28,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class Show extends Component
 {
     use Table;
+    use LimitItems;
 
     public array $departments = [];
     public ?array $application_data = [];
@@ -61,7 +63,8 @@ class Show extends Component
     {
         $this->validate();
         $this->applications = Application::where('executing_department_id', $this->department)
-            ->orderByDesc('start_date')
+            ->orderByDesc('created_at')
+            ->limit($this->items_per_page)
             ->get()
             ->toArray();
 
