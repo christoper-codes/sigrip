@@ -1,0 +1,11 @@
+includes:
+    - ./vendor/larastan/larastan/extension.neon
+parameters:
+    paths:
+        - app/
+    level: 5
+    ignoreErrors:
+         -'#Access to an undefined property#'
+         -'#on left side of#'
+         -'#Call to an undefined method#'
+    excludePaths:
