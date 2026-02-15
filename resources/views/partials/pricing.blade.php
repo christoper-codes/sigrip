@@ -2,8 +2,8 @@
     <x-main-container>
         <div x-data="{
                 billing: 'Mensual',
-                proPrice: 1500,
-                premiumPrice: 1500,
+                proPrice: 1690,
+                premiumPrice: 1690,
                 get proDisplayPrice() {
                     return this.billing === 'Mensual' ? this.proPrice : (this.proPrice * 10);
                 },
