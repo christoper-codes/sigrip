@@ -40,7 +40,7 @@ trait Table
                     break;
                 }
             }
-        } elseif (isset($this->sortable_fields) && in_array($field, $this->sortable_fields)) {
+        } elseif (in_array($field, $this->sortable_fields)) {
             $can_sort = true;
         }
 
@@ -80,7 +80,7 @@ trait Table
     {
         $filtered_items = $this->getFilteredItems();
 
-        return ceil(count($filtered_items) / $this->per_page);
+        return (int) ceil(count($filtered_items) / $this->per_page);
     }
 
     public function getFilteredItems(): array
