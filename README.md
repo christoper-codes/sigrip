@@ -1,55 +1,62 @@
 
-# Neura: Automatización NOM-035 con Laravel 🚀
+
+# Neura: NOM-035 Automation with Laravel 🚀
 
 ![Hero](public/images/hero.png)
 
-Neura es una plataforma TALL Stack diseñada para automatizar el cumplimiento de la Norma Oficial Mexicana 035 (NOM-035) en bienestar laboral, prevención de riesgos psicosociales y gestión de incidentes.
+Neura is a TALL Stack platform designed to automate compliance with the Mexican Official Standard 035 (NOM-035) for workplace wellbeing, psychosocial risk prevention, and incident management.
 
 ---
 
-## Convenciones y buenas prácticas 🧠
+## Conventions & Best Practices 🧠
 
-- **Laravel Boost + AI:** El proyecto utiliza Laravel Boost para guiar la IA y mantener código actualizado.
-- **Facades sobre helpers:** Preferir facades (`Auth::user()`) sobre helpers (`auth()->user()`).
-- **Controladores CRUDDY:** Todos los controladores siguen el patrón CRUDDY by Design (solo los 7 métodos resourceful).
-- **Patrón Actions:** La lógica de negocio se encapsula en clases Action para desacoplar y limpiar el código.
-- **Documentación técnica:** Actualizar README y archivos de instrucciones para la IA tras cada cambio relevante.
-
----
-
-## Herramientas y tecnologías principales 🛠️
-
-- **TALL Stack:**
-	- Tailwind CSS v4.1.18
-	- Alpine.js
-	- Laravel v12.51.0
-	- Livewire v3.7.10
-- **Laravel Boost v2.1.4**
-- **Laravel Reverb v1.7.1**
-- **Livewire Volt v1.10.2**
-- **Livewire Flux v2.12.0**
-- **phpstan v2.1.39**
-- **Laravel Pint v1.27.1**
-- **Colas:** Jobs y workers para tareas asíncronas.
-- **Tickets:** Sistema para reportar incidentes laborales, incluyendo tickets anónimos.
-- **Notificaciones:** Automáticas y en tiempo real para RH y empleados.
+- **Laravel Boost + AI:** Uses Laravel Boost to guide AI and keep code up-to-date.
+- **Facades over helpers:** Prefer facades (`Auth::user()`) instead of helpers (`auth()->user()`).
+- **CRUDDY Controllers:** All controllers follow CRUDDY by Design (only the 7 resourceful methods).
+- **Actions Pattern:** Business logic is encapsulated in Action classes for clean and decoupled code.
+- **Technical documentation:** Update README and AI instruction files after every relevant change.
 
 ---
 
-## Funcionalidades principales ⚡
+## Main Tools & Technologies 🛠️
 
-- **Automatización NOM-035:** Cuestionarios inteligentes, alertas automáticas, reportes y análisis predictivo.
-- **Tickets de incidentes:** Reporte y seguimiento de incidentes laborales, dashboard para RH.
-- **Notificaciones en tiempo real:** Alertas push, emails automáticos y dashboard interactivo.
-- **Análisis predictivo:** IA que detecta riesgos antes de que ocurran y previene demandas laborales.
+### TALL Stack Versions
+
+| Technology     | Version     |
+|---------------|-------------|
+| Tailwind CSS  | 4.1.18      |
+| Alpine.js     | (latest)    |
+| Laravel       | 12.51.0     |
+| Livewire      | 3.7.10      |
+
+### Other Tools
+
+- Laravel Boost v2.1.4
+- Laravel Reverb v1.7.1
+- Livewire Volt v1.10.2
+- Livewire Flux v2.12.0
+- phpstan v2.1.39
+- Laravel Pint v1.27.1
+- Queues: Jobs and workers for async tasks
+- Tickets: System for reporting workplace incidents, including anonymous tickets
+- Notifications: Automatic and real-time for HR and employees
 
 ---
 
-## Estructura técnica del proyecto 🗂️
+## Main Features ⚡
 
-- `.ai/guidelines/`: Convenciones personalizadas y guías para la IA.
-- `app/Actions/`: Clases Action para lógica de negocio.
-- `app/Livewire/`: Componentes Livewire organizados por módulos:
+- **NOM-035 Automation:** Smart questionnaires, automatic alerts, reports, and predictive analysis
+- **Incident Tickets:** Reporting and tracking workplace incidents, HR dashboard
+- **Real-time Notifications:** Push alerts, automatic emails, interactive dashboard
+- **Predictive Analysis:** AI detects risks before they occur and prevents labor lawsuits
+
+---
+
+## Technical Project Structure 🗂️
+
+- `.ai/guidelines/`: Custom conventions and guides for AI
+- `app/Actions/`: Action classes for business logic
+- `app/Livewire/`: Livewire components organized by module:
 	- `Actions/`
 	- `Alert/`
 	- `Analysis/`
@@ -62,10 +69,10 @@ Neura es una plataforma TALL Stack diseñada para automatizar el cumplimiento de
 	- `Questionnaire/`
 	- `Ticket/`
 	- `Traits/`
-- `resources/views/app/`: Vistas principales de la aplicación.
-- `resources/views/partials/`: Componentes Blade reutilizables.
-- `public/images/hero.png`: Imagen principal del proyecto.
+- `resources/views/app/`: Main application views
+- `resources/views/partials/`: Reusable Blade components
+- `public/images/hero.png`: Main project image
 
 ---
 
-**Neura** es la solución integral para el cumplimiento automatizado de NOM-035, mejorando el bienestar laboral y la gestión de riesgos en las empresas mexicanas. 🏢✨
+**Neura** is the all-in-one solution for automated NOM-035 compliance, improving workplace wellbeing and risk management in Mexican companies. 🏢✨
