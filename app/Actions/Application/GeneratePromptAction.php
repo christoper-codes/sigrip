@@ -12,6 +12,7 @@ final class GeneratePromptAction
     public function execute(array $responses, array $questionnaire, bool $auth_required = true): array
     {
         $incident_types = IncidentType::all(['id', 'name'])->toArray();
+        $average_score = null;
 
         $title = $questionnaire['title'];
         $risk_evaluation = $questionnaire['risk_evaluation'] ?? [];
