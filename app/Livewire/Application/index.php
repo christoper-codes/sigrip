@@ -74,7 +74,7 @@ class Index extends Component
 
         $departments = Department::where('company_id', Auth::user()->company?->id)
             ->get();
-        $this->form->departments = $departments ? $departments->toArray() : [];
+        $this->form->departments = $departments->toArray();
 
         $this->form->questionnaires = Questionnaire::where(function ($query) {
             $query->where('is_base', true)
@@ -122,8 +122,8 @@ class Index extends Component
         $this->form->issuing_department = $this->application->issuing_department_id;
         $this->form->executing_department = $this->application->executing_department_id;
         $this->form->questionnaire = $this->application->questionnaire_id;
-        $this->form->start_date = $this->application->start_date ? date('Y-m-d', strtotime($this->application->start_date)) : null;
-        $this->form->expiration_date = $this->application->expiration_date ? date('Y-m-d', strtotime($this->application->expiration_date)) : null;
+        $this->form->start_date = $this->application->start_date ? $this->application->start_date->toDateString() : null;
+        $this->form->expiration_date = $this->application->expiration_date ? $this->application->expiration_date->toDateString() : null;
         $this->form->auth_required = $this->application->auth_required;
 
         Flux::modal('edit-application-modal')->show();
