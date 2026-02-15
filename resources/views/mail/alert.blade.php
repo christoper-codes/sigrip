@@ -11,7 +11,7 @@ Se ha generado una <strong>alerta</strong> en las respuestas de un empleado.<br>
 @endif
 **Cuestionario:** {{ $questionnaire_name }}<br>
 **Alerta:** {{ $alert_name }}<br>
-**Alerta ID:** {{ $alert_uuid }}<br>
+**Alerta ID:** {{ $alert_uuid }}<br><br>
 
 @if(!empty($recommendation_for_department))
 **Recomendación para el departamento:**<br>
