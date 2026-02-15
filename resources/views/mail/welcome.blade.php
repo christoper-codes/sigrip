@@ -1,7 +1,7 @@
 <x-mail::message>
-# Bienvenido a NEURA
 
 Hola **{{ $company }}** 👋
+¡Bienvenido a Neura!
 
 Tu cuenta ya está lista para comenzar con el cumplimiento de la **NOM-035**.
 
@@ -9,9 +9,8 @@ Tu cuenta ya está lista para comenzar con el cumplimiento de la **NOM-035**.
 Comenzar
 </x-mail::button>
 
-Si tienes dudas, nuestro equipo te acompaña durante todo el proceso.
+En caso de dudas, nuestro equipo te acompañara durante el proceso, no dudes en contactarnos a través de nuestro correo de soporte o por medio de nuestro chat.
 
-Gracias,<br>
+Gracias<br>
 
-**Equipo Neura**
 </x-mail::message>
