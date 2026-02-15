@@ -9,15 +9,7 @@
         <flux:textarea name="description" resize="none" wire:model="description" icon="chat-bubble-bottom-center-text" placeholder="{{ __('Compañía de software') }}"/>
         <flux:error name="description"/>
     </flux:field>
-    <flux:button
-        type="submit"
-        variant="primary"
-        :loading="false"
-        x-data="{ loading: false }"
-        x-on:click="loading = true;"
-        class="w-24!"
-    >
-        <span x-show="!loading">{{ __('Guardar') }}</span>
-        <span x-show="loading"><flux:icon.loading class="!size-4"/></span>
+    <flux:button type="submit" variant="primary" class="w-24!">
+        {{ __('Guardar') }}
     </flux:button>
 </form>

@@ -5,9 +5,12 @@ namespace App\Livewire\Company;
 use App\Actions\Application\GenerateQrAction;
 use App\Enums\NotificationTypesEnum;
 use App\Enums\RoleEnum;
+use App\Mail\Welcome;
 use App\Models\Company;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -26,30 +29,35 @@ class Store extends Component
     {
         $this->validate();
 
-        $uuid = Str::slug($this->name) . '-' . str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
-        $company = Company::create([
-            'uuid' => $uuid,
-            'organization_id' => Auth::user()->organization->id,
-            'name' => $this->name,
-            'description' => $this->description,
-        ]);
+        DB::beginTransaction();
+        try {
+            $uuid = Str::slug($this->name) . '-' . str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+            $company = Company::create([
+                'uuid' => $uuid,
+                'organization_id' => Auth::user()->organization->id,
+                'name' => $this->name,
+                'description' => $this->description,
+            ]);
+            Auth::user()->update(['company_id' => $company->id]);
 
-        Auth::user()->update(['company_id' => $company->id]);
-        /* $user_roles = Role::where('name', RoleEnum::COMPANY_ADMIN->value)->first();
-        Auth::user()->userRoles()->attach($user_roles->id); */
+            $url_qr = route('ticket.anon.form', ['company' => $company->uuid]);
+            $slug = Str::slug($company->name) . '-' . $company->uuid;
+            (new GenerateQrAction)->execute(url: $url_qr, slug: $slug);
 
-        $url_qr = route('ticket.anon.form', ['company' => $company->uuid]);
-        $slug = Str::slug($company->name) . '-' . $company->uuid;
-        (new GenerateQrAction)->execute(url: $url_qr, slug: $slug);
+            Mail::to(Auth::user()->email)->send(new Welcome(company: $company->name));
 
-        $this->dispatch('nextStep');
+            DB::commit();
 
-        if(! $this->wizard) {
-            $this->redirect(url: route('company.index'), navigate: true);
+            $this->dispatch('nextStep');
+            if(! $this->wizard) {
+                $this->redirect(url: route('company.index'), navigate: true);
+            }
+            $this->reset();
+            $this->dispatch('toast', message: __('Compañia creada con éxito'), type: NotificationTypesEnum::SUCCESS->value);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->dispatch('toast', message: __('Error al crear la compañia'), type: NotificationTypesEnum::ERROR->value);
         }
-
-        $this->reset();
-        $this->dispatch('toast', message: __('Compañia creada con éxito'), type: NotificationTypesEnum::SUCCESS->value);
     }
 
     public function render()
