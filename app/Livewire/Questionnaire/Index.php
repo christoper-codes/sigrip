@@ -62,7 +62,7 @@ class Index extends Component
     public function showDetails(int $id): void
     {
         $questionnaire = Questionnaire::find($id);
-        $this->questionnaire_data = $questionnaire->metadata;
+        $this->questionnaire_data = is_string($questionnaire->metadata) ? json_decode($questionnaire->metadata, true) : $questionnaire->metadata;
         $this->total_questions = collect($this->questionnaire_data['themes'] ?? [])->sum(function ($theme) {
             return count($theme['questions'] ?? []);
         });
@@ -73,7 +73,7 @@ class Index extends Component
     public function showRiskDetails(int $id): void
     {
         $questionnaire = Questionnaire::find($id);
-        $this->questionnaire_data = $questionnaire->metadata;
+        $this->questionnaire_data = is_string($questionnaire->metadata) ? json_decode($questionnaire->metadata, true) : $questionnaire->metadata;
 
         Flux::modal('questionnaire-risk-modal')->show();
     }
