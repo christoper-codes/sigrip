@@ -68,7 +68,7 @@ class Index extends Component
             ->where('metadata->hr_department', true)
             ->first();
 
-        $this->form->department = $department ? $department->toArray() : [];
+        $this->form->department = $department->toArray();
 
         $this->form->issuing_department = $this->form->department['id'] ?? null;
 
