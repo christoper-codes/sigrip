@@ -56,7 +56,7 @@ class Index extends Component
         $hr_department = Department::where('company_id', Auth::user()->company->id)
             ->where('metadata->hr_department', true)
             ->first();
-        if ($hr_department && $this->department->id !== $hr_department->id && $this->form->hr_department && $hr_department) {
+        if ($hr_department && $this->department->id !== $hr_department->id && $this->form->hr_department) {
             Flux::modal('edit-department-modal')->close();
             $this->dispatch('toast', message: __('Ya existe un departamento de RRHH en esta compañía.'), type: NotificationTypesEnum::ERROR->value);
 
