@@ -561,6 +561,7 @@ class Show extends Component
         return collect($responses)->transform(function ($theme) {
             $theme['questions'] = collect($theme['questions'])->transform(function ($question) {
                 $item = (int) preg_replace('/\D/', '', $question['id']);
+                $resolve = ['domain' => null, 'category' => null];
                 if ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
                     $resolve = $this->resolveDomainAndCategory($item);
                 }

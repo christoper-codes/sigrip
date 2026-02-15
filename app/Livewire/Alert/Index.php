@@ -58,7 +58,7 @@ class Index extends Component
             $user = Auth::user();
             $metadata = $user->metadata;
             $alerts = ($metadata['alerts'] ?? 1) - 1;
-            $metadata['alerts'] = $alerts <= 0 ? 0 : $alerts;
+            $metadata['alerts'] = $alerts < 0 ? 0 : $alerts;
             $user->update(['metadata' => $metadata]);
         }
     }
