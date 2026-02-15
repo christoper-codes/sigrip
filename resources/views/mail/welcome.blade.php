@@ -11,6 +11,6 @@ Comenzar
 
 En caso de dudas, nuestro equipo te acompañara durante el proceso, no dudes en contactarnos a través de nuestro correo de soporte o por medio de nuestro chat.
 
-Gracias<br>
+Gracias.<br>
 
 </x-mail::message>

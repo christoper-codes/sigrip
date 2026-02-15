@@ -11,6 +11,7 @@ use App\Actions\User\CreateNotificationAction;
 use App\Enums\NomEnum;
 use App\Enums\RoleEnum;
 use App\Events\NotificationEvent;
+use App\Mail\Alert as MailAlert;
 use App\Models\Alert;
 use App\Models\AlertType;
 use App\Models\Application;
@@ -19,6 +20,8 @@ use App\Models\SupportTicketStatus;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class AiAlertJob implements ShouldQueue
@@ -89,8 +92,9 @@ class AiAlertJob implements ShouldQueue
             $alert_type = AlertType::where('color', Str::lower($ai_response['type_alert']))->first();
 
             // Alerts
+            $uuid = str_pad(mt_rand(0, 999999), 8, '0', STR_PAD_LEFT);
             $alert = Alert::create([
-                'uuid' => str_pad(mt_rand(0, 999999), 8, '0', STR_PAD_LEFT),
+                'uuid' => $uuid,
                 'alert_type_id' => $alert_type->id,
                 'company_id' => $this->application->issuingDepartment->company->id,
                 'department_id' => $this->application->executing_department_id,
@@ -169,7 +173,15 @@ class AiAlertJob implements ShouldQueue
                     $query->where('name', RoleEnum::COMPANY_ADMIN->value);
                 })->first();
             if($company_admin && $company_admin->id !== $this->application->issuingDepartment->manager_id){
-                $notification = [
+            Mail::to($company_admin->email)->send(new MailAlert(
+                employee_name: $this->questionnaire_response->employee_data['name'] ?? null,
+                alert_name: $ai_response['subject_alert'],
+                recommendation_for_department: $ai_response['recommendation_for_department'],
+                alert_uuid: $alert->uuid,
+                questionnaire_name: $this->application->questionnaire->name,
+            ));
+
+            $notification = [
                     'type' => 'success',
                     'title' => __('Alerta AI generada'),
                     'message' => __('Se ha generado una alerta AI para la aplicación: :application. Se recomienda revisarla a la brevedad.', ['application' => $this->application->questionnaire->name]),
@@ -194,8 +206,6 @@ class AiAlertJob implements ShouldQueue
                 $company_admin->metadata = $metadata;
                 $company_admin->save();
             }
-
-            // Email notification
         }
     }
 }
