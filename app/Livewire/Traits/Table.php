@@ -30,7 +30,7 @@ trait Table
     {
         $can_sort = false;
 
-        if (isset($this->headers) && is_array($this->headers)) {
+        if (isset($this->headers)) {
             foreach ($this->headers as $header) {
                 if (is_array($header) &&
                     isset($header['field']) &&
