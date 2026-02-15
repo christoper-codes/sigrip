@@ -96,7 +96,7 @@ class Show extends Component
             }
 
             $questionnaire_response = QuestionnaireResponse::create([
-                'uuid' => str_pad(mt_rand(0, 999999), 8, '0', STR_PAD_LEFT),
+                'uuid' => str_pad((string)mt_rand(0, 999999), 8, '0', STR_PAD_LEFT),
                 'application_id' => $this->application->id,
                 'questionnaire_id' => $this->questionnaire['id'],
                 'user_id' => $this->application->auth_required ? Auth::id() : null,
