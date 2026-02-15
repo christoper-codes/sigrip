@@ -31,7 +31,7 @@ class Store extends Component
 
         DB::beginTransaction();
         try {
-            $uuid = Str::slug($this->name).'-'.str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+            $uuid = Str::slug($this->name).'-'.str_pad((string)mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
             $company = Company::create([
                 'uuid' => $uuid,
                 'organization_id' => Auth::user()->organization->id,
