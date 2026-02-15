@@ -93,7 +93,7 @@ class AiAlertJob implements ShouldQueue
             $alert_type = AlertType::where('color', Str::lower($ai_response['type_alert']))->first();
 
             // Alerts
-            $uuid = str_pad(mt_rand(0, 999999), 8, '0', STR_PAD_LEFT);
+            $uuid = str_pad((string)mt_rand(0, 999999), 8, '0', STR_PAD_LEFT);
             $alert = Alert::create([
                 'uuid' => $uuid,
                 'alert_type_id' => $alert_type->id,
@@ -116,7 +116,7 @@ class AiAlertJob implements ShouldQueue
             ]);
 
             $this->questionnaire_response->refresh();
-            $this->questionnaire_response->ai_response = $ai_response;
+            $this->questionnaire_response->ai_response = json_encode($ai_response, JSON_UNESCAPED_UNICODE);
             $this->questionnaire_response->average_score = $ai_response['average_score'];
             $this->questionnaire_response->risk_level = $ai_response['risk_level'];
             $this->questionnaire_response->save();
@@ -165,7 +165,7 @@ class AiAlertJob implements ShouldQueue
                 $metadata = $manager->metadata;
                 $metadata['alerts'] = ($metadata['alerts'] ?? 0) + 1;
                 $metadata['notifications'] = ($metadata['notifications'] ?? 0) + 1;
-                $manager->metadata = $metadata;
+                $manager->metadata = json_encode($metadata, JSON_UNESCAPED_UNICODE);
                 $manager->save();
             }
 
@@ -204,7 +204,7 @@ class AiAlertJob implements ShouldQueue
                 $metadata = $company_admin->metadata;
                 $metadata['alerts'] = ($metadata['alerts'] ?? 0) + 1;
                 $metadata['notifications'] = ($metadata['notifications'] ?? 0) + 1;
-                $company_admin->metadata = $metadata;
+                $company_admin->metadata = json_encode($metadata, JSON_UNESCAPED_UNICODE);
                 $company_admin->save();
             }
         }
