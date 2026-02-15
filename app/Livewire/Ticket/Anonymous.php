@@ -81,7 +81,7 @@ class Anonymous extends Component
             }
         }
 
-        $tracking_uuid = (string) str_pad(mt_rand(0, 999999), 8, '0', STR_PAD_LEFT);
+        $tracking_uuid = (string) str_pad((string)mt_rand(0, 999999), 8, '0', STR_PAD_LEFT);
 
         SupportTicketJob::dispatch(
             company: $this->company->id,
