@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Application;
 
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
@@ -14,7 +16,7 @@ final class GenerateQrAction
     {
         $renderer = new ImageRenderer(
             new RendererStyle(400),
-            new SvgImageBackEnd()
+            new SvgImageBackEnd
         );
         $writer = new Writer($renderer);
         $qr_code = $writer->writeString($url);

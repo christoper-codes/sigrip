@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Ticket;
 
 use App\Enums\NotificationTypesEnum;
 use App\Jobs\SupportTicketJob;
 use App\Models\IncidentType;
-use App\Models\SupportTicket;
 use App\Models\SupportTicketStatus;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Str;
 
 class Store extends Component
 {
@@ -46,15 +47,16 @@ class Store extends Component
     public function submit(): void
     {
         $this->validate();
-        if (!$this->evidence_files || collect($this->evidence_files)->contains(fn($file) => ! $file->isValid())) {
+        if (! $this->evidence_files || collect($this->evidence_files)->contains(fn ($file) => ! $file->isValid())) {
             $this->dispatch('toast', message: __('Los archivos aún se están subiendo. Por favor, espera a que termine la carga.'), type: NotificationTypesEnum::WARNING->value);
+
             return;
         }
 
         $evidence_paths = [];
         foreach ($this->evidence_files as $file) {
             $original = $file->getClientOriginalName();
-            $file_name = Auth::user()->company_id . '_' . Str::replace(' ', '_', trim(Str::lower(Auth::user()->company->name))) . '_' . time() . '_' . $original;
+            $file_name = Auth::user()->company_id.'_'.Str::replace(' ', '_', trim(Str::lower(Auth::user()->company->name))).'_'.time().'_'.$original;
             $file_path = $file->storeAs('tickets', $file_name, 'public');
             $evidence_paths[] = $file_path;
         }

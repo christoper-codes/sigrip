@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class EmployeesTemplateExport implements FromArray, WithHeadings, WithStyles, WithColumnWidths
+class EmployeesTemplateExport implements FromArray, WithColumnWidths, WithHeadings, WithStyles
 {
     public function array(): array
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Forms;
 
 use Livewire\Attributes\Validate;
@@ -21,12 +23,12 @@ class QuestionnaireForm extends Form
 
     #[Validate(['required', 'array'])]
     public ?array $yellow_risk_evaluation = [
-        ['label' => '', 'criteria' => '']
+        ['label' => '', 'criteria' => ''],
     ];
 
     #[Validate(['required', 'array'])]
     public ?array $red_risk_evaluation = [
-        ['label' => '', 'criteria' => '']
+        ['label' => '', 'criteria' => ''],
     ];
 
     #[Validate(['nullable', 'file', 'mimes:xlsx,csv'])]
@@ -38,12 +40,11 @@ class QuestionnaireForm extends Form
     public ?int $questionnaire_category = null;
 
     public $import_errors = null;
-
     public ?array $questionnaire_categories = [];
 
     public function rules(): array
     {
-       return [
+        return [
             'instructions' => 'required|array|min:1',
             'instructions.*' => 'required|string|min:3',
             'objectives' => 'required|array|min:1',
@@ -54,6 +55,6 @@ class QuestionnaireForm extends Form
             'red_risk_evaluation' => 'required|array|min:1',
             'red_risk_evaluation.*.label' => 'required|string|min:3',
             'red_risk_evaluation.*.criteria' => 'required|string|min:3',
-       ];
+        ];
     }
 }

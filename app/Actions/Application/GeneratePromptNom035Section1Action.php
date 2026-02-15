@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Application;
 
 use App\Models\IncidentType;
@@ -33,7 +35,7 @@ class GeneratePromptNom035Section1Action
             if (isset($question['options']) && is_array($question['options'])) {
                 foreach ($question['options'] as $option) {
                     if (($option['value'] ?? null) == $value) {
-                        $selected_label = $option['label'] ?? ('Valor ' . $value);
+                        $selected_label = $option['label'] ?? ('Valor '.$value);
                         break;
                     }
                 }
@@ -89,7 +91,7 @@ class GeneratePromptNom035Section1Action
 }
 }';
 
-        $prompt = "Eres un analista experto en NOM-035. Analiza todas las respuestas del cuestionario. Si al menos una respuesta es 'Sí' (valor 1), la alerta es roja y se requiere atención clínica. Si todas son 'No', no hay alerta.\n\n=== INFORMACIÓN DEL CUESTIONARIO ===\nTítulo: {$title}\n\n=== RESPUESTAS DEL USUARIO ===\n{$answers_analysis_str}\n\n=== RESPUESTAS CRÍTICAS ===\n{$critical_responses_str}\n\n=== IDs DE PREGUNTAS CON ALERTA ===\n{$questions_alert_ids}\n\n=== TIPOS DE INCIDENTE DISPONIBLES ===\n{$incident_types_json}\n\n=== INSTRUCCIONES ESPECÍFICAS ===\n1. Si al menos una respuesta es 'Sí', la alerta es roja y se requiere atención clínica.\n2. Si todas son 'No', no hay alerta.\n3. Responde ÚNICAMENTE en formato JSON, sin comentarios adicionales.\n\nRESPONDE SOLO CON EL SIGUIENTE JSON (sin markdown, sin comentarios adicionales):\n" . $json_block;
+        $prompt = "Eres un analista experto en NOM-035. Analiza todas las respuestas del cuestionario. Si al menos una respuesta es 'Sí' (valor 1), la alerta es roja y se requiere atención clínica. Si todas son 'No', no hay alerta.\n\n=== INFORMACIÓN DEL CUESTIONARIO ===\nTítulo: {$title}\n\n=== RESPUESTAS DEL USUARIO ===\n{$answers_analysis_str}\n\n=== RESPUESTAS CRÍTICAS ===\n{$critical_responses_str}\n\n=== IDs DE PREGUNTAS CON ALERTA ===\n{$questions_alert_ids}\n\n=== TIPOS DE INCIDENTE DISPONIBLES ===\n{$incident_types_json}\n\n=== INSTRUCCIONES ESPECÍFICAS ===\n1. Si al menos una respuesta es 'Sí', la alerta es roja y se requiere atención clínica.\n2. Si todas son 'No', no hay alerta.\n3. Responde ÚNICAMENTE en formato JSON, sin comentarios adicionales.\n\nRESPONDE SOLO CON EL SIGUIENTE JSON (sin markdown, sin comentarios adicionales):\n".$json_block;
 
         $data = [
             'prompt' => trim($prompt),
@@ -97,6 +99,7 @@ class GeneratePromptNom035Section1Action
             'type' => $type,
             'average_score' => $average_score,
         ];
+
         return $data;
     }
 }

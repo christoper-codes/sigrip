@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Ticket;
 
 use App\Actions\Tickets\AnalyzeTicketAiAction;
@@ -11,10 +13,10 @@ use App\Models\SupportTicketStatus;
 use App\Models\TicketResponse;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Str;
 
 class Index extends Component
 {
@@ -45,7 +47,7 @@ class Index extends Component
         $this->departments = Department::where('company_id', Auth::user()->company?->id)->get()->toArray();
         $this->ticket_statuses = SupportTicketStatus::all()->toArray();
 
-        if(Auth::user()->company?->getActiveTickets() > 0) {
+        if (Auth::user()->company?->getActiveTickets() > 0) {
             $department_names = Auth::user()->company->getActiveTicketNames();
             $this->notify_message = __('Se tienen tickets activos para el departamento de :departments', ['departments' => implode(', ', $department_names)]);
             $this->dispatch('toast', message: $this->notify_message, type: NotificationTypesEnum::WARNING->value);
@@ -59,12 +61,12 @@ class Index extends Component
 
         $support_ticket = SupportTicket::find($this->detail_ticket['id']);
 
-        if($this->ticket_files_response || $this->ticket_text_response) {
+        if ($this->ticket_files_response || $this->ticket_text_response) {
             $evidence_paths = [];
             if ($this->ticket_files_response) {
                 foreach ($this->ticket_files_response as $file) {
                     $original = $file->getClientOriginalName();
-                    $file_name = Auth::user()->company_id . '_' . Str::replace(' ', '_', trim(Str::lower(Auth::user()->company->name))) . '_' . time() . '_' . $original;
+                    $file_name = Auth::user()->company_id.'_'.Str::replace(' ', '_', trim(Str::lower(Auth::user()->company->name))).'_'.time().'_'.$original;
                     $file_path = $file->storeAs('responses', $file_name, 'public');
                     $evidence_paths[] = $file_path;
                 }
@@ -76,15 +78,15 @@ class Index extends Component
                 'metadata' => [
                     'text_response' => $this->ticket_text_response,
                     'files_response' => $evidence_paths,
-                ]
+                ],
             ]);
         }
 
         $support_ticket->is_priority = $this->is_priority;
         $support_ticket->support_ticket_status_id = $this->ticket_status;
-        if($support_ticket->support_ticket_status_id == 4){
+        if ($support_ticket->support_ticket_status_id == 4) {
             $support_ticket->is_active = false;
-        } else if($support_ticket->support_ticket_status_id == 3){
+        } elseif ($support_ticket->support_ticket_status_id == 3) {
             $support_ticket->is_active = false;
             $support_ticket->resolved_at = now();
         } else {
@@ -105,7 +107,7 @@ class Index extends Component
         Flux::modal('ticket-details-modal')->close();
     }
 
-     public function searchTickets(): void
+    public function searchTickets(): void
     {
         $this->validateOnly('department');
         $this->tickets = SupportTicket::where('department_id', $this->department)
@@ -117,7 +119,7 @@ class Index extends Component
             ->get()
             ->toArray();
 
-        if(! $this->tickets) {
+        if (! $this->tickets) {
             $this->notify_message = __('No se encontraron tickets para el departamento seleccionado.');
         }
     }
@@ -125,7 +127,7 @@ class Index extends Component
     public function showTicketDetails(int $ticket_id): void
     {
         $this->detail_ticket = SupportTicket::with('incidentType', 'supportTicketStatus', 'createdByUser', 'ticketResponses')->find($ticket_id)->toArray();
-        $this->is_priority = (bool)$this->detail_ticket['is_priority'];
+        $this->is_priority = (bool) $this->detail_ticket['is_priority'];
         $this->ticket_status = $this->detail_ticket['support_ticket_status_id'];
 
         Flux::modal('ticket-details-modal')->show();

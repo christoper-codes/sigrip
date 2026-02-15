@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Department;
 
 use App\Enums\NotificationTypesEnum;
@@ -23,12 +25,12 @@ class Index extends Component
     public function mount()
     {
         $this->table_items = Department::where('company_id', Auth::user()->company?->id)
-                ->with('manager')
-                ->get()
-                ->toArray();
+            ->with('manager')
+            ->get()
+            ->toArray();
 
         $no_manager = collect($this->table_items)->first(function ($departament) {
-             return empty($departament['manager_id']);
+            return empty($departament['manager_id']);
         });
         if ($no_manager) {
             $this->dispatch('toast', message: __('Por seguridad, debe asignar un gerente a todos los departamentos.'), type: 'warning');
@@ -44,7 +46,7 @@ class Index extends Component
             ['label' => __('Estado')],
             ['label' => __('Acciones')],
         ];
-         $this->refreshTableData();
+        $this->refreshTableData();
     }
 
     public function submit(): void
@@ -54,19 +56,21 @@ class Index extends Component
         $hr_department = Department::where('company_id', Auth::user()->company->id)
             ->where('metadata->hr_department', true)
             ->first();
-        if($hr_department && $this->department->id !== $hr_department->id && $this->form->hr_department && $hr_department) {
+        if ($hr_department && $this->department->id !== $hr_department->id && $this->form->hr_department && $hr_department) {
             Flux::modal('edit-department-modal')->close();
             $this->dispatch('toast', message: __('Ya existe un departamento de RRHH en esta compañía.'), type: NotificationTypesEnum::ERROR->value);
+
             return;
         }
 
-        if($this->form->save_manager && $this->form->manager) {
+        if ($this->form->save_manager && $this->form->manager) {
             $potential_manager = User::find($this->form->manager)->userRoles()
                 ->where('name', RoleEnum::DEPARTMENT_MANAGER->value)
                 ->exists();
             if (! $potential_manager) {
                 Flux::modal('edit-department-modal')->close();
                 $this->dispatch('toast', message: __('El empleado seleccionado no tiene el rol de Gerente'), type: NotificationTypesEnum::ERROR->value);
+
                 return;
             }
         }
@@ -114,17 +118,17 @@ class Index extends Component
         $this->form->email = $this->department->email;
         $this->form->description = $this->department->description;
         $this->form->phone = $this->department->phone;
-        if($this->department->manager_id){
+        if ($this->department->manager_id) {
             $manager = User::find($this->department->manager_id);
             $this->form->potential_managers = new Collection([$manager]);
             $this->form->manager = $manager->id;
         } else {
-            $this->form->potential_managers = new Collection();
+            $this->form->potential_managers = new Collection;
             $this->form->manager = null;
         }
         $this->form->hr_department = $this->department->metadata['hr_department'] ?? false;
 
-         Flux::modal('edit-department-modal')->show();
+        Flux::modal('edit-department-modal')->show();
     }
 
     public function editModalClosed()

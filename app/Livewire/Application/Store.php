@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Application;
 
 use App\Actions\Application\GenerateQrAction;
@@ -37,9 +39,9 @@ class Store extends Component
         $this->form->departments = $departments ? $departments->toArray() : [];
 
         $questionnaires = Questionnaire::where(function ($query) {
-                $query->where('is_base', true)
+            $query->where('is_base', true)
                 ->orWhere('company_id', Auth::user()->company?->id);
-            })
+        })
             ->get();
         $this->form->questionnaires = $questionnaires ? $questionnaires->toArray() : [];
     }
@@ -55,15 +57,16 @@ class Store extends Component
             ->exists();
         if ($exists_application) {
             $this->dispatch('toast', message: __('Ya existe una aplicación activa con los mismos parámetros.'), type: NotificationTypesEnum::ERROR->value);
+
             return;
         }
 
         DB::beginTransaction();
-        try{
+        try {
             $questionnaire_name = collect($this->form->questionnaires)
-                    ->where('id', $this->form->questionnaire)
-                    ->first()['name'];
-            $this->form->slug = Str::slug($questionnaire_name . '-' . uniqid());
+                ->where('id', $this->form->questionnaire)
+                ->first()['name'];
+            $this->form->slug = Str::slug($questionnaire_name.'-'.uniqid());
             $this->form->url_qr = route('application.show', ['slug' => $this->form->slug]);
 
             $application = Application::create([
@@ -78,7 +81,7 @@ class Store extends Component
                 'expiration_date' => $this->form->expiration_date,
             ]);
 
-            if($this->form->auth_required){
+            if ($this->form->auth_required) {
                 UserApplicationJob::dispatch(
                     department_id: $this->form->executing_department,
                     company_id: Auth::user()->company?->id,
@@ -102,7 +105,7 @@ class Store extends Component
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->dispatch('toast', message: __('Error al crear la aplicación: ') . $e->getMessage(), type: NotificationTypesEnum::ERROR->value);
+            $this->dispatch('toast', message: __('Error al crear la aplicación: ').$e->getMessage(), type: NotificationTypesEnum::ERROR->value);
         }
     }
 

@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NotificationEvent implements ShouldBroadcast, ShouldQueue
 {
@@ -27,7 +29,7 @@ class NotificationEvent implements ShouldBroadcast, ShouldQueue
      */
     public function broadcastOn(): Channel
     {
-        return new Channel('notification.' . $this->user_id);
+        return new Channel('notification.'.$this->user_id);
     }
 
     /**

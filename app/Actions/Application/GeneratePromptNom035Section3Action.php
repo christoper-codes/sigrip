@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Application;
 
 use App\Models\IncidentType;
@@ -39,7 +41,7 @@ class GeneratePromptNom035Section3Action
             if (isset($question['options']) && is_array($question['options'])) {
                 foreach ($question['options'] as $option) {
                     if ((string) ($option['value'] ?? '') === (string) $value) {
-                        $selected_label = $option['label'] ?? ('Valor ' . $value);
+                        $selected_label = $option['label'] ?? ('Valor '.$value);
                         break;
                     }
                 }
@@ -68,9 +70,9 @@ class GeneratePromptNom035Section3Action
                 $has_critical = true;
                 $critical_responses[] = [
                     'question_id' => $qid,
-                    'question'    => $question_text,
-                    'value'       => (int) $value,
-                    'label'       => $selected_label,
+                    'question' => $question_text,
+                    'value' => (int) $value,
+                    'label' => $selected_label,
                 ];
             }
         }
@@ -146,10 +148,10 @@ RESPONDE SOLO CON ESTE JSON:
 ";
 
         return [
-            'prompt'            => trim($prompt),
+            'prompt' => trim($prompt),
             'critical_response' => $critical_response,
-            'type'              => $type,
-            'average_score'     => $average_score,
+            'type' => $type,
+            'average_score' => $average_score,
         ];
     }
 }

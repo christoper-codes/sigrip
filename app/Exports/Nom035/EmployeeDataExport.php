@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exports\Nom035;
 
 use Maatwebsite\Excel\Concerns\FromArray;
-use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class EmployeeDataExport implements FromArray, WithStyles, WithColumnWidths, WithTitle
+class EmployeeDataExport implements FromArray, WithColumnWidths, WithStyles, WithTitle
 {
     protected array $user_data;
 
@@ -26,6 +28,7 @@ class EmployeeDataExport implements FromArray, WithStyles, WithColumnWidths, Wit
     {
         $sheet->getStyle('A:A')->getFont()->setBold(true);
         $sheet->getStyle('B:B')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+
         return [];
     }
 

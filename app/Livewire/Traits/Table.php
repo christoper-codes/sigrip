@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Traits;
 
 trait Table
@@ -8,15 +10,12 @@ trait Table
     public array $table_items = [];
     public int $current_page = 1;
     public int $per_page = 10;
-
     public array $search_fields = [];
     public string $search_query = '';
-
     public array $paginated_items = [];
     public array $filtered_items = [];
     public int $total_results = 0;
     public int $total_pages = 0;
-
     public string $sort_field = '';
     public string $sort_direction = 'asc';
     public array $sortable_fields = [];
@@ -45,7 +44,7 @@ trait Table
             $can_sort = true;
         }
 
-        if (!$can_sort) {
+        if (! $can_sort) {
             return;
         }
 
@@ -80,13 +79,14 @@ trait Table
     public function getTotalPages(): int
     {
         $filtered_items = $this->getFilteredItems();
+
         return ceil(count($filtered_items) / $this->per_page);
     }
 
     public function getFilteredItems(): array
     {
         $items = $this->table_items;
-        if (!empty($this->search_query)) {
+        if (! empty($this->search_query)) {
             $items = array_filter($items, function ($item) {
                 foreach ($this->search_fields as $field) {
                     $value = data_get($item, $field);
@@ -94,11 +94,12 @@ trait Table
                         return true;
                     }
                 }
+
                 return false;
             });
         }
 
-        if (!empty($this->sort_field)) {
+        if (! empty($this->sort_field)) {
             usort($items, function ($a, $b) {
                 $valueA = data_get($a, $this->sort_field);
                 $valueB = data_get($b, $this->sort_field);
@@ -120,6 +121,7 @@ trait Table
     {
         $filtered_items = $this->getFilteredItems();
         $offset = ($this->current_page - 1) * $this->per_page;
+
         return array_slice($filtered_items, $offset, $this->per_page);
     }
 

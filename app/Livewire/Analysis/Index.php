@@ -1,12 +1,15 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Livewire\Analysis;
 
-use App\Models\Application;
 use App\Models\Alert;
+use App\Models\Application;
 use App\Models\Department;
 use Asantibanez\LivewireCharts\Models\ColumnChartModel;
-use Asantibanez\LivewireCharts\Models\PieChartModel;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
+use Asantibanez\LivewireCharts\Models\PieChartModel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
@@ -64,14 +67,14 @@ class Index extends Component
         // Total responses per application (bar chart)
         $applicationsQuery = Application::where('company_id', Auth::user()->company?->id)
             ->with('questionnaire')
-            ->withCount(['questionnaireResponses' => function($q) use ($startOfMonth, $endOfMonth) {
+            ->withCount(['questionnaireResponses' => function ($q) use ($startOfMonth, $endOfMonth) {
                 $q->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
             }]);
         if ($this->department && $this->department != -1) {
             $applicationsQuery->where('executing_department_id', $this->department);
         }
         $applications = $applicationsQuery->get();
-        $columnChartModel = (new ColumnChartModel())
+        $columnChartModel = (new ColumnChartModel)
             ->setAnimated(true);
         foreach ($applications as $app) {
             $columnChartModel->addColumn(
@@ -94,14 +97,14 @@ class Index extends Component
         }
         $active = $activeQuery->count();
         $inactive = $inactiveQuery->count();
-        $pieChartModelStates = (new PieChartModel())
+        $pieChartModelStates = (new PieChartModel)
             ->setAnimated(true)
             ->addSlice('Activas', $active, '#3b82f6')
             ->addSlice('Inactivas', $inactive, '#ef4444');
 
         // Top 5 most responded questionnaires (horizontal bar chart)
         $topApps = $applications->sortByDesc('questionnaire_responses_count')->take(5);
-        $columnChartModelTop = (new ColumnChartModel())
+        $columnChartModelTop = (new ColumnChartModel)
             ->setAnimated(true)
             ->setHorizontal();
         foreach ($topApps as $app) {
@@ -122,14 +125,14 @@ class Index extends Component
         $red = $alerts->where('risk_level', 'red')->count();
         $yellow = $alerts->where('risk_level', 'yellow')->count();
         $green = $alerts->where('risk_level', 'green')->count();
-        $pieChartModelAlerts = (new PieChartModel())
+        $pieChartModelAlerts = (new PieChartModel)
             ->setAnimated(true)
             ->addSlice('Rojo', $red, '#ef4444')
             ->addSlice('Amarillo', $yellow, '#facc15')
             ->addSlice('Verde', $green, '#22c55e');
 
         // Critical alerts (red) evolution over time (line chart)
-        $lineChartModel = (new LineChartModel())->setAnimated(true);
+        $lineChartModel = (new LineChartModel)->setAnimated(true);
         $daysInMonth = $startOfMonth->daysInMonth;
         for ($day = 1; $day <= $daysInMonth; $day++) {
             $date = $startOfMonth->copy()->addDays($day - 1);

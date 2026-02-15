@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ApplicationShowResponsesExport implements FromArray, WithHeadings, WithStyles, WithColumnWidths, WithTitle
+class ApplicationShowResponsesExport implements FromArray, WithColumnWidths, WithHeadings, WithStyles, WithTitle
 {
     protected array $responses;
 
@@ -20,7 +22,7 @@ class ApplicationShowResponsesExport implements FromArray, WithHeadings, WithSty
 
     public function array(): array
     {
-       $rows = [];
+        $rows = [];
         $counter = 1;
         foreach ($this->responses as $item) {
             foreach ($item['questions'] as $question) {
@@ -33,6 +35,7 @@ class ApplicationShowResponsesExport implements FromArray, WithHeadings, WithSty
                 ];
             }
         }
+
         return $rows;
     }
 
@@ -43,7 +46,7 @@ class ApplicationShowResponsesExport implements FromArray, WithHeadings, WithSty
             'Tema',
             'Pregunta',
             'Respuesta',
-            'Valor'
+            'Valor',
         ];
     }
 
@@ -52,6 +55,7 @@ class ApplicationShowResponsesExport implements FromArray, WithHeadings, WithSty
         $sheet->getStyle('A1:E1')->getFont()->setBold(true);
         $sheet->getStyle('A1:E1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
         $sheet->getStyle('A1:E1')->getBorders()->getAllBorders()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('FF000000'));
+
         return [];
     }
 

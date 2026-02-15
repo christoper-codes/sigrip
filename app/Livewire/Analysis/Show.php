@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Analysis;
 
 use App\Actions\Analysis\CategoryRatingAction;
@@ -27,8 +29,8 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class Show extends Component
 {
-    use Table;
     use LimitItems;
+    use Table;
 
     public array $departments = [];
     public ?array $application_data = [];
@@ -73,8 +75,9 @@ class Show extends Component
 
     public function resultApplication(): void
     {
-        if(! $this->application){
+        if (! $this->application) {
             $this->application_error = __('Por favor, seleccione una aplicación para ver los resultados.');
+
             return;
         }
 
@@ -89,13 +92,14 @@ class Show extends Component
             ->first()
             ->toArray();
 
-        if($this->questionnaire['name'] == NomEnum::NOM_1->value){
+        if ($this->questionnaire['name'] == NomEnum::NOM_1->value) {
             $this->application_data['questionnaire_responses'] = collect($this->application_data['questionnaire_responses'])
-                    ->transform(function ($response) {
-                        $alert = (bool) $response['ai_response']['alert'] ?? false;
-                        $response['classification'] = $alert ? 'Alto' : 'Nulo';
-                        return $response;
-                    })->toArray();
+                ->transform(function ($response) {
+                    $alert = (bool) $response['ai_response']['alert'] ?? false;
+                    $response['classification'] = $alert ? 'Alto' : 'Nulo';
+
+                    return $response;
+                })->toArray();
 
             $this->headers = [
                 ['label' => __('ID')],
@@ -110,20 +114,21 @@ class Show extends Component
                 ['label' => __('Información del empleado')],
                 ['label' => __('Descarga excel')],
             ];
-        } else if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+        } elseif ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
             $this->application_data['questionnaire_responses'] = collect($this->application_data['questionnaire_responses'])
-                    ->transform(function ($response) {
-                        $final_score = collect($response['response_data'])->sum(fn ($response) => (int) $response['value']);
-                        $classification = match (true) {
-                            $final_score < 20  => 'Nulo o despreciable',
-                            $final_score < 45  => 'Bajo',
-                            $final_score < 70  => 'Medio',
-                            $final_score < 90  => 'Alto',
-                            default            => 'Muy alto',
-                        };
-                        $response['classification'] = $classification;
-                        return $response;
-                    })->toArray();
+                ->transform(function ($response) {
+                    $final_score = collect($response['response_data'])->sum(fn ($response) => (int) $response['value']);
+                    $classification = match (true) {
+                        $final_score < 20 => 'Nulo o despreciable',
+                        $final_score < 45 => 'Bajo',
+                        $final_score < 70 => 'Medio',
+                        $final_score < 90 => 'Alto',
+                        default => 'Muy alto',
+                    };
+                    $response['classification'] = $classification;
+
+                    return $response;
+                })->toArray();
 
             $this->headers = [
                 ['label' => __('ID')],
@@ -140,20 +145,21 @@ class Show extends Component
                 ['label' => __('Información del empleado')],
                 ['label' => __('Descarga excel')],
             ];
-        } else if($this->questionnaire['name'] == NomEnum::NOM_3->value) {
+        } elseif ($this->questionnaire['name'] == NomEnum::NOM_3->value) {
             $this->application_data['questionnaire_responses'] = collect($this->application_data['questionnaire_responses'])
-                    ->transform(function ($response) {
-                        $final_score = collect($response['response_data'])->sum(fn ($response) => (int) $response['value']);
-                        $classification = match (true) {
-                            $final_score < 50  => 'Nulo o despreciable',
-                            $final_score < 75  => 'Bajo',
-                            $final_score < 99  => 'Medio',
-                            $final_score < 140  => 'Alto',
-                            default            => 'Muy alto',
-                        };
-                        $response['classification'] = $classification;
-                        return $response;
-                    })->toArray();
+                ->transform(function ($response) {
+                    $final_score = collect($response['response_data'])->sum(fn ($response) => (int) $response['value']);
+                    $classification = match (true) {
+                        $final_score < 50 => 'Nulo o despreciable',
+                        $final_score < 75 => 'Bajo',
+                        $final_score < 99 => 'Medio',
+                        $final_score < 140 => 'Alto',
+                        default => 'Muy alto',
+                    };
+                    $response['classification'] = $classification;
+
+                    return $response;
+                })->toArray();
 
             $this->headers = [
                 ['label' => __('ID')],
@@ -216,10 +222,10 @@ class Show extends Component
         ];
 
         if (($this->application_data['employee_data_required'] ?? false) && $responses->count() > 0) {
-            $employee_keys = collect($responses->first()['employee_data'] ?? [])->keys()->filter(fn($k) => $k !== 'name' && $k !== 'questionnaire_name');
+            $employee_keys = collect($responses->first()['employee_data'] ?? [])->keys()->filter(fn ($k) => $k !== 'name' && $k !== 'questionnaire_name');
             $employee_stats = [];
             foreach ($employee_keys as $key) {
-                $counts = $responses->map(fn($r) => $r['employee_data'][$key] ?? null)
+                $counts = $responses->map(fn ($r) => $r['employee_data'][$key] ?? null)
                     ->filter()
                     ->countBy();
                 $label = $key_labels[$key] ?? ucfirst(str_replace('_', ' ', $key));
@@ -235,19 +241,19 @@ class Show extends Component
 
     public function downloadAllResults()
     {
-        $relative_folder = 'exports/' . $this->application_data['slug'] . '_' . now()->format('Ymd_His');
+        $relative_folder = 'exports/'.$this->application_data['slug'].'_'.now()->format('Ymd_His');
         Storage::disk('local')->makeDirectory($relative_folder);
 
         foreach ($this->application_data['questionnaire_responses'] as $response) {
             $this->generateExcelForResponse($response, $relative_folder);
         }
 
-        $zip_name = basename($relative_folder) . '.zip';
-        $zip_path = storage_path('app/private/exports/' . $zip_name);
-        $zip = new \ZipArchive();
-        $xlsx_path = storage_path('app/private/' . $relative_folder);
-        if ($zip->open($zip_path, \ZipArchive::CREATE) === TRUE) {
-            foreach (glob($xlsx_path . '/*.xlsx') as $file) {
+        $zip_name = basename($relative_folder).'.zip';
+        $zip_path = storage_path('app/private/exports/'.$zip_name);
+        $zip = new \ZipArchive;
+        $xlsx_path = storage_path('app/private/'.$relative_folder);
+        if ($zip->open($zip_path, \ZipArchive::CREATE) === true) {
+            foreach (glob($xlsx_path.'/*.xlsx') as $file) {
                 $zip->addFile($file, basename($file));
             }
             $zip->close();
@@ -264,20 +270,20 @@ class Show extends Component
         $responses = $response['response_data'] ?? [];
         $themes = $this->questionnaire['metadata']['themes'];
         $format_responses = $this->setFormatResponses($themes, $responses);
-        $base_filename = ($response['employee_data']['name'] ?? 'respuesta') . '_' . $response['uuid'];
+        $base_filename = ($response['employee_data']['name'] ?? 'respuesta').'_'.$response['uuid'];
         $base_filename = preg_replace('/[^A-Za-z0-9_\-]/', '_', $base_filename);
         $relative_folder = $folder;
 
-        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
-            $export_name =  $base_filename . '_guia_referencia_ii_responses.xlsx';
-        } elseif($this->questionnaire['name'] == NomEnum::NOM_3->value){
-            $export_name =  $base_filename . '_guia_referencia_iii_responses.xlsx';
+        if ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
+            $export_name = $base_filename.'_guia_referencia_ii_responses.xlsx';
+        } elseif ($this->questionnaire['name'] == NomEnum::NOM_3->value) {
+            $export_name = $base_filename.'_guia_referencia_iii_responses.xlsx';
         } else {
-            $export_name =  $base_filename . '_detailed_responses.xlsx';
+            $export_name = $base_filename.'_detailed_responses.xlsx';
         }
 
         Storage::disk('local')->makeDirectory($relative_folder);
-        $relative_path = $relative_folder . '/' . $export_name;
+        $relative_path = $relative_folder.'/'.$export_name;
 
         /* Analysis Ai */
         $analysis_ai = [[
@@ -307,7 +313,7 @@ class Show extends Component
             ['Questionario aplicado', $employee_data['questionnaire_name'] ?? null],
         ];
 
-        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+        if ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
             $all_responses = $this->setDomainAndCategory($format_responses);
             $alerts = (new GetAlertResponsesAction)->execute(response: $response, themes: $themes);
             $alert_responses = $this->setDomainAndCategory($alerts);
@@ -335,7 +341,7 @@ class Show extends Component
                 ['Questionario', $this->questionnaire['name']],
                 ['Puntaje final', $final['final_score']],
                 ['Clasificación', $final['classification']['label']],
-                ['Acción', $final['classification']['description']]
+                ['Acción', $final['classification']['description']],
             ];
 
             return Excel::store(new MainNomExport(
@@ -348,7 +354,7 @@ class Show extends Component
                 final_data: $final_data
             ), $relative_path, 'local');
         }
-        if($this->questionnaire['name'] == NomEnum::NOM_3->value){
+        if ($this->questionnaire['name'] == NomEnum::NOM_3->value) {
             $all_responses = $this->setDomainAndCategory($format_responses);
             $alerts = (new GetAlertResponsesAction)->execute(response: $response, themes: $themes);
             $alert_responses = $this->setDomainAndCategory($alerts);
@@ -376,7 +382,7 @@ class Show extends Component
                 ['Questionario', $this->questionnaire['name']],
                 ['Puntaje final', $final['final_score']],
                 ['Clasificación', $final['classification']['label']],
-                ['Acción', $final['classification']['description']]
+                ['Acción', $final['classification']['description']],
             ];
 
             return Excel::store(new MainNomExport(
@@ -402,11 +408,11 @@ class Show extends Component
 
     public function downloadResults(int $response_id): BinaryFileResponse
     {
-        $response = collect($this->application_data['questionnaire_responses']) ->firstWhere('id', $response_id);
+        $response = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $responses = $response['response_data'] ?? [];
         $themes = $this->questionnaire['metadata']['themes'];
         $format_responses = $this->setFormatResponses($themes, $responses);
-        $export_name =  $this->application_data['slug'] . '_detailed_responses.xlsx';
+        $export_name = $this->application_data['slug'].'_detailed_responses.xlsx';
 
         /* Analysis Ai */
         $analysis_ai = [[
@@ -436,9 +442,9 @@ class Show extends Component
             ['Questionario aplicado', $employee_data['questionnaire_name'] ?? null],
         ];
 
-        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+        if ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
             /*  Responses */
-            $export_name =  $this->application_data['slug'] . '_guia_referencia_ii_responses.xlsx';
+            $export_name = $this->application_data['slug'].'_guia_referencia_ii_responses.xlsx';
             $all_responses = $this->setDomainAndCategory($format_responses);
 
             /* Alert responses */
@@ -474,23 +480,23 @@ class Show extends Component
                 ['Questionario', $this->questionnaire['name']],
                 ['Puntaje final', $final['final_score']],
                 ['Clasificación', $final['classification']['label']],
-                ['Acción', $final['classification']['description']]
+                ['Acción', $final['classification']['description']],
             ];
 
             return Excel::download(new MainNomExport(
-                    responses: $all_responses,
-                    user_data: $user_data,
-                    alert_responses: $alert_responses,
-                    analysis_ai: $analysis_ai,
-                    domain_data: $domain_data,
-                    category_data: $category_data,
-                    final_data: $final_data
-                ), $export_name);
+                responses: $all_responses,
+                user_data: $user_data,
+                alert_responses: $alert_responses,
+                analysis_ai: $analysis_ai,
+                domain_data: $domain_data,
+                category_data: $category_data,
+                final_data: $final_data
+            ), $export_name);
         }
 
-        if($this->questionnaire['name'] == NomEnum::NOM_3->value){
+        if ($this->questionnaire['name'] == NomEnum::NOM_3->value) {
             /*  Responses */
-            $export_name =  $this->application_data['slug'] . '_guia_referencia_iii_responses.xlsx';
+            $export_name = $this->application_data['slug'].'_guia_referencia_iii_responses.xlsx';
             $all_responses = $this->setDomainAndCategory($format_responses);
 
             /* Alert responses */
@@ -526,22 +532,21 @@ class Show extends Component
                 ['Questionario', $this->questionnaire['name']],
                 ['Puntaje final', $final['final_score']],
                 ['Clasificación', $final['classification']['label']],
-                ['Acción', $final['classification']['description']]
+                ['Acción', $final['classification']['description']],
             ];
 
             return Excel::download(new MainNomExport(
-                    responses: $all_responses,
-                    user_data: $user_data,
-                    alert_responses: $alert_responses,
-                    analysis_ai: $analysis_ai,
-                    domain_data: $domain_data,
-                    category_data: $category_data,
-                    final_data: $final_data
-                ), $export_name);
+                responses: $all_responses,
+                user_data: $user_data,
+                alert_responses: $alert_responses,
+                analysis_ai: $analysis_ai,
+                domain_data: $domain_data,
+                category_data: $category_data,
+                final_data: $final_data
+            ), $export_name);
         }
 
         $alerts = (new GetAlertResponsesAction)->execute(response: $response, themes: $themes);
-
 
         return Excel::download(new MainBaseExport(
             responses: $format_responses,
@@ -554,23 +559,23 @@ class Show extends Component
     public function setDomainAndCategory(array $responses): array
     {
         return collect($responses)->transform(function ($theme) {
-                $theme['questions'] = collect($theme['questions'])->transform(function ($question) {
-                    $item = (int) preg_replace('/\D/', '', $question['id']);
-                    if($this->questionnaire['name'] == NomEnum::NOM_2->value){
-                        $resolve = $this->resolveDomainAndCategory($item);
-                    }
-                    if($this->questionnaire['name'] == NomEnum::NOM_3->value){
-                        $resolve = $this->resolveDomainAndCategoryNom3($item);
-                    }
+            $theme['questions'] = collect($theme['questions'])->transform(function ($question) {
+                $item = (int) preg_replace('/\D/', '', $question['id']);
+                if ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
+                    $resolve = $this->resolveDomainAndCategory($item);
+                }
+                if ($this->questionnaire['name'] == NomEnum::NOM_3->value) {
+                    $resolve = $this->resolveDomainAndCategoryNom3($item);
+                }
 
-                    return array_merge($question, [
-                        'domain'   => $resolve['domain'],
-                        'category' => $resolve['category'],
-                    ]);
-                })->toArray();
-
-                 return $theme;
+                return array_merge($question, [
+                    'domain' => $resolve['domain'],
+                    'category' => $resolve['category'],
+                ]);
             })->toArray();
+
+            return $theme;
+        })->toArray();
     }
 
     public function resolveDomainAndCategory(int $item): array
@@ -582,31 +587,31 @@ class Show extends Component
             ],
             'Carga de trabajo' => [
                 'category' => 'Factores propios de la actividad',
-                'items' => [4,5,6,7,8,9,10,11,12,13,42,43,44],
+                'items' => [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 42, 43, 44],
             ],
             'Falta de control sobre el trabajo' => [
                 'category' => 'Factores propios de la actividad',
-                'items' => [18,19,20,21,22,26,27],
+                'items' => [18, 19, 20, 21, 22, 26, 27],
             ],
             'Jornada de trabajo' => [
                 'category' => 'Organización del tiempo de trabajo',
-                'items' => [14,15],
+                'items' => [14, 15],
             ],
             'Interferencia en la relación trabajo-familia' => [
                 'category' => 'Organización del tiempo de trabajo',
-                'items' => [16,17],
+                'items' => [16, 17],
             ],
             'Liderazgo' => [
                 'category' => 'Liderazgo y relaciones en el trabajo',
-                'items' => [23,24,25,28,29],
+                'items' => [23, 24, 25, 28, 29],
             ],
             'Relaciones en el trabajo' => [
                 'category' => 'Liderazgo y relaciones en el trabajo',
-                'items' => [30,31,32,44,46,47,48],
+                'items' => [30, 31, 32, 44, 46, 47, 48],
             ],
             'Violencia' => [
                 'category' => 'Liderazgo y relaciones en el trabajo',
-                'items' => [33,34,35,36,37,38,39,40],
+                'items' => [33, 34, 35, 36, 37, 38, 39, 40],
             ],
         ];
 
@@ -630,52 +635,52 @@ class Show extends Component
         $domain_map = [
             'Condiciones en el ambiente de trabajo' => [
                 'category' => 'Ambiente de trabajo',
-                'items' => [1,2,3,4,5],
+                'items' => [1, 2, 3, 4, 5],
             ],
 
             'Carga de trabajo' => [
                 'category' => 'Factores propios de la actividad',
-                'items' => [6,7,8,9,10,11,12,13,14,15,16,66,67,68,69],
+                'items' => [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 66, 67, 68, 69],
             ],
 
             'Falta de control sobre el trabajo' => [
                 'category' => 'Factores propios de la actividad',
-                'items' => [23,24,25,26,27,28,29,30,35,36],
+                'items' => [23, 24, 25, 26, 27, 28, 29, 30, 35, 36],
             ],
 
             'Jornada de trabajo' => [
                 'category' => 'Organización del tiempo de trabajo',
-                'items' => [17,18],
+                'items' => [17, 18],
             ],
 
             'Interferencia en la relación trabajo-familia' => [
                 'category' => 'Organización del tiempo de trabajo',
-                'items' => [19,20,21,22],
+                'items' => [19, 20, 21, 22],
             ],
 
             'Liderazgo' => [
                 'category' => 'Liderazgo y relaciones en el trabajo',
-                'items' => [31,32,33,34,37,38,39,40,41],
+                'items' => [31, 32, 33, 34, 37, 38, 39, 40, 41],
             ],
 
             'Relaciones en el trabajo' => [
                 'category' => 'Liderazgo y relaciones en el trabajo',
-                'items' => [42,43,44,45,46,71,72,73,74],
+                'items' => [42, 43, 44, 45, 46, 71, 72, 73, 74],
             ],
 
             'Violencia' => [
                 'category' => 'Liderazgo y relaciones en el trabajo',
-                'items' => [57,58,59,60,61,62,63,64],
+                'items' => [57, 58, 59, 60, 61, 62, 63, 64],
             ],
 
             'Reconocimiento del desempeño' => [
                 'category' => 'Entorno organizacional',
-                'items' => [47,48,49,50,51,52],
+                'items' => [47, 48, 49, 50, 51, 52],
             ],
 
             'Insuficiente sentido de pertenencia e inestabilidad' => [
                 'category' => 'Entorno organizacional',
-                'items' => [53,54,55,56],
+                'items' => [53, 54, 55, 56],
             ],
         ];
 
@@ -711,13 +716,13 @@ class Show extends Component
             $theme_questions = [];
             foreach ($theme['questions'] as $q) {
                 $user_response = collect($responses)->firstWhere('question_id', $q['id']);
-                if (!$user_response) {
+                if (! $user_response) {
                     continue;
                 }
                 $answer_label = null;
-                if (!empty($q['options'])) {
+                if (! empty($q['options'])) {
                     foreach ($q['options'] as $option) {
-                        if ((string)$option['value'] === (string)$user_response['value']) {
+                        if ((string) $option['value'] === (string) $user_response['value']) {
                             $answer_label = $option['label'];
                             break;
                         }
@@ -744,7 +749,7 @@ class Show extends Component
 
     public function showAlerts(int $response_id): void
     {
-        $item = collect($this->application_data['questionnaire_responses']) ->firstWhere('id', $response_id);
+        $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $themes = $this->questionnaire['metadata']['themes'] ?? [];
         $this->alert_responses = (new GetAlertResponsesAction)->execute(
             response: $item,
@@ -759,11 +764,11 @@ class Show extends Component
         $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $responses = $item['response_data'] ?? [];
 
-        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+        if ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
             $this->domain_rating = (new DomainRatingAction)->execute(responses: $responses);
         }
 
-        if($this->questionnaire['name'] == NomEnum::NOM_3->value){
+        if ($this->questionnaire['name'] == NomEnum::NOM_3->value) {
             $this->domain_rating = (new DomainRatingNom3Action)->execute(responses: $responses);
         }
 
@@ -775,12 +780,12 @@ class Show extends Component
         $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $responses = $item['response_data'] ?? [];
 
-        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+        if ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
             $domain_rating = (new DomainRatingAction)->execute(responses: $responses);
             $this->category_rating = (new CategoryRatingAction)->execute(domain_scores: $domain_rating);
         }
 
-        if($this->questionnaire['name'] == NomEnum::NOM_3->value){
+        if ($this->questionnaire['name'] == NomEnum::NOM_3->value) {
             $domain_rating = (new DomainRatingNom3Action)->execute(responses: $responses);
             $this->category_rating = (new CategoryRatingNom3Action)->execute(domain_scores: $domain_rating);
         }
@@ -793,7 +798,7 @@ class Show extends Component
         $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $responses = $item['response_data'] ?? [];
 
-        if($this->questionnaire['name'] == NomEnum::NOM_1->value){
+        if ($this->questionnaire['name'] == NomEnum::NOM_1->value) {
             $alert = $item['ai_response']['alert'] ?? false;
             $final_score = collect($responses)->sum(fn ($response) => (int) $response['value']);
             $this->final_score = [
@@ -808,11 +813,11 @@ class Show extends Component
             ];
         }
 
-        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+        if ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
             $this->final_score = (new FinalScoreAction)->execute(responses: $responses);
         }
 
-        if($this->questionnaire['name'] == NomEnum::NOM_3->value){
+        if ($this->questionnaire['name'] == NomEnum::NOM_3->value) {
             $this->final_score = (new FinalScoreNom3Action)->execute(responses: $responses);
         }
 
@@ -821,14 +826,14 @@ class Show extends Component
 
     public function showAnalysisDepartment(int $response_id): void
     {
-        $item  = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
+        $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $this->department_analysis = $item['ai_response']['recommendation_for_department'] ?? 'No hay análisis disponible para esta respuesta.';
         Flux::modal('show-department-analysis-modal')->show();
     }
 
     public function showAnalysisUser(int $response_id): void
     {
-        $item  = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
+        $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $this->user_analysis = $item['ai_response']['recommendation_for_user'] ?? 'No hay análisis disponible para esta respuesta.';
 
         Flux::modal('show-user-analysis-modal')->show();

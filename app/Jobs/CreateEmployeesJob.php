@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Actions\User\CreateNotificationAction;
@@ -28,9 +30,8 @@ class CreateEmployeesJob implements ShouldQueue
         public ?string $department_name,
         public array $user_roles,
         public int $user_id,
-    )
-    {
-       $this->onQueue('employees');
+    ) {
+        $this->onQueue('employees');
     }
 
     /**

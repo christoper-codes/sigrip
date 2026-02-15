@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Employee;
 
 use App\Enums\NotificationTypesEnum;
@@ -11,7 +13,6 @@ use App\Models\Role;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -39,8 +40,8 @@ class Upload extends Component
     public function mount()
     {
         $this->departments = Department::where('company_id', Auth::user()->company?->id)
-                ->get()
-                ->toArray();
+            ->get()
+            ->toArray();
 
         $this->roles = Role::all()->filter(function ($role) {
             return $role->name !== RoleEnum::SYSTEM_OWNER->value && $role->name !== RoleEnum::COMPANY_ADMIN->value;
@@ -50,8 +51,9 @@ class Upload extends Component
     public function submit(): void
     {
         $this->validate();
-        if (!$this->employee_file || !$this->employee_file->isValid()) {
+        if (! $this->employee_file || ! $this->employee_file->isValid()) {
             $this->dispatch('toast', message: __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.'), type: NotificationTypesEnum::WARNING->value);
+
             return;
         }
         DB::beginTransaction();
@@ -77,18 +79,18 @@ class Upload extends Component
             if ($failure) {
                 $row = $failure->row();
                 $values = $failure->values();
-                $identificador = __('Para el usuario: ') . " " . ($values['nombre_completo'] ?? ($values['correo_electronico'] ?? "Fila $row"));
+                $identificador = __('Para el usuario: ').' '.($values['nombre_completo'] ?? ($values['correo_electronico'] ?? "Fila $row"));
                 $error = $failure->errors()[0] ?? $e->getMessage();
-                $this->import_errors = __('Error al guardar los empleados: ') . $error . " ($identificador)";
+                $this->import_errors = __('Error al guardar los empleados: ').$error." ($identificador)";
                 $this->dispatch('toast', message: $this->import_errors, type: NotificationTypesEnum::ERROR->value);
             } else {
-                $this->import_errors = __('Error al guardar los empleados: ') . $e->getMessage();
+                $this->import_errors = __('Error al guardar los empleados: ').$e->getMessage();
                 $this->dispatch('toast', message: $this->import_errors, type: NotificationTypesEnum::ERROR->value);
             }
         } catch (Exception $e) {
             DB::rollBack();
             $this->reset(['employee_file']);
-            $this->import_errors = __('Error al guardar los empleados: ') . $e->getMessage();
+            $this->import_errors = __('Error al guardar los empleados: ').$e->getMessage();
             $this->dispatch('toast', message: $this->import_errors, type: NotificationTypesEnum::ERROR->value);
         }
     }

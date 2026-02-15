@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use App\Models\Application;
@@ -22,15 +24,15 @@ class ApplicationMiddleware
         $application = Application::where('slug', $slug)->firstOrFail();
         $is_visitor = false;
 
-        if(! $application->is_active || ($application->expiration_date && $application->expiration_date < now())){
+        if (! $application->is_active || ($application->expiration_date && $application->expiration_date < now())) {
             return redirect()->route('application.inactive');
         }
 
-        if($application->auth_required && ! Auth::check()){
+        if ($application->auth_required && ! Auth::check()) {
             return redirect()->guest(route('login'));
         }
 
-        if($application->auth_required && Auth::check()){
+        if ($application->auth_required && Auth::check()) {
             $user = Auth::user();
             $user_application = $user->applications()->where('application_id', $application->id)->first();
 
@@ -46,11 +48,11 @@ class ApplicationMiddleware
                 ) {
                     $is_visitor = true;
                 } else {
-                     abort(403, __('Aplicación no autorizada.'));
+                    abort(403, __('Aplicación no autorizada.'));
                 }
             }
 
-           if ($user_application && ! $user_application->pivot->is_active) {
+            if ($user_application && ! $user_application->pivot->is_active) {
                 return redirect()->route('application.answered');
             }
         }

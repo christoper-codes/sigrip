@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Traits;
 
 trait LimitItems
@@ -10,6 +12,5 @@ trait LimitItems
         ['label' => '20', 'value' => 20],
         ['label' => 'Todos', 'value' => -1],
     ];
-
     public int $items_per_page = 10;
 }

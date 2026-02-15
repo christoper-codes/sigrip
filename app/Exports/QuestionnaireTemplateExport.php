@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class QuestionnaireTemplateExport implements FromArray, WithHeadings, WithStyles, WithColumnWidths
+class QuestionnaireTemplateExport implements FromArray, WithColumnWidths, WithHeadings, WithStyles
 {
     protected bool $with_data;
 
@@ -22,6 +24,7 @@ class QuestionnaireTemplateExport implements FromArray, WithHeadings, WithStyles
         if (! $this->with_data) {
             return [];
         }
+
         return [
             [
                 'Bienestar general',
@@ -80,6 +83,7 @@ class QuestionnaireTemplateExport implements FromArray, WithHeadings, WithStyles
         $sheet->getStyle('A1:G1')->getFont()->setBold(true);
         $sheet->getStyle('A1:G1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
         $sheet->getStyle('A1:G1')->getBorders()->getAllBorders()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('FF000000'));
+
         return [];
     }
 

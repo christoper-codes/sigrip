@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Notifications;
 
 use App\Livewire\Traits\LimitItems;
@@ -35,8 +37,8 @@ class Index extends Component
             ->get()
             ->toArray();
 
-        $this->unread_notifications = array_filter($this->notifications, fn($n) => is_null($n['read_at']));
-        $this->read_notifications = array_filter($this->notifications, fn($n) => !is_null($n['read_at']));
+        $this->unread_notifications = array_filter($this->notifications, fn ($n) => is_null($n['read_at']));
+        $this->read_notifications = array_filter($this->notifications, fn ($n) => ! is_null($n['read_at']));
     }
 
     public function render()
@@ -53,10 +55,10 @@ class Index extends Component
         $this->created_at_notification = $notification['created_at'];
         $this->alert_uuid = $notification['metadata']['alert_uuid'] ?? null;
 
-        if(is_null($notification['read_at'])) {
+        if (is_null($notification['read_at'])) {
             $notification['read_at'] = now()->toDateTimeString();
             $this->notifications[array_search($notification_id, array_column($this->notifications, 'id'))] = $notification;
-            $this->unread_notifications = array_filter($this->unread_notifications, fn($n) => $n['id'] !== $notification_id);
+            $this->unread_notifications = array_filter($this->unread_notifications, fn ($n) => $n['id'] !== $notification_id);
             $this->read_notifications[] = $notification;
             Notification::where('id', $notification_id)->update(['read_at' => now()]);
 

@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exports\Nom035;
 
 use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class AnalysisAiExport implements FromArray, WithHeadings, WithStyles, WithColumnWidths, WithTitle
+class AnalysisAiExport implements FromArray, WithColumnWidths, WithHeadings, WithStyles, WithTitle
 {
     protected array $analysis_ai;
 
@@ -20,7 +22,7 @@ class AnalysisAiExport implements FromArray, WithHeadings, WithStyles, WithColum
 
     public function array(): array
     {
-       return $this->analysis_ai;
+        return $this->analysis_ai;
     }
 
     public function headings(): array

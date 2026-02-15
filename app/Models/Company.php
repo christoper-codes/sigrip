@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -31,7 +33,7 @@ class Company extends Model
 
     public function address(): BelongsTo
     {
-         return $this->belongsTo(Address::class);
+        return $this->belongsTo(Address::class);
     }
 
     public function users(): HasMany

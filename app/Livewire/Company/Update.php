@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Company;
 
 use App\Enums\NotificationTypesEnum;
@@ -36,7 +38,7 @@ class Update extends Component
         $this->description = $this->company->description;
 
         $address = $this->company->address;
-        if($address){
+        if ($address) {
             $this->address_line = $address->address_line;
             $this->zip_code = $address->zip_code;
             $this->phone = $address->phone;
@@ -54,14 +56,14 @@ class Update extends Component
             'address_line' => $this->address_line,
             'zip_code' => $this->zip_code,
             'phone' => $this->phone,
-            'email' => $this->email
+            'email' => $this->email,
         ];
 
-        if ($address){
+        if ($address) {
             $address->update($address_data);
         }
 
-        if(! $address){
+        if (! $address) {
             $address = Address::create($address_data);
         }
 

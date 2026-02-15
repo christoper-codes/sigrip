@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Application;
 
 use App\Models\IncidentType;
@@ -44,7 +46,7 @@ final class GeneratePromptAction
             if (isset($question['options']) && is_array($question['options'])) {
                 foreach ($question['options'] as $option) {
                     if (($option['value'] ?? null) == $value) {
-                        $selected_label = $option['label'] ?? ('Valor ' . $value);
+                        $selected_label = $option['label'] ?? ('Valor '.$value);
                         break;
                     }
                 }
@@ -60,11 +62,11 @@ final class GeneratePromptAction
             $answers_analysis[] = "- {$question_text}: {$selected_label} (Valor: {$value})";
 
             if ($q_type !== 'text' && is_numeric($value)) {
-                $total_score += (int)$value;
+                $total_score += (int) $value;
                 $count_numeric++;
             }
 
-            if (is_array($critical_values) && in_array((int)$value, $critical_values, true)) {
+            if (is_array($critical_values) && in_array((int) $value, $critical_values, true)) {
                 $critical_responses[] = [
                     'question' => $question_text,
                     'question_id' => $question_id,
@@ -74,11 +76,11 @@ final class GeneratePromptAction
             }
         }
 
-        if(
+        if (
             $questionnaire['questionnaire_id'] == 'escaneo_emocional_semanal' ||
             $questionnaire['questionnaire_id'] == 'plan_escaneo_emocional_mensual' ||
             $questionnaire['questionnaire_id'] == 'test_de_honestidad'
-        ){
+        ) {
             $average_score = ApplicationAverageService::calculateGenericAverage(responses: $responses, questions_map: $questions_map);
         }
 
@@ -99,7 +101,7 @@ final class GeneratePromptAction
                 }
             }
         }
-        if (!$critical_response && isset($risk_evaluation['yellow'])) {
+        if (! $critical_response && isset($risk_evaluation['yellow'])) {
             foreach ($risk_evaluation['yellow'] as $item) {
                 if (isset($item['min'], $item['max']) && is_numeric($item['min']) && is_numeric($item['max'])) {
                     if ($average_score >= $item['min'] && $average_score <= $item['max']) {
@@ -113,16 +115,17 @@ final class GeneratePromptAction
 
         $type = $has_text && $has_select ? 'mixed' : ($has_text ? 'text' : 'select');
 
-        $format_criteria = function($color) use ($risk_evaluation) {
+        $format_criteria = function ($color) use ($risk_evaluation) {
             $arr = $risk_evaluation[$color] ?? [];
             if (empty($arr)) {
                 return 'No definido';
             }
             $lines = [];
             foreach ($arr as $item) {
-                $lines[] = '• ' . strtoupper($item['label'] ?? '') . ': ' . ($item['criteria'] ?? '') .
-                    ' (min: ' . ($item['min'] ?? 'N/A') . ', max: ' . ($item['max'] ?? 'N/A') . ')';
+                $lines[] = '• '.strtoupper($item['label'] ?? '').': '.($item['criteria'] ?? '').
+                    ' (min: '.($item['min'] ?? 'N/A').', max: '.($item['max'] ?? 'N/A').')';
             }
+
             return implode("\n", $lines);
         };
 
@@ -132,7 +135,7 @@ final class GeneratePromptAction
 
         $answers_analysis_str = implode("\n", $answers_analysis);
         $critical_responses_str = $critical_responses
-            ? implode("\n", array_map(function($resp) {
+            ? implode("\n", array_map(function ($resp) {
                 return "- {$resp['question']}: {$resp['label']} (ID: {$resp['question_id']})";
             }, $critical_responses))
             : 'Ninguna respuesta crítica detectada';
@@ -141,21 +144,20 @@ final class GeneratePromptAction
             ? json_encode(array_column($critical_responses, 'question_id'))
             : '[]';
 
-    $reco_user_line = $auth_required
-        ? '    "recommendation_for_user": "[recomendación específica y personalizada basada en las respuestas. Y apollo emocional (amplia la respuesta).]",\n'
-        : '';
+        $reco_user_line = $auth_required
+            ? '    "recommendation_for_user": "[recomendación específica y personalizada basada en las respuestas. Y apollo emocional (amplia la respuesta).]",\n'
+            : '';
 
-    $incident_types_json = json_encode($incident_types, JSON_UNESCAPED_UNICODE);
+        $incident_types_json = json_encode($incident_types, JSON_UNESCAPED_UNICODE);
 
-
-    $json_block =
+        $json_block =
 '{
 "average_score": [número decimal del puntaje promedio],
 "risk_level": "[green/yellow/red basado en criterios]",
 "alert": [True si hay riesgo moderado o crítico, False si es verde],
 "type_alert": "[yellow/red (en minusculas) si hay alerta, null si no hay alerta]",
-"questions_alert": [array de objetos con información completa de preguntas críticas. Incluye question_id, question (texto), value (valor numérico), label (etiqueta seleccionada). Ejemplo: [{\"question_id\": \"q2_base\", \"question\": \"¿Te has sentido estresado/a en el trabajo este mes?\", \"value\": 1, \"label\": \"Sí, constantemente\"}]],' . "\n"
-. $reco_user_line .
+"questions_alert": [array de objetos con información completa de preguntas críticas. Incluye question_id, question (texto), value (valor numérico), label (etiqueta seleccionada). Ejemplo: [{\"question_id\": \"q2_base\", \"question\": \"¿Te has sentido estresado/a en el trabajo este mes?\", \"value\": 1, \"label\": \"Sí, constantemente\"}]],'."\n"
+.$reco_user_line.
 '    "recommendation_for_department": "[recomendación para el departamento o empresa basada en las respuestas del usuario y el nivel de riesgo identificado (agrega ese nivel de riesgo para que el departamento actue).]",
 "alert_name": "[crea un nombre corto para la alerta basada en el nivel de riesgo identificado, ejemplo: \'Riesgo Crítico por Respuestas Críticas\' o \'Riesgo Moderado por Puntaje Promedio\' si aplica, de lo contrario \'No Aplica\']",
 "subject_alert": "[crea un asunto para la alerta basada en el nivel de riesgo identificado si es que aplica, de lo contrario \'No Aplica\']",
@@ -166,11 +168,11 @@ final class GeneratePromptAction
 }
 }';
 
-$instruccion_7 = $auth_required
-    ? "7. Genera recomendaciones específicas y accionables para el usuario.\n"
-    : "";
-$prompt =
-"Eres un analista experto en bienestar emocional y riesgo psicosocial. Analiza las siguientes respuestas de cuestionario y proporciona una evaluación precisa.
+        $instruccion_7 = $auth_required
+            ? "7. Genera recomendaciones específicas y accionables para el usuario.\n"
+            : '';
+        $prompt =
+        "Eres un analista experto en bienestar emocional y riesgo psicosocial. Analiza las siguientes respuestas de cuestionario y proporciona una evaluación precisa.
 
 === INFORMACIÓN DEL CUESTIONARIO ===
 Título: {$title}
@@ -188,9 +190,9 @@ IMPORTANTE: Cada color contiene un ARRAY de condiciones. Evalúa TODAS las condi
 {$answers_analysis_str}
 
 === DATOS CALCULADOS ===
-• Puntaje promedio calculado: " . number_format($average_score, 2) . "
-• Total de respuestas: " . count($responses) . "
-• Respuestas críticas detectadas: " . count($critical_responses) . "
+• Puntaje promedio calculado: ".number_format($average_score, 2).'
+• Total de respuestas: '.count($responses).'
+• Respuestas críticas detectadas: '.count($critical_responses)."
 
 === RESPUESTAS CRÍTICAS ===
 {$critical_responses_str}
@@ -211,14 +213,15 @@ IMPORTANTE: Cada color contiene un ARRAY de condiciones. Evalúa TODAS las condi
 {$instruccion_7}
 
 RESPONDE SOLO CON EL SIGUIENTE JSON (sin markdown, sin comentarios adicionales):
-" . $json_block;
+".$json_block;
 
-            $data = [
-                'prompt' => trim($prompt),
-                'critical_response' => $critical_response,
-                'type' => $type,
-                'average_score' => $average_score,
-            ];
-            return $data;
+        $data = [
+            'prompt' => trim($prompt),
+            'critical_response' => $critical_response,
+            'type' => $type,
+            'average_score' => $average_score,
+        ];
+
+        return $data;
     }
 }

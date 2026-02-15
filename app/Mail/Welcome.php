@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -16,7 +18,7 @@ class Welcome extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      */
-    public function __construct(public string $company){}
+    public function __construct(public string $company) {}
 
     /**
      * Get the message envelope.

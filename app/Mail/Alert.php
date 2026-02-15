@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -22,8 +24,7 @@ class Alert extends Mailable implements ShouldQueue
         public string $recommendation_for_department,
         public string $alert_uuid,
         public string $questionnaire_name,
-    )
-    {}
+    ) {}
 
     /**
      * Get the message envelope.

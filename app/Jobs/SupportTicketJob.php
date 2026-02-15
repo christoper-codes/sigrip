@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Actions\User\CreateNotificationAction;
@@ -18,7 +20,6 @@ class SupportTicketJob implements ShouldQueue
     public int $tries = 1;
     public int $backoff = 5;
 
-
     public function __construct(
         public int $company,
         public int $department,
@@ -36,11 +37,9 @@ class SupportTicketJob implements ShouldQueue
         public ?string $contact_email = null,
         public ?string $contact_name = null,
         public ?string $tracking_uuid = null,
-    )
-    {
+    ) {
         $this->onQueue('tickets');
     }
-
 
     public function handle(): void
     {
@@ -60,7 +59,7 @@ class SupportTicketJob implements ShouldQueue
                 'user' => [
                     'contact_email' => $this->contact_email,
                     'contact_name' => $this->contact_name,
-                ]
+                ],
             ],
             'is_priority' => $this->is_priority,
             'created_by_ai' => $this->created_by_ai,
@@ -70,7 +69,7 @@ class SupportTicketJob implements ShouldQueue
             ->where('company_id', $this->company)
             ->first();
 
-        if($hr_department && $hr_department->manager_id){
+        if ($hr_department && $hr_department->manager_id) {
             $notification = [
                 'type' => 'success',
                 'title' => __('Nuevo ticket de soporte creado'),

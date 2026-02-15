@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Actions\Application\GenerateAiAlertAction;
@@ -20,7 +22,6 @@ use App\Models\SupportTicketStatus;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -30,6 +31,7 @@ class AiAlertJob implements ShouldQueue
 
     public int $tries = 1;
     public int $backoff = 5;
+
     /**
      * Create a new job instance.
      */
@@ -41,9 +43,8 @@ class AiAlertJob implements ShouldQueue
         public int $user_id,
         public Application $application,
         public QuestionnaireResponse $questionnaire_response,
-    )
-    {
-       $this->onQueue('ai');
+    ) {
+        $this->onQueue('ai');
     }
 
     /**
@@ -51,19 +52,19 @@ class AiAlertJob implements ShouldQueue
      */
     public function handle(): void
     {
-        if($this->questionnaire['name'] == NomEnum::NOM_1->value){
+        if ($this->questionnaire['name'] == NomEnum::NOM_1->value) {
             $promt = (new GeneratePromptNom035Section1Action)->execute(
                 responses: $this->responses,
                 questionnaire: $this->questionnaire['metadata'],
                 auth_required: $this->application->auth_required,
             );
-        } else if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+        } elseif ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
             $promt = (new GeneratePromptNom035Section2Action)->execute(
                 responses: $this->responses,
                 questionnaire: $this->questionnaire['metadata'],
                 auth_required: $this->application->auth_required,
             );
-        } else if($this->questionnaire['name'] == NomEnum::NOM_3->value) {
+        } elseif ($this->questionnaire['name'] == NomEnum::NOM_3->value) {
             $promt = (new GeneratePromptNom035Section3Action)->execute(
                 responses: $this->responses,
                 questionnaire: $this->questionnaire['metadata'],
@@ -77,18 +78,18 @@ class AiAlertJob implements ShouldQueue
             );
         }
 
-        if(isset($promt['average_score'])){
+        if (isset($promt['average_score'])) {
             $this->questionnaire_response->average_score = $promt['average_score'];
             $this->questionnaire_response->save();
         }
 
-        if (!((bool) $promt['critical_response'] || in_array($promt['type'], ['text', 'mixed']))) {
+        if (! ((bool) $promt['critical_response'] || in_array($promt['type'], ['text', 'mixed']))) {
             return;
         }
 
         $ai_response = (new GenerateAiAlertAction)->execute(prompt: $promt['prompt']);
 
-        if($ai_response['alert']){
+        if ($ai_response['alert']) {
             $alert_type = AlertType::where('color', Str::lower($ai_response['type_alert']))->first();
 
             // Alerts
@@ -121,7 +122,7 @@ class AiAlertJob implements ShouldQueue
             $this->questionnaire_response->save();
 
             // Tickets
-            if($alert_type->color == 'red'){
+            if ($alert_type->color == 'red') {
                 SupportTicketJob::dispatch(
                     company: $this->application->issuingDepartment->company->id,
                     department: $this->application->executing_department_id,
@@ -140,7 +141,7 @@ class AiAlertJob implements ShouldQueue
             }
 
             // Notifications
-            if($this->application->issuingDepartment->manager_id){
+            if ($this->application->issuingDepartment->manager_id) {
                 $manager = User::find($this->application->issuingDepartment->manager_id);
                 $notification = [
                     'type' => 'success',
@@ -172,16 +173,16 @@ class AiAlertJob implements ShouldQueue
                 ->whereHas('userRoles', function ($query) {
                     $query->where('name', RoleEnum::COMPANY_ADMIN->value);
                 })->first();
-            if($company_admin && $company_admin->id !== $this->application->issuingDepartment->manager_id){
-            Mail::to($company_admin->email)->send(new MailAlert(
-                employee_name: $this->questionnaire_response->employee_data['name'] ?? null,
-                alert_name: $ai_response['subject_alert'],
-                recommendation_for_department: $ai_response['recommendation_for_department'],
-                alert_uuid: $alert->uuid,
-                questionnaire_name: $this->application->questionnaire->name,
-            ));
+            if ($company_admin && $company_admin->id !== $this->application->issuingDepartment->manager_id) {
+                Mail::to($company_admin->email)->send(new MailAlert(
+                    employee_name: $this->questionnaire_response->employee_data['name'] ?? null,
+                    alert_name: $ai_response['subject_alert'],
+                    recommendation_for_department: $ai_response['recommendation_for_department'],
+                    alert_uuid: $alert->uuid,
+                    questionnaire_name: $this->application->questionnaire->name,
+                ));
 
-            $notification = [
+                $notification = [
                     'type' => 'success',
                     'title' => __('Alerta AI generada'),
                     'message' => __('Se ha generado una alerta AI para la aplicación: :application. Se recomienda revisarla a la brevedad.', ['application' => $this->application->questionnaire->name]),

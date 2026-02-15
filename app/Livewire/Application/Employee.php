@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Application;
 
 use App\Livewire\Traits\Table;
@@ -35,7 +37,7 @@ class Employee extends Component
             ['label' => __('Fecha de Expiración'), 'field' => 'expiration_date', 'sortable' => true],
             ['label' => __('Fecha de respuesta'), 'field' => 'response_date', 'sortable' => true],
         ];
-         $this->refreshTableData();
+        $this->refreshTableData();
     }
 
     public function render()

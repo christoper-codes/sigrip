@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 class ApplicationAverageService
@@ -13,10 +15,11 @@ class ApplicationAverageService
             $value = $answer['value'] ?? null;
             $question = $questions_map[$question_id] ?? [];
             if (($question['type'] ?? null) === 'select' && is_numeric($value)) {
-                $total += (int)$value;
+                $total += (int) $value;
                 $count++;
             }
         }
+
         return $count > 0 ? $total / $count : 0;
     }
 }

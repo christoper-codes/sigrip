@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Application;
 
 use App\Enums\NomEnum;
@@ -9,16 +11,15 @@ use App\Livewire\Forms\EmployeeDataForm;
 use App\Models\Application;
 use App\Models\QuestionnaireResponse;
 use Flux\Flux;
-use Livewire\Component;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Livewire\Component;
 
 class Show extends Component
 {
     public EmployeeDataForm $form;
-
     public Application $application;
     public bool $is_visitor;
     public ?string $company_name = null;
@@ -45,7 +46,7 @@ class Show extends Component
         $this->current_theme_step = 0;
         $this->setThemesAndCurrentTheme();
 
-        $employee_data = session('employee_data_' . $this->application->id);
+        $employee_data = session('employee_data_'.$this->application->id);
         if ($employee_data) {
             foreach ($employee_data as $key => $value) {
                 $this->form->{$key} = $value;
@@ -62,12 +63,13 @@ class Show extends Component
             return;
         }
 
-        if($this->is_visitor){
+        if ($this->is_visitor) {
             $this->dispatch('toast', message: __('Esta aplicación no puede ser enviada por un visitante.'), type: NotificationTypesEnum::WARNING->value);
+
             return;
         }
 
-        if($this->application->employee_data_required){
+        if ($this->application->employee_data_required) {
             $this->validate();
         }
 
@@ -77,7 +79,7 @@ class Show extends Component
         $this->validateNom3SpecialCases();
 
         DB::beginTransaction();
-        try{
+        try {
             $responses = [];
             foreach ($this->themes as $theme) {
                 foreach ($theme['questions'] as $question) {
@@ -106,7 +108,7 @@ class Show extends Component
                 'risk_level' => null,
             ]);
 
-            if($this->application->auth_required){
+            if ($this->application->auth_required) {
                 $user_application = Auth::user()->applications()->where('application_id', $this->application->id)->first();
                 $user_application->pivot->is_active = false;
                 $user_application->pivot->save();
@@ -124,10 +126,11 @@ class Show extends Component
 
             DB::commit();
             for ($i = 0; $i < $this->theme_count; $i++) {
-                $theme_key = 'answers-' . $this->application->slug . '-theme-' . $i;
+                $theme_key = 'answers-'.$this->application->slug.'-theme-'.$i;
                 session()->forget($theme_key);
             }
-            session()->forget('employee_data_' . $this->application->id);
+            session()->forget('employee_data_'.$this->application->id);
+
             return redirect(route('application.thanks'));
         } catch (\Exception $e) {
             DB::rollBack();
@@ -140,15 +143,15 @@ class Show extends Component
         $this->form->questionnaire_name = $this->questionnaire['name'] ?? null;
         $this->validate();
         $this->employee_data_submitted = true;
-        session(['employee_data_' . $this->application->id => $this->form->toArray()]);
+        session(['employee_data_'.$this->application->id => $this->form->toArray()]);
 
         Flux::modal('employee-data-modal')->close();
     }
 
     public function validateNom3SpecialCases(): void
     {
-        if($this->questionnaire['name'] == NomEnum::NOM_3->value){
-            if($this->answers['gr3_q65'] == 1){
+        if ($this->questionnaire['name'] == NomEnum::NOM_3->value) {
+            if ($this->answers['gr3_q65'] == 1) {
                 $this->answers['gr3_q65'] = 2;
                 unset($this->answers['gr3_q66']);
                 unset($this->answers['gr3_q67']);
@@ -156,10 +159,10 @@ class Show extends Component
                 unset($this->answers['gr3_q69']);
             }
 
-            if ($this->answers['gr3_q65'] == 0){
+            if ($this->answers['gr3_q65'] == 0) {
                 $this->answers['gr3_q65'] = 1;
             }
-            if($this->answers['gr3_q70'] == 1){
+            if ($this->answers['gr3_q70'] == 1) {
                 $this->answers['gr3_q70'] = 2;
                 unset($this->answers['gr3_q71']);
                 unset($this->answers['gr3_q72']);
@@ -167,7 +170,7 @@ class Show extends Component
                 unset($this->answers['gr3_q74']);
             }
 
-            if ($this->answers['gr3_q70'] == 0){
+            if ($this->answers['gr3_q70'] == 0) {
                 $this->answers['gr3_q70'] = 1;
             }
         }
@@ -175,23 +178,23 @@ class Show extends Component
 
     public function validateNom2SpecialCases(): void
     {
-        if($this->questionnaire['name'] == NomEnum::NOM_2->value){
-            if ($this->answers['gr2_q41'] == 3){
+        if ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
+            if ($this->answers['gr2_q41'] == 3) {
                 $this->answers['gr2_q41'] = 2;
                 unset($this->answers['gr2_q42']);
                 unset($this->answers['gr2_q43']);
                 unset($this->answers['gr2_q44']);
             }
-            if ($this->answers['gr2_q41'] == 4){
+            if ($this->answers['gr2_q41'] == 4) {
                 $this->answers['gr2_q41'] = 1;
             }
-            if ($this->answers['gr2_q45'] == 3){
+            if ($this->answers['gr2_q45'] == 3) {
                 $this->answers['gr2_q45'] = 2;
                 unset($this->answers['gr2_q46']);
                 unset($this->answers['gr2_q47']);
                 unset($this->answers['gr2_q48']);
             }
-            if ($this->answers['gr2_q45'] == 4){
+            if ($this->answers['gr2_q45'] == 4) {
                 $this->answers['gr2_q45'] = 1;
             }
         }
@@ -216,8 +219,10 @@ class Show extends Component
                     }
                 }
             }
+
             return $result;
         }
+
         return $themes;
     }
 
@@ -240,7 +245,7 @@ class Show extends Component
         }
         $this->current_questions = $current;
 
-        $theme_key = 'answers-' . $this->application->slug . '-theme-' . $this->current_theme_step;
+        $theme_key = 'answers-'.$this->application->slug.'-theme-'.$this->current_theme_step;
         $this->answers = session($theme_key, []);
     }
 
@@ -259,14 +264,14 @@ class Show extends Component
         }
         if ($this->questionnaire['name'] == NomEnum::NOM_1->value) {
             $allAnswers = $this->getAllAnswers();
-            if(isset($allAnswers['gr1_q1'])){
+            if (isset($allAnswers['gr1_q1'])) {
                 $submit = true;
                 collect($allAnswers)->each(function ($answer, $question_id) use (&$submit) {
                     if (Str::startsWith($question_id, 'gr1_q') && $answer == 1) {
                         $submit = false;
                     }
                 });
-                if($submit){
+                if ($submit) {
                     $this->submit();
                 }
             }
@@ -274,9 +279,9 @@ class Show extends Component
 
         if ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
             $allAnswers = $this->getAllAnswers();
-            if(isset($allAnswers['gr2_q45'])){
+            if (isset($allAnswers['gr2_q45'])) {
                 $skip = true;
-                if($allAnswers['gr2_q45'] == 1){
+                if ($allAnswers['gr2_q45'] == 1) {
                     $skip = false;
                 }
             }
@@ -287,65 +292,66 @@ class Show extends Component
     {
         $allAnswers = [];
         for ($i = 0; $i < $this->theme_count; $i++) {
-            $theme_key = 'answers-' . $this->application->slug . '-theme-' . $i;
+            $theme_key = 'answers-'.$this->application->slug.'-theme-'.$i;
             $theme_answers = session($theme_key, []);
             $allAnswers = array_merge($allAnswers, $theme_answers);
         }
+
         return $allAnswers;
     }
 
     public function saveProgress(): void
     {
-        $theme_key = 'answers-' . $this->application->slug . '-theme-' . $this->current_theme_step;
+        $theme_key = 'answers-'.$this->application->slug.'-theme-'.$this->current_theme_step;
         $theme = $this->current_theme;
         foreach ($theme['questions'] as $question) {
             $qid = $question['id'];
             if (
-                !array_key_exists($qid, $this->answers) ||
+                ! array_key_exists($qid, $this->answers) ||
                 $this->answers[$qid] === null ||
                 $this->answers[$qid] === ''
-                ) {
-                if($this->questionnaire['name'] == NomEnum::NOM_1->value){
-                    if(Str::startsWith($qid, 'gr1_q')){
+            ) {
+                if ($this->questionnaire['name'] == NomEnum::NOM_1->value) {
+                    if (Str::startsWith($qid, 'gr1_q')) {
                         $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
                     }
-                } else if($this->questionnaire['name'] == NomEnum::NOM_2->value){
+                } elseif ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
                     if (
-                            in_array($qid, ['gr2_q42', 'gr2_q43', 'gr2_q44']) &&
-                            (!isset($this->answers['gr2_q41']) || $this->answers['gr2_q41'] == 1 || $this->answers['gr2_q41'] == 4)
-                        ) {
-                            $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
-                        }
+                        in_array($qid, ['gr2_q42', 'gr2_q43', 'gr2_q44']) &&
+                        (! isset($this->answers['gr2_q41']) || $this->answers['gr2_q41'] == 1 || $this->answers['gr2_q41'] == 4)
+                    ) {
+                        $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                    }
                     if (
-                            in_array($qid, ['gr2_q46', 'gr2_q47', 'gr2_q48']) &&
-                            (!isset($this->answers['gr2_q45']) || $this->answers['gr2_q45'] == 1 || $this->answers['gr2_q45'] == 4)
-                        ) {
-                            $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
-                        }
-
-                        if(! in_array($qid, ['gr2_q42', 'gr2_q43', 'gr2_q44', 'gr2_q46', 'gr2_q47', 'gr2_q48']) ){
-                            $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
-                        }
-
-                } else if($this->questionnaire['name'] == NomEnum::NOM_3->value) {
-                    if (
-                            in_array($qid, ['gr3_q66', 'gr3_q67', 'gr3_q68', 'gr3_q69']) &&
-                            (!isset($this->answers['gr3_q65']) || $this->answers['gr3_q65'] == 0)
-                        ) {
-                            $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
-                        }
-                    if (
-                            in_array($qid, ['gr3_q71', 'gr3_q72', 'gr3_q73', 'gr3_q74']) &&
-                            (!isset($this->answers['gr3_q70']) || $this->answers['gr3_q70'] == 0)
-                        ) {
-                            $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
-                        }
-
-                    if(! in_array($qid, ['gr3_q66', 'gr3_q67', 'gr3_q68', 'gr3_q69', 'gr3_q71', 'gr3_q72', 'gr3_q73', 'gr3_q74']) ){
-                         $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                        in_array($qid, ['gr2_q46', 'gr2_q47', 'gr2_q48']) &&
+                        (! isset($this->answers['gr2_q45']) || $this->answers['gr2_q45'] == 1 || $this->answers['gr2_q45'] == 4)
+                    ) {
+                        $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
                     }
 
-                }else {
+                    if (! in_array($qid, ['gr2_q42', 'gr2_q43', 'gr2_q44', 'gr2_q46', 'gr2_q47', 'gr2_q48'])) {
+                        $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                    }
+
+                } elseif ($this->questionnaire['name'] == NomEnum::NOM_3->value) {
+                    if (
+                        in_array($qid, ['gr3_q66', 'gr3_q67', 'gr3_q68', 'gr3_q69']) &&
+                        (! isset($this->answers['gr3_q65']) || $this->answers['gr3_q65'] == 0)
+                    ) {
+                        $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                    }
+                    if (
+                        in_array($qid, ['gr3_q71', 'gr3_q72', 'gr3_q73', 'gr3_q74']) &&
+                        (! isset($this->answers['gr3_q70']) || $this->answers['gr3_q70'] == 0)
+                    ) {
+                        $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                    }
+
+                    if (! in_array($qid, ['gr3_q66', 'gr3_q67', 'gr3_q68', 'gr3_q69', 'gr3_q71', 'gr3_q72', 'gr3_q73', 'gr3_q74'])) {
+                        $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
+                    }
+
+                } else {
                     $this->error_message = __('Por favor, responde todas las preguntas antes de continuar.');
                 }
             }

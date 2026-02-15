@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Employee;
 
 use App\Enums\NotificationTypesEnum;
@@ -11,15 +13,14 @@ use App\Models\Department;
 use App\Models\User;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Index extends Component
 {
-    use Table;
-    use Roles;
     use LimitItems;
+    use Roles;
+    use Table;
 
     public array $departments = [];
     public ?string $employee_name = null;
@@ -31,11 +32,11 @@ class Index extends Component
     public function mount()
     {
         $this->departments = Department::where('company_id', Auth::user()->company?->id)
-                ->get()
-                ->toArray();
+            ->get()
+            ->toArray();
 
-        if(! $this->departments){
-          $this->dispatch('toast', message: __('No hay departamentos disponibles.'), type: NotificationTypesEnum::WARNING->value);
+        if (! $this->departments) {
+            $this->dispatch('toast', message: __('No hay departamentos disponibles.'), type: NotificationTypesEnum::WARNING->value);
         }
 
         $this->search_fields = ['name', 'email'];
@@ -82,6 +83,7 @@ class Index extends Component
             if ($item['id'] === $this->selected_employee_id) {
                 $item['user_roles'] = User::find($this->selected_employee_id)->userRoles->toArray();
             }
+
             return $item;
         })->toArray();
 
@@ -105,11 +107,12 @@ class Index extends Component
         if ($system_owner || $company_admin) {
             Flux::modal('confirm-destroy-employee-modal')->close();
             $this->dispatch('toast', message: __('No se puede eliminar a un administrador de la empresa.'), type: NotificationTypesEnum::ERROR->value);
+
             return;
         }
         $employee->delete();
 
-        $this->table_items = array_filter($this->table_items, fn($item) => $item['id'] !== $this->selected_employee_id);
+        $this->table_items = array_filter($this->table_items, fn ($item) => $item['id'] !== $this->selected_employee_id);
         $this->refreshTableData();
         $this->dispatch('toast', message: __('Empleado eliminado correctamente.'), type: NotificationTypesEnum::SUCCESS->value);
 

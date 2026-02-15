@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Livewire\Ticket;
 
 use App\Models\SupportTicket;
@@ -25,7 +28,7 @@ class TrackTicket extends Component
         $this->found = false;
         $this->ticket = null;
 
-        if (!$this->tracking_code) {
+        if (! $this->tracking_code) {
             return;
         }
 

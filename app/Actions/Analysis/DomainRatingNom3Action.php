@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Analysis;
 
 class DomainRatingNom3Action
@@ -22,7 +24,7 @@ class DomainRatingNom3Action
 
             'Carga de trabajo' => [
                 'category' => 'Factores propios de la actividad',
-                'items' => [6,7,8,9,10,11,12,13,14,15,16,66,67,68,69],
+                'items' => [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 66, 67, 68, 69],
                 'ranges' => [
                     'Nulo o despreciable' => [0, 14],
                     'Bajo' => [15, 20],
@@ -34,7 +36,7 @@ class DomainRatingNom3Action
 
             'Falta de control sobre el trabajo' => [
                 'category' => 'Factores propios de la actividad',
-                'items' => [23,24,25,26,27,28,29,30,35,36],
+                'items' => [23, 24, 25, 26, 27, 28, 29, 30, 35, 36],
                 'ranges' => [
                     'Nulo o despreciable' => [0, 10],
                     'Bajo' => [11, 15],
@@ -46,7 +48,7 @@ class DomainRatingNom3Action
 
             'Jornada de trabajo' => [
                 'category' => 'Organización del tiempo de trabajo',
-                'items' => [17,18],
+                'items' => [17, 18],
                 'ranges' => [
                     'Nulo o despreciable' => [0, 0],
                     'Bajo' => [1, 1],
@@ -58,7 +60,7 @@ class DomainRatingNom3Action
 
             'Interferencia en la relación trabajo-familia' => [
                 'category' => 'Organización del tiempo de trabajo',
-                'items' => [19,20,21,22],
+                'items' => [19, 20, 21, 22],
                 'ranges' => [
                     'Nulo o despreciable' => [0, 3],
                     'Bajo' => [4, 5],
@@ -70,7 +72,7 @@ class DomainRatingNom3Action
 
             'Liderazgo' => [
                 'category' => 'Liderazgo y relaciones en el trabajo',
-                'items' => [31,32,33,34,37,38,39,40,41],
+                'items' => [31, 32, 33, 34, 37, 38, 39, 40, 41],
                 'ranges' => [
                     'Nulo o despreciable' => [0, 8],
                     'Bajo' => [9, 11],
@@ -82,7 +84,7 @@ class DomainRatingNom3Action
 
             'Relaciones en el trabajo' => [
                 'category' => 'Liderazgo y relaciones en el trabajo',
-                'items' => [42,43,44,45,46,71,72,73,74],
+                'items' => [42, 43, 44, 45, 46, 71, 72, 73, 74],
                 'ranges' => [
                     'Nulo o despreciable' => [0, 9],
                     'Bajo' => [10, 12],
@@ -94,7 +96,7 @@ class DomainRatingNom3Action
 
             'Violencia' => [
                 'category' => 'Liderazgo y relaciones en el trabajo',
-                'items' => [57,58,59,60,61,62,63,64],
+                'items' => [57, 58, 59, 60, 61, 62, 63, 64],
                 'ranges' => [
                     'Nulo o despreciable' => [0, 6],
                     'Bajo' => [7, 9],
@@ -106,7 +108,7 @@ class DomainRatingNom3Action
 
             'Reconocimiento del desempeño' => [
                 'category' => 'Entorno organizacional',
-                'items' => [47,48,49,50,51,52],
+                'items' => [47, 48, 49, 50, 51, 52],
                 'ranges' => [
                     'Nulo o despreciable' => [0, 5],
                     'Bajo' => [6, 9],
@@ -118,7 +120,7 @@ class DomainRatingNom3Action
 
             'Insuficiente sentido de pertenencia e inestabilidad' => [
                 'category' => 'Entorno organizacional',
-                'items' => [53,54,55,56],
+                'items' => [53, 54, 55, 56],
                 'ranges' => [
                     'Nulo o despreciable' => [0, 3],
                     'Bajo' => [4, 5],
@@ -163,5 +165,3 @@ class DomainRatingNom3Action
         return 'No clasificado';
     }
 }
-
-

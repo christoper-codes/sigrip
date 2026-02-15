@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Notifications;
 
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +33,7 @@ class Toast extends Component
     #[On('echo:notification.{user_id},NotificationEvent')]
     public function receiveNotification(array $notification): void
     {
-       $this->js("
+        $this->js("
             window.dispatchEvent(new CustomEvent('notify', {
                 detail: {
                     type: '{$notification['notification']['type']}',

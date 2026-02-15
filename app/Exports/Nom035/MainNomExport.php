@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Exports\Nom035;
 
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
@@ -21,8 +24,7 @@ class MainNomExport implements WithMultipleSheets
         array $domain_data,
         array $category_data,
         array $final_data
-    )
-    {
+    ) {
         $this->responses = $responses;
         $this->user_data = $user_data;
         $this->alert_responses = $alert_responses;
@@ -35,7 +37,7 @@ class MainNomExport implements WithMultipleSheets
     public function sheets(): array
     {
         return [
-            'Empleado'   => new EmployeeDataExport($this->user_data),
+            'Empleado' => new EmployeeDataExport($this->user_data),
             'Respuestas' => new ApplicationShowResponsesNom2Export($this->responses),
             'Alertas' => new AlertResponsesExport($this->alert_responses),
             'Análisis AI' => new AnalysisAiExport($this->analysis_ai),

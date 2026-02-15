@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Questionnaire;
 
 use App\Actions\Questionnaire\BuildMetadataAction;
@@ -11,12 +13,12 @@ use App\Models\Questionnaire;
 use App\Models\QuestionnaireCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Validators\ValidationException;
-use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class Store extends Component
 {
@@ -35,19 +37,21 @@ class Store extends Component
         if (! $this->form->questionnaire_file) {
             $this->dispatch('toast', message: __('El archivo es obligatorio.'), type: NotificationTypesEnum::ERROR->value);
             $this->form->import_errors = __('El archivo es obligatorio.');
+
             return;
         }
-        if (!$this->form->questionnaire_file->isValid()) {
+        if (! $this->form->questionnaire_file->isValid()) {
             $this->dispatch('toast', message: __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.'), type: NotificationTypesEnum::WARNING->value);
             $this->form->import_errors = __('El archivo aún se está subiendo. Por favor, espera a que termine la carga.');
+
             return;
         }
 
         DB::beginTransaction();
         try {
-            $import = new QuestionnaireImport();
+            $import = new QuestionnaireImport;
             $import->import($this->form->questionnaire_file->getRealPath());
-            $rows = Excel::toArray(new QuestionnaireImport(), $this->form->questionnaire_file->getRealPath())[0];
+            $rows = Excel::toArray(new QuestionnaireImport, $this->form->questionnaire_file->getRealPath())[0];
 
             $metadata = (new BuildMetadataAction)->execute(
                 rows: $rows,
@@ -60,7 +64,7 @@ class Store extends Component
             );
 
             $file_original_name = $this->form->questionnaire_file->getClientOriginalName();
-            $file_name = Auth::user()->company->id . '_' . Str::replace(' ', '_', trim(Str::lower(Auth::user()->company->name))) . '_' . time() . '_' . $file_original_name;
+            $file_name = Auth::user()->company->id.'_'.Str::replace(' ', '_', trim(Str::lower(Auth::user()->company->name))).'_'.time().'_'.$file_original_name;
             $file_path = $this->form->questionnaire_file->storeAs('questionnaires', $file_name, 'public');
             $metadata['file_path'] = $file_path;
 
@@ -86,7 +90,7 @@ class Store extends Component
                 'form.red_risk_evaluation',
                 'form.questionnaire_file',
                 'form.questionnaire_category',
-                'form.import_errors'
+                'form.import_errors',
             ]);
         } catch (ValidationException $e) {
             DB::rollBack();
@@ -94,18 +98,18 @@ class Store extends Component
             $failure = $e->failures()[0] ?? null;
             if ($failure) {
                 $row = $failure->row();
-                $identificador = 'Fila ' . $row;
+                $identificador = 'Fila '.$row;
                 $error = $failure->errors()[0] ?? $e->getMessage();
-                $this->form->import_errors = __('Error al guardar el cuestionario: ') . $error . " ($identificador)";
+                $this->form->import_errors = __('Error al guardar el cuestionario: ').$error." ($identificador)";
                 $this->dispatch('toast', message: $this->form->import_errors, type: NotificationTypesEnum::ERROR->value);
             } else {
-                $this->form->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
+                $this->form->import_errors = __('Error al guardar el cuestionario: ').$e->getMessage();
                 $this->dispatch('toast', message: $this->form->import_errors, type: NotificationTypesEnum::ERROR->value);
             }
         } catch (\Exception $e) {
             DB::rollBack();
             $this->reset(['form.questionnaire_file']);
-            $this->form->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
+            $this->form->import_errors = __('Error al guardar el cuestionario: ').$e->getMessage();
             $this->dispatch('toast', message: $this->form->import_errors, type: NotificationTypesEnum::ERROR->value);
         }
     }

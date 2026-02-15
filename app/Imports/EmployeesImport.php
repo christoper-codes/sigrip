@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Imports;
 
 use App\Jobs\CreateEmployeesJob;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
-use Maatwebsite\Excel\Concerns\Importable;
 
 class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
 {
@@ -35,7 +37,7 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
         $first_row = $rows->first();
         if ($first_row) {
             $actual = array_keys($first_row->toArray());
-            $actual = array_map(fn($header) => trim(mb_strtolower($header)), $actual);
+            $actual = array_map(fn ($header) => trim(mb_strtolower($header)), $actual);
 
             if ($actual !== $expected) {
                 throw new \Exception(
@@ -44,7 +46,7 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
             }
         }
 
-        $emails = $rows->pluck('correo_electronico')->map(fn($e) => mb_strtolower(trim($e)))->toArray();
+        $emails = $rows->pluck('correo_electronico')->map(fn ($e) => mb_strtolower(trim($e)))->toArray();
         $seen = [];
         foreach ($emails as $email) {
             if (in_array($email, $seen)) {
@@ -52,7 +54,6 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
             }
             $seen[] = $email;
         }
-
 
         if ($rows->count() === 0) {
             throw new \Exception(__('El archivo debe contener al menos un registro de empleado.'));
@@ -71,7 +72,7 @@ class EmployeesImport implements ToCollection, WithHeadingRow, WithValidation
 
     public function rules(): array
     {
-         return [
+        return [
             '*.nombre_completo' => 'required|string|min:3',
             '*.correo_electronico' => [
                 'required',

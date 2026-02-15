@@ -1,19 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Company;
 
 use App\Actions\Application\GenerateQrAction;
 use App\Enums\NotificationTypesEnum;
-use App\Enums\RoleEnum;
 use App\Mail\Welcome;
 use App\Models\Company;
-use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
-use Illuminate\Support\Str;
 
 class Store extends Component
 {
@@ -31,7 +31,7 @@ class Store extends Component
 
         DB::beginTransaction();
         try {
-            $uuid = Str::slug($this->name) . '-' . str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+            $uuid = Str::slug($this->name).'-'.str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
             $company = Company::create([
                 'uuid' => $uuid,
                 'organization_id' => Auth::user()->organization->id,
@@ -41,7 +41,7 @@ class Store extends Component
             Auth::user()->update(['company_id' => $company->id]);
 
             $url_qr = route('ticket.anon.form', ['company' => $company->uuid]);
-            $slug = Str::slug($company->name) . '-' . $company->uuid;
+            $slug = Str::slug($company->name).'-'.$company->uuid;
             (new GenerateQrAction)->execute(url: $url_qr, slug: $slug);
 
             Mail::to(Auth::user()->email)->send(new Welcome(company: $company->name));
@@ -49,7 +49,7 @@ class Store extends Component
             DB::commit();
 
             $this->dispatch('nextStep');
-            if(! $this->wizard) {
+            if (! $this->wizard) {
                 $this->redirect(url: route('company.index'), navigate: true);
             }
             $this->reset();

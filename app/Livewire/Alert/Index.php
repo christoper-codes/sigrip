@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Alert;
 
 use App\Enums\NotificationTypesEnum;
@@ -43,14 +45,14 @@ class Index extends Component
         $this->questionnaire_response = $alert;
         $this->markAsRead($alert_id);
 
-        Flux::modal('read-' . $type . '-alert')->show();
+        Flux::modal('read-'.$type.'-alert')->show();
     }
 
     public function markAsRead(int $alert_id): void
     {
         $alert = $this->alerts[array_search($alert_id, array_column($this->alerts, 'id'))];
 
-        if(! (bool)$alert['read_by_department']) {
+        if (! (bool) $alert['read_by_department']) {
             Alert::where('id', $alert_id)->update(['read_by_department' => true]);
 
             $user = Auth::user();
@@ -67,8 +69,9 @@ class Index extends Component
         $alert = Alert::where('uuid', $this->alert_uuid)
             ->with('user', 'application', 'department')
             ->first();
-        if(! $alert) {
+        if (! $alert) {
             $this->dispatch('toast', message: __('No se encontró ninguna alerta con el ID proporcionado.'), type: NotificationTypesEnum::ERROR->value);
+
             return;
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Questionnaire;
 
 use App\Actions\Questionnaire\BuildMetadataAction;
@@ -12,19 +14,18 @@ use App\Models\QuestionnaireCategory;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Livewire\Component;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Str;
+use Livewire\Component;
 use Livewire\WithFileUploads;
+use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Validators\ValidationException;
 
 class Index extends Component
 {
-    use WithFileUploads;
     use Table;
+    use WithFileUploads;
 
     public QuestionnaireForm $form;
-
     public ?Questionnaire $questionnaire = null;
     public ?array $questionnaire_data = null;
     public ?int $total_questions = null;
@@ -36,10 +37,10 @@ class Index extends Component
     {
         $this->table_items = Questionnaire::where(function ($query) {
             $query->where('is_base', true)
-            ->orWhere('company_id', Auth::user()->company?->id);
+                ->orWhere('company_id', Auth::user()->company?->id);
         })
-        ->with('category')
-        ->get()->toArray();
+            ->with('category')
+            ->get()->toArray();
 
         $this->search_fields = ['name'];
         $this->headers = [
@@ -80,8 +81,9 @@ class Index extends Component
     public function updateStatus(int $id): void
     {
         $questionnaire = Questionnaire::find($id);
-        if($questionnaire->is_base){
+        if ($questionnaire->is_base) {
             $this->dispatch('toast', message: __('No se puede cambiar el estado de un cuestionario base.'), type: NotificationTypesEnum::ERROR->value);
+
             return;
         }
         $questionnaire->is_active = ! $questionnaire->is_active;
@@ -109,14 +111,16 @@ class Index extends Component
 
     public function confirmUpdateQuestionnaire(): void
     {
-       $this->form->validate();
-       if($this->form->questionnaire_file && $this->questionnaire->applications()->count() > 0){
+        $this->form->validate();
+        if ($this->form->questionnaire_file && $this->questionnaire->applications()->count() > 0) {
             $this->form->import_errors = __('No se puede actualizar el archivo del cuestionario porque está asociado a aplicaciones.');
-            return;
-       }
 
-       if($this->questionnaire->is_base){
+            return;
+        }
+
+        if ($this->questionnaire->is_base) {
             $this->form->import_errors = __('No se puede actualizar un cuestionario base.');
+
             return;
         }
 
@@ -128,16 +132,16 @@ class Index extends Component
             $metadata['instructions'] = $this->form->instructions;
             $metadata['objectives'] = $this->form->objectives;
             $risk_evaluation = [
-                'green' => [["label" => __("Bienestar alto"), "criteria" => __("Sin respuestas críticas")]],
+                'green' => [['label' => __('Bienestar alto'), 'criteria' => __('Sin respuestas críticas')]],
                 'yellow' => $this->form->yellow_risk_evaluation,
                 'red' => $this->form->red_risk_evaluation,
             ];
             $metadata['risk_evaluation'] = $risk_evaluation;
 
             if ($this->form->questionnaire_file) {
-                $import = new QuestionnaireImport();
+                $import = new QuestionnaireImport;
                 $import->import($this->form->questionnaire_file->getRealPath());
-                $rows = Excel::toArray(new QuestionnaireImport(), $this->form->questionnaire_file->getRealPath())[0];
+                $rows = Excel::toArray(new QuestionnaireImport, $this->form->questionnaire_file->getRealPath())[0];
 
                 $metadata = (new BuildMetadataAction)->execute(
                     rows: $rows,
@@ -150,7 +154,7 @@ class Index extends Component
                 );
 
                 $file_original_name = $this->form->questionnaire_file->getClientOriginalName();
-                $file_name = Auth::user()->company->id . '_' . Str::replace(' ', '_', trim(Str::lower(Auth::user()->company->name))) . '_' . time() . '_' . $file_original_name;
+                $file_name = Auth::user()->company->id.'_'.Str::replace(' ', '_', trim(Str::lower(Auth::user()->company->name))).'_'.time().'_'.$file_original_name;
                 $file_path = $this->form->questionnaire_file->storeAs('questionnaires', $file_name, 'public');
                 $metadata['file_path'] = $file_path;
             }
@@ -171,16 +175,16 @@ class Index extends Component
             $failure = $e->failures()[0] ?? null;
             if ($failure) {
                 $row = $failure->row();
-                $identificador = 'Fila ' . $row;
+                $identificador = 'Fila '.$row;
                 $error = $failure->errors()[0] ?? $e->getMessage();
-                $this->form->import_errors = __('Error al guardar el cuestionario: ') . $error . " ($identificador)";
+                $this->form->import_errors = __('Error al guardar el cuestionario: ').$error." ($identificador)";
             } else {
-                $this->form->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
+                $this->form->import_errors = __('Error al guardar el cuestionario: ').$e->getMessage();
             }
         } catch (\Exception $e) {
             DB::rollBack();
             $this->reset(['form.questionnaire_file']);
-            $this->form->import_errors = __('Error al guardar el cuestionario: ') . $e->getMessage();
+            $this->form->import_errors = __('Error al guardar el cuestionario: ').$e->getMessage();
         }
     }
 
@@ -196,7 +200,7 @@ class Index extends Component
             'form.questionnaire_file',
             'form.questionnaire_file_path',
             'form.questionnaire_category',
-            'form.import_errors'
+            'form.import_errors',
         ]);
         $this->resetErrorBag();
         $this->resetValidation();
@@ -213,14 +217,16 @@ class Index extends Component
     public function destroy(): void
     {
         $questionnaire = Questionnaire::find($this->questionnaire_id);
-        if($questionnaire->is_base){
+        if ($questionnaire->is_base) {
             Flux::modal('destroy-questionnaire-modal')->close();
             $this->dispatch('toast', message: __('No se puede eliminar un cuestionario base.'), type: NotificationTypesEnum::ERROR->value);
+
             return;
         }
-        if($questionnaire->applications()->count() > 0){
+        if ($questionnaire->applications()->count() > 0) {
             Flux::modal('destroy-questionnaire-modal')->close();
             $this->dispatch('toast', message: __('No se puede eliminar el cuestionario porque está asociado a aplicaciones.'), type: NotificationTypesEnum::ERROR->value);
+
             return;
         }
 

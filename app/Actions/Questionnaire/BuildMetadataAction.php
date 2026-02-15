@@ -1,6 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Questionnaire;
+
 use Illuminate\Support\Str;
 
 final class BuildMetadataAction
@@ -13,8 +16,7 @@ final class BuildMetadataAction
         string $subtitle,
         array $instructions,
         array $objectives
-    ): array
-    {
+    ): array {
         $themes = [];
         foreach ($rows as $row) {
             $theme = trim($row['tema']);
@@ -38,7 +40,7 @@ final class BuildMetadataAction
                 foreach ($opts as $opt) {
                     [$value, $label] = explode(':', $opt, 2);
                     $question['options'][] = [
-                        'value' => (int)trim($value),
+                        'value' => (int) trim($value),
                         'label' => trim($label),
                     ];
                 }
@@ -47,8 +49,8 @@ final class BuildMetadataAction
                     : null;
             }
 
-            $theme_key = $theme . '|' . $description;
-            if (!isset($themes[$theme_key])) {
+            $theme_key = $theme.'|'.$description;
+            if (! isset($themes[$theme_key])) {
                 $themes[$theme_key] = [
                     'name' => $theme,
                     'description' => $description,
@@ -61,13 +63,13 @@ final class BuildMetadataAction
         $themes = array_values($themes);
 
         $risk_evaluation = [
-            'green' => [["label" => __("Bienestar alto"), "criteria" => __("Sin respuestas críticas")]],
+            'green' => [['label' => __('Bienestar alto'), 'criteria' => __('Sin respuestas críticas')]],
             'yellow' => $yellow_risk_evaluation,
             'red' => $red_risk_evaluation,
         ];
 
         $metadata = [
-            'questionnaire_id' => Str::replace(' ', '_', strtolower($title)) . '_' . time(),
+            'questionnaire_id' => Str::replace(' ', '_', strtolower($title)).'_'.time(),
             'title' => $title,
             'subtitle' => $subtitle,
             'instructions' => $instructions,

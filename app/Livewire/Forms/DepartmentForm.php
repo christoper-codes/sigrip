@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Forms;
 
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
-use Illuminate\Database\Eloquent\Collection;
 
 class DepartmentForm extends Form
 {
@@ -26,8 +28,6 @@ class DepartmentForm extends Form
     public ?int $manager = null;
 
     public bool $save_manager = false;
-
     public Collection $potential_managers;
-
     public bool $hr_department = false;
 }

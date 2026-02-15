@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Application;
 
 use App\Actions\Application\GenerateQrAction;
@@ -16,15 +18,15 @@ use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Livewire\Attributes\Validate;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Index extends Component
 {
-    use Table;
-    use Roles;
     use LimitItems;
+    use Roles;
+    use Table;
 
     public ApplicationForm $form;
     public ?Application $application = null;
@@ -43,8 +45,8 @@ class Index extends Component
         $this->departments = Department::where('company_id', Auth::user()->company?->id)
             ->get()
             ->toArray();
-        if(! $this->departments){
-          $this->dispatch('toast', message: __('No hay departamentos disponibles.'), type: NotificationTypesEnum::WARNING->value);
+        if (! $this->departments) {
+            $this->dispatch('toast', message: __('No hay departamentos disponibles.'), type: NotificationTypesEnum::WARNING->value);
         }
 
         $this->search_fields = ['questionnaire.name'];
@@ -62,7 +64,7 @@ class Index extends Component
             ['label' => __('Acciones')],
         ];
 
-         $department = Department::where('company_id', Auth::user()->company?->id)
+        $department = Department::where('company_id', Auth::user()->company?->id)
             ->where('metadata->hr_department', true)
             ->first();
 
@@ -75,12 +77,12 @@ class Index extends Component
         $this->form->departments = $departments ? $departments->toArray() : [];
 
         $this->form->questionnaires = Questionnaire::where(function ($query) {
-                $query->where('is_base', true)
+            $query->where('is_base', true)
                 ->orWhere('company_id', Auth::user()->company?->id);
-            })
+        })
             ->get()
             ->toArray();
-        if($this->department){
+        if ($this->department) {
             $this->searchApplications();
         }
     }
@@ -141,6 +143,7 @@ class Index extends Component
         ) {
             Flux::modal('edit-application-modal')->close();
             $this->dispatch('toast', message: __('No se puede modificar estas propiedades de una aplicación que ya tiene respuestas.'), type: NotificationTypesEnum::ERROR->value);
+
             return;
         }
 
@@ -153,19 +156,20 @@ class Index extends Component
         if ($exists_application) {
             Flux::modal('edit-application-modal')->close();
             $this->dispatch('toast', message: __('Ya existe una aplicación activa con los mismos parámetros.'), type: NotificationTypesEnum::ERROR->value);
+
             return;
         }
 
         DB::beginTransaction();
-        try{
+        try {
             $original_auth_required = $application->auth_required;
             $original_questionnaire_id = $application->questionnaire_id;
             $original_slug = $application->slug;
-            if($original_questionnaire_id !== $this->form->questionnaire){
+            if ($original_questionnaire_id !== $this->form->questionnaire) {
                 $questionnaire_name = collect($this->form->questionnaires)
                     ->where('id', $this->form->questionnaire)
                     ->first()['name'];
-                $this->form->slug = Str::slug($questionnaire_name . '-' . uniqid());
+                $this->form->slug = Str::slug($questionnaire_name.'-'.uniqid());
                 $this->form->url_qr = route('application.show', ['slug' => $this->form->slug]);
             }
 
@@ -178,7 +182,7 @@ class Index extends Component
             $application->slug = $this->form->slug ?? $application->slug;
             $application->save();
 
-            if((bool) $original_auth_required !== (bool) $this->form->auth_required){
+            if ((bool) $original_auth_required !== (bool) $this->form->auth_required) {
                 UserApplicationJob::dispatch(
                     department_id: $this->form->executing_department,
                     company_id: Auth::user()->company?->id,
@@ -187,8 +191,8 @@ class Index extends Component
                 );
             }
 
-            if($original_questionnaire_id !== $this->form->questionnaire){
-                Storage::disk('public')->delete('qrs/' . $original_slug . '.svg');
+            if ($original_questionnaire_id !== $this->form->questionnaire) {
+                Storage::disk('public')->delete('qrs/'.$original_slug.'.svg');
                 (new GenerateQrAction)->execute(url: $this->form->url_qr, slug: $this->form->slug);
             }
 
@@ -207,11 +211,11 @@ class Index extends Component
         } catch (\Exception $e) {
             DB::rollBack();
             Flux::modal('edit-application-modal')->close();
-            $this->dispatch('toast', message: __('Error al actualizar la aplicación: ') . $e->getMessage(), type: NotificationTypesEnum::ERROR->value);
+            $this->dispatch('toast', message: __('Error al actualizar la aplicación: ').$e->getMessage(), type: NotificationTypesEnum::ERROR->value);
         }
     }
 
-     public function confirmDestroy(string $application_name, int $id): void
+    public function confirmDestroy(string $application_name, int $id): void
     {
         $this->application_name = $application_name;
         $this->application_id = $id;
@@ -222,9 +226,10 @@ class Index extends Component
     public function destroy(): void
     {
         $application = Application::find($this->application_id);
-        if( $application->questionnaireResponses()->exists() ) {
+        if ($application->questionnaireResponses()->exists()) {
             Flux::modal('destroy-application-modal')->close();
             $this->dispatch('toast', message: __('No se puede eliminar una aplicación que ya tiene respuestas.'), type: NotificationTypesEnum::ERROR->value);
+
             return;
         }
         $application_slug = $application->slug;
@@ -235,7 +240,7 @@ class Index extends Component
             application: $application,
             store: false,
         );
-        Storage::disk('public')->delete('qrs/' . $application_slug . '.svg');
+        Storage::disk('public')->delete('qrs/'.$application_slug.'.svg');
 
         $this->searchApplications();
         Flux::modal('destroy-application-modal')->close();

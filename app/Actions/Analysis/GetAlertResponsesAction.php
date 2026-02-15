@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Analysis;
 
 class GetAlertResponsesAction
@@ -19,16 +21,16 @@ class GetAlertResponsesAction
                 $theme_alerts[] = [
                     'id' => isset($q['id']) ? substr($q['id'], strrpos($q['id'], '_') + 1) : null,
                     'question' => $alert['question'] ?? $q['text'] ?? null,
-                    'label'    => $alert['label'] ?? null,
-                    'value'    => $alert['value'] ?? null,
+                    'label' => $alert['label'] ?? null,
+                    'value' => $alert['value'] ?? null,
                 ];
             }
 
             if (count($theme_alerts)) {
                 $alert_responses[] = [
-                    'theme_name'        => $theme['name'] ?? '',
+                    'theme_name' => $theme['name'] ?? '',
                     'theme_description' => $theme['description'] ?? '',
-                    'questions'         => $theme_alerts,
+                    'questions' => $theme_alerts,
                 ];
             }
         }

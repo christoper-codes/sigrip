@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Ticket;
 
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +17,7 @@ class Link extends Component
     {
         $company = Auth::user()->company;
         if ($company) {
-            $this->slug = Str::slug($company->name) . '-' . $company->uuid;
+            $this->slug = Str::slug($company->name).'-'.$company->uuid;
             $this->url = route('ticket.anon.form', ['company' => $company->uuid]);
         }
     }

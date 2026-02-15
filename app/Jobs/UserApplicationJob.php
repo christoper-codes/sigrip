@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Models\Application;
@@ -22,10 +24,10 @@ class UserApplicationJob implements ShouldQueue
         public int $company_id,
         public Application $application,
         public bool $store = true,
-    )
-    {
-       $this->onQueue('applications');
+    ) {
+        $this->onQueue('applications');
     }
+
     /**
      * Execute the job.
      */
@@ -38,12 +40,12 @@ class UserApplicationJob implements ShouldQueue
 
             foreach ($users as $user) {
                 $this->application->users()->syncWithoutDetaching([
-                    $user->id => ['is_active' => true]
+                    $user->id => ['is_active' => true],
                 ]);
             }
         }
 
-        if(! $this->store){
+        if (! $this->store) {
             $this->application->users()->detach();
         }
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Traits;
 
 use App\Enums\NotificationTypesEnum;
@@ -28,8 +30,9 @@ trait Roles
 
     public function updateRoles(): void
     {
-        if(! $this->employee_roles){
+        if (! $this->employee_roles) {
             $this->dispatch('toast', message: __('Debe seleccionar al menos un rol.'), type: NotificationTypesEnum::ERROR->value);
+
             return;
         }
 

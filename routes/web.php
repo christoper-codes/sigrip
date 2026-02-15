@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\SupportTicketController;
 use App\Http\Middleware\AlertMiddleware;
@@ -8,12 +10,11 @@ use App\Http\Middleware\ApplicationMiddleware;
 use App\Http\Middleware\CompanyMiddleware;
 use App\Http\Middleware\DepartmentMiddleware;
 use App\Http\Middleware\EmployeeMiddleware;
-use App\Http\Middleware\IndexApplicationMiddleware;
 use App\Http\Middleware\QuestionnaireMiddleware;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
-use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('pages.welcome');
@@ -38,16 +39,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'pages.app.dashboard')->name('dashboard');
 
     Route::view('company', 'pages.app.company.index')
-            ->middleware(CompanyMiddleware::class)
-            ->name('company.index');
+        ->middleware(CompanyMiddleware::class)
+        ->name('company.index');
 
     Route::view('departments', 'pages.app.department.index')
-            ->middleware(DepartmentMiddleware::class)
-            ->name('department.index');
+        ->middleware(DepartmentMiddleware::class)
+        ->name('department.index');
 
     Route::view('employees', 'pages.app.employee.index')
-            ->middleware(EmployeeMiddleware::class)
-            ->name('employee.index');
+        ->middleware(EmployeeMiddleware::class)
+        ->name('employee.index');
 
     Route::view('notifications', 'pages.app.notification.index')->name('notification.index');
 

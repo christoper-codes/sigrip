@@ -1,15 +1,18 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Livewire\Ticket;
 
 use App\Enums\NotificationTypesEnum;
 use App\Jobs\SupportTicketJob;
+use App\Models\Company;
 use App\Models\IncidentType;
 use App\Models\SupportTicketStatus;
-use App\Models\Company;
-use Livewire\Component;
-use Livewire\Attributes\Validate;
-use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Validate;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Anonymous extends Component
 {
@@ -48,8 +51,8 @@ class Anonymous extends Component
     public function mount()
     {
         $this->company = Company::where('uuid', $this->company_uuid)->first();
-        if(! $this->company) {
-           abort(404);
+        if (! $this->company) {
+            abort(404);
         }
         $this->company_name = $this->company->name;
         $this->departments = $this->company->departments()->pluck('name', 'id')->toArray();
@@ -62,16 +65,17 @@ class Anonymous extends Component
     {
         $this->validate();
 
-        if (!empty($this->evidence_files) && collect($this->evidence_files)->contains(fn($file) => ! $file->isValid())) {
+        if (! empty($this->evidence_files) && collect($this->evidence_files)->contains(fn ($file) => ! $file->isValid())) {
             $this->dispatch('toast', message: __('Los archivos aún se están subiendo. Por favor, espera a que termine la carga.'), type: NotificationTypesEnum::WARNING->value);
+
             return;
         }
 
         $evidence_paths = [];
-        if (!empty($this->evidence_files)) {
+        if (! empty($this->evidence_files)) {
             foreach ($this->evidence_files as $file) {
                 $original = $file->getClientOriginalName();
-                $file_name = $this->company->id . '_' . Str::replace(' ', '_', trim(Str::lower($this->company->name))) . '_' . time() . '_' . $original;
+                $file_name = $this->company->id.'_'.Str::replace(' ', '_', trim(Str::lower($this->company->name))).'_'.time().'_'.$original;
                 $file_path = $file->storeAs('tickets', $file_name, 'public');
                 $evidence_paths[] = $file_path;
             }
@@ -115,7 +119,7 @@ class Anonymous extends Component
             'is_priority',
             'evidence_files',
             'submitted',
-            'ticket_reference'
+            'ticket_reference',
         ]);
     }
 

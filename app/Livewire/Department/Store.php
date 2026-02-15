@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Department;
 
 use App\Enums\NotificationTypesEnum;
@@ -28,6 +30,7 @@ class Store extends Component
     {
         if (! $this->exist_company) {
             $this->dispatch('toast', message: __('Primero debes crear una compañía para poder crear un departamento.'), type: NotificationTypesEnum::ERROR->value);
+
             return;
         }
         $this->validate();
@@ -35,17 +38,19 @@ class Store extends Component
         $hr_department = Department::where('company_id', Auth::user()->company->id)
             ->where('metadata->hr_department', true)
             ->exists();
-        if($this->form->hr_department && $hr_department) {
+        if ($this->form->hr_department && $hr_department) {
             $this->dispatch('toast', message: __('Ya existe un departamento de RRHH en esta compañía.'), type: NotificationTypesEnum::ERROR->value);
+
             return;
         }
 
-        if($this->form->save_manager && $this->form->manager) {
+        if ($this->form->save_manager && $this->form->manager) {
             $potential_manager = User::find($this->form->manager)->userRoles()
                 ->where('name', RoleEnum::DEPARTMENT_MANAGER->value)
                 ->exists();
             if (! $potential_manager) {
                 $this->dispatch('toast', message: __('El empleado seleccionado no tiene el rol de Gerente'), type: NotificationTypesEnum::ERROR->value);
+
                 return;
             }
         }

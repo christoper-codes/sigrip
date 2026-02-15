@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
 use App\Enums\RoleEnum;
@@ -16,7 +18,7 @@ class UserPolicy
 
     public function viewSystemOwner(User $user): bool
     {
-        if($user->hasRole(role: RoleEnum::SYSTEM_OWNER->value)){
+        if ($user->hasRole(role: RoleEnum::SYSTEM_OWNER->value)) {
             return true;
         }
 
@@ -25,7 +27,7 @@ class UserPolicy
 
     public function viewCompanyAdmin(User $user): bool
     {
-        if($user->hasRole(role: RoleEnum::COMPANY_ADMIN->value)){
+        if ($user->hasRole(role: RoleEnum::COMPANY_ADMIN->value)) {
             return true;
         }
 
@@ -38,7 +40,7 @@ class UserPolicy
 
     public function viewDepartmentManager(User $user): bool
     {
-        if($user->hasRole(role: RoleEnum::DEPARTMENT_MANAGER->value)){
+        if ($user->hasRole(role: RoleEnum::DEPARTMENT_MANAGER->value)) {
             return true;
         }
 
@@ -52,7 +54,7 @@ class UserPolicy
 
     public function viewEmployee(User $user): bool
     {
-        if($user->hasRole(role: RoleEnum::EMPLOYEE->value)){
+        if ($user->hasRole(role: RoleEnum::EMPLOYEE->value)) {
             return true;
         }
 

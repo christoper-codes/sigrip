@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exports;
 
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ApplicationResponsesExport implements FromArray, WithHeadings, WithStyles, WithColumnWidths
+class ApplicationResponsesExport implements FromArray, WithColumnWidths, WithHeadings, WithStyles
 {
     protected array $responses;
 
@@ -22,6 +24,7 @@ class ApplicationResponsesExport implements FromArray, WithHeadings, WithStyles,
     {
         return array_map(function ($item) {
             $created_at = Carbon::parse($item['created_at'])->format('d/m/Y H:i');
+
             return [
                 $item['uuid'] ?? '',
                 $created_at,
@@ -48,6 +51,7 @@ class ApplicationResponsesExport implements FromArray, WithHeadings, WithStyles,
         $sheet->getStyle('A1:E1')->getFont()->setBold(true);
         $sheet->getStyle('A1:E1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
         $sheet->getStyle('A1:E1')->getBorders()->getAllBorders()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('FF000000'));
+
         return [];
     }
 

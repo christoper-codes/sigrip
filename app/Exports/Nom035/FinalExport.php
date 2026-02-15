@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exports\Nom035;
 
 use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class FinalExport implements FromArray, WithStyles, WithColumnWidths, WithTitle, WithHeadings
+class FinalExport implements FromArray, WithColumnWidths, WithHeadings, WithStyles, WithTitle
 {
     protected array $final_data;
 
@@ -22,7 +24,7 @@ class FinalExport implements FromArray, WithStyles, WithColumnWidths, WithTitle,
                     $final_data[1][1] ?? null,
                     $final_data[2][1] ?? null,
                     $final_data[3][1] ?? null,
-                ]
+                ],
             ];
         } else {
             $this->final_data = $final_data;

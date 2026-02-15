@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use Laravel\Socialite\Facades\Socialite;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Enums\RoleEnum;
 use App\Models\Organization;
 use App\Models\Role;
-use App\Enums\RoleEnum;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
@@ -21,7 +23,7 @@ class GoogleController extends Controller
         $googleUser = Socialite::driver('google')->user();
         $user = User::where('email', $googleUser->getEmail())->first();
 
-        if (!$user) {
+        if (! $user) {
             $organization_by_default = Organization::where('name', 'neura')->first();
             $role_by_default = Role::where('name', RoleEnum::COMPANY_ADMIN->value)->first();
 
