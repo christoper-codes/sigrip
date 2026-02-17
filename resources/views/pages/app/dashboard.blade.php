@@ -57,7 +57,7 @@
                         <div class="w-full">
                             <div class="grid xl:max-h-[600px] 2xl:max-h-full 2xl:min-h-[700px] gap-4 lg:grid-cols-3 lg:grid-rows-2">
                                 <div class="relative lg:row-span-2">
-                                    <div class="absolute inset-px rounded-lg bg-light-variant dark:bg-dark-variant border border-neutral-200 dark:border-neutral-800 lg:rounded-l-4xl"></div>
+                                    <div class="absolute inset-px rounded-lg bg-light-variant dark:bg-dark-variant border border-border lg:rounded-l-4xl"></div>
                                     <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
                                     <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
                                         <p class="mt-2 text-lg font-medium tracking-tight max-lg:text-center">{{ __('Formularios adaptados') }}</p>
@@ -72,7 +72,7 @@
                                     <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-white/15 lg:rounded-l-4xl"></div>
                                 </div>
                                 <div class="relative max-lg:row-start-1">
-                                    <div class="absolute inset-px rounded-lg bg-light-variant dark:bg-dark-variant border border-neutral-200 dark:border-neutral-800 max-lg:rounded-t-4xl"></div>
+                                    <div class="absolute inset-px rounded-lg bg-light-variant dark:bg-dark-variant border border-border max-lg:rounded-t-4xl"></div>
                                     <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
                                     <div class="px-8 pt-8 sm:px-10 sm:pt-10">
                                         <p class="mt-2 text-lg font-medium tracking-tight max-lg:text-center">{{ __('Velocidad') }}</p>
@@ -96,7 +96,7 @@
                                     <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-white/15 max-lg:rounded-t-4xl"></div>
                                 </div>
                                 <div class="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2">
-                                    <div class="absolute inset-px rounded-lg bg-light-variant dark:bg-dark-variant border border-neutral-200 dark:border-neutral-800"></div>
+                                    <div class="absolute inset-px rounded-lg bg-light-variant dark:bg-dark-variant border border-border"></div>
                                     <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
                                     <div class="px-8 pt-8 sm:px-10 sm:pt-10">
                                         <p class="mt-2 text-lg font-medium tracking-tight max-lg:text-center">{{ __('Seguridad') }}</p>
@@ -117,7 +117,7 @@
                                     <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-white/15"></div>
                                 </div>
                                 <div class="relative lg:row-span-2">
-                                    <div class="absolute inset-px rounded-lg bg-light-variant dark:bg-dark-variant border border-neutral-200 dark:border-neutral-800 max-lg:rounded-b-4xl lg:rounded-r-4xl"></div>
+                                    <div class="absolute inset-px rounded-lg bg-light-variant dark:bg-dark-variant border border-border max-lg:rounded-b-4xl lg:rounded-r-4xl"></div>
                                     @can('viewDepartmentManager', auth()->user())
                                         <div class="relative flex justify-between h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
                                             <div class="px-8 pt-8 sm:px-10 sm:pt-10">
