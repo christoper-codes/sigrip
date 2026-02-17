@@ -42,6 +42,7 @@
                     </div>
                     <span class="font-display text-lg font-bold tracking-tight">NEURA</span>
                 </a>
+                <x-app-logo-icon class="w-20"/>
 
                 <!-- Desktop nav -->
                 <nav class="hidden items-center gap-8 md:flex">
