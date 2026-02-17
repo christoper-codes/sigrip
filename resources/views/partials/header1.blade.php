@@ -1,0 +1,99 @@
+<header
+    x-data="{
+        scrolled: false,
+        scrolledMobile: false,
+        mobileMenuOpen: false,
+        mobileOpen: false,
+        checkScroll() {
+            if (window.innerWidth >= 1024) {
+                this.scrolled = window.scrollY > 50
+            }
+            if (window.innerWidth < 1024) {
+                this.scrolledMobile = window.scrollY > 50
+            }
+        }
+    }"
+    x-init="
+        checkScroll()
+        window.addEventListener('scroll', () => checkScroll())
+        window.addEventListener('resize', () => checkScroll())
+    "
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out"
+    :class="scrolled ? 'pt-5' : 'lg:pt-2'"
+    >
+        <div
+        class="mx-auto transition-all duration-500 ease-in-out"
+        :class="scrolled ? 'max-w-5xl px-6' : 'max-w-full px-0'"
+    >
+        <div
+            class="border-0 border-transparent transition-all duration-500 ease-in-out [transition:background-color_500ms_ease-in-out,backdrop-filter_500ms_ease-in-out,border-radius_500ms_ease-in-out,border_100ms_ease-in-out] overflow-hidden dark:overflow-visible"
+            :class="scrolled
+                ? 'backdrop-blur-lg bg-neutral-500/5 rounded-full !border-[1px] !border-neutral-200 dark:!border-neutral-800 [transition:background-color_500ms_ease-in-out,backdrop-filter_500ms_ease-in-out,border-radius_500ms_ease-in-out,border_300ms_ease-in-out_500ms]'
+                : (scrolledMobile
+                    ? 'backdrop-blur-lg bg-neutral-500/5 dark:bg-neutral-900/5 shadow-md'
+                    : 'border-0 border-transparent')"
+        >
+        <x-main-container>
+            <div class="mx-auto flex items-center justify-between px-6 py-5 lg:py-4">
+                <!-- Logo -->
+                <a href="#" class="group flex items-center gap-2">
+                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary transition-transform duration-300 group-hover:scale-110">
+                    <span class="text-sm font-bold">N</span>
+                    </div>
+                    <span class="font-display text-lg font-bold tracking-tight">NEURA</span>
+                </a>
+
+                <!-- Desktop nav -->
+                <nav class="hidden items-center gap-8 md:flex">
+                    <a href="#como-funciona" class="relative text-sm transition-colors duration-500 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-500 hover:after:w-full">Como funciona</a>
+                    <a href="#faqs" class="relative text-sm transition-colors duration-500 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-500 hover:after:w-full">Preguntas</a>
+                    <a href="#pricing" class="relative text-sm transition-colors duration-500 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-500 hover:after:w-full">Precios</a>
+                </nav>
+
+                <!-- Desktop actions -->
+                <div class="hidden items-center gap-3 md:flex">
+                    <!-- Theme toggle -->
+                    <div x-data class="size-7 border border-neutral-300 dark:border-neutral-600 rounded-full flex items-center justify-center">
+                        <flux:icon.sun x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
+                    </div>
+                    <button class="text-sm px-3 py-1.5">Iniciar sesion</button>
+                    <a href="#" class="inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-medium transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:shadow-primary/20">Registrarse</a>
+                </div>
+
+                <!-- Mobile actions -->
+                <div class="flex items-center gap-2 md:hidden">
+                    <div x-data class="size-7 border border-neutral-300 dark:border-neutral-600 rounded-full flex items-center justify-center">
+                        <flux:icon.sun x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
+                    </div>
+                    <button @click="mobileOpen = !mobileOpen">
+                        <svg x-show="!mobileOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                        <svg x-show="mobileOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+            </div>
+        </x-main-container>
+        </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div
+            x-show="mobileOpen"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 -translate-y-2"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-2"
+            class="h-screen bg-neutral-500/5 dark:bg-neutral-900/5 border-t border-t-neutral-300 dark:border-t-neutral-600 backdrop-blur-xl md:hidden"
+            >
+            <nav class="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-6">
+                <a href="#como-funciona" @click="mobileOpen = false" class="text-sm">Como funciona</a>
+                <a href="#faqs" @click="mobileOpen = false" class="text-sm">Preguntas</a>
+                <a href="#pricing" @click="mobileOpen = false" class="text-sm">Precios</a>
+                <div class="flex flex-col gap-3 pt-4">
+                <button class="text-sm text-left">Iniciar sesion</button>
+                    <a href="#" class="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2 text-sm font-medium hover:opacity-90">Registrarse</a>
+                </div>
+            </nav>
+        </div>
+    </header>

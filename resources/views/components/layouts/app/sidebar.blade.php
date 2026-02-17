@@ -7,7 +7,7 @@
         <x-alert />
         <livewire:notifications.toast />
 
-        <flux:sidebar sticky collapsible stashable class="border-e overflow-hidden border-zinc-200 bg-dark dark:border-zinc-700 dark:bg-zinc-900">
+        <flux:sidebar sticky collapsible stashable class="border-e overflow-hidden border-zinc-200 bg-dark dark:border-border dark:bg-card">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
                 <flux:sidebar.header>
                     <flux:sidebar.brand
