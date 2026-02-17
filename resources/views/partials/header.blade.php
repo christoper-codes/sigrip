@@ -56,8 +56,8 @@
                     <div x-data class="size-7 border border-neutral-300 dark:border-neutral-600 rounded-full flex items-center justify-center">
                         <flux:icon.sun x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
                     </div>
-                    <button class="text-sm px-3 py-1.5">{{ __('Iniciar sesion') }}</button>
-                    <a href="#" class="inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-medium transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:shadow-primary/20 text-light dark:text-dark">{{ __('Registrarse') }}</a>
+                    <a href="{{ route('login') }}" wire:navigate class="text-sm px-3 py-1.5">{{ __('Iniciar sesion') }}</a>
+                    <a href="{{ route('register') }}" wire:navigate class="inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-medium transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:shadow-primary/20 text-light dark:text-dark">{{ __('Registrarse') }}</a>
                 </div>
 
                 <!-- Mobile actions -->
@@ -91,8 +91,10 @@
                 <a href="#faqs" @click="mobileOpen = false" class="text-sm">{{ __('Preguntas') }}</a>
                 <a href="#pricing" @click="mobileOpen = false" class="text-sm">{{ __('Precios') }}</a>
                 <div class="flex flex-col gap-3 pt-4">
-                <button class="text-sm text-left">{{ __('Iniciar sesion') }}</button>
-                    <a href="#" class="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2 text-sm font-medium hover:opacity-90">{{ __('Registrarse') }}</a>
+                    <a href="{{ route('login') }}" wire:navigate class="inline-flex text-center justify-center items-center rounded-full border dark:border-neutral-700 px-8 py-3 text-base  border-primary/40 bg-primary/5">
+                        {{ __('Iniciar sesion') }}
+                    </a>
+                    <a href="{{ route('register') }}" wire:navigate class="inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-sm font-medium hover:opacity-90 text-light dark:text-dark">{{ __('Registrarse') }}</a>
                 </div>
             </nav>
         </div>
