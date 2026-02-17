@@ -6,7 +6,7 @@
             <div>
                 <div class="flex items-center justify-between relative">
                     <a href="{{ route('home') }}" wire:navigate>
-                        <x-app-logo-icon class="w-24"/>
+                        <x-app-logo-icon />
                     </a>
                     <flux:link x-data x-on:click="$flux.dark = ! $flux.dark" variants="outline" class="!cursor-pointer size-7! border! border-neutral-300! dark:border-neutral-600! rounded-full! flex! items-center! justify-center!">
                         <x-icon.sun variant="mini" class="size-4! text-dark! dark:text-light!"/>

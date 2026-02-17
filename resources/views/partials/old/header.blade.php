@@ -31,7 +31,7 @@
             <x-main-container>
                 <nav class="flex items-center justify-between transition-all duration-500 py-2.5" :class="scrolled ? 'px-1 lg:px-5' : ''">
                     <a href="{{ route('home') }}" wire:navigate>
-                        <x-app-logo-icon class="w-24"/>
+                        <x-app-logo-icon />
                     </a>
                     <div class="lg:hidden flex items-center gap-3">
                         <flux:link x-data x-on:click="$flux.dark = ! $flux.dark" variants="outline" class="!cursor-pointer size-7! border! border-neutral-300! dark:border-neutral-600! rounded-full! flex! items-center! justify-center!">

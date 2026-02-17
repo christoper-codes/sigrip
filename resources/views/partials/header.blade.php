@@ -36,13 +36,7 @@
         <x-main-container>
             <div class="mx-auto flex items-center justify-between px-6 py-5 lg:py-4">
                 <!-- Logo -->
-                <a href="#" class="group flex items-center gap-2">
-                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary transition-transform duration-300 group-hover:scale-110">
-                    <span class="text-sm font-bold text-dark">Ai</span>
-                    </div>
-                    <span class="font-display text-lg font-bold tracking-tight">NEURA</span>
-                </a>
-                <x-app-logo-icon class="w-20"/>
+                <x-app-logo-icon />
 
                 <!-- Desktop nav -->
                 <nav class="hidden items-center gap-8 md:flex">

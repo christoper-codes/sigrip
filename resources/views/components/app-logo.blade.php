@@ -1,3 +1,3 @@
 <div>
-    <x-app-logo-icon class="w-32" />
+    <x-app-logo-icon />
 </div>
