@@ -1,40 +1,30 @@
-<section id="brands">
-    <x-main-container>
-        <div class="relative w-full overflow-hidden mt-28">
-            <div class="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-white dark:from-black to-transparent z-10 pointer-events-none"></div>
-            <div class="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-white dark:from-black to-transparent z-10 pointer-events-none"></div>
-
-            <p class="mb-7 opacity-70 text-center">
-                {{ __('¡Confiado por empresas líderes!') }}
-            </p>
-
-            <div class="flex animate-scroll whitespace-nowrap">
-                <div class="flex items-center space-x-16 text-xl font-light">
-                    <span class="mx-8">{{ __('PEMEX') }}</span>
-                    <span class="mx-8">{{ __('CFE') }}</span>
-                    <span class="mx-8">{{ __('Grupo Bimbo') }}</span>
-                    <span class="mx-8">{{ __('América Móvil') }}</span>
-                    <span class="mx-8">{{ __('CEMEX') }}</span>
-                    <span class="mx-8">{{ __('Banorte') }}</span>
-                    <span class="mx-8">{{ __('Walmart México') }}</span>
-                    <span class="mx-8">{{ __('OXXO') }}</span>
-                    <span class="mx-8">{{ __('Liverpool') }}</span>
-                    <span class="mx-8">{{ __('Televisa') }}</span>
-                </div>
-
-                <div class="flex items-center space-x-16 text-xl font-light">
-                    <span class="mx-8">{{ __('PEMEX') }}</span>
-                    <span class="mx-8">{{ __('CFE') }}</span>
-                    <span class="mx-8">{{ __('Grupo Bimbo') }}</span>
-                    <span class="mx-8">{{ __('América Móvil') }}</span>
-                    <span class="mx-8">{{ __('CEMEX') }}</span>
-                    <span class="mx-8">{{ __('Banorte') }}</span>
-                    <span class="mx-8">{{ __('Walmart México') }}</span>
-                    <span class="mx-8">{{ __('OXXO') }}</span>
-                    <span class="mx-8">{{ __('Liverpool') }}</span>
-                    <span class="mx-8">{{ __('Televisa') }}</span>
-                </div>
-            </div>
+<section id="brands" class="relative border-y border-border/30 bg-card/30 py-10" x-data x-intersect.once="$el.querySelector('.reveal').classList.add('visible')">
+    <p class="reveal mb-8 text-center text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">{{ __('Confiado por empresas líderes') }}</p>
+    <div class="relative overflow-hidden">
+        <div class="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-background to-transparent"></div>
+        <div class="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-background to-transparent"></div>
+        <div class="animate-marquee flex w-max">
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">PEMEX</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">CFE</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">GRUPO BIMBO</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">AMERICA MOVIL</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">CEMEX</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">BANORTE</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">WALMART MEXICO</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">OXXO</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">LIVERPOOL</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">TELEVISA</span></div>
+        <!-- Duplicate for seamless loop -->
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">PEMEX</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">CFE</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">GRUPO BIMBO</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">AMERICA MOVIL</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">CEMEX</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">BANORTE</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">WALMART MEXICO</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">OXXO</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">LIVERPOOL</span></div>
+        <div class="flex items-center justify-center px-8"><span class="whitespace-nowrap text-sm font-semibold tracking-wider text-muted-foreground/50 transition-colors duration-300 hover:text-muted-foreground">TELEVISA</span></div>
         </div>
-    </x-main-container>
+    </div>
 </section>
