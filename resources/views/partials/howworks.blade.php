@@ -2,7 +2,7 @@
     x-data="{ activeFeature: 0 }"
     x-intersect.once="$el.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => el.classList.add('visible'))"
     >
-    <div class="mx-auto max-w-7xl px-6">
+   <x-main-container>
         <!-- Header -->
         <div class="reveal mx-auto mb-16 max-w-2xl text-center">
         <span class="mb-4 inline-block text-xs font-medium uppercase tracking-[0.2em] text-primary">Plataforma</span>
@@ -119,5 +119,5 @@
             </div>
         </div>
         </div>
-    </div>
+    </x-main-container>
 </section>
