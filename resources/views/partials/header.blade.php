@@ -38,7 +38,7 @@
                 <!-- Logo -->
                 <a href="#" class="group flex items-center gap-2">
                     <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary transition-transform duration-300 group-hover:scale-110">
-                    <span class="text-sm font-bold">Ai</span>
+                    <span class="text-sm font-bold text-dark">Ai</span>
                     </div>
                     <span class="font-display text-lg font-bold tracking-tight">NEURA</span>
                 </a>
