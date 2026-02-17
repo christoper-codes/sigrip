@@ -1,4 +1,4 @@
-<section id="brands" class="relative border-y border-border/30 bg-card/30 py-10" x-data x-intersect.once="$el.querySelector('.reveal').classList.add('visible')">
+<section id="brands" class="relative border-y border-border bg-card py-10" x-data x-intersect.once="$el.querySelector('.reveal').classList.add('visible')">
     <p class="reveal mb-8 text-center text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">{{ __('Confiado por empresas líderes') }}</p>
     <div class="relative overflow-hidden opacity-50">
         <div class="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-background to-transparent"></div>
