@@ -1,12 +1,15 @@
 <header
     x-data="{
         scrolled: false,
+        scrolledMobile: false,
         mobileMenuOpen: false,
+        mobileOpen: false,
         checkScroll() {
-            if (window.innerWidth < 1024) {
-                this.scrolled = true
-            } else {
+            if (window.innerWidth >= 1024) {
                 this.scrolled = window.scrollY > 50
+            }
+            if (window.innerWidth < 1024) {
+                this.scrolledMobile = window.scrollY > 50
             }
         }
     }"
@@ -16,9 +19,9 @@
         window.addEventListener('resize', () => checkScroll())
     "
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out"
-    :class="scrolled ? 'pt-5' : 'pt-2'"
+    :class="scrolled ? 'pt-5' : 'lg:pt-2'"
     >
-    <div
+        <div
         class="mx-auto transition-all duration-500 ease-in-out"
         :class="scrolled ? 'max-w-5xl px-6' : 'max-w-full px-0'"
     >
@@ -26,107 +29,71 @@
             class="border-0 border-transparent transition-all duration-500 ease-in-out [transition:background-color_500ms_ease-in-out,backdrop-filter_500ms_ease-in-out,border-radius_500ms_ease-in-out,border_100ms_ease-in-out] overflow-hidden dark:overflow-visible"
             :class="scrolled
                 ? 'backdrop-blur-lg bg-neutral-500/5 rounded-full !border-[1px] !border-neutral-200 dark:!border-neutral-800 [transition:background-color_500ms_ease-in-out,backdrop-filter_500ms_ease-in-out,border-radius_500ms_ease-in-out,border_300ms_ease-in-out_500ms]'
-                : 'border-0 border-transparent'"
+                : (scrolledMobile
+                    ? 'backdrop-blur-lg bg-neutral-500/5 dark:bg-neutral-900/5 shadow-md'
+                    : 'border-0 border-transparent')"
         >
-            <x-main-container>
-                <nav class="flex items-center justify-between transition-all duration-500 py-2.5" :class="scrolled ? 'px-1 lg:px-5' : ''">
-                    <a href="{{ route('home') }}" wire:navigate>
-                        <x-app-logo-icon class="w-24"/>
-                    </a>
-                    <div class="lg:hidden flex items-center gap-3">
-                        <flux:link x-data x-on:click="$flux.dark = ! $flux.dark" variants="outline" class="!cursor-pointer size-7! border! border-neutral-300! dark:border-neutral-600! rounded-full! flex! items-center! justify-center!">
-                            <x-icon.sun variant="mini" class="size-4! text-dark! dark:text-light!"/>
-                        </flux:link>
-                        <button @click="mobileMenuOpen = true">
-                            <flux:icon.bars-2 class="size-7"/>
-                        </button>
+        <x-main-container>
+            <div class="mx-auto flex items-center justify-between px-6 py-5 lg:py-4">
+                <!-- Logo -->
+                <a href="#" class="group flex items-center gap-2">
+                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary transition-transform duration-300 group-hover:scale-110">
+                    <span class="text-sm font-bold">N</span>
                     </div>
-                    <div class="transition-all duration-500 hidden lg:block">
-                        <div class="flex items-center gap-5 text-base">
-                            <a href="#">{{ __('Como funciona') }}</a>
-                            <a href="#faqs">{{ __('Preguntas') }}</a>
-                            <a href="#pricing">{{ __('Precios') }}</a>
-                             <div x-data class="size-7 border border-neutral-300 dark:border-neutral-600 rounded-full flex items-center justify-center">
-                                <flux:icon.sun x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hidden lg:flex items-center gap-3">
-                        @guest
-                            <x-links.secondary url="{{ route('login') }}" title="{{ __('Iniciar sesion') }}"/>
-                            <x-links.primary url="{{ route('register') }}" title="{{ __('Registrarse') }}" />
-                        @endguest
-                        @auth
-                         <x-links.primary url="{{ route('dashboard') }}" title="{{ __('Panel de control') }}" />
-                        @endauth
-                    </div>
-                </nav>
-            </x-main-container>
-        </div>
-    </div>
+                    <span class="font-display text-lg font-bold tracking-tight">NEURA</span>
+                </a>
 
-    <!-- Mobile Menu Overlay -->
-    <div
-        x-show="mobileMenuOpen"
-        x-transition.opacity.duration.300ms
-        class="fixed inset-0 bg-black/50 backdrop-blur-lg z-[60] lg:hidden"
-        :class="mobileMenuOpen ? 'min-h-screen' : ''"
-        @click="mobileMenuOpen = false"
-    >
-        <div
-            x-show="mobileMenuOpen"
-            x-transition:enter="transition ease-out duration-300 transform"
-            x-transition:enter-start="translate-y-[-100%]"
-            x-transition:enter-end="translate-y-0"
-            x-transition:leave="transition ease-in duration-200 transform"
-            x-transition:leave-start="translate-y-0"
-            x-transition:leave-end="translate-y-[-100%]"
-            class="bg-white dark:bg-neutral-950 border-b border-neutral-200 dark:border-neutral-800 shadow-lg"
-            @click.stop
-        >
-            <div class="px-6 py-6">
-                <div class="flex items-center justify-between mb-8">
-                    <x-app-logo-icon class="w-[90px]"/>
-                    <button @click="mobileMenuOpen = false" class="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
-                        <flux:icon.x-mark class="size-6"/>
+                <!-- Desktop nav -->
+                <nav class="hidden items-center gap-8 md:flex">
+                    <a href="#como-funciona" class="relative text-sm transition-colors duration-500 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-500 hover:after:w-full">Como funciona</a>
+                    <a href="#faqs" class="relative text-sm transition-colors duration-500 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-500 hover:after:w-full">Preguntas</a>
+                    <a href="#pricing" class="relative text-sm transition-colors duration-500 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-500 hover:after:w-full">Precios</a>
+                </nav>
+
+                <!-- Desktop actions -->
+                <div class="hidden items-center gap-3 md:flex">
+                    <!-- Theme toggle -->
+                    <div x-data class="size-7 border border-neutral-300 dark:border-neutral-600 rounded-full flex items-center justify-center">
+                        <flux:icon.sun x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
+                    </div>
+                    <button class="text-sm px-3 py-1.5">Iniciar sesion</button>
+                    <a href="#" class="inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-medium transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:shadow-primary/20">Registrarse</a>
+                </div>
+
+                <!-- Mobile actions -->
+                <div class="flex items-center gap-2 md:hidden">
+                    <div x-data class="size-7 border border-neutral-300 dark:border-neutral-600 rounded-full flex items-center justify-center">
+                        <flux:icon.sun x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
+                    </div>
+                    <button @click="mobileOpen = !mobileOpen">
+                        <svg x-show="!mobileOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                        <svg x-show="mobileOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                     </button>
                 </div>
-
-                <nav class="space-y-6 text-base">
-                    <a href="#" @click="mobileMenuOpen = false" class="block py-3 border-b border-neutral-200 dark:border-neutral-800">
-                        {{ __('Como funciona') }}
-                    </a>
-                    <a href="#faqs" @click="mobileMenuOpen = false" class="block py-3 border-b border-neutral-200 dark:border-neutral-800">
-                        <span>{{ __('Preguntas') }}</span>
-                    </a>
-                    <a href="#pricing" @click="mobileMenuOpen = false" class="block py-3 border-b border-neutral-200 dark:border-neutral-800">
-                        {{ __('Precios') }}
-                    </a>
-                </nav>
-
-                <div class="mt-8 flex flex-col gap-3">
-                    @guest
-                        <x-links.secondary
-                            url="{{ route('login') }}"
-                            title="{{ __('Iniciar sesion') }}"
-                            class="!w-full"
-                        />
-                        <x-links.primary
-                            url="{{ route('register') }}"
-                            title="{{ __('Registrarse') }}"
-                            class="!w-full "
-                        />
-                    @endguest
-
-                    @auth
-                        <x-links.primary
-                            url="{{ route('dashboard') }}"
-                            title="{{ __('Panel de control') }}"
-                            class="!w-full "
-                        />
-                    @endauth
-                </div>
             </div>
+        </x-main-container>
         </div>
-    </div>
-</header>
+        </div>
+
+        <!-- Mobile menu -->
+        <div
+            x-show="mobileOpen"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 -translate-y-2"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-2"
+            class="h-screen bg-neutral-500/5 dark:bg-neutral-900/5 border-t border-t-neutral-300 dark:border-t-neutral-600 backdrop-blur-xl md:hidden"
+            >
+            <nav class="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-6">
+                <a href="#como-funciona" @click="mobileOpen = false" class="text-sm">Como funciona</a>
+                <a href="#faqs" @click="mobileOpen = false" class="text-sm">Preguntas</a>
+                <a href="#pricing" @click="mobileOpen = false" class="text-sm">Precios</a>
+                <div class="flex flex-col gap-3 pt-4">
+                <button class="text-sm text-left">Iniciar sesion</button>
+                    <a href="#" class="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2 text-sm font-medium hover:opacity-90">Registrarse</a>
+                </div>
+            </nav>
+        </div>
+    </header>

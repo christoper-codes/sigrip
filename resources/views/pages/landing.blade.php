@@ -1,5 +1,5 @@
 <x-layouts.guest.zero>
-    @include('partials.header1')
+    @include('partials.header')
 
     <main>
         <!-- ========== HERO ========== -->
