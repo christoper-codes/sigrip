@@ -20,7 +20,7 @@
             </div>
 
             <!-- Heading -->
-            <h1 class="animate-fade-up font-display text-4xl font-bold leading-tight tracking-tight opacity-0 animation-delay-200 sm:text-5xl md:text-6xl lg:text-7xl" style="text-wrap:balance">
+            <h1 class="animate-fade-up font-display text-4xl font-bold leading-tight tracking-tight opacity-0 animation-delay-200 sm:text-5xl md:text-6xl 2xl:text-7xl" style="text-wrap:balance">
                 {{ __('Bienestar laboral y cumplimiento') }}
                 <span class="relative inline-block text-primary">
                 {{ __('NOM-035') }}
