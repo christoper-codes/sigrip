@@ -1,129 +1,55 @@
-<section id="pricing">
-    <x-main-container>
-        <div x-data="{
-                billing: 'Mensual',
-                proPrice: 1690,
-                premiumPrice: 1690,
-                get proDisplayPrice() {
-                    return this.billing === 'Mensual' ? this.proPrice : (this.proPrice * 10);
-                },
-                get premiumDisplayPrice() {
-                    return this.billing === 'Mensual' ? this.premiumPrice : (this.premiumPrice * 10);
-                },
-                get billingLabel() {
-                    return this.billing === 'Mensual' ? 'mes' : 'año';
-                }
-            }"
-            data-aos="fade-zoom-in"
-            data-aos-once="true"
-            data-aos-duration="2000"
-            >
-            <div class="mt-52 text-center flex flex-col gap-7 items-center justify-center mb-16">
-                <div class="flex flex-col gap-3">
-                    <div class="mx-auto py-2 text-light px-4 rounded-full text-sm border border-neutral-800 inline-block bg-gradient-to-b from-dark to-neutral-800 self-start text-center">
-                        {{ __('2 meses') }} <span class="text-primary">{{ __('gratis') }}</span> {{ __('en el plan anual') }}
-                    </div>
-                    <h1 class="text-4xl md:text-5xl">
-                        {{ __('Planes adaptados ') }} <span class="[filter:drop-shadow(0px_0px_15px_rgb(255_193_7_/_100%))]"> {{ __('para ti') }}</span>
-                    </h1>
-                </div>
-                <p class="opacity-70 max-w-4xl">
-                    {{ __('Pensados para mejorar el bienestar laboral, prevenir riesgos psicosociales y evitar demandas costosas.') }}
-                </p>
-                <div>
-                    <flux:radio.group variant="segmented">
-                        <flux:radio label="Mensual" checked x-on:click="billing = 'Mensual'" class="!text-base"/>
-                        <flux:radio label="Anual" x-on:click="billing = 'Anual'" class="!text-base"/>
-                    </flux:radio.group>
-                </div>
-            </div>
-            <div class="mt-10 flex flex-col md:flex-row gap-7 md:gap-0 items-center justify-center">
-                <div class="h-full rounded-4xl border-2 border-primary w-full md:w-md p-7 flex flex-col gap-7 justify-center bg-light-variant dark:bg-neutral-950">
-                    <div class="flex flex-col gap-5">
-                        <div class="py-2 px-4 rounded-full text-light text-sm border border-neutral-800 inline-block bg-gradient-to-b from-dark to-neutral-800 self-start text-center">
-                            {{ __('Premium') }}
-                        </div>
-                        <p class="text-4xl font-extrabold">
-                            $<span x-text="premiumDisplayPrice.toLocaleString()"></span><span class="text-lg font-medium"> /<span x-text="billingLabel"></span></span>
-                        </p>
-                        <p class="opacity-70 leading-relaxed text-base">
-                            {{ __('Lo mejor para empezar. Solución completa y potente que escala contigo.') }}
-                        </p>
-                        <ul class="space-y-3">
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('3 cuestionarios NOM-035 incluidos') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('3 cuestionarios onboarding incluidos') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Análisis inteligente con IA') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Exportación inteligente de resultados') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Notificaciones en tiempo real') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Soporte 24/7') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Cuestionarios personalizados') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Cuestionarios ilimitados') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Empleados ilimitados') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Departamentos ilimitados') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Módulo de tickets psicosociales') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Predicción IA de problemas') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('API de integración') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Capacitación via videos') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Actualización continua') }}</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-base">
-                                <flux:icon.check class="size-4 text-primary" />
-                                <span>{{ __('Integración Google Drive (proximamente)') }}</span>
-                            </li>
-                        </ul>
-                    </div>
+<section id="pricing" class="relative py-24 lg:py-32">
+    <!-- Glow -->
+    <div class="pointer-events-none absolute inset-0">
+        <div class="absolute left-1/2 top-0 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-primary/10 blur-[120px]"></div>
+    </div>
 
-                    <x-links.primary
-                        url="{{ route('register') }}"
-                        title="{{ __('Comenzar prueba gratuita') }}"
-                        class="!py-4"
-                    />
-                </div>
+    <div class="relative mx-auto max-w-7xl px-6">
+        <div class="mx-auto mb-16 max-w-2xl text-center">
+        <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5">
+            <span class="text-xs font-medium text-primary">2 meses gratis en el plan anual</span>
+        </div>
+        <h2 class="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl" style="text-wrap:balance">Planes adaptados para ti</h2>
+        <p class="mt-4 leading-relaxed text-muted-foreground" style="text-wrap:pretty">Pensados para mejorar el bienestar laboral, prevenir riesgos psicosociales y evitar demandas costosas.</p>
+        </div>
+
+        <!-- Card -->
+        <div class="mx-auto max-w-lg">
+        <div class="group relative overflow-hidden rounded-3xl border border-primary/20 bg-card/80 p-8 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 lg:p-10">
+            <div class="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-[60px] transition-opacity duration-500 group-hover:opacity-100"></div>
+            <div class="pointer-events-none absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-primary/5 blur-[40px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+
+            <div class="relative">
+            <span class="text-xs font-medium uppercase tracking-[0.15em] text-primary">Premium</span>
+            <div class="mt-4 flex items-baseline gap-1">
+                <span class="font-display text-5xl font-bold text-foreground">$1,690</span>
+                <span class="text-muted-foreground">/mes</span>
+            </div>
+            <p class="mt-3 text-sm leading-relaxed text-muted-foreground">Lo mejor para empezar. Solucion completa y potente que escala contigo.</p>
+
+            <a href="#" class="mt-8 flex w-full items-center justify-center rounded-full bg-primary py-3 text-base font-semibold transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:shadow-primary/25">
+                Comenzar prueba gratuita
+                <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+
+            <div class="mt-10 space-y-4">
+                <div class="flex items-start gap-3"><div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-sm leading-relaxed text-muted-foreground">3 cuestionarios NOM-035 incluidos</span></div>
+                <div class="flex items-start gap-3"><div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-sm leading-relaxed text-muted-foreground">3 cuestionarios onboarding incluidos</span></div>
+                <div class="flex items-start gap-3"><div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-sm leading-relaxed text-muted-foreground">Analisis inteligente con IA</span></div>
+                <div class="flex items-start gap-3"><div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-sm leading-relaxed text-muted-foreground">Exportacion inteligente de resultados</span></div>
+                <div class="flex items-start gap-3"><div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-sm leading-relaxed text-muted-foreground">Notificaciones en tiempo real</span></div>
+                <div class="flex items-start gap-3"><div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-sm leading-relaxed text-muted-foreground">Soporte 24/7</span></div>
+                <div class="flex items-start gap-3"><div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-sm leading-relaxed text-muted-foreground">Cuestionarios personalizados ilimitados</span></div>
+                <div class="flex items-start gap-3"><div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-sm leading-relaxed text-muted-foreground">Empleados y departamentos ilimitados</span></div>
+                <div class="flex items-start gap-3"><div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-sm leading-relaxed text-muted-foreground">Modulo de tickets psicosociales</span></div>
+                <div class="flex items-start gap-3"><div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-sm leading-relaxed text-muted-foreground">Prediccion IA de problemas</span></div>
+                <div class="flex items-start gap-3"><div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-sm leading-relaxed text-muted-foreground">API de integracion</span></div>
+                <div class="flex items-start gap-3"><div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-sm leading-relaxed text-muted-foreground">Capacitacion via videos</span></div>
+                <div class="flex items-start gap-3"><div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-sm leading-relaxed text-muted-foreground">Actualizacion continua</span></div>
+                <div class="flex items-start gap-3"><div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-sm leading-relaxed text-muted-foreground">Integracion Google Drive (proximamente)</span></div>
+            </div>
             </div>
         </div>
-    </x-main-container>
+        </div>
+    </div>
 </section>
