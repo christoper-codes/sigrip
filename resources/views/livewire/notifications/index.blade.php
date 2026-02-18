@@ -52,7 +52,7 @@
                 </div>
             @endif
         @else
-            <flux:callout color="fuchsia" icon="information-circle" heading="{{ __('No hay notificaciones') }}" />
+            <flux:callout color="yellow" icon="information-circle" heading="{{ __('No hay notificaciones') }}" />
         @endif
     </div>
     <flux:modal name="read-notification" class="w-[90%] md:w-full max-w-md">

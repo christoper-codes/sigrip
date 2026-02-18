@@ -84,7 +84,7 @@
         </div>
     @else
         <div class="mt-10 max-w-md w-full">
-            <flux:callout color="fuchsia" icon="information-circle" heading="{{ __('No se ha seleccionado un departamento') }}" />
+            <flux:callout color="yellow" icon="information-circle" heading="{{ __('No se ha seleccionado un departamento') }}" />
         </div>
     @endif
 

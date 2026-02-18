@@ -57,7 +57,7 @@
 
     @if(! $tickets)
         <div class="max-w-md! w-full!">
-            <flux:callout class="w-auto! h-auto!" color="fuchsia" icon="information-circle" heading="{{ __('No tienes tickets activos.') }}" />
+            <flux:callout class="w-auto! h-auto!" color="yellow" icon="information-circle" heading="{{ __('No tienes tickets activos.') }}" />
         </div>
     @endif
 

@@ -89,7 +89,7 @@
 
     @if(! $notify_message && ! $tickets)
         <div class="max-w-md! w-full!">
-            <flux:callout class="w-auto! h-auto!" color="fuchsia" icon="information-circle" heading="{{ __('No se ha seleccionado un departamento') }}" />
+            <flux:callout class="w-auto! h-auto!" color="yellow" icon="information-circle" heading="{{ __('No se ha seleccionado un departamento') }}" />
         </div>
     @endif
 
