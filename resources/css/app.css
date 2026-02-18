@@ -58,6 +58,7 @@
         --color-border: var(--color-neutral-800);
 
         --color-dark-variant: var(--color-card);
+        --color-zinc-800: var(--color-card);
     }
 }
 
