@@ -51,7 +51,7 @@
                     <button
                         @click="active = i - 1"
                         class="h-2 w-2 rounded-full transition-all"
-                        :class="active === i - 1 ? 'bg-primary w-6' : 'bg-muted'"
+                        :class="active === i - 1 ? 'bg-primary w-6' : 'bg-primary'"
                     ></button>
                 </template>
             </div>
