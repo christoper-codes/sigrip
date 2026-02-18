@@ -19,9 +19,6 @@ use Livewire\Volt\Volt;
 Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');
-Route::get('/landing', function () {
-    return view('pages.landing');
-})->name('landing');
 
 /*
 * Google OAuth Routes
