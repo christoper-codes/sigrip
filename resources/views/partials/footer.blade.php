@@ -1,4 +1,4 @@
-<footer class="border-t border-border bg-card relative py-12 overflow-hidden">
+<footer class="border-t border-border relative py-12 overflow-hidden">
     <div class="pointer-events-none absolute inset-0">
         <div class="animate-pulse-glow absolute -bottom-[500px] left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-primary/15 blur-[120px]"></div>
     </div>
