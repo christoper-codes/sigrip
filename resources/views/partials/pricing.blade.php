@@ -6,11 +6,13 @@
 
     <div class="relative mx-auto max-w-7xl px-6">
         <div class="mx-auto mb-16 max-w-2xl text-center">
-        <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5">
-            <span class="text-xs font-medium text-primary">2 meses gratis en el plan anual</span>
-        </div>
-        <h2 class="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl" style="text-wrap:balance">Planes adaptados para ti</h2>
-        <p class="mt-4 leading-relaxed text-muted-foreground" style="text-wrap:pretty">Pensados para mejorar el bienestar laboral, prevenir riesgos psicosociales y evitar demandas costosas.</p>
+            <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5">
+                <span class="text-xs font-medium text-primary">{{ __('2 meses gratis en el plan anual') }}</span>
+            </div>
+            <h2 class="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl" style="text-wrap:balance">{{ __('Planes adaptados para ti') }}</h2>
+            <p class="text-base leading-relaxed mt-4" style="text-wrap:pretty">
+                <span class="opacity-70">{{ __('Pensados para mejorar el bienestar laboral, prevenir riesgos psicosociales y evitar demandas costosas.') }}</span>
+            </p>
         </div>
 
         <!-- Card -->

@@ -3,7 +3,9 @@
         <div class="mx-auto mb-16 max-w-2xl text-center">
             <span class="mb-4 inline-block text-xs font-medium uppercase tracking-[0.2em] text-primary">{{ __('Testimonios') }}</span>
             <h2 class="font-display text-3xl font-bold tracking-tight sm:text-4xl" style="text-wrap:balance">{{ __('Por que nuestros usuarios eligen Neura') }}</h2>
-            <p class="mt-4 leading-relaxed" style="text-wrap:pretty">{{ __('Descubre como Neura transforma la gestion del bienestar laboral y previene riesgos psicosociales.') }}</p>
+            <p class="text-base leading-relaxed mt-4" style="text-wrap:pretty">
+                <span class="opacity-70">{{ __('Descubre como Neura transforma la gestion del bienestar laboral y previene riesgos psicosociales.') }}</span>
+            </p>
         </div>
 
         <div
@@ -27,7 +29,7 @@
                                     <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary" x-text="card.initials"></div>
                                     <div>
                                         <p class="text-sm font-semibold text-foreground" x-text="card.name"></p>
-                                        <p class="text-xs text-muted-foreground" x-text="card.role"></p>
+                                        <p class="text-xs opacity-70" x-text="card.role"></p>
                                     </div>
                                 </div>
                             </div>
