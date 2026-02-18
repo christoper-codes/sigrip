@@ -1,4 +1,4 @@
-<section id="testimonials" class="relative py-24 lg:py-32">
+<section id="testimonials" class="relative py-24">
     <x-main-container>
         <div class="mx-auto mb-16 max-w-2xl text-center">
             <span class="mb-4 inline-block text-xs font-medium uppercase tracking-[0.2em] text-primary">{{ __('Testimonios') }}</span>
