@@ -48,7 +48,7 @@
 
             <!-- Feature detail panel -->
             <div class="relative overflow-hidden reveal-right flex items-center w-full lg:w-3/5 rounded-2xl border border-border bg-card p-8 lg:p-12">
-                <div class="pointer-events-none absolute -left-10 -top-10 h-52 w-52 rounded-full bg-primary/8 blur-[60px] transition-opacity duration-500"></div>
+                <div class="pointer-events-none absolute -left-10 -top-10 h-52 w-52 rounded-full bg-primary/10 blur-[60px] transition-opacity duration-500"></div>
                 <div>
                     <!-- Feature 0 -->
                     <template x-if="activeFeature === 0">
