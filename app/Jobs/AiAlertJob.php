@@ -93,7 +93,7 @@ class AiAlertJob implements ShouldQueue
             $alert_type = AlertType::where('color', Str::lower($ai_response['type_alert']))->first();
 
             // Alerts
-            $uuid = str_pad((string)mt_rand(0, 999999), 8, '0', STR_PAD_LEFT);
+            $uuid = str_pad((string) mt_rand(0, 999999), 8, '0', STR_PAD_LEFT);
             $alert = Alert::create([
                 'uuid' => $uuid,
                 'alert_type_id' => $alert_type->id,
