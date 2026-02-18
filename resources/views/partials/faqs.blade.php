@@ -11,8 +11,8 @@
         <!-- Accordion -->
         <div class="space-y-3" x-data="{ openFaq: 0 }">
         <!-- FAQ 1 -->
-        <div class="rounded-xl border border-border bg-card px-6 backdrop-blur-sm transition-all duration-300" :class="openFaq === 0 ? 'border-primary/20 bg-card/80 shadow-lg shadow-primary/5' : ''">
-            <button @click="openFaq = openFaq === 0 ? null : 0" class="flex w-full items-center justify-between py-5 text-left text-sm font-medium text-foreground transition-colors duration-300">
+        <div class="cursor-pointer rounded-2xl border border-border bg-card px-6 backdrop-blur-sm transition-all duration-300" :class="openFaq === 0 ? 'border-primary/30 bg-card/70 shadow-lg shadow-primary/5' : ''">
+            <button @click="openFaq = openFaq === 0 ? null : 0" class="cursor-pointer flex w-full items-center justify-between py-7 text-left text-sm font-medium text-foreground transition-colors duration-300">
                 {{ __('¿Puedo crear cuestionarios personalizados ademas de los incluidos?') }}
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-300" :class="openFaq === 0 ? 'rotate-180' : ''" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
@@ -28,8 +28,8 @@
             </div>
         </div>
         <!-- FAQ 2 -->
-        <div class="rounded-xl border border-border bg-card px-6 backdrop-blur-sm transition-all duration-300" :class="openFaq === 1 ? 'border-primary/20 bg-card/80 shadow-lg shadow-primary/5' : ''">
-            <button @click="openFaq = openFaq === 1 ? null : 1" class="flex w-full items-center justify-between py-5 text-left text-sm font-medium text-foreground transition-colors duration-300">
+        <div class="cursor-pointer rounded-2xl border border-border bg-card px-6 backdrop-blur-sm transition-all duration-300" :class="openFaq === 1 ? 'border-primary/30 bg-card/70 shadow-lg shadow-primary/5' : ''">
+            <button @click="openFaq = openFaq === 1 ? null : 1" class="cursor-pointer flex w-full items-center justify-between py-7 text-left text-sm font-medium text-foreground transition-colors duration-300">
                 {{ __('¿Cuantos empleados y departamentos puedo gestionar en la plataforma?') }}
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-300" :class="openFaq === 1 ? 'rotate-180' : ''" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
@@ -45,8 +45,8 @@
             </div>
         </div>
         <!-- FAQ 3 -->
-        <div class="rounded-xl border border-border bg-card px-6 backdrop-blur-sm transition-all duration-300" :class="openFaq === 2 ? 'border-primary/20 bg-card/80 shadow-lg shadow-primary/5' : ''">
-            <button @click="openFaq = openFaq === 2 ? null : 2" class="flex w-full items-center justify-between py-5 text-left text-sm font-medium text-foreground transition-colors duration-300">
+        <div class="cursor-pointer rounded-2xl border border-border bg-card px-6 backdrop-blur-sm transition-all duration-300" :class="openFaq === 2 ? 'border-primary/30 bg-card/70 shadow-lg shadow-primary/5' : ''">
+            <button @click="openFaq = openFaq === 2 ? null : 2" class="cursor-pointer flex w-full items-center justify-between py-7 text-left text-sm font-medium text-foreground transition-colors duration-300">
                 {{ __('¿Qué tipo de soporte ofrecen?') }}
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-300" :class="openFaq === 2 ? 'rotate-180' : ''" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
@@ -62,8 +62,8 @@
             </div>
         </div>
         <!-- FAQ 4 -->
-        <div class="rounded-xl border border-border bg-card px-6 backdrop-blur-sm transition-all duration-300" :class="openFaq === 3 ? 'border-primary/20 bg-card/80 shadow-lg shadow-primary/5' : ''">
-            <button @click="openFaq = openFaq === 3 ? null : 3" class="flex w-full items-center justify-between py-5 text-left text-sm font-medium text-foreground transition-colors duration-300">
+        <div class="cursor-pointer rounded-2xl border border-border bg-card px-6 backdrop-blur-sm transition-all duration-300" :class="openFaq === 3 ? 'border-primary/30 bg-card/70 shadow-lg shadow-primary/5' : ''">
+            <button @click="openFaq = openFaq === 3 ? null : 3" class="cursor-pointer flex w-full items-center justify-between py-7 text-left text-sm font-medium text-foreground transition-colors duration-300">
                 {{ __('¿Qué incluye mi suscripción?') }}
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-300" :class="openFaq === 3 ? 'rotate-180' : ''" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
@@ -79,8 +79,8 @@
             </div>
         </div>
         <!-- FAQ 5 -->
-        <div class="rounded-xl border border-border bg-card px-6 backdrop-blur-sm transition-all duration-300" :class="openFaq === 4 ? 'border-primary/20 bg-card/80 shadow-lg shadow-primary/5' : ''">
-            <button @click="openFaq = openFaq === 4 ? null : 4" class="flex w-full items-center justify-between py-5 text-left text-sm font-medium text-foreground transition-colors duration-300">
+        <div class="cursor-pointer rounded-2xl border border-border bg-card px-6 backdrop-blur-sm transition-all duration-300" :class="openFaq === 4 ? 'border-primary/30 bg-card/70 shadow-lg shadow-primary/5' : ''">
+            <button @click="openFaq = openFaq === 4 ? null : 4" class="cursor-pointer flex w-full items-center justify-between py-7 text-left text-sm font-medium text-foreground transition-colors duration-300">
                 {{ __('¿Cómo funciona el análisis con IA?') }}
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-300" :class="openFaq === 4 ? 'rotate-180' : ''" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
@@ -96,8 +96,8 @@
             </div>
         </div>
         <!-- FAQ 6 -->
-        <div class="rounded-xl border border-border bg-card px-6 backdrop-blur-sm transition-all duration-300" :class="openFaq === 5 ? 'border-primary/20 bg-card/80 shadow-lg shadow-primary/5' : ''">
-            <button @click="openFaq = openFaq === 5 ? null : 5" class="flex w-full items-center justify-between py-5 text-left text-sm font-medium text-foreground transition-colors duration-300">
+        <div class="cursor-pointer rounded-2xl border border-border bg-card px-6 backdrop-blur-sm transition-all duration-300" :class="openFaq === 5 ? 'border-primary/30 bg-card/70 shadow-lg shadow-primary/5' : ''">
+            <button @click="openFaq = openFaq === 5 ? null : 5" class="cursor-pointer flex w-full items-center justify-between py-7 text-left text-sm font-medium text-foreground transition-colors duration-300">
                 {{ __('¿Puedo cancelar mi suscripción en cualquier momento?') }}
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-300" :class="openFaq === 5 ? 'rotate-180' : ''" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
@@ -113,8 +113,8 @@
             </div>
         </div>
         <!-- FAQ 7 -->
-        <div class="rounded-xl border border-border bg-card px-6 backdrop-blur-sm transition-all duration-300" :class="openFaq === 6 ? 'border-primary/20 bg-card/80 shadow-lg shadow-primary/5' : ''">
-            <button @click="openFaq = openFaq === 6 ? null : 6" class="flex w-full items-center justify-between py-5 text-left text-sm font-medium text-foreground transition-colors duration-300">
+        <div class="cursor-pointer rounded-2xl border border-border bg-card px-6 backdrop-blur-sm transition-all duration-300" :class="openFaq === 6 ? 'border-primary/30 bg-card/70 shadow-lg shadow-primary/5' : ''">
+            <button @click="openFaq = openFaq === 6 ? null : 6" class="cursor-pointer flex w-full items-center justify-between py-7 text-left text-sm font-medium text-foreground transition-colors duration-300">
                 {{ __('¿Mis datos y los de mi empresa están seguros?') }}
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-300" :class="openFaq === 6 ? 'rotate-180' : ''" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
