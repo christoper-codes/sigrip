@@ -28,7 +28,7 @@
 
         <!-- Card -->
         <div class="mx-auto max-w-lg">
-        <div class="group relative overflow-hidden rounded-3xl border-[3px] border-primary/20 bg-card p-8 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 lg:p-10">
+        <div class="group relative overflow-hidden rounded-4xl border-[3px] border-primary/20 bg-card p-8 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 lg:p-10">
             <div class="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/20 blur-[60px]"></div>
             <div class="pointer-events-none absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-primary/5 blur-[40px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
 

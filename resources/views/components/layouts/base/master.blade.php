@@ -3,7 +3,7 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="bg-light text-dark dark:bg-dark dark:text-light text-base md:text-lg">
+    <body class="bg-light text-dark dark:bg-dark dark:text-light text-base md:text-lg overflow-x-hidden">
         <x-alert />
         <livewire:notifications.toast />
 
