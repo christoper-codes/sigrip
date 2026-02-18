@@ -9,10 +9,8 @@
                 <div class="absolute inset-0 rounded-[2.5rem] m-5 bg-cover bg-center bg-no-repeat border border-neutral-900"
                      style="background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8)), url('/images/auth.jpeg');">
                 </div>
-                <a href="{{ route('home') }}" class="relative z-20 flex items-center text-lg font-medium" wire:navigate>
-                    <span class="flex w-32 items-center justify-center rounded-md">
-                        <img class="w-full h-auto" src="/images/brand-logo-dark.svg" alt="brand logo">
-                    </span>
+                <a href="{{ route('home') }}" class="relative z-20 flex items-center" wire:navigate>
+                    <x-app-logo />
                 </a>
 
                 @php
