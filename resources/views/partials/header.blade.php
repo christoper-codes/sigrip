@@ -40,7 +40,7 @@
 
                 <!-- Desktop nav -->
                 <nav class="hidden items-center gap-8 md:flex">
-                    <a href="#como-funciona" class="relative text-sm transition-colors duration-500 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-500 hover:after:w-full">{{ __('Como funciona') }}</a>
+                    <a href="#howworks" class="relative text-sm transition-colors duration-500 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-500 hover:after:w-full">{{ __('Como funciona') }}</a>
                     <a href="#faqs" class="relative text-sm transition-colors duration-500 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-500 hover:after:w-full">{{ __('Preguntas') }}</a>
                     <a href="#pricing" class="relative text-sm transition-colors duration-500 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-500 hover:after:w-full">{{ __('Precios') }}</a>
                 </nav>
@@ -87,7 +87,7 @@
             class="h-screen bg-neutral-500/5 dark:bg-neutral-900/5 border-t border-t-neutral-300 dark:border-t-neutral-600 backdrop-blur-xl md:hidden"
             >
             <nav class="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-6">
-                <a href="#como-funciona" @click="mobileOpen = false" class="text-sm">{{ __('Como funciona') }}</a>
+                <a href="#howworks" @click="mobileOpen = false" class="text-sm">{{ __('Como funciona') }}</a>
                 <a href="#faqs" @click="mobileOpen = false" class="text-sm">{{ __('Preguntas') }}</a>
                 <a href="#pricing" @click="mobileOpen = false" class="text-sm">{{ __('Precios') }}</a>
                 <div class="flex flex-col gap-3 pt-4">
