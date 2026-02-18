@@ -43,6 +43,7 @@
     --foreground: 220 20% 10%;
     --color-card: var(--color-neutral-100);
     --color-border: var(--color-neutral-200);
+    --color-special: var(--color-yellow-500);
 }
 
 @layer theme {
