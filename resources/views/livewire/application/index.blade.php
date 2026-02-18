@@ -51,7 +51,7 @@
                                 <flux:button icon="share" wire:click="shareApplication({{ $application['id'] }})" variant="filled">{{ __('Compartir') }}</flux:button>
                             </td>
                             <td class="p-4">
-                                <flux:button icon="chart-bar" href="{{ route('analysis.index') }}" class="border! border-primary! bg-primary/10!">{{ __('Resultados') }}</flux:button>
+                                <flux:button icon="chart-bar" href="{{ route('analysis.index') }}" wire:navigate class="border! border-primary! bg-primary/10!">{{ __('Resultados') }}</flux:button>
                             </td>
                             <td class="p-4">
                                 {{ $application['questionnaire_responses_count'] ?? 0 }}
