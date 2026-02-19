@@ -212,7 +212,22 @@
                                 <flux:icon.sparkles variant="mini" class="text-primary!"/>
                                 <flux:heading>{{ __('Análisis AI para el empleado') }}</flux:heading>
                             </div>
-                            <flux:text class="mt-2 leading-relaxed">{{ $questionnaire_response['ai_response']['recommendation_for_user'] }}</flux:text>
+                            <div
+                                x-data="typeWords(@js($questionnaire_response['ai_response']['recommendation_for_user']))"
+                                x-init="
+                                    start();
+                                    window.addEventListener('read-employee-alert', () => {
+                                        start();
+                                    });
+                                "
+                            >
+                                <flux:text class="mt-2 leading-relaxed">
+                                    <template x-for="(word, i) in visibleWords" :key="i">
+                                        <span x-text="word" class="inline-block mr-1 animate-word"></span>
+                                    </template>
+                                    <span x-show="typing" class="inline-block animate-pulse">▍</span>
+                                </flux:text>
+                            </div>
                         </div>
                     </div>
                 </div>
