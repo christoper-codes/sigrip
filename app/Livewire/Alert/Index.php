@@ -44,8 +44,10 @@ class Index extends Component
         $alert = collect($this->alerts)->firstWhere('id', $alert_id);
         $this->questionnaire_response = $alert;
         $this->markAsRead($alert_id);
+        $key = 'read-'.$type.'-alert';
 
-        Flux::modal('read-'.$type.'-alert')->show();
+        Flux::modal($key)->show();
+        $this->js("window.dispatchEvent(new CustomEvent('{$key}'))");
     }
 
     public function markAsRead(int $alert_id): void

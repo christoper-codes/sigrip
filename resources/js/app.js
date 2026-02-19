@@ -23,3 +23,33 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 
 import './echo';
+
+/**
+ * Animate words
+ */
+document.addEventListener('alpine:init', () => {
+    Alpine.data('typeWords', (text) => ({
+        words: [],
+        visibleWords: [],
+        index: 0,
+        typing: true,
+
+        start() {
+            this.words = text.split(' ')
+            this.visibleWords = []
+            this.index = 0
+            this.typing = true
+            this.typeNext()
+        },
+
+        typeNext() {
+            if (this.index < this.words.length) {
+                this.visibleWords.push(this.words[this.index])
+                this.index++
+                setTimeout(() => this.typeNext(), 120)
+            } else {
+                this.typing = false
+            }
+        }
+    }))
+})
