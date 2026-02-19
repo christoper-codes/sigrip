@@ -829,6 +829,8 @@ class Show extends Component
     {
         $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $this->department_analysis = $item['ai_response']['recommendation_for_department'] ?? 'No hay análisis disponible para esta respuesta.';
+
+        $this->js("window.dispatchEvent(new CustomEvent('read-department-analysis'))");
         Flux::modal('show-department-analysis-modal')->show();
     }
 
@@ -837,6 +839,7 @@ class Show extends Component
         $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
         $this->user_analysis = $item['ai_response']['recommendation_for_user'] ?? 'No hay análisis disponible para esta respuesta.';
 
+        $this->js("window.dispatchEvent(new CustomEvent('read-employee-analysis'))");
         Flux::modal('show-user-analysis-modal')->show();
     }
 
