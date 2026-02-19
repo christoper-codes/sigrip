@@ -270,13 +270,30 @@
                                 <flux:icon.sparkles variant="mini" class="text-primary!"/>
                                 <flux:heading>{{ __('Análisis AI para el departamento') }}</flux:heading>
                             </div>
-                            <flux:text class="mt-2 leading-relaxed">{{ $analyze_ticket_ai_response }}</flux:text>
+                            @if($analyze_ticket_ai_response)
+                                <div
+                                    x-data="typeWords(@js($analyze_ticket_ai_response))"
+                                    x-init="
+                                        start();
+                                        window.addEventListener('read-ticket-ai-response', () => {
+                                            start();
+                                        });
+                                    "
+                                    >
+                                    <flux:text class="mt-2 leading-relaxed">
+                                        <template x-for="(word, i) in visibleWords" :key="i">
+                                            <span x-text="word" class="inline-block mr-1 animate-word"></span>
+                                        </template>
+                                        <span x-show="typing" class="inline-block animate-pulse">▍</span>
+                                    </flux:text>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="flex gap-2">
                         <flux:spacer />
                         <flux:modal.close>
-                            <flux:button variant="filled">{{ __('Cancelar') }}</flux:button>
+                            <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
                         </flux:modal.close>
                     </div>
                 </div>

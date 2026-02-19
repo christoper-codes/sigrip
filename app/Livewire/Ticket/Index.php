@@ -152,6 +152,7 @@ class Index extends Component
         }
 
         Flux::modal('analyze-ticket-ai-modal')->show();
+        $this->js("window.dispatchEvent(new CustomEvent('read-ticket-ai-response'))");
     }
 
     public function ticketDetailModalClosed(): void
