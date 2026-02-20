@@ -116,7 +116,7 @@ class AiAlertJob implements ShouldQueue
             ]);
 
             $this->questionnaire_response->refresh();
-            $this->questionnaire_response->ai_response = json_encode($ai_response, JSON_UNESCAPED_UNICODE);
+            $this->questionnaire_response->ai_response = $ai_response;
             $this->questionnaire_response->average_score = $ai_response['average_score'];
             $this->questionnaire_response->risk_level = $ai_response['risk_level'];
             $this->questionnaire_response->save();
