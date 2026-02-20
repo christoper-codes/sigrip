@@ -162,10 +162,10 @@ class AiAlertJob implements ShouldQueue
                     update_user: false
                 );
 
-                $metadata = is_array($manager->metadata) ? $manager->metadata : (json_decode($manager->metadata, true) ?? []);
+                $metadata = $manager->metadata;
                 $metadata['alerts'] = ($metadata['alerts'] ?? 0) + 1;
                 $metadata['notifications'] = ($metadata['notifications'] ?? 0) + 1;
-                $manager->metadata = json_encode($metadata, JSON_UNESCAPED_UNICODE);
+                $manager->metadata = $metadata;
                 $manager->save();
             }
 
@@ -201,10 +201,10 @@ class AiAlertJob implements ShouldQueue
                     update_user: false
                 );
 
-                $metadata = is_array($company_admin->metadata) ? $company_admin->metadata : (json_decode($company_admin->metadata, true) ?? []);
+                $metadata = $company_admin->metadata;
                 $metadata['alerts'] = ($metadata['alerts'] ?? 0) + 1;
                 $metadata['notifications'] = ($metadata['notifications'] ?? 0) + 1;
-                $company_admin->metadata = json_encode($metadata, JSON_UNESCAPED_UNICODE);
+                $company_admin->metadata = $metadata;
                 $company_admin->save();
             }
         }
