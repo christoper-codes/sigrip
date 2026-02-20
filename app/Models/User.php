@@ -14,6 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -62,6 +63,28 @@ class User extends Authenticatable
             'metadata' => 'array',
             'created_at' => 'datetime:d/m/Y H:i',
         ];
+    }
+
+    protected function metadata(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                if (is_array($value)) {
+                    return $value;
+                }
+
+                if (is_string($value)) {
+                    return json_decode($value, true) ?? [];
+                }
+
+                return [];
+            },
+            set: function ($value) {
+                return is_array($value)
+                    ? json_encode($value, JSON_UNESCAPED_UNICODE)
+                    : $value;
+            }
+        );
     }
 
     /**

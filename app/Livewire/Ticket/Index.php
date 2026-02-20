@@ -147,6 +147,8 @@ class Index extends Component
             $metadata['analyze_ai'] = $response;
             $temporal_ticket->metadata = $metadata;
             $temporal_ticket->save();
+
+            $this->tickets[array_search($ticket_id, array_column($this->tickets, 'id'))]['metadata']['analyze_ai'] = $response;
         } else {
             $this->analyze_ticket_ai_response = $analyze_ai;
         }

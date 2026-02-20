@@ -272,6 +272,7 @@
                             </div>
                             @if($analyze_ticket_ai_response)
                                 <div
+                                    wire:key="ai-{{ now()->timestamp }}"
                                     x-data="typeWords(@js($analyze_ticket_ai_response))"
                                     x-init="
                                         start();

@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class QuestionnaireResponse extends Model
 {
@@ -31,6 +32,28 @@ class QuestionnaireResponse extends Model
             'ai_response' => 'array',
             'employee_data' => 'array',
         ];
+    }
+
+    protected function aiResponse(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                if (is_array($value)) {
+                    return $value;
+                }
+
+                if (is_string($value)) {
+                    return json_decode($value, true) ?? [];
+                }
+
+                return [];
+            },
+            set: function ($value) {
+                return is_array($value)
+                    ? json_encode($value, JSON_UNESCAPED_UNICODE)
+                    : $value;
+            }
+        );
     }
 
     public function application(): BelongsTo

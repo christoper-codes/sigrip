@@ -170,6 +170,7 @@
                                 <flux:heading>{{ __('Análisis AI para el departamento') }}</flux:heading>
                             </div>
                             <div
+                                wire:key="ai-{{ $questionnaire_response['questionnaire_response_uuid'] }}"
                                 x-data="typeWords(@js($questionnaire_response['ai_response']['recommendation_for_department']))"
                                 x-init="
                                     start();
@@ -213,6 +214,7 @@
                                 <flux:heading>{{ __('Análisis AI para el empleado') }}</flux:heading>
                             </div>
                             <div
+                                wire:key="ai-user-{{ $questionnaire_response['questionnaire_response_uuid'] }}"
                                 x-data="typeWords(@js($questionnaire_response['ai_response']['recommendation_for_user']))"
                                 x-init="
                                     start();
