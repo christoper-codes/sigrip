@@ -13,7 +13,7 @@
                     '{{ auth()->user()->can('viewDepartmentManager', auth()->user()) ? 'recent' : 'employee' }}'
             }"
             class="w-full">
-            <div x-on:keydown.right.prevent="$focus.wrap().next()" x-on:keydown.left.prevent="$focus.wrap().previous()" class="flex gap-2 overflow-x-auto border-b border-neutral-300 dark:border-neutral-700" role="tablist" aria-label="tab options">
+            <div x-on:keydown.right.prevent="$focus.wrap().next()" x-on:keydown.left.prevent="$focus.wrap().previous()" class="flex items-end gap-2 overflow-x-auto border-b border-neutral-300 dark:border-neutral-700" role="tablist" aria-label="tab options">
                  @can('viewDepartmentManager', auth()->user())
                     <a href="{{ route('ticket.index') }}?tab=recent" wire:navigate>
                         <button x-bind:aria-selected="selectedTab === 'recent'" x-bind:tabindex="selectedTab === 'recent' ? '0' : '-1'" x-bind:class="selectedTab === 'recent' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelRecent">
