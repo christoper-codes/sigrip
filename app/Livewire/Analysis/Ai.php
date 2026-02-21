@@ -6,8 +6,10 @@ namespace App\Livewire\Analysis;
 
 use App\Actions\Analysis\GenerateAiPromptAction;
 use App\Actions\Application\GenerateAiAlertAction;
+use App\Enums\NotificationTypesEnum;
 use App\Models\Application;
 use App\Models\Questionnaire;
+use Flux\Flux;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -59,24 +61,6 @@ class Ai extends Component
             $query->where('is_base', true)
                 ->orWhere('company_id', $companyId);
         })->get(['id', 'name', 'description'])->toArray();
-
-        /* obtener la sesion last_ai_response */
-        $last_ai_response = session()->get('last_ai_response', null);
-        if (is_array($last_ai_response)) {
-            Log::info("array");
-            $this->ai_result = $this->formatAiResponse($last_ai_response);
-        } elseif (is_string($last_ai_response)) {
-            Log::info("string");
-            // Si la respuesta es texto estructurado, mostrarlo bonito
-            if (preg_match('/Análisis de Alertas|Conclusión|Pasos a mejorar|Usuarios más propensos|Focos de riesgo|Preguntas que generan más alertas/i', $last_ai_response)) {
-                $this->ai_result = '<div class="prose dark:prose-invert">'.nl2br($last_ai_response).'</div>';
-            } else {
-                $this->ai_result = nl2br(e($last_ai_response));
-            }
-        } else {
-            Log::info("Respuesta IA inválida en sesión: ".json_encode($last_ai_response));
-            $this->ai_result = __('Respuesta IA inválida');
-        }
     }
 
     public $ai_result = null;
@@ -88,7 +72,7 @@ class Ai extends Component
         $user = Auth::user();
         $companyId = $user->company?->id;
         if (! $companyId || $this->questionnaire_id === 0) {
-            $this->dispatch('toast', message: __('Debe seleccionar un cuestionario y tener una compañía asociada.'), type: \App\Enums\NotificationTypesEnum::ERROR->value);
+            $this->dispatch('toast', message: __('Debe seleccionar un cuestionario y tener una compañía asociada.'), type: NotificationTypesEnum::ERROR->value);
             return;
         }
 
@@ -104,6 +88,12 @@ class Ai extends Component
         foreach ($applications as $app) {
             $app_responses = $app->questionnaireResponses()->where('risk_level', 'red')->get()->toArray();
             $responses = array_merge($responses, $app_responses);
+        }
+
+        if(count($responses) === 0) {
+            $this->dispatch('toast', message: __('No se encontraron respuestas con alertas para el período seleccionado.'), type: NotificationTypesEnum::WARNING->value);
+            $this->ai_result = null;
+            return;
         }
 
         $questionnaire = Questionnaire::find($this->questionnaire_id);
@@ -128,6 +118,8 @@ class Ai extends Component
             } else {
                 $this->ai_result = __('Respuesta IA inválida');
             }
+
+            Flux::modal('show-questionnaire-analysis-modal')->show();
         } catch (\Throwable $e) {
             $this->ai_result = 'Error al consultar la IA: ' . $e->getMessage();
         }

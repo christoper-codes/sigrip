@@ -42,9 +42,53 @@
         </flux:button>
     </form>
 
-    @if (isset($ai_result))
-        <div class="mt-10 p-4 lg:p-7 bg-card rounded-2xl border border-border leading-relaxed whitespace-pre-line text-base" style="font-family: 'Space Grotesk', system-ui, sans-serif;">
-            {!! $ai_result !!}
+
+     <flux:modal name="show-questionnaire-analysis-modal" class="w-[90%] md:w-full space-y-7">
+        <div>
+            <flux:heading size="xl">{{ __('Análisis de selección') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Recomendaciones y análisis basados en las respuestas seleccionadas') }}</flux:text>
         </div>
-    @endif
+        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800">
+            @if($ai_result)
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <flux:icon.sparkles variant="mini" class="text-primary!"/>
+                        <flux:heading>{{ __('Análisis AI para la compañía') }}</flux:heading>
+                    </div>
+                        @if (isset($ai_result))
+                            <div class="leading-relaxed whitespace-pre-line text-sm">
+                                <div x-data="{
+                                    words: [],
+                                    index: 0,
+                                    interval: null,
+                                    start() {
+                                        const html = `{!! addslashes($ai_result) !!}`;
+                                        const parser = new DOMParser();
+                                        const doc = parser.parseFromString(html, 'text/html');
+                                        let text = doc.body.innerHTML;
+                                        this.words = text.match(/(<[^>]+>|[^\s<]+|\s+)/g);
+                                        this.index = 0;
+                                        this.interval = setInterval(() => {
+                                            if (this.index < this.words.length) {
+                                                this.index++;
+                                            } else {
+                                                clearInterval(this.interval);
+                                            }
+                                        }, 40);
+                                    }
+                                }" x-init="start()">
+                                    <span x-html="words.slice(0, index).join('')"></span>
+                                    <span x-show="index < words.length" class="inline-block animate-pulse">▍</span>
+                                </div>
+                            </div>
+                        @endif
+                </div>
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-2">
+            <flux:modal.close>
+                <flux:button>{{ __('Cerrar') }}</flux:button>
+            </flux:modal.close>
+        </div>
+    </flux:modal>
 </div>
