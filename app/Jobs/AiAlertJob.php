@@ -56,19 +56,19 @@ class AiAlertJob implements ShouldQueue
             $promt = (new GeneratePromptNom035Section1Action)->execute(
                 responses: $this->responses,
                 questionnaire: $this->questionnaire['metadata'],
-                auth_required: $this->application->auth_required,
+                auth_required: (bool) $this->application->auth_required,
             );
         } elseif ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
             $promt = (new GeneratePromptNom035Section2Action)->execute(
                 responses: $this->responses,
                 questionnaire: $this->questionnaire['metadata'],
-                auth_required: $this->application->auth_required,
+                auth_required: (bool) $this->application->auth_required,
             );
         } elseif ($this->questionnaire['name'] == NomEnum::NOM_3->value) {
             $promt = (new GeneratePromptNom035Section3Action)->execute(
                 responses: $this->responses,
                 questionnaire: $this->questionnaire['metadata'],
-                auth_required: $this->application->auth_required,
+                auth_required: (bool) $this->application->auth_required,
             );
         } else {
             $promt = (new GeneratePromptAction)->execute(
