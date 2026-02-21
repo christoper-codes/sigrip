@@ -93,7 +93,7 @@ class Store extends Component
             (new GenerateQrAction)->execute(url: $this->form->url_qr, slug: $this->form->slug);
 
             DB::commit();
-            $this->js('new JSConfetti().addConfetti()');
+            $this->js('if(window.matchMedia("(min-width:1024px)").matches){new JSConfetti().addConfetti()}');
             Flux::modal('qr-application-modal')->show();
             $this->reset([
                 'form.executing_department',
