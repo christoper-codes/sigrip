@@ -12,15 +12,28 @@
 }
 .animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; } */
 
-/* Fade up */
-@keyframes fade-up {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+
+/* Fade up: solo en pantallas >= 1024px (lg) */
+@media (min-width: 1024px) {
+    @keyframes fade-up {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up { animation: fade-up 0.8s ease-out forwards; }
+    .animation-delay-200 { animation-delay: 200ms; }
+    .animation-delay-400 { animation-delay: 400ms; }
+    .animation-delay-600 { animation-delay: 600ms; }
 }
-.animate-fade-up { animation: fade-up 0.8s ease-out forwards; }
-.animation-delay-200 { animation-delay: 200ms; }
-.animation-delay-400 { animation-delay: 400ms; }
-.animation-delay-600 { animation-delay: 600ms; }
+@media (max-width: 1023.98px) {
+    .animate-fade-up,
+    .animation-delay-200,
+    .animation-delay-400,
+    .animation-delay-600 {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
 
 /* SVG draw */
 @keyframes draw {
