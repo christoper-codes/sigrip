@@ -43,7 +43,7 @@
     </form>
 
     @if (isset($ai_result))
-        <div class="mt-8 p-4 bg-card rounded-xl border border-border whitespace-pre-line">
+        <div class="mt-10 p-4 lg:p-7 bg-card rounded-2xl border border-border leading-relaxed whitespace-pre-line text-base" style="font-family: 'Space Grotesk', system-ui, sans-serif;">
             {!! $ai_result !!}
         </div>
     @endif
