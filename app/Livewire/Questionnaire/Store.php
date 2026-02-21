@@ -79,7 +79,7 @@ class Store extends Component
             ]);
 
             DB::commit();
-            $this->js('new JSConfetti().addConfetti()');
+            $this->js('if(window.matchMedia("(min-width:1024px)").matches){new JSConfetti().addConfetti()}');
             $this->dispatch('toast', message: __('Cuestionario guardado exitosamente.'), type: NotificationTypesEnum::SUCCESS->value);
             $this->reset([
                 'form.title',
