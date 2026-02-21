@@ -1,6 +1,6 @@
 <x-layouts.base.master>
     @include('partials.header')
-    <main>
+    <main class="overflow-hidden">
         <x-links.whatsapp />
         {{ $slot }}
     </main>
