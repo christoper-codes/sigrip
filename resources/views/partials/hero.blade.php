@@ -20,12 +20,15 @@
             </div>
 
             <!-- Heading -->
-            <h1 class="animate-fade-up font-display text-4xl font-bold leading-tight tracking-tight opacity-0 animation-delay-200 sm:text-5xl md:text-6xl 2xl:text-7xl" style="text-wrap:balance">
+            <h1 class="animate-fade-up font-display text-4xl font-bold leading-tight tracking-tight lg:opacity-0 lg:animation-delay-200 sm:text-5xl md:text-6xl 2xl:text-7xl" style="text-wrap:balance">
                 {{ __('Bienestar laboral y cumplimiento') }}
                 <span class="relative inline-block text-primary">
                 {{ __('NOM-035') }}
-                <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <svg class="hidden lg:block absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M1 5.5C47 2 153 2 199 5.5" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-dasharray="200" stroke-dashoffset="200" style="animation:draw 1.5s ease-out 1s forwards"/>
+                </svg>
+                <svg class="lg:hidden absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M1 5.5C47 2 153 2 199 5.5" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-dasharray="200" stroke-dashoffset="0"/>
                 </svg>
                 </span>
             </h1>
