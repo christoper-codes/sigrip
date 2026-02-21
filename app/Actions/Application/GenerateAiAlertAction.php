@@ -25,6 +25,13 @@ final class GenerateAiAlertAction
                 ],
             ])->json('choices.0.message.content');
 
-        return json_decode($response, true);
+        $decoded = json_decode($response, true);
+        if (is_array($decoded) && $decoded !== null) {
+            return $decoded;
+        }
+
+        return [
+            'raw' => $response,
+        ];
     }
 }
