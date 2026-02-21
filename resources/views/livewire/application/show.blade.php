@@ -24,7 +24,7 @@
             </flux:text>
         </div>
         <div class="space-y-4">
-            <div class="py-2 px-4 mt-16 rounded-full text-center text-sm border bg-light-variant dark:bg-dark-variant border-neutral-300 dark:border-neutral-700 inline-block mx-auto">
+            <div class="py-2 px-4 mt-16 rounded-full text-center text-sm border bg-light-variant dark:bg-dark-variant/50 border-neutral-300 dark:border-neutral-700 inline-block mx-auto">
                 {{ $company_name }}
             </div>
             <h1 class="text-4xl max-w-4xl uppercase">
