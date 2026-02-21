@@ -91,6 +91,9 @@ class AiAlertJob implements ShouldQueue
 
         if ($ai_response['alert']) {
             $alert_type = AlertType::where('color', Str::lower($ai_response['type_alert']))->first();
+            if (! $alert_type) {
+                $alert_type = (object) ['id' => 2, 'color' => 'red'];
+            }
 
             // Alerts
             $uuid = str_pad((string) mt_rand(0, 999999), 8, '0', STR_PAD_LEFT);
@@ -122,7 +125,7 @@ class AiAlertJob implements ShouldQueue
             $this->questionnaire_response->save();
 
             // Tickets
-            if ($alert_type->color == 'red') {
+            if ($alert_type->color === 'red') {
                 SupportTicketJob::dispatch(
                     company: $this->application->issuingDepartment->company->id,
                     department: $this->application->executing_department_id,

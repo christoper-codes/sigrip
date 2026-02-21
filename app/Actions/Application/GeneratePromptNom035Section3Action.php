@@ -101,9 +101,9 @@ class GeneratePromptNom035Section3Action
 
         $json_block = '{
   "average_score": null,
-  "risk_level": "[green/yellow/orange/red según análisis]",
+  "risk_level": "[green/yellow/red según análisis]",
   "alert": [true si hay alerta, false si no hay alerta],
-  "type_alert": "[red/orange/yellow/null]",
+  "type_alert": "[red/yellow/null]",
   "questions_alert": [array de objetos con información completa de preguntas críticas. Incluye question_id, question (texto), value (valor numérico), label (etiqueta seleccionada). Ejemplo: [{"question_id": "gr1_q1", "question": "¿Ha presenciado o sufrido un accidente...?", "value": 1, "label": "Sí"}]],
   "recommendation_for_user": "[recomendación específica para el usuario]",
   "recommendation_for_department": "[recomendación para el departamento o empresa]",
