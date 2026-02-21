@@ -66,8 +66,8 @@
                         <flux:icon.sun x-on:click="$flux.dark = ! $flux.dark" variant="mini" class="cursor-pointer size-4!" />
                     </div>
                     <button @click="mobileOpen = !mobileOpen">
-                        <flux:icon.bars-2 x-show="!mobileOpen" class="size-7"/>
-                        <flux:icon.x-mark x-show="mobileOpen" class="size-7"/>
+                        <flux:icon.bars-2 x-show="!mobileOpen" x-cloak class="size-7"/>
+                        <flux:icon.x-mark x-show="mobileOpen" x-cloak class="size-7"/>
                     </button>
                 </div>
             </div>
@@ -78,6 +78,7 @@
         <!-- Mobile menu -->
         <div
             x-show="mobileOpen"
+            x-cloak
             x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0 -translate-y-2"
             x-transition:enter-end="opacity-100 translate-y-0"
