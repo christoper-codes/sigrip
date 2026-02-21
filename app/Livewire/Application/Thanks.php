@@ -10,7 +10,7 @@ class Thanks extends Component
 {
     public function mount(): void
     {
-        $this->js('new JSConfetti().addConfetti()');
+        $this->js('if(window.matchMedia("(min-width:1024px)").matches){new JSConfetti().addConfetti()}');
     }
 
     public function render()
