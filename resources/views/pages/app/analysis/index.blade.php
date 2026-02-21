@@ -20,6 +20,12 @@
                         <span>{{ __('Resultados') }}</span>
                     </div>
                 </button>
+                <button x-on:click="selectedTab = 'ai'" x-bind:aria-selected="selectedTab === 'ai'" x-bind:tabindex="selectedTab === 'ai' ? '0' : '-1'" x-bind:class="selectedTab === 'ai' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium hover:border-b-2'" class="h-min px-4 py-2 text-sm cursor-pointer" type="button" role="tab" aria-controls="tabpanelCreateUpdate">
+                    <div class="flex items-center gap-2">
+                        <flux:icon.sparkles class="size-5" />
+                        <span>{{ __('Análisis') }}</span>
+                    </div>
+                </button>
             </div>
             <div class="px-2 mt-10">
                 <div x-cloak x-show="selectedTab === 'info'" id="tabpanelInfo" role="tabpanel" aria-label="info">
@@ -33,6 +39,15 @@
                         <flux:text class="mt-2">{{ __('Análisis detallados de aplicaciones específicas') }}</flux:text>
                         <div class="mt-5">
                             <livewire:analysis.show />
+                        </div>
+                    </div>
+                </div>
+                <div x-cloak x-show="selectedTab === 'ai'" id="tabpanelCreateUpdate" role="tabpanel" aria-label="create">
+                    <div>
+                        <flux:heading size="xl">{{ __('Análisis de IA') }}</flux:heading>
+                        <flux:text class="mt-2">{{ __('Resultados y análisis de aplicaciones con inteligencia artificial') }}</flux:text>
+                        <div class="mt-5">
+
                         </div>
                     </div>
                 </div>
