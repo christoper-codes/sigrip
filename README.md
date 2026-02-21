@@ -9,8 +9,10 @@ Neura is a TALL Stack platform designed to automate compliance with the Mexican 
 ---
 
 ## Conventions & Best Practices 🧠
-
 - **Laravel Boost + AI:** Uses Laravel Boost to guide AI and keep code up-to-date.
+- **Livewire Components:** Properties first (snake_case), then methods, render last. See `.ai/custom-conventions.md`.
+- **Imports:** All `use ...` statements at the top of the file.
+- **User Texts:** All user-facing text must use `__('text')` for translation.
 - **Facades over helpers:** Prefer facades (`Auth::user()`) instead of helpers (`auth()->user()`).
 - **CRUDDY Controllers:** All controllers follow CRUDDY by Design (only the 7 resourceful methods).
 - **Actions Pattern:** Business logic is encapsulated in Action classes for clean and decoupled code.
