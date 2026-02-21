@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Livewire\Analysis;
 
+use App\Actions\Analysis\GenerateAiPromptAction;
+use App\Actions\Application\GenerateAiAlertAction;
+use App\Models\Application;
 use App\Models\Questionnaire;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -89,46 +92,39 @@ class Ai extends Component
             return;
         }
 
-        // Buscar aplicaciones del mes y compañía
         $year = now()->year;
         $startOfMonth = now()->setMonth($this->month)->startOfMonth();
         $endOfMonth = now()->setMonth($this->month)->endOfMonth();
-        $applications = \App\Models\Application::where('company_id', $companyId)
+        $applications = Application::where('company_id', $companyId)
             ->where('questionnaire_id', $this->questionnaire_id)
             ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
             ->get();
 
-        // Obtener todas las questionnaire_responses con risk_level 'red'
         $responses = [];
         foreach ($applications as $app) {
             $app_responses = $app->questionnaireResponses()->where('risk_level', 'red')->get()->toArray();
             $responses = array_merge($responses, $app_responses);
         }
 
-        // Obtener datos del cuestionario
-        $questionnaire = \App\Models\Questionnaire::find($this->questionnaire_id);
+        $questionnaire = Questionnaire::find($this->questionnaire_id);
         $questionnaireArr = $questionnaire ? $questionnaire->toArray() : [];
 
-        // Generar prompt para la IA
-        $promptAction = new \App\Actions\Analysis\GenerateAiPromptAction();
+        $promptAction = new GenerateAiPromptAction();
         $prompt = $promptAction->execute($responses, $questionnaireArr, $this->prompt);
 
-        // Llamar a la IA
         try {
-            $aiAction = new \App\Actions\Application\GenerateAiAlertAction();
+            $aiAction = new GenerateAiAlertAction();
             $aiResponse = $aiAction->execute($prompt);
-            // guardar en session la respuesta cruda para debug
+
             session()->put('last_ai_response', $aiResponse);
             if (is_array($aiResponse)) {
                 $this->ai_result = $this->formatAiResponse($aiResponse);
             } elseif (is_string($aiResponse)) {
-                // Si la respuesta es texto estructurado, mostrarlo bonito
                 if (preg_match('/Análisis de Alertas|Conclusión|Pasos a mejorar|Usuarios más propensos|Focos de riesgo|Preguntas que generan más alertas/i', $aiResponse)) {
                     $this->ai_result = '<div class="prose dark:prose-invert">'.nl2br($aiResponse).'</div>';
                 } else {
                     $this->ai_result = nl2br(e($aiResponse));
                 }
-                $this->js("window.dispatchEvent(new CustomEvent('read-employee-analysis'))");
             } else {
                 $this->ai_result = __('Respuesta IA inválida');
             }
@@ -139,7 +135,6 @@ class Ai extends Component
 
     private function formatAiResponse(array $data): string
     {
-        // Formatea la respuesta de la IA en listas y saltos de línea
         $out = '';
         foreach ($data as $key => $value) {
             if (is_array($value)) {
