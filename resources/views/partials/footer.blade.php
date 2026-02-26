@@ -1,16 +1,36 @@
-<footer class="border-t border-border relative py-12 overflow-hidden">
-    <div class="pointer-events-none absolute inset-0">
-        <div class="animate-pulse-glow absolute -bottom-[500px] left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-primary/15 blur-[120px]"></div>
-    </div>
-    <div class="pointer-events-none absolute inset-0 dark:opacity-[0.04] opacity-[0.09]" style="background-image:linear-gradient(hsl(var(--foreground)) 1px,transparent 1px),linear-gradient(90deg,hsl(var(--foreground)) 1px,transparent 1px);background-size:60px 60px"></div>
+<footer class="w-full bg-card border-t border-border pt-20 pb-8 px-4">
     <x-main-container>
-        <div class="flex flex-col items-center justify-between gap-6 md:flex-row">
-           <x-app-logo />
-            <nav class="flex items-center gap-6">
-                <a href="{{ route('terms.use') }}" wire:navigate class="text-xs underline text-muted-foreground transition-colors duration-300 hover:text-foreground">Terminos de uso</a>
-                <a href="{{ route('privacy.policy') }}" wire:navigate class="text-xs underline text-muted-foreground transition-colors duration-300 hover:text-foreground">Politica de privacidad</a>
-            </nav>
-            <p class="text-xs text-muted-foreground/60">&copy; {{ date('Y') }} AiNEURA. {{ __('Todos los derechos reservados.') }}</p>
+        <div class="w-full mx-auto text-foreground flex flex-col">
+            <div class="w-full text-4xl md:text-5xl font-bold">
+                <h1 class="w-full md:w-2/3">{{ __('¿Cómo podemos ayudarte?') }} <br class="hidden md:block"/> <span class="mt-2 block">{{ __('Ponte en contacto') }}</span> </h1>
+            </div>
+            <div class="flex my-8 flex-col md:flex-row justify-between lg:items-end">
+                <div>
+                    <p class="max-w-2xl text-base leading-relaxed">
+                        <span class="opacity-70">{{ __('Para soporte, dudas o sugerencias, escríbenos a nuestro correo o síguenos en redes sociales') }}</span>
+                    </p>
+                    <div class="hidden lg:flex flex-row flex-wrap items-center gap-7 text-base mt-5 opacity-70">
+                        <a href="{{ route('terms.use') }}" wire:navigate class="cursor-pointer underline underline-offset-4">{{ __('Términos de uso') }}</a>
+                        <a href="{{ route('privacy.policy') }}" wire:navigate class="cursor-pointer underline underline-offset-4">{{ __('Política de privacidad') }}</a>
+                    </div>
+                </div>
+                <div class="mt-6 md:mt-0">
+                    <a href="mailto:soporte@neura.com" wire:navigate class="group relative w-full md:w-auto flex items-center justify-center overflow-hidden rounded-full bg-primary px-8 py-4 text-base font-semibold transition-all duration-300 hover:opacity-90 hover:shadow-xl hover:shadow-primary/25">
+                        <span class="relative z-10 flex items-center text-light dark:text-dark">
+                            {{ __('Contactar') }}
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <hr class="border-border my-8"/>
+                <p class="w-full text-center my-6 text-muted-foreground text-sm opacity-65">&copy; {{ date('Y') }} {{  __('AiNEURA. Todos los derechos reservados') }}</p>
+                <div class="lg:hidden flex flex-wrap items-center justify-center gap-7 opacity-70 text-sm">
+                    <a href="{{ route('terms.use') }}" wire:navigate class="cursor-pointer underline underline-offset-4">{{ __('Términos de uso') }}</a>
+                    <a href="{{ route('privacy.policy') }}" wire:navigate class="cursor-pointer underline underline-offset-4">{{ __('Política de privacidad') }}</a>
+                </div>
+            </div>
         </div>
     </x-main-container>
 </footer>
