@@ -46,9 +46,28 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </span>
                 </a>
-                <button class="w-full md:w-auto flex items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-700 bg-transparent px-8 py-4 text-base text-foreground transition-all duration-300 hover:border-primary/40 hover:bg-primary/5">
-                    {{ __('Ver demo') }}
-                </button>
+                <flux:modal.trigger name="neura-demo-modal">
+                    <button class="w-full md:w-auto flex items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-700 bg-transparent px-8 py-4 text-base text-foreground transition-all duration-300 hover:border-primary/40 hover:bg-primary/5">
+                        {{ __('Ver demo') }}
+                    </button>
+                </flux:modal.trigger>
+                <flux:modal name="neura-demo-modal" class="w-[90%] md:w-full!">
+                    <div class="space-y-6">
+                        <div>
+                            <flux:heading size="lg">{{ __('') }}</flux:heading>
+                            <flux:text class="mt-3">{{ __('') }}</flux:text>
+                        </div>
+                        <div>
+
+                        </div>
+                        <div class="flex gap-2">
+                            <flux:spacer />
+                            <flux:modal.close>
+                                <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
+                            </flux:modal.close>
+                        </div>
+                    </div>
+                </flux:modal>
             </div>
 
             <!-- Stats -->
