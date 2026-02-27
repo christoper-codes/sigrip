@@ -24,7 +24,7 @@
                 x-transition:leave-start="opacity-100 max-h-96"
                 x-transition:leave-end="opacity-0 max-h-0"
                 class="pb-5 text-sm leading-relaxed text-muted-foreground overflow-hidden">
-                {{ __('Si, puedes crear y aplicar cuestionarios personalizados ilimitados para adaptarte a las necesidades especificas de tu empresa, ademas de los cuestionarios NOM-035 y de onboarding incluidos.') }}
+                {{ __('Si, puedes crear y aplicar cuestionarios personalizados ilimitados para adaptarte a las necesidades especificas de tu empresa, ademas de los cuestionarios NOM-035 y de gestión preventiva incluidos.') }}
             </div>
         </div>
         <!-- FAQ 2 -->
@@ -75,7 +75,7 @@
                 x-transition:leave-start="opacity-100 max-h-96"
                 x-transition:leave-end="opacity-0 max-h-0"
                 class="pb-5 text-sm leading-relaxed text-muted-foreground overflow-hidden">
-                {{ __('Tu suscripción incluye todos los cuestionarios NOM-035 y onboarding, análisis con IA, exportación de resultados, notificaciones en tiempo real, módulo de tickets, predicción de problemas y acceso a la API.') }}
+                {{ __('Tu suscripción incluye todos los cuestionarios NOM-035 y 3 cuestionarios de gestión preventiva, análisis con IA, exportación de resultados, notificaciones en tiempo real, módulo de tickets, predicción de problemas y acceso a la API.') }}
             </div>
         </div>
         <!-- FAQ 5 -->
