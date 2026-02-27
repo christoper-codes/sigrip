@@ -2,7 +2,7 @@
     <x-main-container>
         <div class="w-full mx-auto text-foreground flex flex-col">
             <div class="w-full text-4xl md:text-5xl font-bold">
-                <h1 class="w-full md:w-2/3">{{ __('¿Cómo podemos ayudarte?') }} <br class="hidden md:block"/> <span class="mt-2 block">{{ __('Ponte en contacto') }}</span> </h1>
+                <h1 class="w-full md:w-2/3">{{ __('¿Cómo podemos ayudarte?') }} <br class="hidden md:block"/> <span class="lg:mt-2 block">{{ __('Ponte en contacto') }}</span> </h1>
             </div>
             <div class="flex my-8 flex-col md:flex-row justify-between lg:items-end">
                 <div>
