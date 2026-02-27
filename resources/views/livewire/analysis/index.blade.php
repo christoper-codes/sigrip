@@ -11,7 +11,7 @@
                 <flux:error name="department" class="!mt-0"/>
             </flux:field>
             <flux:field class="max-w-md w-full">
-                <flux:label>{{ __('Filtrar por mes') }}</flux:label>
+                <flux:label>{{ __('Filtrar por un mes específico') }}</flux:label>
                 <flux:select class="!h-12" name="month" wire:model="month">
                     @foreach ($months as $month)
                         <flux:select.option value="{{ $month['value'] }}">{{ $month['label'] }}</flux:select.option>
