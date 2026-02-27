@@ -47,24 +47,22 @@
                     </span>
                 </a>
                 <flux:modal.trigger name="neura-demo-modal">
-                    <button class="w-full md:w-auto flex items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-700 bg-transparent px-8 py-4 text-base text-foreground transition-all duration-300 hover:border-primary/40 hover:bg-primary/5">
+                    <button class="cursor-pointer w-full md:w-auto flex items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-700 bg-transparent px-8 py-4 text-base text-foreground transition-all duration-300 hover:border-primary/40 hover:bg-primary/5">
                         {{ __('Ver demo') }}
                     </button>
                 </flux:modal.trigger>
-                <flux:modal name="neura-demo-modal" class="w-[90%] md:w-full!">
-                    <div class="space-y-6">
-                        <div>
-                            <flux:heading size="lg">{{ __('') }}</flux:heading>
-                            <flux:text class="mt-3">{{ __('') }}</flux:text>
+                <flux:modal name="neura-demo-modal" class="w-[90%] lg:min-w-5xl! md:w-full!">
+                    <div class="space-y-8">
+                        <div class="flex flex-col gap-3 items-start text-left!">
+                            <flux:heading size="xl" class="hidden lg:block">{{ __('Demo de la plataforma Neura') }}</flux:heading>
+                            <flux:heading size="lg" class="lg:hidden">{{ __('Demo de la plataforma Neura') }}</flux:heading>
+                            <flux:text class="text-left!">{{ __('Descubre cómo Neura automatiza el cumplimiento normativo') }}</flux:text>
                         </div>
                         <div>
-
-                        </div>
-                        <div class="flex gap-2">
-                            <flux:spacer />
-                            <flux:modal.close>
-                                <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
-                            </flux:modal.close>
+                            <video controls class="w-full rounded-xl">
+                                <source src="/videos/neura-demo.mp4" type="video/mp4">
+                                {{ __('Tu navegador no soporta la reproducción de video.') }}
+                            </video>
                         </div>
                     </div>
                 </flux:modal>
