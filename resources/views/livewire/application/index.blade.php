@@ -5,11 +5,9 @@
                 <flux:label>{{ __('Filtrar por departamento') }}</flux:label>
                 <flux:select class="!h-12" name="department" wire:model.live="department">
                     <flux:select.option value="" >{{ __('Selecciona un departamento') }}</flux:select.option>
-                    @if(isset($departments))
-                        @foreach ($departments as $department)
-                            <flux:select.option value="{{ $department['id'] }}">{{ $department['name'] }}</flux:select.option>)
-                        @endforeach
-                    @endif
+                    @foreach ($this->departments as $department)
+                        <flux:select.option value="{{ $department['id'] }}">{{ $department['name'] }}</flux:select.option>
+                    @endforeach
                 </flux:select>
                 <flux:error name="department" class="!mt-0"/>
             </flux:field>
@@ -28,7 +26,7 @@
 
         <flux:button type="submit" variant="primary" class="mt-3">{{ __('Buscar aplicaciones') }}</flux:button>
    </form>
-   @if($department && $table_items)
+    @if($this->department && $table_items)
         <div x-data="{ animation: false }"
             x-init="$nextTick(() => animation = true)"
             x-show="animation"
@@ -82,7 +80,7 @@
                 </x-slot:table>
             </x-appearance.livewiretable>
         </div>
-    @elseif($department && ! $table_items && $search_applications)
+    @elseif($this->department && ! $table_items && $search_applications)
         <div class="mt-10 max-w-md w-full">
             <flux:callout color="yellow" icon="information-circle" heading="{{ __('No hay aplicaciones para este departamento') }}" />
         </div>
