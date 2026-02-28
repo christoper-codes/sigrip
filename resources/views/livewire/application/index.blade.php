@@ -5,8 +5,8 @@
                 <flux:label>{{ __('Filtrar por departamento') }}</flux:label>
                 <flux:select class="!h-12" name="department" wire:model.live="department">
                     <flux:select.option value="" >{{ __('Selecciona un departamento') }}</flux:select.option>
-                    @foreach ($departments as $department)
-                        <flux:select.option value="{{ $department['id'] }}">{{ $department['name'] }}</flux:select.option>)
+                    @foreach ($this->departments as $department)
+                        <flux:select.option value="{{ $department['id'] }}">{{ $department['name'] }}</flux:select.option>
                     @endforeach
                 </flux:select>
                 <flux:error name="department" class="!mt-0"/>
