@@ -17,9 +17,9 @@ class QuestionnaireSeeder extends Seeder
         $monthly_scan = file_get_contents(database_path('seeders/data/monthly_scan_001.json'));
         $weekly_scan = file_get_contents(database_path('seeders/data/weekly_scan_001.json'));
         $honestly_test = file_get_contents(database_path('seeders/data/honestly_test_001.json'));
-        $nom035_1 = file_get_contents(database_path('seeders/data/nom035_01.json'));
-        $nom035_2 = file_get_contents(database_path('seeders/data/nom035_02.json'));
-        $nom035_3 = file_get_contents(database_path('seeders/data/nom035_03.json'));
+        $nom035_1 = file_get_contents(database_path('seeders/data/NOM035_01.json'));
+        $nom035_2 = file_get_contents(database_path('seeders/data/NOM035_02.json'));
+        $nom035_3 = file_get_contents(database_path('seeders/data/NOM035_03.json'));
 
         Questionnaire::create([
             'questionnaire_category_id' => 1,
