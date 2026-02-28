@@ -47,6 +47,7 @@ class Index extends Component
             ->toArray();
         if (! $this->departments) {
             $this->dispatch('toast', message: __('No hay departamentos disponibles.'), type: NotificationTypesEnum::WARNING->value);
+            return;
         }
 
         $this->search_fields = ['questionnaire.name'];
