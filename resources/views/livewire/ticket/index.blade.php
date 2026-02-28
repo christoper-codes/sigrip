@@ -130,6 +130,13 @@
                     <flux:icon.finger-print variant="mini"/>
                     <flux:text>{{ __('Tipo de ticket ') }} {{ $detail_ticket['created_by_user'] ? __('autenticado') : __('anónimo') }}</flux:text>
                 </div>
+                @if($detail_ticket['tracking_uuid'])
+                    <div class="flex items-center gap-2">
+                        <flux:icon.key variant="mini"/>
+                        <flux:text class="text-xs!">{{ __('Seguimiento ID: ') }} {{ $detail_ticket['tracking_uuid'] }}</flux:text>
+                    </div>
+                @endif
+
                 @if($detail_ticket['metadata']['user']['contact_name'])
                     <div class="flex items-center gap-2">
                         <flux:icon.user variant="mini"/>

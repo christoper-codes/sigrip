@@ -61,6 +61,7 @@ class Store extends Component
             $evidence_paths[] = $file_path;
         }
 
+        $tracking_uuid = (string) str_pad((string) mt_rand(0, 999999), 8, '0', STR_PAD_LEFT);
         SupportTicketJob::dispatch(
             company: Auth::user()->company?->id,
             department: $this->department,
@@ -72,6 +73,7 @@ class Store extends Component
             is_priority: $this->is_priority,
             is_anonymous: $this->is_anonymous,
             evidence_files: $evidence_paths,
+            tracking_uuid: $tracking_uuid
         );
 
         $this->dispatch('toast', message: __('Ticket creado correctamente. Tomara unos segundos en procesarse.'), type: NotificationTypesEnum::SUCCESS->value);
