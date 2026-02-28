@@ -95,7 +95,10 @@ class Show extends Component
         if ($this->questionnaire['name'] == NomEnum::NOM_1->value) {
             $this->application_data['questionnaire_responses'] = collect($this->application_data['questionnaire_responses'])
                 ->transform(function ($response) {
-                    $alert = (bool) $response['ai_response']['alert'] ?? false;
+                    $alert = false;
+                    if (isset($response['ai_response']) && is_array($response['ai_response']) && array_key_exists('alert', $response['ai_response'])) {
+                        $alert = (bool) $response['ai_response']['alert'];
+                    }
                     $response['classification'] = $alert ? 'Alto' : 'Nulo';
 
                     return $response;
