@@ -32,7 +32,6 @@ class Index extends Component
     public ?Application $application = null;
     public ?int $application_id = null;
     public ?string $application_name = null;
-    public string $hello = 'hello';
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
