@@ -45,7 +45,7 @@ final class BuildMetadataAction
                     ];
                 }
                 $question['critical_values'] = isset($row['valores_criticos']) && $row['valores_criticos'] !== ''
-                    ? array_map('intval', explode(',', str_replace(' ', '', $row['valores_criticos'])))
+                    ? array_map('intval', explode(',', str_replace(' ', '', (string)$row['valores_criticos'])))
                     : null;
             }
 

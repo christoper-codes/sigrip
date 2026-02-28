@@ -23,8 +23,8 @@ class QuestionnaireImport implements ToCollection, WithHeadingRow, WithValidatio
         foreach ($rows as $index => $row) {
             $type = strtolower(trim($row['tipo_de_respuesta'] ?? ''));
             $options = strtolower(trim($row['opciones_y_valores'] ?? ''));
-            $critical = strtolower(trim($row['valores_criticos'] ?? ''));
-            $weight = strtolower(trim($row['peso_de_pregunta'] ?? ''));
+            $critical = strtolower(trim((string)$row['valores_criticos'] ?? ''));
+            $weight = strtolower(trim((string)($row['peso_de_pregunta'] ?? '')));
 
             if (! in_array($type, ['select', 'text'])) {
                 throw new \Exception('Fila '.($index + 2).': El tipo de respuesta debe ser "select" o "text".');
