@@ -23,7 +23,7 @@ final class BuildMetadataAction
             $description = trim($row['descripcion']);
             $type = strtolower(trim($row['tipo_de_respuesta']));
             $question = [
-                'id' => Str::uuid()->toString(),
+                'id' => str_pad((string) random_int(0, 9999999999), 10, '0', STR_PAD_LEFT),
                 'text' => trim($row['pregunta']),
                 'type' => $type,
                 'options' => null,

@@ -77,13 +77,7 @@ final class GeneratePromptAction
             }
         }
 
-        if (
-            $questionnaire['questionnaire_id'] == 'escaneo_emocional_semanal' ||
-            $questionnaire['questionnaire_id'] == 'plan_escaneo_emocional_mensual' ||
-            $questionnaire['questionnaire_id'] == 'test_de_honestidad'
-        ) {
-            $average_score = ApplicationAverageService::calculateGenericAverage(responses: $responses, questions_map: $questions_map);
-        }
+        $average_score = ApplicationAverageService::calculateGenericAverage(responses: $responses, questions_map: $questions_map);
 
         $critical_response = false;
         if (count($critical_responses) > 0) {
