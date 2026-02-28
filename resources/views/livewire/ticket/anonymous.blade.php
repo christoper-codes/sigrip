@@ -100,9 +100,13 @@
                     {{ __('Tu código de seguimiento es:') }}
                 </flux:text>
                 <div class="bg-white dark:bg-neutral-800 rounded-lg p-4 border border-neutral-300 dark:border-neutral-700">
-                    <code class="text-sm md:text-base text-green-600 dark:text-green-400 font-mono break-all">
-                        {{ $ticket_reference }}
-                    </code>
+                    <div x-data="{ copied: false }" class="flex items-center gap-2 justify-center">
+                        <code class="text-lg! md:text-base text-green-600 dark:text-green-400 font-mono break-all">
+                            {{ $ticket_reference }}
+                        </code>
+                        <flux:icon.clipboard-document class="cursor-pointer" variant="solid" x-show="!copied" @click="navigator.clipboard.writeText('{{ $ticket_reference }}'); copied = true; setTimeout(() => copied = false, 1500)" />
+                        <flux:icon.check variant="solid" x-show="copied" disabled />
+                    </div>
                 </div>
                 <flux:text class="text-sm text-neutral-600 dark:text-neutral-400">
                     {{ __('Guarda este código para dar seguimiento a tu ticket') }}
