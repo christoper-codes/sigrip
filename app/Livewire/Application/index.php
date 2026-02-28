@@ -268,6 +268,10 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.application.index');
+        return view('livewire.application.index', [
+            'departments' => $this->departments,
+            'search_options' => $this->search_options,
+            'department' => $this->department,
+        ]);
     }
 }
