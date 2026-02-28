@@ -26,6 +26,10 @@ class Store extends Component
         $department = Department::where('company_id', Auth::user()->company?->id)
             ->where('metadata->hr_department', true)
             ->first();
+        if (! $department) {
+            $this->dispatch('toast', message: __('No hay departamentos de RRHH disponibles.'), type: NotificationTypesEnum::WARNING->value);
+            return;
+        }
         $this->form->department = $department->toArray();
 
         if (! $this->form->department) {

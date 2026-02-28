@@ -47,6 +47,7 @@ class Index extends Component
             ->toArray();
         if (! $this->departments) {
             $this->dispatch('toast', message: __('No hay departamentos disponibles.'), type: NotificationTypesEnum::WARNING->value);
+            return;
         }
 
         $this->search_fields = ['questionnaire.name'];
@@ -122,9 +123,9 @@ class Index extends Component
         $this->form->issuing_department = $this->application->issuing_department_id;
         $this->form->executing_department = $this->application->executing_department_id;
         $this->form->questionnaire = $this->application->questionnaire_id;
-        $this->form->start_date = $this->application->start_date ? date('Y-m-d', strtotime($this->application->start_date)) : null;
-        $this->form->expiration_date = $this->application->expiration_date ? date('Y-m-d', strtotime($this->application->expiration_date)) : null;
-        $this->form->auth_required = $this->application->auth_required;
+        $this->form->start_date = $this->application->start_date ? $this->application->start_date->format('Y-m-d') : null;
+        $this->form->expiration_date = $this->application->expiration_date ? $this->application->expiration_date->format('Y-m-d') : null;
+        $this->form->auth_required = (bool) $this->application->auth_required;
 
         Flux::modal('edit-application-modal')->show();
     }
