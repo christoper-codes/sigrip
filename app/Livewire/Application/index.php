@@ -126,6 +126,7 @@ class Index extends Component
         $this->form->start_date = $this->application->start_date ? $this->application->start_date->format('Y-m-d') : null;
         $this->form->expiration_date = $this->application->expiration_date ? $this->application->expiration_date->format('Y-m-d') : null;
         $this->form->auth_required = (bool) $this->application->auth_required;
+        $this->form->employee_data_required = (bool) $this->application->employee_data_required;
 
         Flux::modal('edit-application-modal')->show();
     }
@@ -139,7 +140,8 @@ class Index extends Component
             (
                 $application->executing_department_id !== $this->form->executing_department ||
                 $application->questionnaire_id !== $this->form->questionnaire ||
-                $application->auth_required !== $this->form->auth_required
+                $application->auth_required !== $this->form->auth_required ||
+                $application->employee_data_required !== $this->form->employee_data_required
             )
         ) {
             Flux::modal('edit-application-modal')->close();
@@ -178,6 +180,7 @@ class Index extends Component
             $application->executing_department_id = $this->form->executing_department;
             $application->questionnaire_id = $this->form->questionnaire;
             $application->auth_required = $this->form->auth_required;
+            $application->employee_data_required = $this->form->employee_data_required;
             $application->start_date = $this->form->start_date;
             $application->expiration_date = $this->form->expiration_date;
             $application->slug = $this->form->slug ?? $application->slug;
