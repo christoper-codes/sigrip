@@ -178,7 +178,7 @@
                     <flux:heading size="lg" class="mb-3">{{ __('Respuestas para la incidencia') }}</flux:heading>
                     @foreach ($detail_ticket['ticket_responses'] as $index => $response)
                         <div x-data="{ ticketResponse: -1 }" class="max-w-4xl mx-auto space-y-4 z-20 relative">
-                            <div class="bg-light-variant dark:bg-neutral-700 border border-neutral-300 dark:border-neutral-700 rounded-2xl overflow-hidden">
+                            <div class="bg-card border-2 border-border rounded-2xl overflow-hidden">
                                 <button type="button" @click="ticketResponse = ticketResponse === {{ $index }} ? -1 : {{ $index }}" class="w-full px-6 py-5 text-left flex items-center justify-between gap-5 hover:bg-neutral-200/20 dark:hover:bg-neutral-900/20 transition-colors duration-500 cursor-pointer">
                                     <flux:text>{{ __('Respuesta') . ' ' . ($index + 1) }}</flux:text>
                                     <flux:icon.plus x-show="ticketResponse !== {{ $index }}" class="size-5 text-neutral-600 dark:text-neutral-400" />
@@ -231,7 +231,7 @@
                     </flux:radio.group>
                 </flux:field>
                 <div x-data="{ openTicketResponse: 1 }" class="max-w-4xl mx-auto space-y-4 z-20 relative mt-5">
-                    <div class="bg-light-variant dark:bg-neutral-700 border border-neutral-300 dark:border-neutral-700 rounded-2xl overflow-hidden">
+                    <div class="bg-card border-2 border-border rounded-2xl overflow-hidden">
                         <button type="button" @click="openTicketResponse = openTicketResponse === 0 ? -1 : 0" class="w-full px-6 py-5 text-left flex items-center justify-between gap-5 hover:bg-neutral-200/20 dark:hover:bg-neutral-900/20 transition-colors duration-500 cursor-pointer">
                             <flux:text>{{ __('Agregar respuesta') }}</flux:text>
                             <flux:icon.plus x-show="openTicketResponse !== 0" class="size-5 text-neutral-600 dark:text-neutral-400" />
