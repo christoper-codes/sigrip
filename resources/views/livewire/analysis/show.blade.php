@@ -457,7 +457,7 @@
             @if($final_score)
                <flux:heading class="text-6xl! font-bold!">{{ $final_score['final_score'] }}</flux:heading>
                 <div x-data="{ openFaq: 1 }" class="max-w-4xl mx-auto space-y-4 z-20 relative mt-5">
-                    <div class="bg-light-variant dark:bg-dark-variant rounded-2xl overflow-hidden">
+                    <div class="bg-card border-2 border-border rounded-2xl overflow-hidden">
                         <button @click="openFaq = openFaq === 0 ? -1 : 0" class="w-full px-6 py-5 text-left flex items-center justify-between gap-5 bg-light-variant dark:bg-dark-variant cursor-pointer">
                             <flux:text>
                                 {{ $questionnaire['name'] == \App\Enums\NomEnum::NOM_1->value ?  __('Nivel de riesgo clínico: ') : __('Nivel de riesgo psicosocial: ') }}
