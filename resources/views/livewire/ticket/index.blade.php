@@ -167,10 +167,12 @@
                 </div>
             </div>
 
-            <flux:button icon="sparkles" class="border! border-primary! bg-primary/10! flex! items-center! gap-1! h-full! w-full! py-2!"
-                wire:click="analyzeTicketAi({{ $detail_ticket['id'] }})">
-                {{ __('Analisis Ai') }}
-            </flux:button>
+            <div class="max-h-20">
+                <flux:button icon="sparkles" class="border! border-primary! bg-primary/10! flex! items-center! gap-1! h-full! w-full! py-2!"
+                    wire:click="analyzeTicketAi({{ $detail_ticket['id'] }})">
+                    {{ __('Analisis Ai') }}
+                </flux:button>
+            </div>
             @if ($detail_ticket['ticket_responses'] && count($detail_ticket['ticket_responses']) > 0)
                 <div class="space-y-2">
                     <flux:heading size="lg" class="mb-3">{{ __('Respuestas para la incidencia') }}</flux:heading>
