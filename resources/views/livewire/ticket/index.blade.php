@@ -41,7 +41,7 @@
                         <div class="flex items-center gap-2">
                             <span class="hidden border-orange-500 border-blue-500 border-green-500 border-red-500"></span>
                             <span class="inline-block size-5 rounded-full border-[3px] border-{{ $status['color'] }}-500"></span>
-                            <span class="font-bold text-lg">{{ $status['name'] }}</span>
+                            <span class="font-bold text-lg">{{ ucfirst($status['name']) }}</span>
                         </div>
                         <flux:text class="mt-2">{{ $status['description'] }}</flux:text>
                     </div>
