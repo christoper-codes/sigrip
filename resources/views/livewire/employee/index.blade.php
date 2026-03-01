@@ -49,7 +49,7 @@
                             <td class="p-4">{{ implode(', ', array_map(fn($role) => $role['name'], $employee['user_roles'] ?? [])) ?: 'Sin roles' }}</td>
                             <td class="p-4">{{ $employee['created_at'] }}</td>
                             <td class="p-4">
-                                <flux:button icon="clipboard-document-list" href="#" class="border! border-primary! bg-primary/10!">{{ __('Aplicaciones') }}</flux:button>
+                                <flux:button icon="clipboard-document-list" href="{{ route('application.index') }}" class="border! border-primary! bg-primary/10!">{{ __('Aplicaciones') }}</flux:button>
                             </td>
                             <td class="p-4">
                                 <flux:button
