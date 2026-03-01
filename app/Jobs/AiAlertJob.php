@@ -150,7 +150,7 @@ class AiAlertJob implements ShouldQueue
                     'type' => 'success',
                     'title' => __('Alerta AI generada'),
                     'message' => __('Se ha generado una alerta AI para la aplicación: :application. Se recomienda revisarla a la brevedad.', ['application' => $this->application->questionnaire->name]),
-                    'url' => route('employee.index'),
+                    'url' => route('alert.index'),
                     'user_id' => $this->application->issuingDepartment->manager_id,
                     'alert_uuid' => $alert->uuid,
                 ];
@@ -189,7 +189,7 @@ class AiAlertJob implements ShouldQueue
                     'type' => 'success',
                     'title' => __('Alerta AI generada'),
                     'message' => __('Se ha generado una alerta AI para la aplicación: :application. Se recomienda revisarla a la brevedad.', ['application' => $this->application->questionnaire->name]),
-                    'url' => route('employee.index'),
+                    'url' => route('alert.index'),
                     'user_id' => $company_admin->id,
                     'alert_uuid' => $alert->uuid,
                 ];
