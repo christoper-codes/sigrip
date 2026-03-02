@@ -201,7 +201,7 @@ class Show extends Component
         Flux::modal('select-application')->close();
     }
 
-    public function showGeneralAnalysis(): void
+    public function showGeneralAnalysis(bool $show_modal = true): void
     {
         $responses = collect($this->application_data['questionnaire_responses']);
         $result = [];
@@ -240,7 +240,9 @@ class Show extends Component
 
         $this->general_analysis = $result;
 
-        Flux::modal('general-analysis-modal')->show();
+        if($show_modal){
+            Flux::modal('general-analysis-modal')->show();
+        }
     }
 
     public function downloadAllResults()
@@ -858,7 +860,7 @@ class Show extends Component
     public function downloadGeneralAnalysisPdf()
     {
         if (! $this->general_analysis) {
-            $this->showGeneralAnalysis();
+            $this->showGeneralAnalysis(show_modal: false);
         }
 
         $empresa = Auth::user()->company->name ?? '';
