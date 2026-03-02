@@ -19,6 +19,7 @@ use App\Livewire\Traits\Table;
 use App\Models\Application;
 use App\Models\Department;
 use App\Models\Questionnaire;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -862,22 +863,22 @@ class Show extends Component
 
         $empresa = Auth::user()->company->name ?? '';
         $questionnaire_name = $this->questionnaire['name'] ?? '';
-        $executing_department = $this->application_data['executing_department_name'] ?? '';
-        $responding_department = $this->application_data['responding_department_name'] ?? '';
+        $issuing_department = Department::find($this->application_data['issuing_department_id'] ?? null)->name ?? '';
+        $executing_department = Department::find($this->application_data['executing_department_id'] ?? null)->name ?? '';
 
         $data = [
             'empresa' => $empresa,
             'questionnaire_name' => $questionnaire_name,
+            'issuing_department' => $issuing_department,
             'executing_department' => $executing_department,
-            'responding_department' => $responding_department,
             'general_analysis' => $this->general_analysis,
         ];
 
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.general_analysis_report', $data);
+        $pdf = Pdf::loadView('pdf.general_analysis_report', $data);
 
         return response()->streamDownload(
             fn () => print($pdf->output()),
-            'informe_cumplimiento_nom035.pdf'
+            'informe_cumplimiento_stps.pdf'
         );
     }
 

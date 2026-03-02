@@ -21,8 +21,8 @@
         <div class="title">Informe de cumplimiento (STPS)</div>
         <div class="subtitle">Empresa: <strong>{{ $empresa }}</strong></div>
         <div class="subtitle">Cuestionario aplicado: <strong>{{ $questionnaire_name }}</strong></div>
-        <div class="subtitle">Departamento ejecutor: <strong>{{ $executing_department }}</strong></div>
-        <div class="subtitle">Departamento respondiente: <strong>{{ $responding_department }}</strong></div>
+        <div class="subtitle">Departamento emisor: <strong>{{ $executing_department }}</strong></div>
+        <div class="subtitle">Departamento respondiente: <strong>{{ $issuing_department }}</strong></div>
     </div>
 
     <div class="section">
