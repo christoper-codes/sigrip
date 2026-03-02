@@ -854,6 +854,33 @@ class Show extends Component
         Flux::modal('show-employee-data-modal')->show();
     }
 
+    public function downloadGeneralAnalysisPdf()
+    {
+        if (! $this->general_analysis) {
+            $this->showGeneralAnalysis();
+        }
+
+        $empresa = Auth::user()->company->name ?? '';
+        $questionnaire_name = $this->questionnaire['name'] ?? '';
+        $executing_department = $this->application_data['executing_department_name'] ?? '';
+        $responding_department = $this->application_data['responding_department_name'] ?? '';
+
+        $data = [
+            'empresa' => $empresa,
+            'questionnaire_name' => $questionnaire_name,
+            'executing_department' => $executing_department,
+            'responding_department' => $responding_department,
+            'general_analysis' => $this->general_analysis,
+        ];
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.general_analysis_report', $data);
+
+        return response()->streamDownload(
+            fn () => print($pdf->output()),
+            'informe_cumplimiento_nom035.pdf'
+        );
+    }
+
     public function render()
     {
         return view('livewire.analysis.show');

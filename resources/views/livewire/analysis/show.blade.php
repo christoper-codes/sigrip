@@ -53,6 +53,9 @@
                     <flux:button icon="arrow-down" wire:click='downloadAllResults' class="!w-full !py-6 !border border-special! bg-special/10! !rounded-xl !text-sm !cursor-pointer hover:!bg-special/5 !transition-colors !shadow-xl/50 !shadow-special/20">
                         {{ __('Descargar resultados') }}
                     </flux:button>
+                    <flux:button icon="document-text" wire:click='downloadGeneralAnalysisPdf' class="!w-full !py-6 !border border-red-500! bg-red-500/10! !rounded-xl !text-sm !cursor-pointer hover:!bg-red-500/5 !transition-colors !shadow-xl/50 !shadow-red-500/20">
+                        {{ __('Descargar informe PDF') }}
+                    </flux:button>
                 </div>
             </div>
             <x-appearance.livewiretable
