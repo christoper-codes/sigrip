@@ -46,15 +46,15 @@
                         </flux:link>
                     </li>
                 </ul>
-                <div class="mt-5 flex flex-col lg:flex-row items-center gap-3 max-w-md">
-                    <flux:button icon="bolt" wire:click='showGeneralAnalysis' class="!w-full !py-6 !border  !border-primary !bg-primary/10 !rounded-xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
-                        {{ __('Análisis general') }}
-                    </flux:button>
-                    <flux:button icon="arrow-down" wire:click='downloadAllResults' class="!w-full !py-6 !border border-special! bg-special/10! !rounded-xl !text-sm !cursor-pointer hover:!bg-special/5 !transition-colors !shadow-xl/50 !shadow-special/20">
-                        {{ __('Descargar resultados') }}
+                <div class="mt-5 flex flex-col lg:flex-row items-center gap-3 max-w-lg">
+                    <flux:button icon="bolt" wire:click='showGeneralAnalysis' class="!w-full !py-6 !border  border-special! bg-special/10! !rounded-xl !text-sm !cursor-pointer hover:!bg-special/5 !transition-colors !shadow-xl/50 !shadow-special/20">
+                        {{ __('Ver análisis general') }}
                     </flux:button>
                     <flux:button icon="document-text" wire:click='downloadGeneralAnalysisPdf' class="!w-full !py-6 !border border-red-500! bg-red-500/10! !rounded-xl !text-sm !cursor-pointer hover:!bg-red-500/5 !transition-colors !shadow-xl/50 !shadow-red-500/20">
                         {{ __('Descargar informe PDF') }}
+                    </flux:button>
+                    <flux:button icon="document-text" wire:click='downloadAllResults' class="!w-full !py-6 !border !border-primary !bg-primary/10 !rounded-xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
+                        {{ __('Descargar resultados Excel') }}
                     </flux:button>
                 </div>
             </div>
