@@ -37,7 +37,7 @@
             <flux:error name="prompt" class="!mt-0" />
         </div>
 
-        <flux:button type="submit" icon="bolt" class="!py-6 !border  !border-primary !bg-primary/10 !rounded-xl !text-sm !cursor-pointer hover:!bg-primary/5 !transition-colors !shadow-xl/50 !shadow-primary/20">
+        <flux:button type="submit" icon="bolt" class="py-6! px-10! text-white! bg-linear-to-r! from-blue-400! to-blue-600!">
             {{ __('Analizar selección') }}
         </flux:button>
     </form>

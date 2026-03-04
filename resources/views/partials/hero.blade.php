@@ -24,7 +24,7 @@
         </h1>
 
         <!-- Subtitle -->
-        <p class="animate-fade-up opacity-0 animation-delay-400 mx-auto mt-8 max-w-lg text-[15px] leading-[1.75] text-white/40">
+        <p class="animate-fade-up opacity-0 animation-delay-400 mx-auto mt-8 max-w-lg text-[15px] leading-[1.75] text-white/70">
            Automatiza el cumplimiento normativo mexicano con IA. Cuestionarios inteligentes y alertas automaticas.
         </p>
 
