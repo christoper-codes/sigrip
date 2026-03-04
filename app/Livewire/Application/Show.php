@@ -294,7 +294,7 @@ class Show extends Component
         for ($i = 0; $i < $this->theme_count; $i++) {
             $theme_key = 'answers-'.$this->application->slug.'-theme-'.$i;
             $theme_answers = session($theme_key, []);
-            $allAnswers = array_merge($allAnswers, $theme_answers);
+            $allAnswers += $theme_answers;
         }
 
         return $allAnswers;
@@ -302,7 +302,6 @@ class Show extends Component
 
     public function saveProgress(): void
     {
-        $theme_key = 'answers-'.$this->application->slug.'-theme-'.$this->current_theme_step;
         $theme = $this->current_theme;
         foreach ($theme['questions'] as $question) {
             $qid = $question['id'];
@@ -357,8 +356,14 @@ class Show extends Component
             }
         }
 
+        $this->persistCurrentThemeAnswers();
+    }
+
+    private function persistCurrentThemeAnswers(): void
+    {
+        $theme_key = 'answers-'.$this->application->slug.'-theme-'.$this->current_theme_step;
         $theme_answers = [];
-        foreach ($theme['questions'] as $question) {
+        foreach ($this->current_theme['questions'] as $question) {
             $qid = $question['id'];
             if (isset($this->answers[$qid])) {
                 $theme_answers[$qid] = $this->answers[$qid];
@@ -370,6 +375,7 @@ class Show extends Component
     public function prevTheme()
     {
         $this->error_message = null;
+        $this->persistCurrentThemeAnswers();
         if ($this->current_theme_step > 0) {
             $this->current_theme_step--;
             $this->setThemesAndCurrentTheme();
