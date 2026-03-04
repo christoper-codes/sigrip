@@ -1,5 +1,9 @@
-<header class="w-full mx-auto max-w-6xl z-10 flex items-center justify-between px-4 py-5 lg:px-0 fixed top-0 left-0 right-0">
-    <div class="flex items-center gap-2">
+<header
+    x-data="{ scrolled: false }"
+    x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
+    :class="scrolled ? 'backdrop-blur-xl' : 'bg-transparent'"
+    class="w-full mx-auto max-w-6xl z-30 flex items-center justify-between px-4 py-5 lg:py-7 lg:px-0 fixed top-0 left-0 right-0 transition-all duration-300"
+>    <div class="flex items-center gap-2">
        <x-app-logo-icon />
     </div>
 
