@@ -7,7 +7,7 @@
             style="background: radial-gradient(ellipse, #7c6aff 0%, #3b82f6 40%, transparent 70%);"
         ></div>
     </div>
-    <main class="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pb-24 pt-12 text-center">
+    <main class="relative z-10 flex flex-1 flex-col items-center justify-center px-6 py-24 text-center">
 
         <!-- Badge -->
         <div class="mb-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-sm whitespace-nowrap">
@@ -16,7 +16,7 @@
         </div>
 
         <!-- Headline -->
-        <h1 class="mx-auto uppercase max-w-4xl text-xl lg:text-6xl font-bold leading-[1.05] tracking-[-0.03em] text-white">
+        <h1 class="mx-auto uppercase max-w-4xl text-4xl lg:text-6xl font-bold leading-[1.05] tracking-[-0.03em] text-white">
             cumplimiento normativo<br />
             <span class="bg-clip-text text-transparent bg-linear-to-r from-white to-blue-500">
                 035 y STPS
