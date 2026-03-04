@@ -1,95 +1,63 @@
-<section id="hero">
-    <section class="relative flex min-h-screen items-center overflow-hidden pt-5">
-        <!-- Background glows -->
-        <div class="pointer-events-none absolute inset-0">
-            <div class="animate-pulse-glow absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-primary/15 blur-[120px]"></div>
-            <div class="animate-pulse-glow absolute -right-20 top-1/3 h-[300px] w-[300px] rounded-full bg-primary/5 blur-[80px]" style="animation-delay:2s"></div>
-            <div class="animate-pulse-glow absolute -left-20 bottom-1/4 h-[250px] w-[250px] rounded-full bg-primary/5 blur-[80px]" style="animation-delay:4s"></div>
+<!-- Hero -->
+<section id="hero"  class="relative flex min-h-screen flex-col bg-[#060608] lg:h-screen lg:overflow-hidden">
+    <!-- Ambient glow -->
+    <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <div
+            class="h-[600px] w-[900px] rounded-full opacity-20 blur-[120px]"
+            style="background: radial-gradient(ellipse, #7c6aff 0%, #3b82f6 40%, transparent 70%);"
+        ></div>
+    </div>
+    <main class="relative z-10 flex flex-1 flex-col items-center justify-center px-6 py-24 text-center">
+
+        <img src="/images/robot.png" alt="robot" class="size-20 animate-float" />
+
+        <!-- Badge -->
+        <div class="animate-fade-up mb-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-sm whitespace-nowrap">
+            <span class="h-1.5 w-1.5 rounded-full bg-blue-400 shrink-0" style="box-shadow: 0 0 6px 2px rgba(59,130,246,0.6);"></span>
+            <span class="text-[11px] font-medium tracking-widest text-white/50 uppercase">Impulsado por Inteligencia Artificial</span>
         </div>
-        <!-- Grid pattern -->
-        <div class="pointer-events-none absolute inset-0 dark:opacity-[0.04] opacity-[0.09]" style="background-image:linear-gradient(hsl(var(--foreground)) 1px,transparent 1px),linear-gradient(90deg,hsl(var(--foreground)) 1px,transparent 1px);background-size:100px 100px"></div>
-        <!-- Radial fade -->
-        <div class="pointer-events-none absolute inset-0" style="background:radial-gradient(ellipse at center,transparent 50%,hsl(var(--background)) 100%)"></div>
 
-        <div class="relative mx-auto max-w-7xl px-6 py-20 lg:py-32 mt-10 lg:mt-0">
-            <div class="mx-auto max-w-4xl text-center">
-            <!-- Badge -->
-            <div class="animate-fade-up mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 opacity-0">
-                <div class="h-1.5 w-1.5 animate-pulse rounded-full bg-primary"></div>
-                <span class="text-xs font-medium text-primary">{{ __('Impulsado por Inteligencia Artificial') }}</span>
+        <!-- Headline -->
+        <h1 class="animate-fade-up opacity-0 animation-delay-200 mx-auto uppercase max-w-4xl text-4xl lg:text-6xl font-bold leading-[1.05] tracking-[-0.03em] text-white">
+            cumplimiento normativo<br />
+            <span class="bg-clip-text text-transparent bg-linear-to-r from-white to-blue-500">
+                035 y STPS
+            </span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="animate-fade-up opacity-0 animation-delay-400 mx-auto mt-8 max-w-lg text-[15px] leading-[1.75] text-white/70">
+           Automatiza el cumplimiento normativo mexicano con IA. Cuestionarios inteligentes y alertas automaticas.
+        </p>
+
+        <!-- CTAs -->
+        <div class="animate-fade-up opacity-0 animation-delay-600 mt-12 flex flex-col items-center gap-3 sm:flex-row">
+            <a href="{{ route('register') }}" wire:navigate class="group bg-linear-to-r from-blue-400 to-blue-600 relative inline-flex lg:min-w-[220px] h-12 w-full items-center justify-center overflow-hidden rounded-none px-8 text-sm font-medium text-white transition-all duration-300">
+                <span class="relative z-10 tracking-wide">Comenzar ahora →</span>
+            </a>
+            <a href="{{ route('login') }}" wire:navigate class="inline-flex h-12 w-full items-center justify-center rounded-none border border-white/10 bg-white/5 px-8 text-sm font-medium tracking-wide text-white/60 backdrop-blur-sm transition-all duration-200 hover:border-white/20 hover:bg-white/10 hover:text-white/90">
+                Iniciar sesión
+            </a>
+        </div>
+
+        <!-- Stats / features row -->
+        <div class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="flex items-center gap-2 w-full">
+                <div class="h-px w-4 bg-white/20 block" aria-hidden="true"></div>
+                <div class="block text-xs font-medium tracking-[0.15em] text-white/25 uppercase whitespace-nowrap">{{ __('Alertas automaticas') }}</div>
             </div>
-
-            <!-- Heading -->
-            <h1 class="animate-fade-up font-display text-4xl font-bold leading-tight tracking-tight lg:opacity-0 lg:animation-delay-200 sm:text-5xl md:text-6xl 2xl:text-7xl" style="text-wrap:balance">
-                {{ __('Bienestar laboral y cumplimiento') }}
-                <span class="relative inline-block text-primary">
-                {{ __('NOM-035') }}
-                <svg class="hidden lg:block absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M1 5.5C47 2 153 2 199 5.5" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-dasharray="200" stroke-dashoffset="200" style="animation:draw 1.5s ease-out 1s forwards"/>
-                </svg>
-                <svg class="lg:hidden absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M1 5.5C47 2 153 2 199 5.5" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-dasharray="200" stroke-dashoffset="0"/>
-                </svg>
-                </span>
-            </h1>
-
-            <!-- Subtitle -->
-            <p class="animate-fade-up mx-auto mt-8 max-w-2xl text-base leading-relaxed opacity-0 animation-delay-400" style="text-wrap:pretty">
-                <span class="opacity-70">{{ __('Automatiza el cumplimiento de la NOM-035 con IA que previene riesgos laborales, detecta problemas antes de que ocurran y protege tu empresa de demandas costosas. Cuestionarios inteligentes y alertas automaticas.') }}</span>
-            </p>
-
-            <!-- CTAs -->
-            <div class="animate-fade-up mt-10 flex flex-col items-center justify-center gap-4 opacity-0 animation-delay-600 sm:flex-row">
-                <a href="{{ route('register') }}" wire:navigate class="group relative w-full md:w-auto flex items-center justify-center overflow-hidden rounded-full bg-primary px-8 py-4 text-base font-semibold transition-all duration-300 hover:opacity-90 hover:shadow-xl hover:shadow-primary/25">
-                    <span class="relative z-10 flex items-center text-light dark:text-dark">
-                        {{ __('Comenzar gratis') }}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                    </span>
-                </a>
-                <flux:modal.trigger name="neura-demo-modal">
-                    <button class="cursor-pointer w-full md:w-auto flex items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-700 bg-transparent px-8 py-4 text-base text-foreground transition-all duration-300 hover:border-primary/40 hover:bg-primary/5">
-                        {{ __('Ver demo') }}
-                    </button>
-                </flux:modal.trigger>
-                <flux:modal name="neura-demo-modal" class="w-[90%] lg:min-w-5xl! md:w-full!">
-                    <div class="space-y-8">
-                        <div class="flex flex-col gap-3 items-start text-left!">
-                            <flux:heading size="xl" class="hidden lg:block">{{ __('Demo de la plataforma Neura') }}</flux:heading>
-                            <flux:heading size="lg" class="lg:hidden">{{ __('Demo de la plataforma Neura') }}</flux:heading>
-                            <flux:text class="text-left!">{{ __('Descubre cómo Neura automatiza el cumplimiento normativo') }}</flux:text>
-                        </div>
-                        <div>
-                            <video controls class="w-full rounded-xl">
-                                <source src="/videos/neura-demo.mp4" type="video/mp4">
-                                {{ __('Tu navegador no soporta la reproducción de video.') }}
-                            </video>
-                        </div>
-                    </div>
-                </flux:modal>
+            <div class="flex items-center gap-2 w-full">
+                <div class="h-px w-4 bg-white/20 block" aria-hidden="true"></div>
+                <div class="block text-xs font-medium tracking-[0.15em] text-white/25 uppercase whitespace-nowrap">{{ __('Tickets anonimos') }}</div>
             </div>
-
-            <!-- Stats -->
-            <div class="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <!-- Stat 1 -->
-                <div class="group flex flex-col items-center gap-2 rounded-2xl border border-border bg-card px-6 py-5 transition-all hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5">
-                    <flux:icon.shield-check class="size-6 text-primary" />
-                    <span class="font-display text-2xl font-bold text-foreground">{{ __('100%') }}</span>
-                    <span class="text-xs text-muted-foreground">{{ __('Cumplimiento NOM-035') }}</span>
-                </div>
-                <!-- Stat 2 -->
-                <div class="group flex flex-col items-center gap-2 rounded-2xl border border-border bg-card px-6 py-5 transition-all hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5">
-                    <flux:icon.eye class="size-6 text-primary" />
-                    <span class="font-display text-2xl font-bold text-foreground">{{ __('Tiempo real') }}</span>
-                    <span class="text-xs text-muted-foreground">{{ __('Analisis con IA') }}</span>
-                </div>
-                <!-- Stat 3 -->
-                <div class="group flex flex-col items-center gap-2 rounded-2xl border border-border bg-card px-6 py-5 transition-all hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5">
-                    <flux:icon.bell class="size-6 text-primary" />
-                    <span class="font-display text-2xl font-bold text-foreground">{{ __('24/7') }}</span>
-                    <span class="text-xs text-muted-foreground">{{ __('Alertas automaticas') }}</span>
-                </div>
+            <div class="flex items-center gap-2 w-full">
+                <div class="h-px w-4 bg-white/20 block" aria-hidden="true"></div>
+                <div class="block text-xs font-medium tracking-[0.15em] text-white/25 uppercase whitespace-nowrap">{{ __('Analisis predictivo') }}</div>
             </div>
+            <div class="flex items-center gap-2 w-full">
+                <div class="h-px w-4 bg-white/20 block" aria-hidden="true"></div>
+                <div class="block text-xs font-medium tracking-[0.15em] text-white/25 uppercase whitespace-nowrap">{{ __('Reportes avanzados') }}</div>
             </div>
         </div>
-    </section>
+    </main>
 </section>

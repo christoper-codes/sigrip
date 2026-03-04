@@ -12,9 +12,8 @@
                 <flux:sidebar.header>
                     <flux:sidebar.brand
                         href="{{ route('home') }}"
-                        logo="/images/ai-logo-dark.svg"
-                        logo:dark="/images/ai-logo-dark.svg"
-                        name="NEURA"
+                        logo="/images/logo.svg"
+                        name="SIGRIP"
                         wire:navigate
                     />
                 <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />

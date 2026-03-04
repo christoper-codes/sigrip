@@ -10,7 +10,7 @@
                 {{ __('Te estás') }} <span class="[filter:drop-shadow(0px_0px_15px_rgb(255_193_7_/_100%))]"> {{ __('preguntando') }}</span>
             </h1>
             <p class="max-w-3xl">
-                <span class="opacity-70">{{ __('¿Necesitas saber más? contáctanos en: ') }}</span> <a href="mailto:soporte@neura.com" class="text-primary">soporte@neura.com</a>
+                <span class="opacity-70">{{ __('¿Necesitas saber más? contáctanos en: ') }}</span> <a href="mailto:soporte@sigrip.com" class="text-primary">soporte@sigrip.com</a>
             </p>
         </div>
         <div x-data="{

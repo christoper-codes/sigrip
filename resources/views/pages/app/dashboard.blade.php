@@ -80,16 +80,16 @@
                                     </div>
                                     <div class="py-8">
                                         <ul class="flex-1 flex gap-3 justify-center">
-                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-cyan-500 to-blue-600"></li>
-                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-cyan-500 to-blue-600"></li>
-                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-cyan-500 to-blue-600"></li>
-                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-cyan-500 to-blue-600"></li>
-                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-cyan-500 to-blue-600"></li>
-                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-cyan-500 to-blue-600"></li>
-                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-cyan-500 to-blue-600"></li>
-                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-cyan-500 to-blue-600"></li>
-                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-cyan-500 to-blue-600"></li>
-                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-cyan-500 to-blue-600"></li>
+                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-orange-400 to-orange-600"></li>
+                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-orange-400 to-orange-600"></li>
+                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-orange-400 to-orange-600"></li>
+                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-orange-400 to-orange-600"></li>
+                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-orange-400 to-orange-600"></li>
+                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-orange-400 to-orange-600"></li>
+                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-orange-400 to-orange-600"></li>
+                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-orange-400 to-orange-600"></li>
+                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-orange-400 to-orange-600"></li>
+                                            <li class="rounded-full w-3 h-16 bg-linear-to-b from-orange-400 to-orange-600"></li>
                                         </ul>
                                     </div>
                                     </div>
@@ -104,13 +104,13 @@
                                     </div>
                                     <div class="flex items-center gap-3 justify-center py-8">
                                        <div class="p-3 rounded-full bg-light dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700">
-                                           <flux:icon.cloud class="size-8 text-blue-500" />
+                                           <flux:icon.cloud class="size-8 text-orange-500" />
                                        </div>
-                                       <div class="p-3 rounded-full bg-light dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 shadow-xl shadow-blue-500/20">
-                                           <flux:icon.shield-check class="size-12 text-blue-500" />
+                                       <div class="p-3 rounded-full bg-light dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 shadow-xl shadow-orange-500/20">
+                                           <flux:icon.shield-check class="size-12 text-orange-500" />
                                        </div>
                                        <div class="p-3 rounded-full bg-light dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700">
-                                           <flux:icon.folder-open class="size-8 text-blue-500" />
+                                           <flux:icon.folder-open class="size-8 text-orange-500" />
                                        </div>
                                     </div>
                                     </div>
@@ -128,7 +128,7 @@
                                                 <div class="relative w-52 h-52">
                                                     <svg class="w-52 h-52 transform -rotate-90" viewBox="0 0 36 36">
                                                         <path class="text-gray-200 dark:text-gray-700" stroke="currentColor" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
-                                                        <path class="text-blue-600" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="100, 100" stroke-dashoffset="0" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" style="animation: progress 5s ease-in-out;"></path>
+                                                        <path class="text-orange-600" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="100, 100" stroke-dashoffset="0" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" style="animation: progress 5s ease-in-out;"></path>
                                                     </svg>
                                                     <div class="absolute inset-0 flex items-center justify-center">
                                                         <span class="font-semibold">100%</span>

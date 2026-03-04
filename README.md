@@ -1,10 +1,10 @@
 
 
-# Neura: NOM-035 Automation with Laravel 🚀
+# SIGRIP: NOM-035 Automation with Laravel 🚀
 
 ![Hero](public/images/hero.png)
 
-Neura is a TALL Stack platform designed to automate compliance with the Mexican Official Standard 035 (NOM-035) for workplace wellbeing, psychosocial risk prevention, and incident management.
+SIGRIP is a TALL Stack platform designed to automate compliance with the Mexican Official Standard 035 (NOM-035) for workplace wellbeing, psychosocial risk prevention, and incident management.
 
 ---
 
@@ -77,4 +77,4 @@ Neura is a TALL Stack platform designed to automate compliance with the Mexican 
 
 ---
 
-**Neura** is the all-in-one solution for automated NOM-035 compliance, improving workplace wellbeing and risk management in Mexican companies. 🏢✨
+**SIGRIP** is the all-in-one solution for automated NOM-035 compliance, improving workplace wellbeing and risk management in Mexican companies. 🏢✨

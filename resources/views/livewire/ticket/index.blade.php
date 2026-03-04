@@ -25,7 +25,7 @@
         </div>
 
         <flux:button type="submit" variant="primary" class="mt-3">{{ __('Buscar tickets') }}</flux:button>
-   </form>
+    </form>
 
     @if($tickets)
         <div x-data="{ animation: false }"
@@ -50,7 +50,7 @@
                             $tickets_by_status = collect($tickets)->where('support_ticket_status_id', $status['id']);
                         @endphp
                         @foreach ($tickets_by_status as $ticket)
-                            <div wire:click="showTicketDetails({{ $ticket['id'] }})" class="bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 border-l-4 border-l-neutral-300 dark:border-l-neutral-700 p-3 rounded-xl cursor-pointer hover:scale-105 transition-all duration-500">
+                            <div wire:click="showTicketDetails({{ $ticket['id'] }})" class="bg-card border border-border border-l-4 border-l-neutral-500 p-3 rounded-none cursor-pointer hover:scale-105 transition-all duration-500">
                                 <div class="flex items-start gap-3 w-full">
                                     <div class="w-full">
                                         <flux:heading>{{ $ticket['title'] }}</flux:heading>

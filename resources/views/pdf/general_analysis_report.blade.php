@@ -5,7 +5,7 @@
     <title>Informe de cumplimiento (STPS)</title>
     <style>
         body { font-family: Arial, sans-serif; color: #222; }
-        .header { text-align: center; margin-bottom: 30px; }
+        .header { text-align: left; margin-bottom: 30px; }
         .title { font-size: 2em; font-weight: bold; margin-bottom: 10px; }
         .subtitle { font-size: 1.1em; margin-bottom: 5px; }
         .section { margin-bottom: 25px; }

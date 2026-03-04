@@ -34,13 +34,13 @@
                         <flux:text class="mt-2 mb-6 leading-relaxed">
                             <em>{{ __('Última actualización: 30 de enero de 2026') }}</em>
                         </flux:text>
-                        <flux:text class="mb-4 leading-relaxed">En Neura, la protección de tus datos personales y la privacidad de tu empresa son nuestra máxima prioridad. Esta política describe cómo recopilamos, usamos, almacenamos y protegemos la información que nos proporcionas al utilizar nuestra plataforma de bienestar laboral, análisis inteligente y gestión de riesgos psicosociales.</flux:text>
+                        <flux:text class="mb-4 leading-relaxed">En SIGRIP, la protección de tus datos personales y la privacidad de tu empresa son nuestra máxima prioridad. Esta política describe cómo recopilamos, usamos, almacenamos y protegemos la información que nos proporcionas al utilizar nuestra plataforma de bienestar laboral, análisis inteligente y gestión de riesgos psicosociales.</flux:text>
 
                         <flux:heading size="lg" class="mb-2">1. Información que recopilamos</flux:heading>
                         <ul class="list-disc pl-6 mb-4 flex flex-col gap-2">
                             <flux:text>Datos de registro y contacto (nombre, correo electrónico, empresa, departamento, etc.).</flux:text>
                             <flux:text>Respuestas a cuestionarios, tickets, alertas y cualquier información ingresada en la plataforma.</flux:text>
-                            <flux:text>Datos de uso, actividad y navegación dentro de Neura.</flux:text>
+                            <flux:text>Datos de uso, actividad y navegación dentro de SIGRIP.</flux:text>
                         </ul>
 
                         <flux:heading size="lg" class="mb-2">2. Uso de la información</flux:heading>
@@ -72,17 +72,17 @@
 
                         <flux:heading size="lg" class="mb-2">6. Cambios en la política</flux:heading>
                         <ul class="list-disc pl-6 mb-4 flex flex-col gap-2">
-                            <flux:text>Neura puede actualizar esta política de privacidad para reflejar mejoras en la plataforma o cambios legales. Te notificaremos sobre cualquier modificación relevante.</flux:text>
+                            <flux:text>SIGRIP puede actualizar esta política de privacidad para reflejar mejoras en la plataforma o cambios legales. Te notificaremos sobre cualquier modificación relevante.</flux:text>
                         </ul>
 
                         <flux:heading size="lg" class="mb-2">7. Contacto</flux:heading>
                         <ul class="list-disc pl-6 mb-4 flex flex-col gap-2">
-                            <flux:text>Si tienes dudas o deseas ejercer tus derechos, contáctanos en <a href="mailto:soporte@neura.com" class="text-primary underline">soporte@neura.com</a>.</flux:text>
+                            <flux:text>Si tienes dudas o deseas ejercer tus derechos, contáctanos en <a href="mailto:soporte@sigrip.com" class="text-primary underline">soporte@sigrip.com</a>.</flux:text>
                         </ul>
 
                         <flux:heading size="lg" class="mb-2">8. Uso informativo</flux:heading>
                         <ul class="list-disc pl-6 mb-4 flex flex-col gap-2">
-                            <flux:text>La información y análisis generados por Neura tienen fines informativos y de apoyo al cumplimiento normativo. No constituyen asesoría profesional ni sustituyen la intervención de especialistas en recursos humanos o salud mental.</flux:text>
+                            <flux:text>La información y análisis generados por SIGRIP tienen fines informativos y de apoyo al cumplimiento normativo. No constituyen asesoría profesional ni sustituyen la intervención de especialistas en recursos humanos o salud mental.</flux:text>
                         </ul>
                     </section>
                 </main>

@@ -1,7 +1,7 @@
 <x-mail::message>
 
 Hola **{{ $company }}** 👋<br>
-¡Bienvenido a Neura!<br><br>
+¡Bienvenido a SIGRIP!<br><br>
 
 Tu cuenta ya está lista para comenzar con el cumplimiento de la **NOM-035** y la mejora del clima laboral en tu empresa.
 

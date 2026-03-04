@@ -6,8 +6,8 @@
     <body class="min-h-screen antialiased bg-light dark:bg-dark">
         <div class="relative grid h-dvh flex-col items-center justify-center px-8 sm:px-0 lg:max-w-none lg:grid-cols-2 lg:px-0">
             <div class="bg-muted relative hidden h-full flex-col p-20 text-white lg:flex">
-                <div class="absolute inset-0 rounded-[2.5rem] m-5 bg-cover bg-center bg-no-repeat border border-neutral-900"
-                     style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('/images/flower-auth.png');">
+                <div class="absolute inset-0 rounded-none m-5 bg-cover bg-center bg-no-repeat border border-neutral-900"
+                     style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9)), url('/images/auth2.jpeg');">
                 </div>
                 <a href="{{ route('home') }}" class="relative z-20 flex items-center" wire:navigate>
                     <x-app-logo />
@@ -27,7 +27,7 @@
             <div class="w-full lg:p-8">
                 <div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
                     <a href="{{ route('home') }}" class="z-20 flex flex-col items-center gap-2 font-medium lg:hidden" wire:navigate>
-                        <span class="flex w-24 items-center justify-center rounded-md">
+                        <span class="flex w-24 items-center justify-center rounded-none">
                             <x-app-logo-icon />
                         </span>
 

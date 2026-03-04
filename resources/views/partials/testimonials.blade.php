@@ -2,9 +2,9 @@
     <x-main-container>
         <div class="mx-auto mb-16 max-w-2xl text-center">
             <span class="mb-4 inline-block text-xs font-medium uppercase tracking-[0.2em] text-primary">{{ __('Testimonios') }}</span>
-            <h2 class="font-display text-3xl font-bold tracking-tight sm:text-4xl" style="text-wrap:balance">{{ __('Por que nuestros usuarios eligen Neura') }}</h2>
+            <h2 class="font-display text-3xl font-bold tracking-tight sm:text-4xl" style="text-wrap:balance">{{ __('Por que nuestros usuarios eligen SIGRIP') }}</h2>
             <p class="text-base leading-relaxed mt-4" style="text-wrap:pretty">
-                <span class="opacity-70">{{ __('Descubre como Neura transforma la gestion del bienestar laboral y previene riesgos psicosociales.') }}</span>
+                <span class="opacity-70">{{ __('Descubre como SIGRIP transforma la gestion del bienestar laboral y previene riesgos psicosociales.') }}</span>
             </p>
         </div>
 
@@ -63,14 +63,14 @@
                     cards: [
                         {
                             icon: 'M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z',
-                            text: `{{ __('Neura transformo nuestra gestion del bienestar laboral. La IA detecta riesgos psicosociales antes de que se conviertan en problemas reales. Una solucion invaluable.') }}`,
+                            text: `{{ __('SIGRIP transformo nuestra gestion del bienestar laboral. La IA detecta riesgos psicosociales antes de que se conviertan en problemas reales. Una solucion invaluable.') }}`,
                             initials: 'AM',
                             name: 'Ana Martinez',
                             role: `{{ __('Gerente de Recursos Humanos') }}`
                         },
                         {
                             icon: 'M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z',
-                            text: `{{ __('Los cuestionarios personalizados y alertas automaticas mejoraron nuestro ambiente laboral. Cumplimos NOM-035 sin esfuerzo. Neura es indispensable para RH.') }}`,
+                            text: `{{ __('Los cuestionarios personalizados y alertas automaticas mejoraron nuestro ambiente laboral. Cumplimos NOM-035 sin esfuerzo. SIGRIP es indispensable para RH.') }}`,
                             initials: 'LG',
                             name: 'Luis Gomez',
                             role: `{{ __('Director de Operaciones') }}`
