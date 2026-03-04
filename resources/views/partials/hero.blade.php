@@ -9,6 +9,8 @@
     </div>
     <main class="relative z-10 flex flex-1 flex-col items-center justify-center px-6 py-24 text-center">
 
+        <img src="/images/robot.png" alt="robot" class="size-20 animate-float" />
+
         <!-- Badge -->
         <div class="animate-fade-up mb-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-sm whitespace-nowrap">
             <span class="h-1.5 w-1.5 rounded-full bg-blue-400 shrink-0" style="box-shadow: 0 0 6px 2px rgba(59,130,246,0.6);"></span>
