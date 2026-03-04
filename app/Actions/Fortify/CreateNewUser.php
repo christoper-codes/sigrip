@@ -40,7 +40,7 @@ class CreateNewUser implements CreatesNewUsers
             'alerts' => 0,
             'tickets' => 0,
         ];
-        $organization_by_default = Organization::where('name', 'neura')->first();
+        $organization_by_default = Organization::where('name', 'sigrip')->first();
         $role_by_default = Role::where('name', RoleEnum::COMPANY_ADMIN->value)->first();
 
         $user = User::create([

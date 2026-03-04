@@ -41,7 +41,7 @@ new class extends Component {
 
                 <flux:subheading>
                     {{ __('Una vez eliminada tu cuenta, todos sus recursos y datos se borrarán de forma permanente. Para solicitar la eliminación de tu cuenta, envía un correo a') }}
-                    <a href="mailto:Soporte@neura.com" class="text-yellow-500">Soporte@neura.com</a>.
+                    <a href="mailto:Soporte@sigrip.com" class="text-yellow-500">Soporte@sigrip.com</a>.
                     {{ __('En el correo incluye el nombre de la compañía, tu nombre completo y en el asunto "Eliminación de cuenta". Tu solicitud será atendida a la brevedad y recibirás una respuesta en el menor tiempo posible.') }}
                 </flux:subheading>
             </div>

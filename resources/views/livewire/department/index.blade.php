@@ -56,7 +56,7 @@
             </flux:field>
             <flux:field>
                 <flux:label>{{ __('Email') }}</flux:label>
-                <flux:input name="email" wire:model="form.email" icon="envelope" placeholder="{{ __('hello@neura.com') }}"/>
+                <flux:input name="email" wire:model="form.email" icon="envelope" placeholder="{{ __('hello@sigrip.com') }}"/>
                 <flux:error name="form.email" />
             </flux:field>
             <flux:field>

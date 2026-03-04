@@ -24,7 +24,7 @@ class GoogleController extends Controller
         $user = User::where('email', $googleUser->getEmail())->first();
 
         if (! $user) {
-            $organization_by_default = Organization::where('name', 'neura')->first();
+            $organization_by_default = Organization::where('name', 'sigrip')->first();
             $role_by_default = Role::where('name', RoleEnum::COMPANY_ADMIN->value)->first();
 
             $user = User::create([

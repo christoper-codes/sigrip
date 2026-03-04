@@ -26,7 +26,7 @@ class Welcome extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Bienvenido a NEURA',
+            subject: 'Bienvenido a SIGRIP',
         );
     }
 

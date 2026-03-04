@@ -4,7 +4,7 @@
             <span class="mb-4 inline-block text-xs font-medium uppercase tracking-[0.2em] text-primary">{{ __('FAQ') }}</span>
             <h2 class="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl" style="text-wrap:balance">{{ __('Te estas preguntando') }}</h2>
                 <p class="mt-4 text-muted-foreground" style="text-wrap:pretty">
-                {{ __('¿Necesitas saber mas? contactanos en:') }} <a href="mailto:soporte@neura.com" class="text-primary underline-offset-4 transition-colors duration-300 hover:underline">soporte@neura.com</a>
+                {{ __('¿Necesitas saber mas? contactanos en:') }} <a href="mailto:soporte@sigrip.com" class="text-primary underline-offset-4 transition-colors duration-300 hover:underline">soporte@sigrip.com</a>
             </p>
         </div>
 

@@ -97,7 +97,7 @@ class Upload extends Component
 
     public function downloadTemplate(): BinaryFileResponse
     {
-        return Excel::download(new EmployeesTemplateExport, 'neura_employees_template.xlsx');
+        return Excel::download(new EmployeesTemplateExport, 'sigrip_employees_template.xlsx');
     }
 
     public function render()
