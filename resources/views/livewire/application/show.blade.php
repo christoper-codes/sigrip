@@ -19,7 +19,7 @@
                 @auth
                     <span> {{ auth()->user()->name }} </span>
                 @else
-                    <span>{{ __('usuario neura') }}</span>
+                    <span>{{ __('usuario sigrip') }}</span>
                 @endauth
             </flux:text>
         </div>
