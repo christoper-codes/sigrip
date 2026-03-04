@@ -8,7 +8,7 @@
     </div>
 
     <nav class="flex items-center gap-2">
-        <a href="{{ route('register') }}" class="rounded-none border border-white/20 bg-white/5 px-5 py-2 text-xs font-medium tracking-wide text-white/80 backdrop-blur-sm transition-all duration-200 hover:border-white/40 hover:bg-white/10 hover:text-white">
+        <a href="{{ route('register') }}" wire:navigate class="rounded-none border border-white/20 bg-white/5 px-5 py-2 text-xs font-medium tracking-wide text-white/80 backdrop-blur-sm transition-all duration-200 hover:border-white/40 hover:bg-white/10 hover:text-white">
             Comenzar →
         </a>
     </nav>
