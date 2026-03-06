@@ -84,10 +84,11 @@ class Store extends Component
 
         $search = trim(strtolower($this->form->search_manager));
         $this->form->potential_managers = User::query()
-            ->where('organization_id', Auth::user()->organization->id)
             ->where('company_id', Auth::user()->company->id)
-            ->where('name', 'like', "%{$search}%")
-            ->orWhere('email', 'like', "%{$search}%")
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")
+                      ->orWhere('email', 'like', "%{$search}%");
+            })
             ->get();
     }
 }
