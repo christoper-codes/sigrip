@@ -12,9 +12,9 @@
         <img src="/images/robot.png" alt="robot" class="size-20 animate-float" />
 
         <!-- Badge -->
-        <div class="animate-fade-up mb-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-sm whitespace-nowrap">
-            <span class="h-1.5 w-1.5 rounded-full bg-blue-400 shrink-0" style="box-shadow: 0 0 6px 2px rgba(59,130,246,0.6);"></span>
-            <span class="text-[11px] font-medium tracking-widest text-white/50 uppercase">Impulsado por Inteligencia Artificial</span>
+        <div class="animate-fade-up mb-10 inline-flex items-center gap-2 rounded-none border border-primary/50 bg-primary/10 px-4 py-1.5 backdrop-blur-sm whitespace-nowrap">
+            <flux:icon name="bolt" class="h-4 w-4 text-primary" />
+            <span class="text-[11px] font-medium tracking-widest text-white">Impulsado por Inteligencia Artificial</span>
         </div>
 
         <!-- Headline -->
