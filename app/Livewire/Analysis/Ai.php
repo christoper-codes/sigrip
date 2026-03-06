@@ -87,7 +87,7 @@ class Ai extends Component
 
         $responses = [];
         foreach ($applications as $app) {
-            $app_responses = $app->questionnaireResponses()->where('risk_level', 'red')->get()->toArray();
+            $app_responses = $app->questionnaireResponses()->whereIn('risk_level', ['red', 'yellow', 'orange'])->get()->toArray();
             $responses = array_merge($responses, $app_responses);
         }
 
