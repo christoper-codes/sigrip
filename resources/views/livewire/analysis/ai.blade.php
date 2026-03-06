@@ -57,7 +57,7 @@
                     </div>
                         @if (isset($ai_result))
                             <div class="leading-relaxed whitespace-pre-line text-sm">
-                                <div x-data="{
+                                <div wire:key="ai-result-{{ $result_key }}" x-data="{
                                     words: [],
                                     index: 0,
                                     interval: null,

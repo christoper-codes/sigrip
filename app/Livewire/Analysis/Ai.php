@@ -64,6 +64,7 @@ class Ai extends Component
     }
 
     public $ai_result = null;
+    public int $result_key = 0;
 
     public function searchAnalysis(): void
     {
@@ -108,6 +109,7 @@ class Ai extends Component
             $aiResponse = $aiAction->execute($prompt);
 
             session()->put('last_ai_response', $aiResponse);
+            $this->result_key++;
             if (is_array($aiResponse)) {
                 $this->ai_result = $this->formatAiResponse($aiResponse);
             } elseif (is_string($aiResponse)) {
