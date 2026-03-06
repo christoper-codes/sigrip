@@ -104,11 +104,19 @@ class Ai extends Component
         $promptAction = new GenerateAiPromptAction();
         $prompt = $promptAction->execute($responses, $questionnaireArr, $this->prompt);
 
+        $cacheKey = 'ai_result_' . md5($companyId . '_' . $this->questionnaire_id . '_' . $this->month . '_' . $this->prompt);
+
+        if (session()->has($cacheKey)) {
+            $this->result_key++;
+            $this->ai_result = session()->get($cacheKey);
+            Flux::modal('show-questionnaire-analysis-modal')->show();
+            return;
+        }
+
         try {
             $aiAction = new GenerateAiAlertAction();
             $aiResponse = $aiAction->execute($prompt);
 
-            session()->put('last_ai_response', $aiResponse);
             $this->result_key++;
             if (is_array($aiResponse)) {
                 $this->ai_result = $this->formatAiResponse($aiResponse);
@@ -122,6 +130,7 @@ class Ai extends Component
                 $this->ai_result = __('Respuesta IA inválida');
             }
 
+            session()->put($cacheKey, $this->ai_result);
             Flux::modal('show-questionnaire-analysis-modal')->show();
         } catch (\Throwable $e) {
             $this->ai_result = 'Error al consultar la IA: ' . $e->getMessage();
