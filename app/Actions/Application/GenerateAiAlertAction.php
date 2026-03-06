@@ -15,6 +15,7 @@ final class GenerateAiAlertAction
         $model = config('services.openai.model');
 
         $response = Http::withToken($token)
+            ->timeout(180)
             ->post($url, [
                 'model' => $model,
                 'messages' => [

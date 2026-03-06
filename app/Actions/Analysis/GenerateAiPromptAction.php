@@ -41,11 +41,10 @@ final class GenerateAiPromptAction
         if ($user_prompt) {
             $intro .= "1. {$user_prompt}\n";
         }
-        $intro .= "2. Identifica los focos de riesgo más importantes y acciones recomendadas.\n";
-        $intro .= "3. Enumera las preguntas que generan más alertas.\n";
-        $intro .= "4. Indica qué usuarios parecen más propensos a problemas psicológicos.\n";
-        $intro .= "5. Menciona posibles acciones legales que podría enfrentar la empresa.\n";
-        $intro .= "6. Lista pasos a mejorar y recomendaciones.\n";
+        $intro .= "2. Enumera las preguntas que generan más alertas.\n";
+        $intro .= "3. Indica qué usuarios parecen más propensos a problemas psicológicos.\n";
+        $intro .= "4. Menciona posibles acciones legales que podría enfrentar la empresa.\n";
+        $intro .= "5. Lista pasos a mejorar y recomendaciones.\n";
         $intro .= "\nIMPORTANTE: Responde en formato de lista, usando saltos de línea y títulos claros para cada sección.\n";
 
         return $intro;

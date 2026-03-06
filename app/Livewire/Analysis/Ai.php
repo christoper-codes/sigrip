@@ -67,6 +67,7 @@ class Ai extends Component
 
     public function searchAnalysis(): void
     {
+        set_time_limit(0);
         $this->validate();
 
         $user = Auth::user();
