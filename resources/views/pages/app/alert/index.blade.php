@@ -2,7 +2,7 @@
     <div class="h-full w-full relative">
         <x-appearance.header>
             <div class="text-3xl leading-normal space-y-2">
-                <p class="uppercase">{{ __('Alertas') }}</p>
+                <p class="uppercase font-bold special-font">{{ __('Alertas') }}</p>
                 <p class="text-sm opacity-70">{{ __('Revisa nuevas y antiguas alertas.') }}</p>
             </div>
         </x-appearance.header>

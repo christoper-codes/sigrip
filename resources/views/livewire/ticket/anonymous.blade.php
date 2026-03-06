@@ -3,7 +3,7 @@
         <div class="py-2 px-4 rounded-full text-center text-sm border bg-primary/20 border-primary inline-block mx-auto">
             {{ $company_name }}
         </div>
-        <h1 class="text-3xl max-w-4xl uppercase mb-4 mt-3">
+        <h1 class="text-3xl max-w-4xl uppercase mb-4 mt-3 font-bold special-font">
             {{ __('Reporta una incidencia') }}</span>
         </h1>
         <flux:text>

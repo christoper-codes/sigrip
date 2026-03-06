@@ -1,5 +1,5 @@
 <div class="mx-auto lg:px-8 py-12 w-full max-w-3xl">
-    <h1 class="text-3xl max-w-4xl uppercase mb-4 mt-3">
+    <h1 class="text-3xl max-w-4xl uppercase mb-4 mt-3 font-bold special-font">
         {{ __('Seguimiento de incidencia') }}</span>
     </h1>
     <flux:text class="mb-10">

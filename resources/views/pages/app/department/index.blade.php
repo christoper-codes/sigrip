@@ -2,7 +2,7 @@
     <div class="h-full w-full relative">
         <x-appearance.header>
             <div class="text-3xl leading-normal space-y-2">
-                <p class="uppercase">{{ __('Departamentos') }}</p>
+                <p class="uppercase font-bold special-font">{{ __('Departamentos') }}</p>
                 <p class="text-sm opacity-70">{{ __('Lista y crea departamentos para tu compañía') }}</p>
             </div>
         </x-appearance.header>

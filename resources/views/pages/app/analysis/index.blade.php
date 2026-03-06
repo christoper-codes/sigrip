@@ -2,7 +2,7 @@
     <div class="h-full w-full relative">
         <x-appearance.header>
             <div class="text-3xl leading-normal space-y-2">
-                <p class="uppercase">{{ __('Analisis Ai') }}</p>
+                <p class="uppercase font-bold special-font">{{ __('Analisis Ai') }}</p>
                 <p class="text-sm opacity-70">{{ __('Resultados y análisis de applicaciones con inteligencia artificial') }}</p>
             </div>
         </x-appearance.header>

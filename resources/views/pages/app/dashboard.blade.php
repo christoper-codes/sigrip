@@ -16,9 +16,9 @@
                     }
                 }">
                 <div class="text-3xl leading-normal">
-                    <span x-text="greeting"></span>
+                    <span x-text="greeting" class="font-bold special-font"></span>
                     <br>
-                    <span class="uppercase">{{ auth()->user()->name }}</span>
+                    <span class="uppercase font-bold special-font">{{ auth()->user()->name }}</span>
                     <br>
                     <span class="text-sm opacity-70" x-text="currentDateTime"></span>
                 </div>

@@ -2,7 +2,7 @@
     <div class="h-full w-full relative">
         <x-appearance.header>
             <div class="text-3xl leading-normal space-y-2">
-                <p class="uppercase">{{ __('Tickets') }}</p>
+                <p class="uppercase font-bold special-font">{{ __('Tickets') }}</p>
                 <p class="text-sm opacity-70">{{ __('Creación y seguimiento de tickets para incidencias.') }}</p>
             </div>
         </x-appearance.header>
