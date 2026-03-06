@@ -142,9 +142,9 @@
                     <div class="my-5">
                         <flux:separator text="Or" />
                     </div>
-                    <a href="{{ route('employee.index') }}" wire:navigate class="block w-full p-5 border border-border bg-light dark:bg-dark text-center">
-                        <flux:text>{{ __('Actualizar un empleado con rol de gerente') }}</flux:text>
-                    </a>
+                    <flux:button href="{{ route('employee.index') }}" variant="filled" class="w-full py-6!" wire:navigate>
+                        {{ __('Actualizar un empleado con rol de gerente') }}
+                    </flux:button>
                 </div>
             </div>
         </flux:modal>

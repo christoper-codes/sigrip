@@ -91,4 +91,9 @@ class Store extends Component
             })
             ->get();
     }
+
+    public function render()
+    {
+        return view('livewire.department.store');
+    }
 }
