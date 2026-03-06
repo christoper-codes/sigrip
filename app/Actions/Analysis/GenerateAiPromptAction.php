@@ -45,7 +45,7 @@ final class GenerateAiPromptAction
         $intro .= "3. Indica qué usuarios parecen más propensos a problemas psicológicos.\n";
         $intro .= "4. Menciona posibles acciones legales que podría enfrentar la empresa.\n";
         $intro .= "5. Lista pasos a mejorar y recomendaciones.\n";
-        $intro .= "\nIMPORTANTE: Responde en formato de lista, usando saltos de línea y títulos claros para cada sección.\n";
+        $intro .= "\nIMPORTANTE: Responde en formato de lista, usando saltos de línea y títulos claros para cada sección. Resume la respuesta (no tan largas las respuestas para cada punto).\n";
 
         return $intro;
     }
