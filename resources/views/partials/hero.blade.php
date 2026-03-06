@@ -18,7 +18,7 @@
         </div>
 
         <!-- Headline -->
-        <h1 class="animate-fade-up opacity-0 animation-delay-200 mx-auto uppercase max-w-4xl text-4xl lg:text-6xl font-bold leading-[1.05] tracking-[-0.03em] text-white">
+        <h1 class="animate-fade-up opacity-0 animation-delay-200 mx-auto uppercase max-w-5xl text-4xl lg:text-6xl font-extrabold leading-[1.05] tracking-[-0.03em] text-white special-font">
             cumplimiento normativo<br />
             <span class="bg-clip-text text-transparent bg-linear-to-r from-white to-blue-500">
                 035 y STPS

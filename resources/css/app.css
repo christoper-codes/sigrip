@@ -210,3 +210,7 @@ select[data-flux-control]{
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
+
+.special-font{
+    font-family: 'Poppins', sans-serif;
+}
