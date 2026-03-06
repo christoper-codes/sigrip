@@ -41,7 +41,8 @@ class CreateNewUser implements CreatesNewUsers
             'tickets' => 0,
         ];
         $organization_by_default = Organization::where('name', 'sigrip')->first();
-        $role_by_default = Role::where('name', RoleEnum::COMPANY_ADMIN->value)->first();
+        $company_admin_role = Role::where('name', RoleEnum::COMPANY_ADMIN->value)->first();
+        $department_manager_role = Role::where('name', RoleEnum::DEPARTMENT_MANAGER->value)->first();
 
         $user = User::create([
             'name' => $input['name'],
@@ -51,7 +52,8 @@ class CreateNewUser implements CreatesNewUsers
             'organization_id' => $organization_by_default->id,
         ]);
 
-        $user->userRoles()->attach($role_by_default->id);
+        $user->userRoles()->attach($company_admin_role->id);
+        $user->userRoles()->attach($department_manager_role->id);
 
         return $user;
     }
