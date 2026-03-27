@@ -1,5 +1,6 @@
 <header
     x-data="{ scrolled: false, mobileOpen: false }"
+    x-cloak
     x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 }, { passive: true })"
     :class="scrolled
         ? 'backdrop-blur-xl bg-[#060608]/90 border-white/[0.07]'
