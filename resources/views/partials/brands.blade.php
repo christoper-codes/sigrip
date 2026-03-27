@@ -1,7 +1,7 @@
-<section id="brands" class="relative border-y border-border/50 bg-card/30 py-10 overflow-hidden">
+<section id="brands" class="relative border-y border-border/50 bg-neutral-50 dark:bg-card/30 py-10 overflow-hidden">
     <!-- Fade edges -->
-    <div class="pointer-events-none absolute left-0 top-0 z-10 h-full w-28 bg-linear-to-r from-background to-transparent"></div>
-    <div class="pointer-events-none absolute right-0 top-0 z-10 h-full w-28 bg-linear-to-l from-background to-transparent"></div>
+    <div class="pointer-events-none absolute left-0 top-0 z-10 h-full w-28 bg-linear-to-r from-neutral-50 dark:from-[#08090d] to-transparent"></div>
+    <div class="pointer-events-none absolute right-0 top-0 z-10 h-full w-28 bg-linear-to-l from-neutral-50 dark:from-[#08090d] to-transparent"></div>
 
     <!-- Row 1: Tech & IA features -->
     <div class="animate-marquee flex w-max items-center gap-3 mb-3">
@@ -24,16 +24,17 @@
         $row1 = array_merge($row1, $row1);
         @endphp
 
-        @foreach ($row1 as $item)
         @php
         $colors = [
-            'blue'   => ['border' => 'border-blue-500/20',   'bg' => 'bg-blue-500/8',   'dot' => 'bg-blue-400',   'text' => 'text-blue-400/70',   'icon' => 'text-blue-400/60'],
-            'green'  => ['border' => 'border-green-500/20',  'bg' => 'bg-green-500/8',  'dot' => 'bg-green-400',  'text' => 'text-green-400/70',  'icon' => 'text-green-400/60'],
-            'amber'  => ['border' => 'border-amber-500/20',  'bg' => 'bg-amber-500/8',  'dot' => 'bg-amber-400',  'text' => 'text-amber-400/70',  'icon' => 'text-amber-400/60'],
-            'violet' => ['border' => 'border-violet-500/20', 'bg' => 'bg-violet-500/8', 'dot' => 'bg-violet-400', 'text' => 'text-violet-400/70', 'icon' => 'text-violet-400/60'],
+            'blue'   => ['border' => 'border-neutral-200 dark:border-blue-500/20',   'bg' => 'bg-neutral-50 dark:bg-blue-500/8',   'text' => 'text-neutral-500 dark:text-blue-400/70',   'icon' => 'text-neutral-400 dark:text-blue-400/60'],
+            'green'  => ['border' => 'border-neutral-200 dark:border-green-500/20',  'bg' => 'bg-neutral-50 dark:bg-green-500/8',  'text' => 'text-neutral-500 dark:text-green-400/70',  'icon' => 'text-neutral-400 dark:text-green-400/60'],
+            'amber'  => ['border' => 'border-neutral-200 dark:border-amber-500/20',  'bg' => 'bg-neutral-50 dark:bg-amber-500/8',  'text' => 'text-neutral-500 dark:text-amber-400/70',  'icon' => 'text-neutral-400 dark:text-amber-400/60'],
+            'violet' => ['border' => 'border-neutral-200 dark:border-violet-500/20', 'bg' => 'bg-neutral-50 dark:bg-violet-500/8', 'text' => 'text-neutral-500 dark:text-violet-400/70', 'icon' => 'text-neutral-400 dark:text-violet-400/60'],
         ];
-        $c = $colors[$item['color']];
         @endphp
+
+        @foreach ($row1 as $item)
+        @php $c = $colors[$item['color']]; @endphp
         <div class="flex items-center gap-2 px-4 py-2 border {{ $c['border'] }} {{ $c['bg'] }} whitespace-nowrap shrink-0 mx-1.5">
             <svg class="h-3.5 w-3.5 {{ $c['icon'] }} shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                 <path stroke-linecap="round" stroke-linejoin="round" d="{{ $item['icon'] }}"/>

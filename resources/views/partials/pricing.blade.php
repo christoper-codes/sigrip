@@ -49,7 +49,7 @@
                     <!-- Badge -->
                     <div class="mb-6 inline-flex items-center gap-2 border border-primary/20 bg-primary/8 px-3 py-1">
                         <span class="h-1.5 w-1.5 rounded-full bg-primary"></span>
-                        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">{{ __('Premium') }}</span>
+                        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-500">{{ __('Premium') }}</span>
                     </div>
 
                     <!-- Price -->
@@ -63,7 +63,7 @@
                     <p class="mt-3 text-[13px] leading-relaxed text-muted-foreground">{{ __('Solución completa que escala con tu empresa. Todo lo que necesitas para cumplimiento NOM-035.') }}</p>
 
                     <!-- CTA -->
-                    <a href="{{ route('register') }}" wire:navigate class="mt-8 flex w-full items-center justify-center bg-primary py-3.5 text-sm font-bold text-white transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:shadow-primary/25">
+                    <a href="{{ route('register') }}" wire:navigate class="mt-8 flex w-full items-center justify-center bg-primary py-3.5 text-sm font-bold text-white transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:shadow-orange-600/25">
                         {{ __('Comenzar prueba gratuita') }}
                         <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </a>

@@ -1,7 +1,9 @@
 <header
     x-data="{ scrolled: false, mobileOpen: false }"
     x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 }, { passive: true })"
-    :class="scrolled ? 'backdrop-blur-xl bg-[#060608]/88 border-white/[0.07]' : 'border-transparent bg-transparent'"
+    :class="scrolled
+        ? 'backdrop-blur-xl bg-[#060608]/90 border-white/[0.07]'
+        : 'border-transparent bg-[#060608]/90 dark:bg-transparent'"
     class="w-full z-50 fixed top-0 left-0 right-0 border-b transition-all duration-500"
 >
     <div class="mx-auto max-w-6xl px-5 lg:px-4">

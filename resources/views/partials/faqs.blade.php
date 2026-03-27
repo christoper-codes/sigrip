@@ -63,7 +63,7 @@
         <div class="mt-14 border border-border bg-card/60 p-8 text-center">
             <p class="text-sm font-semibold text-foreground mb-1">{{ __('¿Listo para empezar?') }}</p>
             <p class="text-[13px] text-muted-foreground mb-6">{{ __('Prueba SIGRIP gratis por 14 días. Sin tarjeta de crédito.') }}</p>
-            <a href="{{ route('register') }}" wire:navigate class="inline-flex items-center gap-2 bg-primary px-8 py-3 text-sm font-semibold text-white transition-all hover:opacity-90 hover:shadow-lg hover:shadow-primary/25">
+            <a href="{{ route('register') }}" wire:navigate class="inline-flex items-center gap-2 bg-primary px-8 py-3 text-sm font-semibold text-white transition-all hover:opacity-90 hover:shadow-lg hover:shadow-orange-600/25">
                 {{ __('Comenzar gratis') }}
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>

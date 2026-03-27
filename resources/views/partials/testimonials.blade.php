@@ -32,7 +32,7 @@
                                     </template>
                                 </div>
                                 <!-- Quote -->
-                                <p class="leading-relaxed text-[14px] text-foreground/80 flex-1" x-text="`"` + card.text + `"`"></p>
+                                <p class="leading-relaxed text-[14px] text-foreground/80 flex-1 italic" x-text="card.text"></p>
                                 <!-- Author -->
                                 <div class="mt-7 flex items-center gap-3 pt-5 border-t border-border/60">
                                     <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[11px] font-bold text-primary" x-text="card.initials"></div>

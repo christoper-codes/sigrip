@@ -17,21 +17,21 @@
         <!-- 3-step process strip -->
         <div class="reveal mb-16 grid grid-cols-1 md:grid-cols-3 gap-0 border border-border/60 bg-card/30">
             <div class="flex items-start gap-4 p-7 md:border-r border-border/60">
-                <span class="shrink-0 flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 bg-primary/5 text-[13px] font-bold text-primary">1</span>
+                <span class="shrink-0 flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 bg-primary/8 text-[13px] font-bold text-primary">1</span>
                 <div>
                     <p class="text-sm font-semibold text-foreground">{{ __('Configura tu empresa') }}</p>
                     <p class="mt-1 text-[13px] leading-relaxed text-muted-foreground">{{ __('Carga empleados y departamentos en minutos') }}</p>
                 </div>
             </div>
             <div class="flex items-start gap-4 p-7 md:border-r border-border/60 border-t md:border-t-0">
-                <span class="shrink-0 flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 bg-primary/5 text-[13px] font-bold text-primary">2</span>
+                <span class="shrink-0 flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 bg-primary/8 text-[13px] font-bold text-primary">2</span>
                 <div>
                     <p class="text-sm font-semibold text-foreground">{{ __('Aplica cuestionarios') }}</p>
                     <p class="mt-1 text-[13px] leading-relaxed text-muted-foreground">{{ __('NOM-035 y cuestionarios personalizados') }}</p>
                 </div>
             </div>
             <div class="flex items-start gap-4 p-7 border-t md:border-t-0">
-                <span class="shrink-0 flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 bg-primary/5 text-[13px] font-bold text-primary">3</span>
+                <span class="shrink-0 flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 bg-primary/8 text-[13px] font-bold text-primary">3</span>
                 <div>
                     <p class="text-sm font-semibold text-foreground">{{ __('Recibe insights de IA') }}</p>
                     <p class="mt-1 text-[13px] leading-relaxed text-muted-foreground">{{ __('Alertas, predicciones y reportes automáticos') }}</p>
