@@ -1,4 +1,5 @@
 <footer class="w-full bg-card border-t border-border">
+    <div class="min-h-screen w-full"></div>
     <x-main-container>
         <!-- Main footer grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-16">
