@@ -142,12 +142,54 @@ html { scroll-behavior: smooth; }
 .hero-bar-d2 { animation-delay: 1.1s; }
 .hero-bar-d3 { animation-delay: 1.3s; }
 
+/* ── Scroll-phrase: animated ocean gradient background ── */
+@keyframes sp-ocean {
+    0%   { background-position: 0%   60%; }
+    50%  { background-position: 100% 40%; }
+    100% { background-position: 0%   60%; }
+}
+.sp-ocean {
+    background: linear-gradient(
+        -45deg,
+        #0369a1,
+        #0284c7,
+        #0ea5e9,
+        #06b6d4,
+        #0891b2,
+        #2563eb,
+        #38bdf8
+    );
+    background-size: 400% 400%;
+    animation: sp-ocean 12s ease infinite;
+}
+
+/* Hero video — opacity is driven entirely by JS (initial fade-in + loop crossfade) */
+.video-hero { opacity: 0; }
+
 /* Glowing dots scatter */
 @keyframes dot-pulse {
     0%, 100% { opacity: 0.5; transform: scale(1);   }
     50%       { opacity: 1;   transform: scale(1.5); }
 }
 .animate-dot-pulse { animation: dot-pulse 3s ease-in-out infinite; }
+
+/* ============================================================
+   iOS / Apple glass utilities
+   ============================================================ */
+
+/* Light glass — navbars, pills, cards on white/light bg */
+.ios-glass {
+    background: rgba(255, 255, 255, 0.72);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* Dark glass — overlays on dark/video bg */
+.ios-glass-dark {
+    background: rgba(255, 255, 255, 0.10);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    backdrop-filter: saturate(180%) blur(24px);
+}
 
 /* ============================================================
    Cinematic Hero — blur-fade-up & liquid glass
