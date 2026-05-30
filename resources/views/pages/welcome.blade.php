@@ -1,4 +1,4 @@
 <x-layouts.guest.simple>
     @include('partials.hero')
-    @include('partials.scroll-phrase')
+    @include('partials.features')
 </x-layouts.guest.simple>

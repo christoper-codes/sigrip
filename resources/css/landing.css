@@ -166,6 +166,13 @@ html { scroll-behavior: smooth; }
 /* Hero video — opacity is driven entirely by JS (initial fade-in + loop crossfade) */
 .video-hero { opacity: 0; }
 
+/* Glass panel — semi-transparent dark overlay (phone card UI, floating badges) */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.07);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+}
+
 /* Glowing dots scatter */
 @keyframes dot-pulse {
     0%, 100% { opacity: 0.5; transform: scale(1);   }
