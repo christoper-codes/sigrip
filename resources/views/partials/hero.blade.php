@@ -10,7 +10,6 @@
         class="video-hero absolute right-0 top-0 h-full w-[55%] object-cover"
         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_215831_c6a8989c-d716-4d8d-8745-e972a2eec711.mp4"
         autoplay
-        loop
         muted
         playsinline
         aria-hidden="true"
@@ -129,13 +128,13 @@
     var video = document.querySelector('.video-hero');
     if (!video) return;
 
-    var FADE_INITIAL = 2;    /* s — first-load fade-in */
-    var FADE_LOOP    = 1.5;  /* s — each leg of the loop crossfade */
-    var fading = false;
+    var FADE_INITIAL     = 2;    /* s — entrance fade-in on page load  */
+    var PAUSE_BEFORE_END = 0.5;  /* s — freeze this many seconds before the clip ends */
+    var HOLD_DURATION    = 5;    /* s — hold the frozen frame           */
+    var FADE_LOOP        = 1.5;  /* s — each fade leg at the loop point */
+    var transitioning    = false;
 
-    /* ── Initial fade-in ─────────────────────────────────────────
-       CSS sets opacity:0. Two rAFs ensure the browser has painted
-       the initial frame before we start the transition.           */
+    /* ── Entrance fade-in ── */
     requestAnimationFrame(function () {
         requestAnimationFrame(function () {
             video.style.transition = 'opacity ' + FADE_INITIAL + 's ease-out';
@@ -143,26 +142,47 @@
         });
     });
 
-    /* ── Loop crossfade via timeupdate ───────────────────────────
-       timeupdate fires ~4× per second — plenty for 1.5 s fades.  */
+    /* ── Loop cycle ──────────────────────────────────────────────
+       1. timeupdate detects we are PAUSE_BEFORE_END s from the end
+       2. video.pause() — frame freezes
+       3. After HOLD_DURATION s → fade out (FADE_LOOP s)
+       4. After fade out → jump to 0, play, fade back in
+       5. After fade in → re-arm the handler                       */
     video.addEventListener('timeupdate', function () {
         var dur = video.duration;
-        if (!dur || !isFinite(dur)) return;
+        if (!dur || !isFinite(dur) || transitioning) return;
 
-        var remaining = dur - video.currentTime;
+        if (dur - video.currentTime <= PAUSE_BEFORE_END) {
+            transitioning = true;
+            video.pause();
 
-        /* Last FADE_LOOP seconds → fade out */
-        if (remaining <= FADE_LOOP && !fading) {
-            fading = true;
-            video.style.transition = 'opacity ' + FADE_LOOP + 's ease-in-out';
-            video.style.opacity    = '0';
-        }
+            /* Hold the frozen frame */
+            setTimeout(function () {
 
-        /* First FADE_LOOP seconds after restart → fade back in */
-        if (video.currentTime <= FADE_LOOP && fading) {
-            fading = false;
-            video.style.transition = 'opacity ' + FADE_LOOP + 's ease-in-out';
-            video.style.opacity    = '1';
+                /* Fade out */
+                video.style.transition = 'opacity ' + FADE_LOOP + 's ease-in-out';
+                video.style.opacity    = '0';
+
+                /* After fade-out: jump to start and fade back in */
+                setTimeout(function () {
+                    video.currentTime = 0;
+                    video.play();
+
+                    requestAnimationFrame(function () {
+                        requestAnimationFrame(function () {
+                            video.style.transition = 'opacity ' + FADE_LOOP + 's ease-in-out';
+                            video.style.opacity    = '1';
+                        });
+                    });
+
+                    /* Re-arm after fade-in finishes */
+                    setTimeout(function () {
+                        transitioning = false;
+                    }, FADE_LOOP * 1000);
+
+                }, FADE_LOOP * 1000);
+
+            }, HOLD_DURATION * 1000);
         }
     });
 })();
