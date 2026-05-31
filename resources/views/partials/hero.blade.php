@@ -15,93 +15,78 @@ document.addEventListener('alpine:init', () => {
     });
 });
 
-/* ── Phone card: entry anim → scroll-driven landing in features section ── */
+/* ── Phone card: scroll-driven transition from hero right → features left ──
+   Position is captured at the MOMENT scrolling begins (not on load),
+   so the flying card always starts from exactly where the hero card is.   */
 (function() {
     document.addEventListener('DOMContentLoaded', function() {
-        var heroCard    = document.getElementById('phone-card-scroll');
+        var heroFade    = document.getElementById('hero-card-fade');  /* card + badge wrapper */
+        var heroCard    = document.getElementById('phone-card-scroll'); /* position reference */
         var flyingCard  = document.getElementById('flying-card');
         var heroSection = document.getElementById('hero');
         var featLanding = document.getElementById('features-landing');
 
-        if (!heroCard || !flyingCard || !heroSection) return;
+        if (!heroFade || !heroCard || !flyingCard || !heroSection || !featLanding) return;
 
-        var desktop    = window.innerWidth >= 1024;
-        var initialPos = null;   /* hero card viewport rect captured after entry anim */
-        var ready      = false;
-        var ticking    = false;
+        var snapPos = null;   /* captured at the very first scroll tick */
+        var ticking = false;
 
         function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
         function lerp(a, b, t)    { return a + (b - a) * t; }
         function easeInOut(t)     { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
 
-        /* Hand off: CSS entry animation → JS control */
-        heroCard.addEventListener('animationend', function() {
-            heroCard.classList.remove('phone-card-reveal');
-            heroCard.style.opacity = '1';
-            requestAnimationFrame(function() {
-                desktop = window.innerWidth >= 1024;
-                if (!desktop && featLanding) {
-                    featLanding.style.opacity    = '1';
-                    featLanding.style.transition = 'none';
-                    return;
-                }
-                var r = heroCard.getBoundingClientRect();
-                initialPos = { left: r.left, top: r.top, width: r.width, height: r.height };
-                ready = true;
-                tick();
-            });
-        }, { once: true });
-
         function tick() {
-            if (!ready || !initialPos) { ticking = false; return; }
-
+            var desktop  = window.innerWidth >= 1024;
             var heroRect = heroSection.getBoundingClientRect();
             var scrolled = -heroRect.top;
 
-            /* Phase 0: hero at top */
-            if (scrolled <= 0) {
-                heroCard.style.opacity    = '1';
-                heroCard.style.transform  = '';
-                flyingCard.style.display  = 'none';
-                if (featLanding) featLanding.style.opacity = '0';
+            /* ── Phase 0: at top (or mobile) ── */
+            if (scrolled <= 0 || !desktop) {
+                snapPos = null;                          /* reset so next scroll re-captures */
+                heroFade.style.opacity   = '';
+                flyingCard.style.display = 'none';
+                featLanding.style.opacity = desktop ? '0' : '1';
                 ticking = false;
                 return;
+            }
+
+            /* Capture hero card rect at the FIRST tick after scroll starts */
+            if (!snapPos) {
+                var r = heroCard.getBoundingClientRect();
+                snapPos = { left: r.left, top: r.top, width: r.width, height: r.height };
             }
 
             var progress = clamp(scrolled / heroRect.height, 0, 1);
 
-            /* Phase 2: hero fully off-screen → card has landed */
+            /* ── Phase 2: hero off-screen → landed ── */
             if (progress >= 1) {
-                heroCard.style.opacity   = '0';
+                heroFade.style.opacity   = '0';
                 flyingCard.style.display = 'none';
-                if (featLanding) featLanding.style.opacity = '1';
+                featLanding.style.opacity = '1';
                 ticking = false;
                 return;
             }
 
-            /* Phase 1: in-flight */
-            var p = easeInOut(progress);
+            /* ── Phase 1: in-flight ── */
+            var p   = easeInOut(progress);
+            var lr  = featLanding.getBoundingClientRect();
+            var cx  = lerp(snapPos.left,   lr.left,   p);
+            var cy  = lerp(snapPos.top,    lr.top,    p);
+            var cw  = lerp(snapPos.width,  lr.width,  p);
+            var ch  = lerp(snapPos.height, lr.height, p);
+            var rot = Math.sin(p * Math.PI) * (-10);  /* arc −10deg at mid */
 
-            heroCard.style.opacity   = Math.max(0, 1 - progress / 0.35).toFixed(3);
-            heroCard.style.transform = '';
-            if (featLanding) featLanding.style.opacity = '0';
+            /* Fade hero content out in the first 40% of scroll */
+            heroFade.style.opacity    = Math.max(0, 1 - progress / 0.40).toFixed(3);
+            featLanding.style.opacity = '0';
 
-            if (featLanding) {
-                var lr  = featLanding.getBoundingClientRect();
-                var cx  = lerp(initialPos.left,   lr.left,   p);
-                var cy  = lerp(initialPos.top,    lr.top,    p);
-                var cw  = lerp(initialPos.width,  lr.width,  p);
-                var ch  = lerp(initialPos.height, lr.height, p);
-                var rot = Math.sin(p * Math.PI) * (-10);   /* arc: −10deg at midpoint */
-
-                flyingCard.style.display    = 'block';
-                flyingCard.style.left       = cx.toFixed(1) + 'px';
-                flyingCard.style.top        = cy.toFixed(1) + 'px';
-                flyingCard.style.width      = cw.toFixed(1) + 'px';
-                flyingCard.style.height     = ch.toFixed(1) + 'px';
-                flyingCard.style.transform  = 'rotate(' + rot.toFixed(2) + 'deg)';
-                flyingCard.style.opacity    = '1';
-            }
+            flyingCard.style.display   = 'block';
+            flyingCard.style.left      = cx.toFixed(1) + 'px';
+            flyingCard.style.top       = cy.toFixed(1) + 'px';
+            flyingCard.style.width     = cw.toFixed(1) + 'px';
+            flyingCard.style.height    = ch.toFixed(1) + 'px';
+            flyingCard.style.transform = 'rotate(' + rot.toFixed(2) + 'deg)';
+            flyingCard.style.opacity   = '1';
 
             ticking = false;
         }
@@ -110,13 +95,11 @@ document.addEventListener('alpine:init', () => {
             if (!ticking) { ticking = true; requestAnimationFrame(tick); }
         }, { passive: true });
         window.addEventListener('resize', function() {
-            desktop = window.innerWidth >= 1024;
-            if (ready && window.scrollY === 0) {
-                var r = heroCard.getBoundingClientRect();
-                initialPos = { left: r.left, top: r.top, width: r.width, height: r.height };
-            }
+            snapPos = null;
             if (!ticking) { ticking = true; requestAnimationFrame(tick); }
         }, { passive: true });
+
+        tick(); /* set initial state */
     });
 })();
 
@@ -326,9 +309,11 @@ function sigripHero() {
                 aria-hidden="true"
             ></div>
 
-            {{-- Phone card — entry + scroll animation wrapper --}}
-            <div id="phone-card-scroll" class="phone-card-reveal" style="will-change: transform, opacity;">
-            <div class="relative w-64 aspect-9/16 rounded-4xl overflow-hidden shadow-2xl border border-[#222] cursor-pointer ring-1 ring-white/5">
+            {{-- Fade group: card + badge fade out together as flying card takes over --}}
+            <div id="hero-card-fade">
+
+            {{-- Phone card (position reference for JS) --}}
+            <div id="phone-card-scroll" class="relative w-64 aspect-9/16 rounded-4xl overflow-hidden shadow-2xl border border-[#222] cursor-pointer ring-1 ring-white/5">
                 <img
                     src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/16391788-f7da-4cd2-88de-e0421c307b8f_800w.webp"
                     class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
@@ -366,8 +351,7 @@ function sigripHero() {
                         </p>
                     </div>
                 </div>
-            </div>{{-- /phone card inner --}}
-            </div>{{-- /phone-card-scroll wrapper --}}
+            </div>{{-- /phone-card-scroll --}}
 
             {{-- Floating score badge --}}
             <div class="glass-panel absolute bottom-10 right-10 p-3.5 rounded-2xl flex items-center gap-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.6)] border border-white/10 z-20 hover:scale-105 transition-transform duration-200">
@@ -382,6 +366,8 @@ function sigripHero() {
                     <div class="text-base font-bold text-white leading-none mt-0.5">94<span class="text-zinc-600 text-xs font-normal">/100</span></div>
                 </div>
             </div>
+
+            </div>{{-- /hero-card-fade --}}
         </div>
 
     </section>
