@@ -15,63 +15,108 @@ document.addEventListener('alpine:init', () => {
     });
 });
 
-/* ── Phone card: entry → scroll-linked animation ── */
+/* ── Phone card: entry anim → scroll-driven landing in features section ── */
 (function() {
-    /* Wait for DOM ready */
     document.addEventListener('DOMContentLoaded', function() {
-        var wrapper  = document.getElementById('phone-card-scroll');
-        var heroSect = document.getElementById('hero');
-        if (!wrapper || !heroSect) return;
+        var heroCard    = document.getElementById('phone-card-scroll');
+        var flyingCard  = document.getElementById('flying-card');
+        var heroSection = document.getElementById('hero');
+        var featLanding = document.getElementById('features-landing');
 
-        var ENTRY_MS = 1600;   /* total entry animation duration (delay + keyframe) */
-        var ready    = false;
-        var ticking  = false;
+        if (!heroCard || !flyingCard || !heroSection) return;
+
+        var desktop    = window.innerWidth >= 1024;
+        var initialPos = null;   /* hero card viewport rect captured after entry anim */
+        var ready      = false;
+        var ticking    = false;
 
         function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
         function lerp(a, b, t)    { return a + (b - a) * t; }
-        function easeOut(t)       { return 1 - Math.pow(1 - t, 3); }
+        function easeInOut(t)     { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+        /* Hand off: CSS entry animation → JS control */
+        heroCard.addEventListener('animationend', function() {
+            heroCard.classList.remove('phone-card-reveal');
+            heroCard.style.opacity = '1';
+            requestAnimationFrame(function() {
+                desktop = window.innerWidth >= 1024;
+                if (!desktop && featLanding) {
+                    featLanding.style.opacity    = '1';
+                    featLanding.style.transition = 'none';
+                    return;
+                }
+                var r = heroCard.getBoundingClientRect();
+                initialPos = { left: r.left, top: r.top, width: r.width, height: r.height };
+                ready = true;
+                tick();
+            });
+        }, { once: true });
 
         function tick() {
-            if (!ready) { ticking = false; return; }
+            if (!ready || !initialPos) { ticking = false; return; }
 
-            var rect     = heroSect.getBoundingClientRect();
-            var scrolled = -rect.top;   /* px the hero has scrolled past viewport top */
+            var heroRect = heroSection.getBoundingClientRect();
+            var scrolled = -heroRect.top;
 
+            /* Phase 0: hero at top */
             if (scrolled <= 0) {
-                /* hero not yet reached viewport top — keep card at rest */
-                wrapper.style.transform = '';
-                wrapper.style.opacity   = '';
+                heroCard.style.opacity    = '1';
+                heroCard.style.transform  = '';
+                flyingCard.style.display  = 'none';
+                if (featLanding) featLanding.style.opacity = '0';
                 ticking = false;
                 return;
             }
 
-            /* progress 0 → 1 as the hero scrolls through the viewport */
-            var progress = clamp(scrolled / rect.height, 0, 1);
-            var p        = easeOut(progress);
+            var progress = clamp(scrolled / heroRect.height, 0, 1);
 
-            /* card drifts right + parallax-up, tilts clockwise, shrinks, fades */
-            wrapper.style.transform = [
-                'translate(' + lerp(0,  55, p).toFixed(1) + 'px,' + lerp(0, -80, p).toFixed(1) + 'px)',
-                'rotate('    + lerp(0,  10, p).toFixed(2) + 'deg)',
-                'scale('     + lerp(1, 0.78, p).toFixed(3) + ')'
-            ].join(' ');
-            wrapper.style.opacity = lerp(1, 0, p).toFixed(3);
+            /* Phase 2: hero fully off-screen → card has landed */
+            if (progress >= 1) {
+                heroCard.style.opacity   = '0';
+                flyingCard.style.display = 'none';
+                if (featLanding) featLanding.style.opacity = '1';
+                ticking = false;
+                return;
+            }
+
+            /* Phase 1: in-flight */
+            var p = easeInOut(progress);
+
+            heroCard.style.opacity   = Math.max(0, 1 - progress / 0.35).toFixed(3);
+            heroCard.style.transform = '';
+            if (featLanding) featLanding.style.opacity = '0';
+
+            if (featLanding) {
+                var lr  = featLanding.getBoundingClientRect();
+                var cx  = lerp(initialPos.left,   lr.left,   p);
+                var cy  = lerp(initialPos.top,    lr.top,    p);
+                var cw  = lerp(initialPos.width,  lr.width,  p);
+                var ch  = lerp(initialPos.height, lr.height, p);
+                var rot = Math.sin(p * Math.PI) * (-10);   /* arc: −10deg at midpoint */
+
+                flyingCard.style.display    = 'block';
+                flyingCard.style.left       = cx.toFixed(1) + 'px';
+                flyingCard.style.top        = cy.toFixed(1) + 'px';
+                flyingCard.style.width      = cw.toFixed(1) + 'px';
+                flyingCard.style.height     = ch.toFixed(1) + 'px';
+                flyingCard.style.transform  = 'rotate(' + rot.toFixed(2) + 'deg)';
+                flyingCard.style.opacity    = '1';
+            }
 
             ticking = false;
         }
 
-        /* Hand off from CSS entry animation to JS scroll control */
-        setTimeout(function() {
-            wrapper.classList.remove('phone-card-reveal');
-            wrapper.style.opacity = '1';
-            ready = true;
-            tick();
-        }, ENTRY_MS);
-
         window.addEventListener('scroll', function() {
             if (!ticking) { ticking = true; requestAnimationFrame(tick); }
         }, { passive: true });
-        window.addEventListener('resize', tick, { passive: true });
+        window.addEventListener('resize', function() {
+            desktop = window.innerWidth >= 1024;
+            if (ready && window.scrollY === 0) {
+                var r = heroCard.getBoundingClientRect();
+                initialPos = { left: r.left, top: r.top, width: r.width, height: r.height };
+            }
+            if (!ticking) { ticking = true; requestAnimationFrame(tick); }
+        }, { passive: true });
     });
 })();
 
@@ -362,3 +407,34 @@ function sigripHero() {
 </div>
 
 </div>{{-- /x-data --}}
+
+{{-- ── Flying card: position:fixed, JS-driven during scroll transition ── --}}
+<div
+    id="flying-card"
+    aria-hidden="true"
+    style="
+        position: fixed;
+        display: none;
+        z-index: 60;
+        pointer-events: none;
+        will-change: transform, left, top, width, height;
+        border-radius: 2rem;
+        overflow: hidden;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+        border: 1px solid #222;
+    "
+>
+    <img
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/16391788-f7da-4cd2-88de-e0421c307b8f_800w.webp"
+        style="width:100%; height:100%; object-fit:cover; display:block;"
+        alt=""
+    />
+    <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.8), transparent, rgba(0,0,0,0.2));"></div>
+    <div style="position:absolute; bottom:1.25rem; left:1.25rem; right:1.25rem;">
+        <div style="background:rgba(255,255,255,0.07); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); padding:1rem; border-radius:1rem; border:1px solid rgba(255,255,255,0.06);">
+            <p style="color:#fbbf24; font-weight:700; text-align:center; font-size:0.9rem; line-height:1.35; margin:0;">
+                "El bienestar es tu ventaja competitiva."
+            </p>
+        </div>
+    </div>
+</div>
