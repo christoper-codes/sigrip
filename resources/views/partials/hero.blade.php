@@ -15,6 +15,66 @@ document.addEventListener('alpine:init', () => {
     });
 });
 
+/* ── Phone card: entry → scroll-linked animation ── */
+(function() {
+    /* Wait for DOM ready */
+    document.addEventListener('DOMContentLoaded', function() {
+        var wrapper  = document.getElementById('phone-card-scroll');
+        var heroSect = document.getElementById('hero');
+        if (!wrapper || !heroSect) return;
+
+        var ENTRY_MS = 1600;   /* total entry animation duration (delay + keyframe) */
+        var ready    = false;
+        var ticking  = false;
+
+        function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
+        function lerp(a, b, t)    { return a + (b - a) * t; }
+        function easeOut(t)       { return 1 - Math.pow(1 - t, 3); }
+
+        function tick() {
+            if (!ready) { ticking = false; return; }
+
+            var rect     = heroSect.getBoundingClientRect();
+            var scrolled = -rect.top;   /* px the hero has scrolled past viewport top */
+
+            if (scrolled <= 0) {
+                /* hero not yet reached viewport top — keep card at rest */
+                wrapper.style.transform = '';
+                wrapper.style.opacity   = '';
+                ticking = false;
+                return;
+            }
+
+            /* progress 0 → 1 as the hero scrolls through the viewport */
+            var progress = clamp(scrolled / rect.height, 0, 1);
+            var p        = easeOut(progress);
+
+            /* card drifts right + parallax-up, tilts clockwise, shrinks, fades */
+            wrapper.style.transform = [
+                'translate(' + lerp(0,  55, p).toFixed(1) + 'px,' + lerp(0, -80, p).toFixed(1) + 'px)',
+                'rotate('    + lerp(0,  10, p).toFixed(2) + 'deg)',
+                'scale('     + lerp(1, 0.78, p).toFixed(3) + ')'
+            ].join(' ');
+            wrapper.style.opacity = lerp(1, 0, p).toFixed(3);
+
+            ticking = false;
+        }
+
+        /* Hand off from CSS entry animation to JS scroll control */
+        setTimeout(function() {
+            wrapper.classList.remove('phone-card-reveal');
+            wrapper.style.opacity = '1';
+            ready = true;
+            tick();
+        }, ENTRY_MS);
+
+        window.addEventListener('scroll', function() {
+            if (!ticking) { ticking = true; requestAnimationFrame(tick); }
+        }, { passive: true });
+        window.addEventListener('resize', tick, { passive: true });
+    });
+})();
+
 function sigripHero() {
     return {
         mobileMenuOpen: false,
@@ -221,7 +281,8 @@ function sigripHero() {
                 aria-hidden="true"
             ></div>
 
-            {{-- Phone card --}}
+            {{-- Phone card — entry + scroll animation wrapper --}}
+            <div id="phone-card-scroll" class="phone-card-reveal" style="will-change: transform, opacity;">
             <div class="relative w-64 aspect-9/16 rounded-4xl overflow-hidden shadow-2xl border border-[#222] cursor-pointer ring-1 ring-white/5">
                 <img
                     src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/16391788-f7da-4cd2-88de-e0421c307b8f_800w.webp"
@@ -260,7 +321,8 @@ function sigripHero() {
                         </p>
                     </div>
                 </div>
-            </div>
+            </div>{{-- /phone card inner --}}
+            </div>{{-- /phone-card-scroll wrapper --}}
 
             {{-- Floating score badge --}}
             <div class="glass-panel absolute bottom-10 right-10 p-3.5 rounded-2xl flex items-center gap-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.6)] border border-white/10 z-20 hover:scale-105 transition-transform duration-200">

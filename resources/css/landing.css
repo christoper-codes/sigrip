@@ -166,6 +166,19 @@ html { scroll-behavior: smooth; }
 /* Hero video — opacity is driven entirely by JS (initial fade-in + loop crossfade) */
 .video-hero { opacity: 0; }
 
+/* ── Phone card: entry + scroll-driven animation ─────────────── */
+@keyframes phoneCardReveal {
+    0%   { opacity: 0; transform: translateY(-24px) translateX(100px) rotate(14deg)  scale(0.76); }
+    55%  { opacity: 1; transform: translateY( 10px) translateX( -8px) rotate(-2deg)  scale(1.04); }
+    78%  { opacity: 1; transform: translateY( -5px) translateX(  3px) rotate( 0.8deg) scale(0.98); }
+    100% { opacity: 1; transform: translateY(  0px) translateX(  0px) rotate( 0deg)  scale(1);    }
+}
+.phone-card-reveal {
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: phoneCardReveal 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+}
+
 /* Glass panel — semi-transparent dark overlay (phone card UI, floating badges) */
 .glass-panel {
     background: rgba(255, 255, 255, 0.07);
