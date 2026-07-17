@@ -1,8 +1,7 @@
 {{-- ============================================================
      Hero — SIGRIP · NOM-035
-     Exact structure/interactions from the Mainframe reference design:
-     autoplaying looped background video, typewriter headline,
-     interactive multi-select pills + contingent feedback banner.
+     Apple/iOS style: frosted glass badge & pills, solid black
+     rounded-full CTAs, autoplaying looped background video.
      Dark mode synced to flux.appearance in localStorage (store lives in partials.header)
      ============================================================ --}}
 
@@ -12,32 +11,11 @@ document.addEventListener('alpine:init', () => {
         selectedServices: [],
         services: ['Diagnóstico NOM-035', 'Riesgos psicosociales', 'Incidentes', 'Reportes STPS'],
 
-        // Typewriter state
-        fullText: "Cumple.\nProtege.\nAutomatiza.",
-        displayedText: '',
-        isDone: false,
-
         init() {
-            this.initTypewriter();
             this.$nextTick(() => {
                 const video = this.$refs.bgVideo;
                 if (video) video.play().catch(() => {});
             });
-        },
-
-        initTypewriter() {
-            let i = 0;
-            setTimeout(() => {
-                const timer = setInterval(() => {
-                    if (i < this.fullText.length) {
-                        this.displayedText = this.fullText.slice(0, i + 1);
-                        i++;
-                    } else {
-                        clearInterval(timer);
-                        this.isDone = true;
-                    }
-                }, 38);
-            }, 600);
         },
 
         toggleService(service) {
@@ -74,28 +52,46 @@ document.addEventListener('alpine:init', () => {
         ></video>
     </div>
 
+    {{-- Scrim: keeps text readable over the video regardless of its own
+         footage colors or the active theme. Plain CSS gradient (not Tailwind
+         stop-position utilities) so the fade position is unambiguous. --}}
+    <div
+        class="hidden lg:block lg:absolute lg:inset-0 lg:z-5 pointer-events-none"
+        :style="$store.appearance.dark
+            ? 'background: linear-gradient(to right, #050505 0%, rgba(5,5,5,0.85) 45%, rgba(5,5,5,0) 70%)'
+            : 'background: linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0) 70%)'"
+    ></div>
+
     {{-- Content Layout Container --}}
     <div
-        class="relative z-10 flex flex-col order-first lg:order-0 w-full lg:bg-transparent pb-8 lg:pb-0 lg:min-h-screen pt-24 lg:pt-0 transition-colors duration-300"
+        class="relative z-10 flex flex-col order-first lg:order-0 w-full lg:bg-transparent pb-8 lg:pb-0 lg:min-h-screen pt-28 lg:pt-0 transition-colors duration-300"
         :class="$store.appearance.dark ? 'bg-[#050505]' : 'bg-white'"
     >
-        <main class="w-full max-w-7xl mx-auto px-6 py-12 flex-1 flex flex-col justify-center">
+        <main class="w-full max-w-7xl mx-auto px-6 sm:px-8 py-12 flex-1 flex flex-col justify-center">
 
-            {{-- Typewriter Headline --}}
+            {{-- Badge --}}
+            <div
+                class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border w-fit mb-8 animate-blur-fade-up"
+                :class="$store.appearance.dark ? 'ios-glass-dark border-white/10' : 'ios-glass border-black/6'"
+            >
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                <span
+                    class="text-xs font-medium uppercase tracking-wider"
+                    :class="$store.appearance.dark ? 'text-zinc-200' : 'text-zinc-700'"
+                >Sistema NOM-035 · STPS México</span>
+            </div>
+
+            {{-- Headline --}}
             <h1
-                class="text-5xl md:text-6xl lg:text-[76px] font-normal tracking-tight leading-[1.08] mb-8 select-none w-full whitespace-pre-wrap fade-in-start animate-fade-in-up"
+                class="text-5xl md:text-6xl lg:text-[76px] font-normal tracking-tight leading-[1.08] mb-8 w-full animate-blur-fade-up"
                 :class="$store.appearance.dark ? 'text-white' : 'text-black'"
             >
-                <span x-text="displayedText"></span><span
-                    x-show="!isDone"
-                    class="inline-block w-0.5 h-[1.1em] align-middle ml-0.5 animate-blink"
-                    :class="$store.appearance.dark ? 'bg-white' : 'bg-black'"
-                ></span>
+                Cumple.<br>Protege.<br>Automatiza.
             </h1>
 
             {{-- Secondary Description Text --}}
             <p
-                class="text-lg md:text-xl leading-relaxed font-normal mb-14 max-w-2xl fade-in-start animate-fade-in-up-delay-1"
+                class="text-lg md:text-xl leading-relaxed font-normal mb-14 max-w-2xl animate-blur-fade-up animation-delay-200"
                 :class="$store.appearance.dark ? 'text-zinc-400' : 'text-[#5A635A]'"
             >
                 Automatiza el cumplimiento de la NOM-035, prevención de riesgos psicosociales, <br class="hidden sm:block" />
@@ -103,7 +99,7 @@ document.addEventListener('alpine:init', () => {
             </p>
 
             {{-- Interactive Multi-Select Service Pills --}}
-            <div class="fade-in-start animate-fade-in-up-delay-2">
+            <div class="animate-blur-fade-up animation-delay-400">
                 <h2
                     class="text-2xl font-medium tracking-tight mb-2"
                     :class="$store.appearance.dark ? 'text-white' : 'text-black'"
@@ -117,14 +113,12 @@ document.addEventListener('alpine:init', () => {
                     <template x-for="service in services" :key="service">
                         <button
                             @click="toggleService(service)"
-                            class="flex items-center gap-2 px-6 py-3 rounded-full text-base font-medium transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                            class="flex items-center gap-2 px-6 py-3 rounded-full text-base font-medium border transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
                             :class="selectedServices.includes(service)
-                                ? ($store.appearance.dark
-                                    ? 'bg-white text-black shadow-md transform'
-                                    : 'bg-[#1C2E1E] text-white shadow-md shadow-emerald-950/5 transform')
+                                ? 'bg-[#1d1d1f] text-white border-transparent shadow-lg shadow-black/10'
                                 : ($store.appearance.dark
-                                    ? 'bg-[#0a0a0a] text-white border border-white/10 hover:bg-white/5'
-                                    : 'bg-white text-[#1C2E1E] border border-[#F1F3F1] hover:bg-[#F1F3F1]/55')
+                                    ? 'ios-glass-dark text-white border-white/10 hover:bg-white/10'
+                                    : 'ios-glass text-black border-black/8 hover:bg-white')
                             "
                         >
                             <span x-text="service"></span>
@@ -176,20 +170,15 @@ document.addEventListener('alpine:init', () => {
                         class="overflow-hidden"
                     >
                         <div
-                            class="flex items-center justify-between p-4 border rounded-2xl max-w-xl mt-2"
-                            :class="$store.appearance.dark ? 'bg-white/5 border-white/10' : 'bg-[#FAFBF9] border-[#F1F3F1]'"
+                            class="flex items-center justify-between gap-4 p-4 border rounded-2xl max-w-xl mt-2"
+                            :class="$store.appearance.dark ? 'ios-glass-dark border-white/10' : 'ios-glass border-black/8'"
                         >
-                            <span class="text-sm font-medium truncate pr-4" :class="$store.appearance.dark ? 'text-white' : 'text-[#1C2E1E]'">
+                            <span class="text-sm font-medium truncate" :class="$store.appearance.dark ? 'text-white' : 'text-[#1C2E1E]'">
                                 Listo para conocer más sobre: <span class="font-normal" :class="$store.appearance.dark ? 'text-zinc-400' : 'text-[#5A635A]'" x-text="selectedServices.join(', ')"></span>
                             </span>
-                            <a
-                                href="{{ route('register') }}" wire:navigate
-                                class="flex items-center gap-1.5 uppercase text-xs font-semibold tracking-wider hover:opacity-70 transition-opacity shrink-0"
-                                :class="$store.appearance.dark ? 'text-blue-400' : 'text-[#4D6D47]'"
-                            >
+                            <x-ui.btn-primary href="{{ route('register') }}" wire:navigate class="px-5! py-2.5! text-[13px]! shrink-0">
                                 Comenzar
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                            </a>
+                            </x-ui.btn-primary>
                         </div>
                     </div>
                 </div>

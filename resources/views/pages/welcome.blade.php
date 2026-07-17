@@ -1,5 +1,4 @@
 <x-layouts.guest.simple>
     @include('partials.hero')
-    @include('partials.features')
-    @include('partials.bienestar-reveal')
+<div class="h-screen"></div>
 </x-layouts.guest.simple>

@@ -90,23 +90,6 @@ html { scroll-behavior: smooth; }
 /* Alpine: hide until hydrated */
 [x-cloak] { display: none !important; }
 
-/* ── Hero typewriter caret ── */
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-.animate-blink { animation: blink 1s step-end infinite; }
-
-/* ── Hero fade-in-up entrance ── */
-@keyframes heroFadeInUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-.fade-in-start { opacity: 0; }
-.animate-fade-in-up { animation: heroFadeInUp 0.6s ease-out forwards; }
-.animate-fade-in-up-delay-1 { animation: heroFadeInUp 0.6s ease-out 0.1s forwards; }
-.animate-fade-in-up-delay-2 { animation: heroFadeInUp 0.6s ease-out 0.2s forwards; }
-
 /* ============================================================
    Hero — modern redesign
    ============================================================ */
