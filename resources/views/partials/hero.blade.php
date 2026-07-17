@@ -1,9 +1,8 @@
 {{-- ============================================================
      Hero — SIGRIP · NOM-035
      Exact structure/interactions from the Mainframe reference design:
-     ping-pong (forward/reverse) autoplaying background video,
-     typewriter headline, interactive multi-select pills + contingent
-     feedback banner.
+     autoplaying looped background video, typewriter headline,
+     interactive multi-select pills + contingent feedback banner.
      Dark mode synced to flux.appearance in localStorage (store lives in partials.header)
      ============================================================ --}}
 
@@ -20,52 +19,10 @@ document.addEventListener('alpine:init', () => {
 
         init() {
             this.initTypewriter();
-            this.$nextTick(() => this.initVideo());
-        },
-
-        // Ping-pong loop: plays forward natively, then on 'ended' scrubs
-        // back to the start manually (browsers don't support real reverse
-        // playback), then resumes forward — no jump-cut at the loop point.
-        //
-        // Each backward step waits for the previous seek to actually finish
-        // ('seeked') before requesting the next one. Driving currentTime off
-        // a rAF/clock timer instead fires far more seeks per second than a
-        // streamed video's decoder can keep up with, so it just freezes on
-        // the last frame in real browsers even though the property itself
-        // keeps updating.
-        initVideo() {
-            const video = this.$refs.bgVideo;
-            if (!video) return;
-
-            const STEP = 1 / 24; // seconds per backward frame
-            let reversing = false;
-            let watchdog = null;
-
-            const stepBack = () => {
-                clearTimeout(watchdog);
-
-                if (video.currentTime <= STEP) {
-                    reversing = false;
-                    video.currentTime = 0;
-                    video.play().catch(() => {});
-                    return;
-                }
-
-                video.currentTime = Math.max(0, video.currentTime - STEP);
-                // Safety net: if 'seeked' never fires (dropped event), keep going anyway.
-                watchdog = setTimeout(stepBack, 300);
-            };
-
-            video.addEventListener('seeked', () => {
-                if (reversing) stepBack();
+            this.$nextTick(() => {
+                const video = this.$refs.bgVideo;
+                if (video) video.play().catch(() => {});
             });
-
-            video.addEventListener('ended', () => {
-                reversing = true;
-                stepBack();
-            });
-
-            video.play().catch(() => {});
         },
 
         initTypewriter() {
@@ -107,8 +64,9 @@ document.addEventListener('alpine:init', () => {
     >
         <video
             x-ref="bgVideo"
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260601_110537_3a579fa0-7bbc-4d94-9d25-0e816c7840f5.mp4"
+            src="{{ asset('videos/hero.mp4') }}"
             autoplay
+            loop
             muted
             playsinline
             preload="auto"
