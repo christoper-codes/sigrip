@@ -44,11 +44,9 @@
                     aria-hidden="true"
                 ></div>
 
-                {{-- Landing placeholder (hidden until flying card arrives) --}}
+                {{-- Phone card mockup --}}
                 <div
-                    id="features-landing"
                     class="relative w-64 aspect-9/16 rounded-4xl overflow-hidden shadow-2xl border border-[#222] ring-1 ring-white/5"
-                    style="opacity: 0; will-change: opacity; transition: opacity 0.35s ease;"
                 >
                     <img
                         src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/16391788-f7da-4cd2-88de-e0421c307b8f_800w.webp"
@@ -76,8 +74,6 @@
                 {{-- Floating score badge --}}
                 <div
                     class="glass-panel absolute bottom-10 right-10 p-3.5 rounded-2xl flex items-center gap-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.6)] border border-white/10 z-20"
-                    id="features-badge"
-                    style="opacity: 0; transition: opacity 0.35s ease 0.15s;"
                 >
                     <div class="bg-blue-500/15 p-2 rounded-lg text-blue-400">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -154,17 +150,3 @@
         </div>{{-- /2-col grid --}}
     </div>{{-- /bordered container --}}
 </div>
-
-{{-- Sync features-badge opacity with features-landing --}}
-<script>
-(function() {
-    document.addEventListener('DOMContentLoaded', function() {
-        var landing = document.getElementById('features-landing');
-        var badge   = document.getElementById('features-badge');
-        if (!landing || !badge) return;
-        new MutationObserver(function() {
-            badge.style.opacity = landing.style.opacity;
-        }).observe(landing, { attributes: true, attributeFilter: ['style'] });
-    });
-})();
-</script>
