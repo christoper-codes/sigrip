@@ -5,7 +5,7 @@
                 Sigrip
             </span>
 
-            <div class="hidden md:flex items-center gap-5">
+            <div class="animate-blur-fade-up hidden md:flex items-center gap-5">
                 <button
                     x-data
                     x-on:click="$flux.dark = !$flux.dark"

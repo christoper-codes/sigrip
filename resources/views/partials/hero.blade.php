@@ -51,7 +51,7 @@ document.addEventListener('alpine:init', () => {
     ></div>
 
     {{-- Content Layout Container --}}
-    <div class="lg:mt-16 lg:pt-0 relative z-10 flex flex-col order-first lg:order-0 w-full lg:bg-transparent pb-8 lg:pb-0 lg:min-h-screen pt-28">
+    <div class="lg:mt-20 lg:pt-0 relative z-10 flex flex-col order-first lg:order-0 w-full lg:bg-transparent pb-8 lg:pb-0 lg:min-h-screen pt-28">
         <main class="w-full max-w-7xl mx-auto px-6 sm:px-8 py-12 flex-1 flex flex-col justify-center">
 
             {{-- Badge --}}
