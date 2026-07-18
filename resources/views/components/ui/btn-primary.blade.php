@@ -11,7 +11,7 @@
 @props(['href' => null, 'type' => 'button'])
 
 @php
-$wrapperClass = 'liquid-glass-light rounded-full w-fit block select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out';
+$wrapperClass = 'liquid-glass-fixed rounded-full w-fit block select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out';
 $labelClass = 'block font-light text-[0.7rem] tracking-[0.2em] uppercase text-black select-none px-8 py-3.5';
 @endphp
 

@@ -5,7 +5,7 @@
                  <button
                     x-data
                     x-on:click="$flux.dark = !$flux.dark"
-                    class="liquid-glass-light w-9 h-9 rounded-full flex items-center justify-center select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out"
+                    class="liquid-glass-fixed w-9 h-9 rounded-full flex items-center justify-center select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out"
                     aria-label="Cambiar tema"
                 >
                     <svg x-show="$flux.dark" class="w-3.5 h-3.5 text-black" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
