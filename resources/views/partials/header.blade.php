@@ -21,8 +21,8 @@
             </div>
 
             <nav class="animate-blur-fade-up flex items-center gap-5 text-dark dark:text-dark font-light text-[0.7rem] tracking-[0.2em] uppercase">
-                <a href="#">Servicios</a>
-                <a href="#">Como funciona</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#como-funciona">Como funciona</a>
             </nav>
 
             <div class="animate-blur-fade-up hidden md:flex items-center gap-5">
