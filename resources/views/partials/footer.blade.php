@@ -1,4 +1,4 @@
-<footer class="max-w-7xl mx-auto px-6 sm:px-8 py-4 flex items-center justify-between">
+<footer class="max-w-7xl relative mx-auto px-6 sm:px-8 py-4 flex items-center justify-between">
     <div class="flex items-center gap-2 animate-blur-fade-up">
         <button
             x-data
@@ -17,4 +17,5 @@
             Sigrip
         </span>
     </div>
+<div class="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0"><div class="h-full w-full" style="mask-image:linear-gradient(to bottom, black, transparent);-webkit-mask-image:linear-gradient(to bottom, black, transparent)"><canvas class="pointer-events-none" style="width: 1078px; height: 100px;" width="1347" height="125"></canvas></div></div>
 </footer>
