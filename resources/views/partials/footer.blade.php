@@ -1,4 +1,4 @@
-<footer>
+<footer class="max-w-7xl mx-auto px-6 sm:px-8 py-4 flex items-center justify-between">
     <div class="flex items-center gap-2 animate-blur-fade-up">
             <button
             x-data
