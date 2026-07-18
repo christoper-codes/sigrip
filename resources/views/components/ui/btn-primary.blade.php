@@ -9,7 +9,10 @@
 
      By default the adaptive switch follows `$flux.dark`. Pass `:follow="'scrolled'"`
      (any Alpine expression, as a string) to have it react to something else instead,
-     e.g. a local x-data flag.
+     e.g. a local x-data flag — in that case the "false" state uses
+     `liquid-glass-fixed` rather than `liquid-glass-light`, since the latter has a
+     `.dark …` CSS override that would darken it anyway whenever the site itself is
+     in dark mode, defeating the point of following a separate flag.
 
      Extra classes passed by the caller (e.g. class="px-5! py-2!") must land
      on the inner <span> — that's where the default padding/text-size
@@ -19,6 +22,7 @@
 
 @php
 $condition = $follow ?: '$flux.dark';
+$falseClass = $follow ? 'liquid-glass-fixed' : 'liquid-glass-light';
 $wrapperClass = ($adaptive ? '' : 'liquid-glass-fixed ') . 'rounded-full w-fit block select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out';
 $labelClass = 'block font-light text-[0.7rem] tracking-[0.2em] uppercase select-none px-8 py-3.5' . ($adaptive ? '' : ' text-black');
 @endphp
@@ -26,7 +30,7 @@ $labelClass = 'block font-light text-[0.7rem] tracking-[0.2em] uppercase select-
 @if($href)
     <a
         href="{{ $href }}"
-        @if($adaptive) :class="{{ $condition }} ? 'liquid-glass' : 'liquid-glass-light'" @endif
+        @if($adaptive) :class="{{ $condition }} ? 'liquid-glass' : '{{ $falseClass }}'" @endif
         {{ $attributes->except('class')->merge(['class' => $wrapperClass]) }}
     >
         <span
@@ -37,7 +41,7 @@ $labelClass = 'block font-light text-[0.7rem] tracking-[0.2em] uppercase select-
 @else
     <button
         type="{{ $type }}"
-        @if($adaptive) :class="{{ $condition }} ? 'liquid-glass' : 'liquid-glass-light'" @endif
+        @if($adaptive) :class="{{ $condition }} ? 'liquid-glass' : '{{ $falseClass }}'" @endif
         {{ $attributes->except('class')->merge(['class' => $wrapperClass]) }}
     >
         <span

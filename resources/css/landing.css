@@ -323,6 +323,39 @@ html { scroll-behavior: smooth; }
     );
 }
 
+/* Floating header pill (shrunk nav on scroll). Its own style rather than
+   reusing .liquid-glass — a wide bar reads very differently than a small
+   button, so the border gradient here is toned down instead of the bright
+   white used on buttons. Background color is driven entirely by the
+   caller's inline style (transparent at top, dark once scrolled). */
+.header-pill {
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: none;
+    position: relative;
+    transition: background 0.3s ease;
+}
+.header-pill::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.14) 0%,
+        rgba(255,255,255,0.04) 30%,
+        rgba(255,255,255,0.04) 70%,
+        rgba(255,255,255,0.14) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask:         linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    transition: background 0.3s ease;
+}
+
 /* How-it-works connector: animated flowing dash along the "live" path */
 @keyframes bn-flow {
     to { stroke-dashoffset: -13; }

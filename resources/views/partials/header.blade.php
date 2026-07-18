@@ -6,7 +6,7 @@
         <div
             class="flex items-center justify-between transition-all duration-300 ease-out"
             :class="scrolled
-                ? 'mx-6 md:mx-auto max-w-4xl liquid-glass rounded-full px-6 py-3 shadow-lg shadow-black/20'
+                ? 'mx-6 md:mx-auto max-w-4xl header-pill rounded-full px-6 py-3 shadow-lg shadow-black/20'
                 : 'mx-auto max-w-7xl px-6 sm:px-8 py-4'"
             :style="'background: ' + (scrolled ? 'rgba(15,15,15,0.6)' : 'transparent') + ';'"
         >
@@ -30,7 +30,7 @@
                 </span>
             </div>
 
-            <nav class="animate-blur-fade-up hidden md:flex items-center gap-5 font-light text-[0.7rem] tracking-[0.2em] uppercase" :class="scrolled ? 'text-white' : 'text-dark dark:text-dark'">
+            <nav class="hidden md:flex items-center gap-5 font-light text-[0.7rem] tracking-[0.2em] uppercase" :class="scrolled ? 'text-white' : 'text-dark dark:text-dark'">
                 <a href="#servicios">Servicios</a>
                 <a href="#como-funciona">Como funciona</a>
             </nav>
