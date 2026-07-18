@@ -1,12 +1,8 @@
 <div>
     <header class="absolute top-0 inset-x-0 z-50">
         <div class="max-w-7xl mx-auto px-6 sm:px-8 py-4 flex items-center justify-between">
-            <span class="text-2xl sm:text-[27px] font-normal tracking-tight leading-[1.08] animate-blur-fade-up select-none text-dark dark:text-dark">
-                Sigrip
-            </span>
-
-            <div class="animate-blur-fade-up hidden md:flex items-center gap-5">
-                <button
+            <div class="flex items-center gap-2 animate-blur-fade-up">
+                 <button
                     x-data
                     x-on:click="$flux.dark = !$flux.dark"
                     class="liquid-glass-light w-9 h-9 rounded-full flex items-center justify-center select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out"
@@ -19,7 +15,17 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
                     </svg>
                 </button>
+                <span class="font-light text-sm tracking-[0.2em] uppercase select-none text-dark dark:text-dark">
+                    Sigrip
+                </span>
+            </div>
 
+            <nav class="animate-blur-fade-up flex items-center gap-5 text-dark dark:text-dark font-light text-[0.7rem] tracking-[0.2em] uppercase">
+                <a href="#">Servicios</a>
+                <a href="#">Como funciona</a>
+            </nav>
+
+            <div class="animate-blur-fade-up hidden md:flex items-center gap-5">
                 <a
                     href="{{ route('login') }}" wire:navigate
                     class="text-dark dark:text-dark font-light text-[0.7rem] tracking-[0.2em] uppercase"
