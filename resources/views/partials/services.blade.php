@@ -31,9 +31,12 @@ $services = [
             <span class="block text-dark dark:text-light font-light text-[0.7rem] tracking-[0.2em] uppercase mb-4">
                 Servicios
             </span>
-            <h2 class="text-dark dark:text-light text-4xl sm:text-5xl font-normal tracking-tight leading-[1.08]">
+            <h2 class="text-dark dark:text-light text-4xl sm:text-5xl font-normal tracking-tight leading-[1.08] mb-8">
                 Todo lo que tu equipo necesita para cumplir la NOM-035.
             </h2>
+            <x-ui.btn-primary href="{{ route('register') }}" wire:navigate :adaptive="true">
+                Comenzar gratis
+            </x-ui.btn-primary>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -56,12 +59,5 @@ $services = [
                 </div>
             @endforeach
         </div>
-
-        <div class="mt-16 flex justify-center animate-blur-fade-up animation-delay-600">
-            <x-ui.btn-primary href="{{ route('register') }}" wire:navigate :adaptive="true">
-                Comenzar gratis
-            </x-ui.btn-primary>
-        </div>
-
     </div>
 </section>

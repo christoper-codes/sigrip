@@ -1,6 +1,6 @@
 <footer class="max-w-7xl mx-auto px-6 sm:px-8 py-4 flex items-center justify-between">
     <div class="flex items-center gap-2 animate-blur-fade-up">
-            <button
+        <button
             x-data
             x-on:click="$flux.dark = !$flux.dark"
             class="liquid-glass-light w-9 h-9 rounded-full flex items-center justify-center select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out"

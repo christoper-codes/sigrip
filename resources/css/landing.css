@@ -229,7 +229,7 @@ html { scroll-behavior: smooth; }
 
 /* Liquid glass pill / button */
 .liquid-glass {
-    background: rgba(255, 255, 255, 0.01);
+    background: rgb(68 68 68 / 10%);
     background-blend-mode: luminosity;
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
@@ -346,4 +346,9 @@ html { scroll-behavior: smooth; }
         rgba(255,255,255,0.15) 80%,
         rgba(255,255,255,0.45) 100%
     );
+}
+
+/* How-it-works connector: animated flowing dash along the "live" path */
+@keyframes bn-flow {
+    to { stroke-dashoffset: -13; }
 }
