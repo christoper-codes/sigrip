@@ -121,17 +121,17 @@
 input:focus[data-flux-control],
 textarea:focus[data-flux-control],
 select:focus[data-flux-control] {
-    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground rounded-none!;
+    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground rounded-xl!;
 }
 
 input[data-flux-control]{
-    @apply py-6! rounded-none!;
+    @apply py-6! rounded-xl!;
 }
 select[data-flux-control]{
-    @apply rounded-none!;
+    @apply rounded-xl!;
 }
 [data-flux-button] {
-    @apply rounded-none!;
+    @apply rounded-xl!;
 }
 
 /* \[:where(&)\]:size-4 {
