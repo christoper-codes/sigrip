@@ -1,26 +1,36 @@
-<div x-data="{ mobileMenuOpen: false }">
-    <header class="absolute top-0 inset-x-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 sm:px-8 py-4 flex items-center justify-between">
+<div
+    x-data="{ mobileMenuOpen: false, scrolled: false, ticking: false }"
+    @scroll.window="if (!ticking) { ticking = true; requestAnimationFrame(() => { scrolled = window.scrollY > 40; ticking = false; }); }"
+>
+    <header class="fixed top-0 inset-x-0 z-50 transition-[padding] duration-300 ease-out" :class="scrolled ? 'pt-4' : 'pt-0'">
+        <div
+            class="flex items-center justify-between transition-all duration-300 ease-out"
+            :class="scrolled
+                ? 'mx-6 md:mx-auto max-w-4xl liquid-glass rounded-full px-6 py-3 shadow-lg shadow-black/20'
+                : 'mx-auto max-w-7xl px-6 sm:px-8 py-4'"
+            :style="'background: ' + (scrolled ? 'rgba(15,15,15,0.6)' : 'transparent') + ';'"
+        >
             <div class="flex items-center gap-2 animate-blur-fade-up">
                  <button
                     x-data
                     x-on:click="$flux.dark = !$flux.dark"
-                    class="liquid-glass-fixed w-9 h-9 rounded-full flex items-center justify-center select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out"
+                    class="w-9 h-9 rounded-full flex items-center justify-center select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out"
+                    :class="scrolled ? 'liquid-glass' : 'liquid-glass-fixed'"
                     aria-label="Cambiar tema"
                 >
-                    <svg x-show="$flux.dark" class="w-3.5 h-3.5 text-black" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <svg x-show="$flux.dark" class="w-3.5 h-3.5" :class="scrolled ? 'text-white' : 'text-black'" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
                     </svg>
-                    <svg x-show="!$flux.dark" class="w-3.5 h-3.5 text-black" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
+                    <svg x-show="!$flux.dark" class="w-3.5 h-3.5" :class="scrolled ? 'text-white' : 'text-black'" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
                     </svg>
                 </button>
-                <span class="font-light text-sm tracking-[0.2em] uppercase select-none text-dark dark:text-dark">
+                <span class="font-light text-sm tracking-[0.2em] uppercase select-none" :class="scrolled ? 'text-white' : 'text-dark dark:text-dark'">
                     Sigrip
                 </span>
             </div>
 
-            <nav class="animate-blur-fade-up hidden md:flex items-center gap-5 text-dark dark:text-dark font-light text-[0.7rem] tracking-[0.2em] uppercase">
+            <nav class="animate-blur-fade-up hidden md:flex items-center gap-5 font-light text-[0.7rem] tracking-[0.2em] uppercase" :class="scrolled ? 'text-white' : 'text-dark dark:text-dark'">
                 <a href="#servicios">Servicios</a>
                 <a href="#como-funciona">Como funciona</a>
             </nav>
@@ -28,35 +38,37 @@
             <div class="animate-blur-fade-up hidden md:flex items-center gap-5">
                 <a
                     href="{{ route('login') }}" wire:navigate
-                    class="text-dark dark:text-dark font-light text-[0.7rem] tracking-[0.2em] uppercase"
+                    class="font-light text-[0.7rem] tracking-[0.2em] uppercase"
+                    :class="scrolled ? 'text-white' : 'text-dark dark:text-dark'"
                     >
                     Iniciar sesión
                 </a>
 
-                <x-ui.btn-primary href="{{ route('register') }}" wire:navigate>
+                <x-ui.btn-primary href="{{ route('register') }}" wire:navigate :adaptive="true" :follow="'scrolled'">
                     Comenzar
                 </x-ui.btn-primary>
             </div>
 
             {{-- Mobile Hamburger Button --}}
             <button
-                class="liquid-glass-fixed md:hidden relative w-9 h-9 rounded-full flex items-center justify-center z-60 select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out"
+                class="md:hidden relative w-9 h-9 rounded-full flex items-center justify-center z-60 select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out"
+                :class="scrolled ? 'liquid-glass' : 'liquid-glass-fixed'"
                 @click="mobileMenuOpen = !mobileMenuOpen"
                 :aria-expanded="mobileMenuOpen.toString()"
                 aria-label="Abrir menú"
             >
                 <span class="relative w-4 h-3.5 flex flex-col justify-between">
                     <span
-                        class="w-full h-0.5 rounded-full bg-black transition-all duration-300 origin-center"
-                        :class="mobileMenuOpen ? 'rotate-45 translate-y-1.75' : ''"
+                        class="w-full h-0.5 rounded-full transition-all duration-300 origin-center"
+                        :class="[scrolled ? 'bg-white' : 'bg-black', mobileMenuOpen ? 'rotate-45 translate-y-1.75' : '']"
                     ></span>
                     <span
-                        class="w-full h-0.5 rounded-full bg-black transition-all duration-300"
-                        :class="mobileMenuOpen ? 'opacity-0 scale-0' : ''"
+                        class="w-full h-0.5 rounded-full transition-all duration-300"
+                        :class="[scrolled ? 'bg-white' : 'bg-black', mobileMenuOpen ? 'opacity-0 scale-0' : '']"
                     ></span>
                     <span
-                        class="w-full h-0.5 rounded-full bg-black transition-all duration-300 origin-center"
-                        :class="mobileMenuOpen ? '-rotate-45 -translate-y-1.75' : ''"
+                        class="w-full h-0.5 rounded-full transition-all duration-300 origin-center"
+                        :class="[scrolled ? 'bg-white' : 'bg-black', mobileMenuOpen ? '-rotate-45 -translate-y-1.75' : '']"
                     ></span>
                 </span>
             </button>
