@@ -13,8 +13,8 @@
                     Iniciar sesión
                 </a>
 
-                <x-ui.btn-primary href="{{ route('register') }}" wire:navigate class="px-5! py-2! text-[0.7rem]!">
-                    Comenzar gratis
+                <x-ui.btn-primary href="{{ route('register') }}" wire:navigate>
+                    Comenzar
                 </x-ui.btn-primary>
             </div>
 
@@ -26,15 +26,15 @@
             >
                 <span
                     class="w-6 h-0.5 transition-all duration-300"
-                    :class="[$store.appearance.dark ? 'bg-white' : 'bg-black', mobileMenuOpen ? 'rotate-45 translate-y-1.75' : '']"
+                    :class="['bg-black', mobileMenuOpen ? 'rotate-45 translate-y-1.75' : '']"
                 ></span>
                 <span
                     class="w-6 h-0.5 transition-all duration-300"
-                    :class="[$store.appearance.dark ? 'bg-white' : 'bg-black', mobileMenuOpen ? 'opacity-0' : '']"
+                    :class="['bg-black', mobileMenuOpen ? 'opacity-0' : '']"
                 ></span>
                 <span
                     class="w-6 h-0.5 transition-all duration-300"
-                    :class="[$store.appearance.dark ? 'bg-white' : 'bg-black', mobileMenuOpen ? '-rotate-45 -translate-y-1.75' : '']"
+                    :class="['bg-black', mobileMenuOpen ? '-rotate-45 -translate-y-1.75' : '']"
                 ></span>
             </button>
         </div>

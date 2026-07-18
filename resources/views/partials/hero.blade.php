@@ -26,14 +26,12 @@ document.addEventListener('alpine:init', () => {
 
 <div
     x-data="heroApp"
-    class="relative font-sans antialiased overflow-x-hidden flex flex-col lg:block lg:min-h-screen transition-colors duration-300"
-    :class="$store.appearance.dark ? 'bg-[#050505] text-white selection:bg-white/10 selection:text-white' : 'bg-white text-neutral-900 selection:bg-[#EAECE9] selection:text-[#1C2E1E]'"
+    class="relative font-sans antialiased overflow-x-hidden flex flex-col lg:block lg:min-h-screen bg-white text-neutral-900 selection:bg-[#EAECE9] selection:text-[#1C2E1E]"
 >
 
     {{-- Background Video Component --}}
     <div
-        class="order-last lg:order-0 relative lg:absolute lg:inset-0 lg:z-0 overflow-hidden pointer-events-none w-full aspect-square md:aspect-video lg:aspect-auto lg:h-full lg:bg-transparent"
-        :class="$store.appearance.dark ? 'bg-[#0a0a0a]' : 'bg-neutral-50'"
+        class="order-last lg:order-0 relative lg:absolute lg:inset-0 lg:z-0 overflow-hidden pointer-events-none w-full aspect-square md:aspect-video lg:aspect-auto lg:h-full lg:bg-transparent bg-neutral-50"
     >
         <video
             x-ref="bgVideo"
@@ -49,9 +47,7 @@ document.addEventListener('alpine:init', () => {
 
     <div
         class="hidden lg:block lg:absolute lg:inset-0 lg:z-5 pointer-events-none"
-        :style="$store.appearance.dark
-            ? 'background: linear-gradient(to right, #050505 0%, rgba(5,5,5,0.85) 45%, rgba(5,5,5,0) 70%)'
-            : 'background: linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0) 70%)'"
+        style="background: linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.1) 45%, rgba(255,255,255,0) 70%)"
     ></div>
 
     {{-- Content Layout Container --}}
@@ -74,10 +70,11 @@ document.addEventListener('alpine:init', () => {
                 y gestión de incidentes — todo en una sola plataforma.
             </p>
 
-            <x-ui.btn-primary href="{{ route('register') }}" wire:navigate class="px-6! py-2.5! text-[14px]!">
-                Comenzar gratis
-            </x-ui.btn-primary>
-
+            <div class="animate-blur-fade-up">
+                <x-ui.btn-primary href="{{ route('register') }}" wire:navigate class="px-12 py-5">
+                    Comenzar gratis
+                </x-ui.btn-primary>
+            </div>
         </main>
     </div>
 </div>
