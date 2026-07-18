@@ -12,7 +12,7 @@ $steps = [
 @endphp
 
 <section id="como-funciona" class="w-full py-24 sm:py-32">
-    <div class="max-w-4xl mx-auto px-6 sm:px-8">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8">
 
         <div class="max-w-2xl mb-16 animate-blur-fade-up">
             <span class="block text-dark dark:text-light font-light text-[0.7rem] tracking-[0.2em] uppercase mb-4">
@@ -23,7 +23,7 @@ $steps = [
             </h2>
         </div>
 
-        <div class="divide-y divide-black/8 dark:divide-white/10">
+        <div class="max-w-2xl divide-y divide-black/8 dark:divide-white/10">
             @foreach ($steps as $i => $step)
                 <div class="flex items-baseline gap-6 py-8 animate-blur-fade-up {{ $i === 1 ? 'animation-delay-200' : ($i === 2 ? 'animation-delay-400' : '') }}">
                     <span class="text-sm font-light text-dark/40 dark:text-light/40 tabular-nums shrink-0">{{ $step['n'] }}</span>
