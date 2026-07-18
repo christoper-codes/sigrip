@@ -20,7 +20,7 @@
                 </span>
             </div>
 
-            <nav class="animate-blur-fade-up flex items-center gap-5 text-dark dark:text-dark font-light text-[0.7rem] tracking-[0.2em] uppercase">
+            <nav class="animate-blur-fade-up hidden md:flex items-center gap-5 text-dark dark:text-dark font-light text-[0.7rem] tracking-[0.2em] uppercase">
                 <a href="#servicios">Servicios</a>
                 <a href="#como-funciona">Como funciona</a>
             </nav>
@@ -40,23 +40,60 @@
 
             {{-- Mobile Hamburger Button --}}
             <button
-                class="md:hidden relative w-6 h-4 flex flex-col justify-between z-60"
+                class="liquid-glass-fixed md:hidden relative w-9 h-9 rounded-full flex items-center justify-center z-60 select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out"
                 @click="mobileMenuOpen = !mobileMenuOpen"
+                :aria-expanded="mobileMenuOpen.toString()"
                 aria-label="Abrir menú"
             >
-                <span
-                    class="w-6 h-0.5 transition-all duration-300"
-                    :class="['bg-black', mobileMenuOpen ? 'rotate-45 translate-y-1.75' : '']"
-                ></span>
-                <span
-                    class="w-6 h-0.5 transition-all duration-300"
-                    :class="['bg-black', mobileMenuOpen ? 'opacity-0' : '']"
-                ></span>
-                <span
-                    class="w-6 h-0.5 transition-all duration-300"
-                    :class="['bg-black', mobileMenuOpen ? '-rotate-45 -translate-y-1.75' : '']"
-                ></span>
+                <span class="relative w-4 h-3.5 flex flex-col justify-between">
+                    <span
+                        class="w-full h-0.5 rounded-full bg-black transition-all duration-300 origin-center"
+                        :class="mobileMenuOpen ? 'rotate-45 translate-y-1.75' : ''"
+                    ></span>
+                    <span
+                        class="w-full h-0.5 rounded-full bg-black transition-all duration-300"
+                        :class="mobileMenuOpen ? 'opacity-0 scale-0' : ''"
+                    ></span>
+                    <span
+                        class="w-full h-0.5 rounded-full bg-black transition-all duration-300 origin-center"
+                        :class="mobileMenuOpen ? '-rotate-45 -translate-y-1.75' : ''"
+                    ></span>
+                </span>
             </button>
         </div>
     </header>
+
+    {{-- Mobile navigation overlay --}}
+    <div
+        x-show="mobileMenuOpen"
+        x-cloak
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        @click.self="mobileMenuOpen = false"
+        @keydown.escape.window="mobileMenuOpen = false"
+        class="md:hidden fixed inset-0 z-50 backdrop-blur-2xl bg-white/85 dark:bg-black/85 flex flex-col items-center justify-center gap-10"
+    >
+        <nav class="flex flex-col items-center gap-6 text-dark dark:text-light font-light text-2xl tracking-widest uppercase">
+            <a href="#servicios" @click="mobileMenuOpen = false">Servicios</a>
+            <a href="#como-funciona" @click="mobileMenuOpen = false">Como funciona</a>
+        </nav>
+
+        <div class="flex flex-col items-center gap-5">
+            <a
+                href="{{ route('login') }}" wire:navigate
+                class="text-dark dark:text-light font-light text-sm tracking-[0.2em] uppercase"
+                @click="mobileMenuOpen = false"
+            >
+                Iniciar sesión
+            </a>
+
+            <x-ui.btn-primary href="{{ route('register') }}" wire:navigate :adaptive="true" @click="mobileMenuOpen = false">
+                Comenzar
+            </x-ui.btn-primary>
+        </div>
+    </div>
 </div>

@@ -65,7 +65,7 @@ document.addEventListener('alpine:init', () => {
             </h1>
 
             {{-- Secondary Description Text --}}
-            <p class="text-dark dark:text-dark text-lg md:text-xl leading-relaxed font-light mb-10 max-w-2xl animate-blur-fade-up animation-delay-200">
+            <p class="text-dark dark:text-dark text-lg md:text-xl leading-relaxed font-light mb-10 max-w-2xl animate-blur-fade-up">
                 Automatiza el cumplimiento de la NOM-035, prevención de riesgos psicosociales,
                 y gestión de incidentes — todo en una sola plataforma.
             </p>
