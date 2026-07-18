@@ -1,10 +1,3 @@
-{{-- ============================================================
-     Hero — SIGRIP · NOM-035
-     Apple/iOS style: frosted glass badge & pills, solid black
-     rounded-full CTAs, autoplaying looped background video.
-     Dark mode synced to flux.appearance in localStorage (store lives in partials.header)
-     ============================================================ --}}
-
 <script>
 document.addEventListener('alpine:init', () => {
     Alpine.data('heroApp', () => ({
@@ -14,7 +7,9 @@ document.addEventListener('alpine:init', () => {
         init() {
             this.$nextTick(() => {
                 const video = this.$refs.bgVideo;
-                if (video) video.play().catch(() => {});
+                if (!video) return;
+                video.playbackRate = 0.7;
+                video.play().catch(() => {});
             });
         },
 
@@ -52,9 +47,6 @@ document.addEventListener('alpine:init', () => {
         ></video>
     </div>
 
-    {{-- Scrim: keeps text readable over the video regardless of its own
-         footage colors or the active theme. Plain CSS gradient (not Tailwind
-         stop-position utilities) so the fade position is unambiguous. --}}
     <div
         class="hidden lg:block lg:absolute lg:inset-0 lg:z-5 pointer-events-none"
         :style="$store.appearance.dark
@@ -82,10 +74,7 @@ document.addEventListener('alpine:init', () => {
             </div>
 
             {{-- Headline --}}
-            <h1
-                class="text-5xl md:text-6xl lg:text-[76px] font-normal tracking-tight leading-[1.08] mb-8 w-full animate-blur-fade-up"
-                :class="$store.appearance.dark ? 'text-white' : 'text-black'"
-            >
+            <h1 class="text-5xl md:text-6xl lg:text-[76px] font-normal tracking-tight leading-[1.08] mb-8 w-full animate-blur-fade-up">
                 Cumple.<br>Protege.<br>Automatiza.
             </h1>
 
