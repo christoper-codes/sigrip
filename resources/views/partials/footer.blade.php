@@ -9,9 +9,9 @@ function footerGrid() {
             const canvas = this.$refs.grid;
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
-            const cell = 18; // pitch between squares
-            const size = 13; // square size (GitHub-style: mostly filled, thin gap)
-            const radius = 3;
+            const cell = 12; // pitch between squares
+            const size = 8; // square size (GitHub-style: mostly filled, thin gap)
+            const radius = 2;
             let cells = [];
             let cols = 0;
             let rows = 0;
