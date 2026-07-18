@@ -13,12 +13,9 @@
                     Iniciar sesión
                 </a>
 
-                <a
-                    href="{{ route('login') }}" wire:navigate
-                    class="text-light dark:text-light py-3 px-8 rounded-full bg-dark font-light text-[0.7rem] tracking-[0.2em] uppercase"
-                    >
-                    Comenzar
-                </a>
+                <x-ui.btn-primary href="{{ route('register') }}" wire:navigate class="px-5! py-2! text-[0.7rem]!">
+                    Comenzar gratis
+                </x-ui.btn-primary>
             </div>
 
             {{-- Mobile Hamburger Button --}}
