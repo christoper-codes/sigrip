@@ -1,5 +1,70 @@
-<footer class="max-w-7xl relative mx-auto px-6 sm:px-8 py-4 flex items-center justify-between">
-    <div class="flex items-center gap-2 animate-blur-fade-up">
+{{-- Animated grid: small squares softly twinkling, faded top-to-bottom. --}}
+<script>
+function footerGrid() {
+    return {
+        init() {
+            const canvas = this.$refs.grid;
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const cell = 16;
+            const size = 3;
+            let squares = [];
+            let width = 0;
+            let height = 0;
+
+            const resize = () => {
+                const dpr = window.devicePixelRatio || 1;
+                const rect = canvas.parentElement.getBoundingClientRect();
+                width = rect.width;
+                height = rect.height;
+                canvas.width = width * dpr;
+                canvas.height = height * dpr;
+                canvas.style.width = width + 'px';
+                canvas.style.height = height + 'px';
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+                const cols = Math.ceil(width / cell);
+                const rows = Math.ceil(height / cell);
+                squares = [];
+                for (let y = 0; y < rows; y++) {
+                    for (let x = 0; x < cols; x++) {
+                        squares.push({
+                            x: x * cell,
+                            y: y * cell,
+                            phase: Math.random() * Math.PI * 2,
+                            speed: 0.5 + Math.random() * 0.9,
+                        });
+                    }
+                }
+            };
+
+            const draw = (time) => {
+                ctx.clearRect(0, 0, width, height);
+                const color = document.documentElement.classList.contains('dark') ? '255,255,255' : '0,0,0';
+                for (const s of squares) {
+                    const opacity = (Math.sin((time / 1000) * s.speed + s.phase) + 1) / 2;
+                    ctx.fillStyle = `rgba(${color}, ${(opacity * 0.25).toFixed(3)})`;
+                    ctx.fillRect(s.x, s.y, size, size);
+                }
+                requestAnimationFrame(draw);
+            };
+
+            resize();
+            window.addEventListener('resize', resize);
+            requestAnimationFrame(draw);
+        }
+    };
+}
+</script>
+
+<footer class="max-w-7xl relative mx-auto px-6 sm:px-8 py-4 flex items-center justify-between" x-data="footerGrid()">
+    <div class="absolute inset-0 top-0 left-0 right-0 h-25 overflow-hidden z-0">
+        <div class="h-full w-full" style="mask-image:linear-gradient(to bottom, black, transparent);-webkit-mask-image:linear-gradient(to bottom, black, transparent)">
+            <canvas x-ref="grid" class="pointer-events-none"></canvas>
+        </div>
+    </div>
+
+    <div class="relative z-10 flex items-center gap-2 animate-blur-fade-up">
         <button
             x-data
             x-on:click="$flux.dark = !$flux.dark"
@@ -17,5 +82,4 @@
             Sigrip
         </span>
     </div>
-<div class="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0"><div class="h-full w-full" style="mask-image:linear-gradient(to bottom, black, transparent);-webkit-mask-image:linear-gradient(to bottom, black, transparent)"><canvas class="pointer-events-none" style="width: 1078px; height: 100px;" width="1347" height="125"></canvas></div></div>
 </footer>
