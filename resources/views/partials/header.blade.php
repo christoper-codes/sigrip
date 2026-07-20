@@ -30,7 +30,7 @@
                 </span>
             </div>
 
-            <nav class="hidden md:flex items-center gap-5 font-light text-[0.7rem] tracking-[0.2em] uppercase" :class="scrolled ? 'text-white' : 'text-dark dark:text-dark'">
+            <nav class="animate-blur-fade-up hidden md:flex items-center gap-5 font-light text-[0.7rem] tracking-[0.2em] uppercase" :class="scrolled ? 'text-white' : 'text-dark dark:text-dark'">
                 <a href="#servicios">Servicios</a>
                 <a href="#como-funciona">Como funciona</a>
             </nav>
