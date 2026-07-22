@@ -4,8 +4,8 @@
      wordmark sized to fit via Alpine (no plain <script>).
      ============================================================ --}}
 
-<footer class="w-full py-12 sm:py-16 px-4 sm:px-6">
-    <div class="max-w-[1150px] mx-auto grid grid-cols-1 md:grid-cols-[350px_1fr] gap-4 items-stretch relative z-10">
+<footer class="w-full pt-12 sm:pt-16 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-[350px_1fr] gap-4 items-stretch relative z-10">
 
         {{-- Left card: looped video, nothing overlaid on top --}}
         <div class="relative min-h-[400px] rounded-[28px] overflow-hidden">
@@ -26,9 +26,19 @@
             {{-- Playful "verified" graphic --}}
             <div class="absolute -top-9 right-6 sm:right-10 z-10 flex flex-col items-start gap-1.5">
                 <div class="w-18 h-18 sm:w-24 sm:h-24 rounded-[22px] -rotate-12 bg-gradient-to-br from-[#5b9ffb] via-[#1e5dd7] to-[#1448be] shadow-[inset_3px_3px_8px_rgba(255,255,255,0.35),inset_-3px_-3px_12px_rgba(0,0,0,0.18),8px_14px_28px_rgba(20,72,200,0.35)] flex items-center justify-center">
-                    <svg class="w-8 h-8 sm:w-10 sm:h-10 text-white rotate-12" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="filter: drop-shadow(0 3px 6px rgba(0,0,0,0.25));">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"/>
-                    </svg>
+                    <button
+                        x-data
+                        x-on:click="$flux.dark = !$flux.dark"
+                        class="liquid-glass w-9 h-9 rounded-full flex items-center justify-center select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out"
+                        aria-label="Cambiar tema"
+                    >
+                        <svg x-show="$flux.dark" class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+                        </svg>
+                        <svg x-show="!$flux.dark" class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="flex items-center gap-1.5 -rotate-4 mt-1">
                     <svg class="w-5.5 h-5.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -76,7 +86,7 @@
             (document.fonts && document.fonts.ready) ? document.fonts.ready.then(fit) : fit();
             window.addEventListener('resize', fit);
         "
-        class="max-w-[1150px] mx-auto -mt-15 relative z-0 pointer-events-none select-none leading-none"
+        class="max-w-7xl max-h-[430px] overflow-hidden mx-auto -mt-15 relative z-0 pointer-events-none select-none leading-none"
         aria-hidden="true"
     >
         <svg x-ref="watermarkSvg" viewBox="0 0 900 175" preserveAspectRatio="xMidYMid meet" class="block w-full h-auto overflow-visible">
