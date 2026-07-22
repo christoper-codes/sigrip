@@ -25,7 +25,7 @@
 
             {{-- Playful "verified" graphic --}}
             <div class="absolute -top-9 right-6 sm:right-10 z-10 flex flex-col items-start gap-1.5">
-                <div class="w-18 h-18 sm:w-24 sm:h-24 rounded-[22px] -rotate-12 bg-gradient-to-br from-[#5b9ffb] via-[#1e5dd7] to-[#1448be] shadow-[inset_3px_3px_8px_rgba(255,255,255,0.35),inset_-3px_-3px_12px_rgba(0,0,0,0.18),8px_14px_28px_rgba(20,72,200,0.35)] flex items-center justify-center">
+                <div class="w-18 h-18 sm:w-24 sm:h-24 bg-light-variant dark:bg-dark-variant rounded-[22px] -rotate-12 shadow-[inset_3px_3px_8px_rgba(255,255,255,0.35),inset_-3px_-3px_12px_rgba(0,0,0,0),8px_14px_28px_rgba(0,0,0,0)] flex items-center justify-center">
                     <button
                         x-data
                         x-on:click="$flux.dark = !$flux.dark"
