@@ -50,7 +50,7 @@
                         playsinline
                         preload="auto"
                     ></video>
-                    <div class="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-light-variant dark:to-dark-variant"></div>
+                    <div class="pointer-events-none absolute bottom-0 left-0 right-0 h-8 dark:h-32 bg-gradient-to-b from-transparent to-light-variant dark:to-dark-variant"></div>
                 </div>
 
                 <div class="flex-1 flex items-center justify-start p-6 sm:p-8">

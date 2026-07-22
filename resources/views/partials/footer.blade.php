@@ -25,17 +25,18 @@
 
             {{-- Playful "verified" graphic --}}
             <div class="absolute -top-9 right-6 sm:right-10 z-10 flex flex-col items-start gap-1.5">
-                <div class="w-18 h-18 sm:w-24 sm:h-24 bg-light-variant dark:bg-dark-variant rounded-[22px] -rotate-12 shadow-[inset_3px_3px_8px_rgba(255,255,255,0.35),inset_-3px_-3px_12px_rgba(0,0,0,0),8px_14px_28px_rgba(0,0,0,0)] flex items-center justify-center">
+                <div class="w-18 h-18 sm:w-24 sm:h-24 bg-light-variant dark:bg-dark-variant rounded-[22px] -rotate-12 shadow-[inset_2px_2px_6px_rgba(255,255,255,0.7),inset_-2px_-2px_8px_rgba(0,0,0,0.10),0_8px_20px_rgba(0,0,0,0.10)] dark:shadow-[inset_3px_3px_8px_rgba(255,255,255,0.35),inset_-3px_-3px_12px_rgba(0,0,0,0),8px_14px_28px_rgba(0,0,0,0)] flex items-center justify-center">
                     <button
                         x-data
                         x-on:click="$flux.dark = !$flux.dark"
-                        class="liquid-glass w-9 h-9 rounded-full flex items-center justify-center select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out"
+                        class="w-9 h-9 rounded-full flex items-center justify-center select-none cursor-pointer active:scale-[0.97] transition-transform duration-200 ease-out"
+                        :class="$flux.dark ? 'liquid-glass' : 'liquid-glass-light'"
                         aria-label="Cambiar tema"
                     >
-                        <svg x-show="$flux.dark" class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <svg x-show="$flux.dark" class="w-3.5 h-3.5" :class="$flux.dark ? 'text-white' : 'text-black'" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
                         </svg>
-                        <svg x-show="!$flux.dark" class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
+                        <svg x-show="!$flux.dark" class="w-3.5 h-3.5" :class="$flux.dark ? 'text-white' : 'text-black'" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
                         </svg>
                     </button>
