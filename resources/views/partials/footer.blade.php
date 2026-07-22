@@ -4,7 +4,7 @@
      wordmark sized to fit via Alpine (no plain <script>).
      ============================================================ --}}
 
-<footer class="w-full pt-12 sm:pt-16 px-4 sm:px-6">
+<footer class="w-full pt-12 sm:pt-16 px-4 sm:px-6 mb-10">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-[350px_1fr] gap-4 items-stretch relative z-10">
 
         {{-- Left card: looped video, nothing overlaid on top --}}
@@ -73,31 +73,5 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div
-        x-data
-        x-init="
-            const fit = () => {
-                try {
-                    const box = $refs.watermarkText.getBBox();
-                    $refs.watermarkSvg.setAttribute('viewBox', `${box.x} ${box.y} ${box.width} ${box.height}`);
-                } catch (e) {}
-            };
-            (document.fonts && document.fonts.ready) ? document.fonts.ready.then(fit) : fit();
-            window.addEventListener('resize', fit);
-        "
-        class="max-w-7xl max-h-[430px] overflow-hidden mx-auto -mt-15 relative z-0 pointer-events-none select-none leading-none"
-        aria-hidden="true"
-    >
-        <svg x-ref="watermarkSvg" viewBox="0 0 900 175" preserveAspectRatio="xMidYMid meet" class="block w-full h-auto overflow-visible">
-            <text
-                x-ref="watermarkText"
-                x="500" y="240"
-                text-anchor="middle"
-                font-size="320"
-                class="font-bold tracking-tighter fill-black/4 dark:fill-white/5"
-            >SIGRIP</text>
-        </svg>
     </div>
 </footer>
