@@ -8,7 +8,7 @@
             <div class="bg-muted relative hidden h-full flex-col p-20 text-white lg:flex">
                 <div class="absolute inset-0 rounded-3xl m-5 overflow-hidden">
                     <video
-                        src="{{ asset('videos/auth.mp4') }}"
+                        src="{{ asset('videos/footer.mp4') }}"
                         autoplay
                         loop
                         muted
