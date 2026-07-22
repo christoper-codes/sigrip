@@ -8,7 +8,7 @@
     <div class="max-w-[1150px] mx-auto grid grid-cols-1 md:grid-cols-[350px_1fr] gap-4 items-stretch relative z-10">
 
         {{-- Left card: looped video, nothing overlaid on top --}}
-        <div class="relative min-h-150 rounded-[28px] overflow-hidden shadow-[0_12px_40px_rgba(21,76,189,0.25)] bg-[#1e4fc0]">
+        <div class="relative min-h-[400px] rounded-[28px] overflow-hidden">
             <video
                 class="absolute inset-0 w-full h-full object-cover pointer-events-none"
                 src="{{ asset('videos/footer.mp4') }}"
@@ -21,7 +21,7 @@
         </div>
 
         {{-- Right card --}}
-        <div class="relative bg-[#f0f1f5] dark:bg-zinc-900 rounded-[28px] p-6 sm:p-10 shadow-[0_4px_20px_rgba(0,0,0,0.04)] flex flex-col justify-between">
+        <div class="relative bg-light-variant dark:bg-dark-variant rounded-[28px] p-6 sm:p-10 shadow-[0_4px_20px_rgba(0,0,0,0.04)] flex flex-col justify-between">
 
             {{-- Playful "verified" graphic --}}
             <div class="absolute -top-9 right-6 sm:right-10 z-10 flex flex-col items-start gap-1.5">
@@ -43,20 +43,19 @@
             {{-- Nav columns --}}
             <div class="flex flex-row gap-12 sm:gap-18 pt-2">
                 <div>
-                    <div class="font-['Caveat'] italic text-2xl font-semibold text-gray-400 mb-4.5">Navegación</div>
-                    <a href="#servicios" class="block text-sm font-semibold text-gray-900 dark:text-white mb-3.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Servicios</a>
-                    <a href="#como-funciona" class="block text-sm font-semibold text-gray-900 dark:text-white mb-3.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Cómo funciona</a>
-                    <a href="{{ route('register') }}" wire:navigate class="block text-sm font-semibold text-gray-900 dark:text-white mb-3.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Comenzar gratis</a>
+                    <div class="font-light text-[0.7rem] tracking-[0.2em] uppercase text-gray-400 mb-4.5">Navegación</div>
+                    <a href="#servicios" class="block text-sm font-semibold text-gray-900 dark:text-white mb-3.5 transition-colors duration-200">Servicios</a>
+                    <a href="#como-funciona" class="block text-sm font-semibold text-gray-900 dark:text-white mb-3.5 transition-colors duration-200">Cómo funciona</a>
+                    <a href="{{ route('register') }}" wire:navigate class="block text-sm font-semibold text-gray-900 dark:text-white mb-3.5 transition-colors duration-200">Comenzar gratis</a>
                 </div>
                 <div>
-                    <div class="font-['Caveat'] italic text-2xl font-semibold text-gray-400 mb-4.5">Empresa</div>
-                    <a href="{{ route('terms.use') }}" wire:navigate class="block text-sm font-semibold text-gray-900 dark:text-white mb-3.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Términos de uso</a>
-                    <a href="{{ route('privacy.policy') }}" wire:navigate class="block text-sm font-semibold text-gray-900 dark:text-white mb-3.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Aviso de privacidad</a>
-                    <a href="{{ route('login') }}" wire:navigate class="block text-sm font-semibold text-gray-900 dark:text-white mb-3.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Iniciar sesión</a>
+                    <div class="font-light text-[0.7rem] tracking-[0.2em] uppercase text-gray-400 mb-4.5">Empresa</div>
+                    <a href="{{ route('terms.use') }}" wire:navigate class="block text-sm font-semibold text-gray-900 dark:text-white mb-3.5 transition-colors duration-200">Términos de uso</a>
+                    <a href="{{ route('privacy.policy') }}" wire:navigate class="block text-sm font-semibold text-gray-900 dark:text-white mb-3.5 transition-colors duration-200">Aviso de privacidad</a>
+                    <a href="{{ route('login') }}" wire:navigate class="block text-sm font-semibold text-gray-900 dark:text-white mb-3.5 transition-colors duration-200">Iniciar sesión</a>
                 </div>
             </div>
 
-            {{-- Bottom: copyright + newsletter --}}
             <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mt-12">
                 <div class="text-[12.5px] font-medium text-gray-400">
                     © {{ date('Y') }} SIGRIP. Todos los derechos reservados.
@@ -65,7 +64,6 @@
         </div>
     </div>
 
-    {{-- Watermark wordmark, auto-fit to its own bounding box via Alpine --}}
     <div
         x-data
         x-init="
