@@ -50,6 +50,7 @@ class Show extends Component
     public ?array $employee_data = null;
     public ?array $general_analysis = null;
     public ?array $followup_alerts = null;
+    public ?array $followup_tickets = null;
     public bool $followup_is_authenticated = false;
     public ?string $followup_employee_name = null;
 
@@ -115,13 +116,13 @@ class Show extends Component
                 ['label' => __('Nombre de empleado')],
                 ['label' => __('Respuestas')],
                 ['label' => __('Alertas')],
-                ['label' => __('Seguimiento')],
                 ['label' => __('Ai - departamento')],
                 ['label' => __('Ai - empleado')],
                 ['label' => __('Calificación Final')],
                 ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
                 ['label' => __('Información del empleado')],
                 ['label' => __('Descarga excel')],
+                ['label' => __('Seguimiento')],
             ];
         } elseif ($this->questionnaire['name'] == NomEnum::NOM_2->value) {
             $this->application_data['questionnaire_responses'] = collect($this->application_data['questionnaire_responses'])
@@ -145,7 +146,6 @@ class Show extends Component
                 ['label' => __('Nombre de empleado')],
                 ['label' => __('Respuestas')],
                 ['label' => __('Alertas')],
-                ['label' => __('Seguimiento')],
                 ['label' => __('Ai - departamento')],
                 ['label' => __('Ai - empleado')],
                 ['label' => __('Calificación por Dominio')],
@@ -154,6 +154,7 @@ class Show extends Component
                 ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
                 ['label' => __('Información del empleado')],
                 ['label' => __('Descarga excel')],
+                ['label' => __('Seguimiento')],
             ];
         } elseif ($this->questionnaire['name'] == NomEnum::NOM_3->value) {
             $this->application_data['questionnaire_responses'] = collect($this->application_data['questionnaire_responses'])
@@ -177,7 +178,6 @@ class Show extends Component
                 ['label' => __('Nombre de empleado')],
                 ['label' => __('Respuestas')],
                 ['label' => __('Alertas')],
-                ['label' => __('Seguimiento')],
                 ['label' => __('Ai - departamento')],
                 ['label' => __('Ai - empleado')],
                 ['label' => __('Calificación por Dominio')],
@@ -186,6 +186,7 @@ class Show extends Component
                 ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
                 ['label' => __('Información del empleado')],
                 ['label' => __('Descarga excel')],
+                ['label' => __('Seguimiento')],
             ];
         } else {
             $this->headers = [
@@ -193,12 +194,12 @@ class Show extends Component
                 ['label' => __('Nombre de empleado')],
                 ['label' => __('Respuestas')],
                 ['label' => __('Alertas')],
-                ['label' => __('Seguimiento')],
                 ['label' => __('Ai - departamento')],
                 ['label' => __('Ai - empleado')],
                 ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
                 ['label' => __('Información del empleado')],
                 ['label' => __('Descarga excel')],
+                ['label' => __('Seguimiento')],
             ];
         }
 
@@ -777,27 +778,29 @@ class Show extends Component
             $alerts_query->where('questionnaire_response_id', $response_id);
         }
 
-        $this->followup_alerts = $alerts_query
-            ->orderByDesc('created_at')
-            ->get()
-            ->map(fn ($alert) => [
-                'id' => $alert->id,
-                'uuid' => $alert->uuid,
-                'name' => $alert->name,
-                'subject' => $alert->subject,
-                'risk_level' => $alert->risk_level,
-                'created_at' => $alert->created_at?->format('d/m/Y H:i'),
-                'questionnaire_name' => $alert->application?->questionnaire?->name ?? $alert->metadata['application_name'] ?? null,
-                'is_current_response' => $alert->questionnaire_response_id === $response_id,
-                'tickets' => $alert->supportTickets->map(fn ($ticket) => [
-                    'id' => $ticket->id,
-                    'title' => $ticket->title,
-                    'description' => $ticket->description,
-                    'status' => $ticket->supportTicketStatus?->name,
-                    'is_priority' => (bool) $ticket->is_priority,
-                    'created_at' => $ticket->created_at?->format('d/m/Y H:i'),
-                ])->toArray(),
-            ])->toArray();
+        $alerts = $alerts_query->orderByDesc('created_at')->get();
+
+        $this->followup_alerts = $alerts->map(fn ($alert) => [
+            'id' => $alert->id,
+            'uuid' => $alert->uuid,
+            'name' => $alert->name,
+            'subject' => $alert->subject,
+            'risk_level' => $alert->risk_level,
+            'created_at' => $alert->created_at?->format('d/m/Y H:i'),
+            'questionnaire_name' => $alert->application?->questionnaire?->name ?? $alert->metadata['application_name'] ?? null,
+            'is_current_response' => $alert->questionnaire_response_id === $response_id,
+        ])->toArray();
+
+        $this->followup_tickets = $alerts->flatMap(fn ($alert) => $alert->supportTickets->map(fn ($ticket) => [
+            'id' => $ticket->id,
+            'title' => $ticket->title,
+            'description' => $ticket->description,
+            'status' => $ticket->supportTicketStatus?->name,
+            'is_priority' => (bool) $ticket->is_priority,
+            'created_at' => $ticket->created_at?->format('d/m/Y H:i'),
+            'alert_name' => $alert->name,
+            'alert_uuid' => $alert->uuid,
+        ]))->values()->toArray();
 
         Flux::modal('show-followup-modal')->show();
     }

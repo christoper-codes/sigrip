@@ -83,9 +83,6 @@
                                 <flux:button wire:click="showAlerts({{ $response['id'] }})" icon="exclamation-triangle" variant="primary">{{ __('Alertas') }}</flux:button>
                             </td>
                             <td class="p-4">
-                                <flux:button wire:click="showFollowUp({{ $response['id'] }})" icon="eye" class="border! border-special! bg-special/10!">{{ __('Ver seguimiento') }}</flux:button>
-                            </td>
-                            <td class="p-4">
                                 <flux:button wire:click="showAnalysisDepartment({{ $response['id'] }})" icon="building-office" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
                             </td>
                             <td class="p-4">
@@ -110,6 +107,9 @@
                             </td>
                             <td class="p-4">
                                 <flux:button wire:click="downloadResults({{ $response['id'] }})" icon="arrow-down" variant="primary" class="text-dark! dark:text-light! border! border-special! bg-special/10!">{{ __('Descargar') }}</flux:button>
+                            </td>
+                            <td class="p-4">
+                                <flux:button wire:click="showFollowUp({{ $response['id'] }})" icon="eye" class="border! border-special! bg-special/10!">{{ __('Ver seguimiento') }}</flux:button>
                             </td>
                         </tr>
                     @endforeach
@@ -247,72 +247,124 @@
         </div>
     </flux:modal>
 
-    <flux:modal name="show-followup-modal" class="w-[90%] md:w-full space-y-7">
-        <div>
+    <flux:modal name="show-followup-modal" flyout variant="floating" class="md:w-lg space-y-8">
+        <div class="space-y-3">
             <flux:heading size="xl">{{ __('Ver seguimiento') }}</flux:heading>
             @if($followup_is_authenticated)
-                <flux:text class="mt-2">
+                <flux:text>
                     {{ __('Historial completo de alertas y tickets relacionados a :employee, en todos los cuestionarios que ha respondido.', ['employee' => $followup_employee_name ?? __('el empleado')]) }}
                 </flux:text>
             @else
-                <flux:text class="mt-2">
+                <flux:text>
                     {{ __('Esta aplicación es anónima, por lo que solo se muestran las alertas y tickets generados a partir de esta respuesta.') }}
                 </flux:text>
             @endif
         </div>
-        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800 max-h-[60vh] overflow-y-auto">
-            @if($followup_alerts)
-                <div class="space-y-6">
-                    @foreach($followup_alerts as $alert)
-                        <div class="border border-neutral-300 dark:border-neutral-700 rounded-2xl p-4">
-                            <div class="flex flex-wrap items-start justify-between gap-2">
-                                <div>
-                                    <flux:heading size="lg" class="text-primary!">{{ $alert['name'] }}</flux:heading>
-                                    <flux:text class="mt-1">{{ $alert['subject'] }}</flux:text>
-                                </div>
-                                @if($alert['is_current_response'])
-                                    <flux:badge color="blue">{{ __('Esta respuesta') }}</flux:badge>
-                                @endif
-                            </div>
-                            <ul class="list-disc ml-5 mt-3 text-sm opacity-80 space-y-1">
-                                <li>{{ __('Cuestionario:') }} {{ $alert['questionnaire_name'] ?? __('No disponible') }}</li>
-                                <li>{{ __('Nivel de riesgo:') }} {{ $alert['risk_level'] ?? __('No disponible') }}</li>
-                                <li>{{ __('Fecha de emisión:') }} {{ dateFormat($alert['created_at']) }}</li>
-                                <li>{{ __('Folio de alerta:') }} {{ $alert['uuid'] }}</li>
-                            </ul>
 
-                            @if(count($alert['tickets']))
-                                <div class="mt-4">
-                                    <flux:text class="font-semibold!">{{ __('Tickets de soporte generados') }}</flux:text>
-                                    <div class="mt-2 space-y-2">
-                                        @foreach($alert['tickets'] as $ticket)
-                                            <div class="rounded-xl bg-light-variant dark:bg-dark-variant p-3 border border-neutral-200 dark:border-neutral-800">
-                                                <div class="flex flex-wrap items-center justify-between gap-2">
-                                                    <flux:text class="font-semibold!">{{ $ticket['title'] }}</flux:text>
-                                                    @if($ticket['is_priority'])
-                                                        <flux:badge color="red">{{ __('Prioritario') }}</flux:badge>
-                                                    @endif
-                                                </div>
-                                                <flux:text class="mt-1 text-sm opacity-75">{{ $ticket['description'] }}</flux:text>
-                                                <div class="flex flex-wrap items-center gap-3 mt-2 text-xs opacity-70">
-                                                    <span>{{ __('Estatus:') }} {{ $ticket['status'] ?? __('No disponible') }}</span>
-                                                    <span>{{ __('Fecha:') }} {{ dateFormat($ticket['created_at']) }}</span>
-                                                </div>
-                                            </div>
-                                        @endforeach
+        <div x-data="{ open: null }" class="space-y-8">
+            {{-- Alertas --}}
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <flux:icon.exclamation-triangle variant="mini" class="text-primary!"/>
+                    <flux:heading size="lg">{{ __('Alertas') }}</flux:heading>
+                    <flux:badge size="sm">{{ count($followup_alerts ?? []) }}</flux:badge>
+                </div>
+
+                @if($followup_alerts)
+                    <div class="space-y-2">
+                        @foreach($followup_alerts as $i => $alert)
+                            <div class="border border-border rounded-xl overflow-hidden">
+                                <button
+                                    type="button"
+                                    @click="open = open === 'alert-{{ $i }}' ? null : 'alert-{{ $i }}'"
+                                    class="w-full px-4 py-3 flex items-center justify-between gap-3 text-left cursor-pointer hover:bg-neutral-200/20 dark:hover:bg-neutral-900/20 transition-colors duration-300"
+                                >
+                                    <div class="min-w-0">
+                                        <flux:text class="font-semibold! truncate! block!">{{ $alert['name'] }}</flux:text>
+                                        <flux:text class="text-xs! opacity-60">{{ dateFormat($alert['created_at']) }}</flux:text>
+                                    </div>
+                                    <div class="flex items-center gap-2 shrink-0">
+                                        @if($alert['is_current_response'])
+                                            <flux:badge color="blue" size="sm">{{ __('Esta respuesta') }}</flux:badge>
+                                        @endif
+                                        <flux:icon.plus variant="mini" x-show="open !== 'alert-{{ $i }}'" class="text-neutral-500"/>
+                                        <flux:icon.minus variant="mini" x-show="open === 'alert-{{ $i }}'" class="text-primary"/>
+                                    </div>
+                                </button>
+                                <div x-show="open === 'alert-{{ $i }}'" x-transition class="px-4 pb-4 space-y-2">
+                                    <flux:text class="text-sm!">{{ $alert['subject'] }}</flux:text>
+                                    <div class="flex items-center gap-2">
+                                        <flux:icon.clipboard-document-list variant="mini"/>
+                                        <flux:text class="text-xs!">{{ $alert['questionnaire_name'] ?? __('No disponible') }}</flux:text>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <flux:icon.exclamation-circle variant="mini"/>
+                                        <flux:text class="text-xs!">{{ __('Riesgo: ') }} {{ $alert['risk_level'] ?? __('No disponible') }}</flux:text>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <flux:icon.key variant="mini"/>
+                                        <flux:text class="text-xs!">{{ __('Folio: ') }} {{ $alert['uuid'] }}</flux:text>
                                     </div>
                                 </div>
-                            @endif
-                        </div>
-                    @endforeach
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <flux:text class="text-sm! opacity-60">{{ __('No hay alertas registradas.') }}</flux:text>
+                @endif
+            </div>
+
+            <flux:separator />
+
+            {{-- Tickets --}}
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <flux:icon.wrench-screwdriver variant="mini" class="text-primary!"/>
+                    <flux:heading size="lg">{{ __('Tickets de soporte') }}</flux:heading>
+                    <flux:badge size="sm">{{ count($followup_tickets ?? []) }}</flux:badge>
                 </div>
-            @else
-                <flux:callout color="yellow" icon="information-circle" heading="{{ __('Sin alertas ni tickets registrados') }}" />
-            @endif
+
+                @if($followup_tickets)
+                    <div class="space-y-2">
+                        @foreach($followup_tickets as $i => $ticket)
+                            <div class="border border-border rounded-xl overflow-hidden">
+                                <button
+                                    type="button"
+                                    @click="open = open === 'ticket-{{ $i }}' ? null : 'ticket-{{ $i }}'"
+                                    class="w-full px-4 py-3 flex items-center justify-between gap-3 text-left cursor-pointer hover:bg-neutral-200/20 dark:hover:bg-neutral-900/20 transition-colors duration-300"
+                                >
+                                    <div class="min-w-0">
+                                        <flux:text class="font-semibold! truncate! block!">{{ $ticket['title'] }}</flux:text>
+                                        <flux:text class="text-xs! opacity-60">{{ $ticket['status'] ?? __('Sin estatus') }} · {{ dateFormat($ticket['created_at']) }}</flux:text>
+                                    </div>
+                                    <div class="flex items-center gap-2 shrink-0">
+                                        @if($ticket['is_priority'])
+                                            <flux:badge color="red" size="sm">{{ __('Prioritario') }}</flux:badge>
+                                        @endif
+                                        <flux:icon.plus variant="mini" x-show="open !== 'ticket-{{ $i }}'" class="text-neutral-500"/>
+                                        <flux:icon.minus variant="mini" x-show="open === 'ticket-{{ $i }}'" class="text-primary"/>
+                                    </div>
+                                </button>
+                                <div x-show="open === 'ticket-{{ $i }}'" x-transition class="px-4 pb-4 space-y-2">
+                                    <flux:text class="text-sm!">{{ $ticket['description'] }}</flux:text>
+                                    <div class="flex items-center gap-2">
+                                        <flux:icon.exclamation-triangle variant="mini"/>
+                                        <flux:text class="text-xs!">{{ __('Alerta relacionada: ') }} {{ $ticket['alert_name'] }} ({{ $ticket['alert_uuid'] }})</flux:text>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <flux:text class="text-sm! opacity-60">{{ __('No hay tickets registrados.') }}</flux:text>
+                @endif
+            </div>
         </div>
-        <div class="flex justify-end items-center gap-2">
+
+        <div class="flex gap-2">
+            <flux:spacer />
             <flux:modal.close>
-                <flux:button>{{ __('Cerrar') }}</flux:button>
+                <flux:button variant="filled">{{ __('Cerrar') }}</flux:button>
             </flux:modal.close>
         </div>
     </flux:modal>
