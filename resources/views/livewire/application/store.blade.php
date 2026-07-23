@@ -64,7 +64,7 @@
             <flux:error name="form.employee_data_required" />
         </flux:field>
 
-        <flux:button type="submit" class="bg-linear-to-r! from-blue-400! to-blue-600! px-10! text-white!">{{ __('Crear aplicación') }}</flux:button>
+        <flux:button type="submit" class="bg-primary! py-6! px-10! text-white!">{{ __('Crear aplicación') }}</flux:button>
     </form>
 
     <flux:modal name="qr-application-modal" class="w-[90%] md:w-full!">
