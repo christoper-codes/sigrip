@@ -36,17 +36,23 @@
             </nav>
 
             <div class="animate-blur-fade-up hidden md:flex items-center gap-5">
-                <a
-                    href="{{ route('login') }}" wire:navigate
-                    class="font-light text-[0.7rem] tracking-[0.2em] uppercase"
-                    :class="scrolled ? 'text-white' : 'text-dark dark:text-dark'"
-                    >
-                    Iniciar sesión
-                </a>
+                @auth
+                    <x-ui.btn-primary href="{{ route('dashboard') }}" wire:navigate :adaptive="true" :follow="'scrolled'">
+                        Dashboard
+                    </x-ui.btn-primary>
+                @else
+                    <a
+                        href="{{ route('login') }}" wire:navigate
+                        class="font-light text-[0.7rem] tracking-[0.2em] uppercase"
+                        :class="scrolled ? 'text-white' : 'text-dark dark:text-dark'"
+                        >
+                        Iniciar sesión
+                    </a>
 
-                <x-ui.btn-primary href="{{ route('register') }}" wire:navigate :adaptive="true" :follow="'scrolled'">
-                    Comenzar
-                </x-ui.btn-primary>
+                    <x-ui.btn-primary href="{{ route('register') }}" wire:navigate :adaptive="true" :follow="'scrolled'">
+                        Comenzar
+                    </x-ui.btn-primary>
+                @endauth
             </div>
 
             {{-- Mobile Hamburger Button --}}
@@ -95,17 +101,23 @@
         </nav>
 
         <div class="flex flex-col items-center gap-5">
-            <a
-                href="{{ route('login') }}" wire:navigate
-                class="text-dark dark:text-light font-light text-sm tracking-[0.2em] uppercase"
-                @click="mobileMenuOpen = false"
-            >
-                Iniciar sesión
-            </a>
+            @auth
+                <x-ui.btn-primary href="{{ route('dashboard') }}" wire:navigate :adaptive="true" @click="mobileMenuOpen = false">
+                    Dashboard
+                </x-ui.btn-primary>
+            @else
+                <a
+                    href="{{ route('login') }}" wire:navigate
+                    class="text-dark dark:text-light font-light text-sm tracking-[0.2em] uppercase"
+                    @click="mobileMenuOpen = false"
+                >
+                    Iniciar sesión
+                </a>
 
-            <x-ui.btn-primary href="{{ route('register') }}" wire:navigate :adaptive="true" @click="mobileMenuOpen = false">
-                Comenzar
-            </x-ui.btn-primary>
+                <x-ui.btn-primary href="{{ route('register') }}" wire:navigate :adaptive="true" @click="mobileMenuOpen = false">
+                    Comenzar
+                </x-ui.btn-primary>
+            @endauth
         </div>
     </div>
 </div>
