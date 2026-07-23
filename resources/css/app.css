@@ -33,8 +33,8 @@
     --color-accent: var(--color-black);
     --color-accent-content: var(--color-yellow-500);
     --color-accent-foreground: var(--color-white);
-
-    --color-primary: #0ea5e9;
+   /*  --color-primary: #0ea5e9; */
+    --color-primary: var(--color-orange-500);
     --color-variant: var(--color-accent-foreground);
     --color-light: var(--color-white);
     --color-light-variant: var(--color-neutral-100);
@@ -50,7 +50,7 @@
 
 @layer theme {
     .dark {
-        --color-primary: #0ea5e9;
+        --color-primary: var(--color-orange-400);
         --color-accent: var(--color-white);
         --color-accent-content: var(--color-white);
         --color-accent-foreground: var(--color-neutral-800);
