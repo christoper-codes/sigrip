@@ -16,6 +16,7 @@ use App\Exports\MainBaseExport;
 use App\Exports\Nom035\MainNomExport;
 use App\Livewire\Traits\LimitItems;
 use App\Livewire\Traits\Table;
+use App\Models\Alert;
 use App\Models\Application;
 use App\Models\Department;
 use App\Models\Questionnaire;
@@ -48,6 +49,9 @@ class Show extends Component
     public ?array $final_score = null;
     public ?array $employee_data = null;
     public ?array $general_analysis = null;
+    public ?array $followup_alerts = null;
+    public bool $followup_is_authenticated = false;
+    public ?string $followup_employee_name = null;
 
     #[Validate(['required', 'int'])]
     public ?int $department = null;
@@ -111,6 +115,7 @@ class Show extends Component
                 ['label' => __('Nombre de empleado')],
                 ['label' => __('Respuestas')],
                 ['label' => __('Alertas')],
+                ['label' => __('Seguimiento')],
                 ['label' => __('Ai - departamento')],
                 ['label' => __('Ai - empleado')],
                 ['label' => __('Calificación Final')],
@@ -140,6 +145,7 @@ class Show extends Component
                 ['label' => __('Nombre de empleado')],
                 ['label' => __('Respuestas')],
                 ['label' => __('Alertas')],
+                ['label' => __('Seguimiento')],
                 ['label' => __('Ai - departamento')],
                 ['label' => __('Ai - empleado')],
                 ['label' => __('Calificación por Dominio')],
@@ -171,6 +177,7 @@ class Show extends Component
                 ['label' => __('Nombre de empleado')],
                 ['label' => __('Respuestas')],
                 ['label' => __('Alertas')],
+                ['label' => __('Seguimiento')],
                 ['label' => __('Ai - departamento')],
                 ['label' => __('Ai - empleado')],
                 ['label' => __('Calificación por Dominio')],
@@ -186,6 +193,7 @@ class Show extends Component
                 ['label' => __('Nombre de empleado')],
                 ['label' => __('Respuestas')],
                 ['label' => __('Alertas')],
+                ['label' => __('Seguimiento')],
                 ['label' => __('Ai - departamento')],
                 ['label' => __('Ai - empleado')],
                 ['label' => __('Fecha de Respuesta'), 'field' => 'created_at', 'sortable' => true],
@@ -752,6 +760,46 @@ class Show extends Component
         }
 
         return $format_responses;
+    }
+
+    public function showFollowUp(int $response_id): void
+    {
+        $item = collect($this->application_data['questionnaire_responses'])->firstWhere('id', $response_id);
+        $this->followup_is_authenticated = (bool) ($this->application_data['auth_required'] ?? false);
+        $this->followup_employee_name = $item['employee_data']['name'] ?? null;
+
+        $alerts_query = Alert::where('company_id', Auth::user()->company?->id)
+            ->with(['application.questionnaire', 'supportTickets.supportTicketStatus']);
+
+        if ($this->followup_is_authenticated && ! empty($item['user_id'])) {
+            $alerts_query->where('user_id', $item['user_id']);
+        } else {
+            $alerts_query->where('questionnaire_response_id', $response_id);
+        }
+
+        $this->followup_alerts = $alerts_query
+            ->orderByDesc('created_at')
+            ->get()
+            ->map(fn ($alert) => [
+                'id' => $alert->id,
+                'uuid' => $alert->uuid,
+                'name' => $alert->name,
+                'subject' => $alert->subject,
+                'risk_level' => $alert->risk_level,
+                'created_at' => $alert->created_at?->format('d/m/Y H:i'),
+                'questionnaire_name' => $alert->application?->questionnaire?->name ?? $alert->metadata['application_name'] ?? null,
+                'is_current_response' => $alert->questionnaire_response_id === $response_id,
+                'tickets' => $alert->supportTickets->map(fn ($ticket) => [
+                    'id' => $ticket->id,
+                    'title' => $ticket->title,
+                    'description' => $ticket->description,
+                    'status' => $ticket->supportTicketStatus?->name,
+                    'is_priority' => (bool) $ticket->is_priority,
+                    'created_at' => $ticket->created_at?->format('d/m/Y H:i'),
+                ])->toArray(),
+            ])->toArray();
+
+        Flux::modal('show-followup-modal')->show();
     }
 
     public function showAlerts(int $response_id): void

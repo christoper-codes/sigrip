@@ -83,6 +83,9 @@
                                 <flux:button wire:click="showAlerts({{ $response['id'] }})" icon="exclamation-triangle" variant="primary">{{ __('Alertas') }}</flux:button>
                             </td>
                             <td class="p-4">
+                                <flux:button wire:click="showFollowUp({{ $response['id'] }})" icon="eye" class="border! border-special! bg-special/10!">{{ __('Ver seguimiento') }}</flux:button>
+                            </td>
+                            <td class="p-4">
                                 <flux:button wire:click="showAnalysisDepartment({{ $response['id'] }})" icon="building-office" class="border! border-primary! bg-primary/10!">{{ __('Análisis') }}</flux:button>
                             </td>
                             <td class="p-4">
@@ -235,6 +238,76 @@
                 @endforeach
             @else
                 <flux:text>{{ __('No se encontraron respuestas críticas para esta respuesta.') }}</flux:text>
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-2">
+            <flux:modal.close>
+                <flux:button>{{ __('Cerrar') }}</flux:button>
+            </flux:modal.close>
+        </div>
+    </flux:modal>
+
+    <flux:modal name="show-followup-modal" class="w-[90%] md:w-full space-y-7">
+        <div>
+            <flux:heading size="xl">{{ __('Ver seguimiento') }}</flux:heading>
+            @if($followup_is_authenticated)
+                <flux:text class="mt-2">
+                    {{ __('Historial completo de alertas y tickets relacionados a :employee, en todos los cuestionarios que ha respondido.', ['employee' => $followup_employee_name ?? __('el empleado')]) }}
+                </flux:text>
+            @else
+                <flux:text class="mt-2">
+                    {{ __('Esta aplicación es anónima, por lo que solo se muestran las alertas y tickets generados a partir de esta respuesta.') }}
+                </flux:text>
+            @endif
+        </div>
+        <div class="p-4 rounded-xl bg-variant dark:bg-dark-variant mt-2 border border-neutral-200 dark:border-neutral-800 max-h-[60vh] overflow-y-auto">
+            @if($followup_alerts)
+                <div class="space-y-6">
+                    @foreach($followup_alerts as $alert)
+                        <div class="border border-neutral-300 dark:border-neutral-700 rounded-2xl p-4">
+                            <div class="flex flex-wrap items-start justify-between gap-2">
+                                <div>
+                                    <flux:heading size="lg" class="text-primary!">{{ $alert['name'] }}</flux:heading>
+                                    <flux:text class="mt-1">{{ $alert['subject'] }}</flux:text>
+                                </div>
+                                @if($alert['is_current_response'])
+                                    <flux:badge color="blue">{{ __('Esta respuesta') }}</flux:badge>
+                                @endif
+                            </div>
+                            <ul class="list-disc ml-5 mt-3 text-sm opacity-80 space-y-1">
+                                <li>{{ __('Cuestionario:') }} {{ $alert['questionnaire_name'] ?? __('No disponible') }}</li>
+                                <li>{{ __('Nivel de riesgo:') }} {{ $alert['risk_level'] ?? __('No disponible') }}</li>
+                                <li>{{ __('Fecha de emisión:') }} {{ dateFormat($alert['created_at']) }}</li>
+                                <li>{{ __('Folio de alerta:') }} {{ $alert['uuid'] }}</li>
+                            </ul>
+
+                            @if(count($alert['tickets']))
+                                <div class="mt-4">
+                                    <flux:text class="font-semibold!">{{ __('Tickets de soporte generados') }}</flux:text>
+                                    <div class="mt-2 space-y-2">
+                                        @foreach($alert['tickets'] as $ticket)
+                                            <div class="rounded-xl bg-light-variant dark:bg-dark-variant p-3 border border-neutral-200 dark:border-neutral-800">
+                                                <div class="flex flex-wrap items-center justify-between gap-2">
+                                                    <flux:text class="font-semibold!">{{ $ticket['title'] }}</flux:text>
+                                                    @if($ticket['is_priority'])
+                                                        <flux:badge color="red">{{ __('Prioritario') }}</flux:badge>
+                                                    @endif
+                                                </div>
+                                                <flux:text class="mt-1 text-sm opacity-75">{{ $ticket['description'] }}</flux:text>
+                                                <div class="flex flex-wrap items-center gap-3 mt-2 text-xs opacity-70">
+                                                    <span>{{ __('Estatus:') }} {{ $ticket['status'] ?? __('No disponible') }}</span>
+                                                    <span>{{ __('Fecha:') }} {{ dateFormat($ticket['created_at']) }}</span>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <flux:callout color="yellow" icon="information-circle" heading="{{ __('Sin alertas ni tickets registrados') }}" />
             @endif
         </div>
         <div class="flex justify-end items-center gap-2">
