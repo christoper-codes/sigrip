@@ -15,7 +15,7 @@
                 }
             }">
             <flux:text>
-                <span class="text-primary" x-text="greeting"></span>
+                <span class="font-bold" x-text="greeting"></span>
                 @auth
                     <span> {{ auth()->user()->name }} </span>
                 @else
